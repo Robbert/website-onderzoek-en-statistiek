@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  webserver:
+    image: registry.gitlab.com/basbroekhuizen/cms-os/server:latest
+    restart: unless-stopped
+    container_name: os-server
+    environment:
+      - CERTBOT_EMAIL=bas.broekhuizen@gmail.com
+      - STAGING=0
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+        - backbone
+    volumes:
+      - nginx_secrets:/etc/letsencrypt
+      # - ./server/user_conf.d:/etc/nginx/user_conf.d
+      # - ./server/index.html /usr/share/nginx/html/index.html
+
+  cms:
+    image: registry.gitlab.com/basbroekhuizen/cms-os/cms:latest
+    restart: unless-stopped
+    container_name: os-cms
+    networks:
+        - backbone
+    expose:
+      - 1337
+    # volumes:
+    # - ./app:/srv/app
+
+
+volumes:
+  nginx_secrets:
+
+
+networks:
+  backbone:
+    driver: bridge 

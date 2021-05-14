@@ -1,0 +1,106 @@
+{
+  "kind": "collectionType",
+  "collectionName": "publications",
+  "info": {
+    "name": "publication",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "draft",
+        "published"
+      ],
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "shortTitle": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "required": true
+    },
+    "teaser": {
+      "type": "text",
+      "required": false
+    },
+    "intro": {
+      "type": "text",
+      "required": false
+    },
+    "body": {
+      "type": "richtext",
+      "required": false
+    },
+    "coverImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "files",
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "teaserImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "file": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "files",
+        "images",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": true,
+      "pluginOptions": {}
+    },
+    "publicationDate": {
+      "type": "date"
+    },
+    "publicationDateOnlyYear": {
+      "type": "boolean",
+      "default": false
+    },
+    "publicationDateOnlyMonthAndYear": {
+      "type": "boolean",
+      "default": false
+    },
+    "publicationSource": {
+      "type": "string"
+    },
+    "theme": {
+      "collection": "theme",
+      "via": "publications"
+    },
+    "publishedAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "author": {
+      "plugin": "admin",
+      "model": "user"
+    }
+  }
+}

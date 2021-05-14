@@ -1,0 +1,71 @@
+{
+  "themes": [
+    {
+      "name": "Werk en sociale zekerheid",
+      "slug": "werk-en-sociale-zekerheid"
+    },
+    {
+      "name": "Bevolking",
+      "slug": "bevolking"
+    },
+    {
+      "name": "Wonen",
+      "slug": "wonen"
+    },
+    {
+      "name": "Ruimte en topografie",
+      "slug": "ruimte-en-topografie"
+    },
+    {
+      "name": "Duurzaamheid en milieu",
+      "slug": "duurzaamheid-en-milieu"
+    },
+    {
+      "name": "Economie en toerisme",
+      "slug": "economie-en-toerisme"
+    },
+    {
+      "name": "Onderwijs en wetenschap",
+      "slug": "onderwijs-en-wetenschap"
+    },
+    {
+      "name": "Bestuur",
+      "slug": "bestuur"
+    },
+    {
+      "name": "Cultuur en recreatie",
+      "slug": "cultuur-en-recreatie"
+    },
+    {
+      "name": "Openbare orde en veiligheid",
+      "slug": "openbare -orde-en-veiligheid"
+    },
+    {
+      "name": "Verkeer",
+      "slug": "verkeer"
+    },
+    {
+      "name": "Zorg en welzijn",
+      "slug": "zorg-en-welzijn"
+    }
+  ],
+  "homepage": {
+    "seo": {
+      "metaTitle": "Onderzoek en statistiek",
+      "metaDescription": "Website Onderzoek en statistiek",
+      "shareImage": null
+    },
+    "hero": {
+      "title": "Onderzoek en statistiek"
+    }
+  },
+  "global": {
+    "siteName":"Website Onderzoek en statistiek",
+    "defaultSeo":{
+      "metaTitle":"Onderzoek en statistiek",
+      "metaDescription":"Website Onderzoek en statistiek",
+      "shareImage":null
+    },
+    "favicon":null
+  }
+}
