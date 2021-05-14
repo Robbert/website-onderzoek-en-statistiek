@@ -2,7 +2,7 @@ version: '3'
 
 services:
   webserver:
-    image: registry.gitlab.com/basbroekhuizen/cms-os/server:latest
+    image: registry.gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/server:latest
     restart: unless-stopped
     container_name: os-server
     environment:
@@ -15,23 +15,30 @@ services:
         - backbone
     volumes:
       - nginx_secrets:/etc/letsencrypt
-      # - ./server/user_conf.d:/etc/nginx/user_conf.d
-      # - ./server/index.html /usr/share/nginx/html/index.html
 
   cms:
-    image: registry.gitlab.com/basbroekhuizen/cms-os/cms:latest
+    image: registry.gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/cms:latest
     restart: unless-stopped
     container_name: os-cms
     networks:
         - backbone
     expose:
       - 1337
-    # volumes:
-    # - ./app:/srv/app
+    volumes:
+      - cms_data:/srv/app/.tmp
 
+  website:
+    image: registry.gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/website:latest
+    restart: unless-stopped
+    container_name: os-website
+    networks:
+      - backbone
+    expose:
+      - 3000
 
 volumes:
   nginx_secrets:
+  cms_data:
 
 
 networks:

@@ -1,0 +1,41 @@
+{
+  "name": "strapi-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "develop": "next dev",
+    "dev": "next dev",
+    "dev-with-acc": "NEXT_PUBLIC_STRAPI_API_URL=https://cms.onderzoek-en-statistiek.nl next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "@amsterdam/asc-assets": "^0.29.3",
+    "@amsterdam/asc-ui": "^0.29.3",
+    "moment": "^2.24.0",
+    "next": "^9.5.4",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-markdown": "^4.2.2",
+    "react-moment": "^0.9.6",
+    "styled-components": "^5.2.3"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "2.x",
+    "@typescript-eslint/parser": "2.x",
+    "babel-eslint": "10.x",
+    "eslint": "6.x",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "4.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "7.x",
+    "eslint-plugin-react-hooks": "2.x",
+    "prettier": "^2.1.2"
+  }
+}

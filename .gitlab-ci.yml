@@ -1,7 +1,8 @@
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
-    - node_modules/
+    - cms/node_modules/
+    - website/node_modules/
 
 stages:
   - build
@@ -14,10 +15,16 @@ variables:
   TAG_CMS_LATEST: $CI_REGISTRY_IMAGE/cms:latest
   TAG_CMS_COMMIT: $CI_REGISTRY_IMAGE/cms:$CI_COMMIT_SHORT_SHA
 
+  TAG_WEBSITE_LATEST: $CI_REGISTRY_IMAGE/website:latest
+  TAG_WEBSITE_COMMIT: $CI_REGISTRY_IMAGE/website:$CI_COMMIT_SHORT_SHA
+
 build server:
   only:
+    - master
     changes:
       - server/**/*
+      - .gitlab-ci.yml
+      - docker-compose.yml
   image: docker:latest
   stage: build
   services:
@@ -27,11 +34,16 @@ build server:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_SERVER_LATEST
     - docker push $TAG_SERVER_COMMIT
+  only:
+    
 
 build cms:
   only:
+    - master
     changes:
       - cms/**/*
+      - .gitlab-ci.yml
+      - docker-compose.yml
   image: docker:latest
   stage: build
   services:
@@ -42,6 +54,23 @@ build cms:
     - docker push $TAG_CMS_LATEST
     - docker push $TAG_CMS_COMMIT
 
+build website:
+  only:
+    - master
+    changes:
+      - website/**/*
+      - .gitlab-ci.yml
+      - docker-compose.yml
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  script:
+    - docker build -t $TAG_WEBSITE_LATEST -t $TAG_WEBSITE_COMMIT ./website
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push $TAG_WEBSITE_LATEST
+    - docker push $TAG_WEBSITE_COMMIT
+
 deploy production:
   image: tiangolo/docker-with-compose:latest
   stage: deploy
@@ -50,8 +79,7 @@ deploy production:
     - apk update && apk add openssh-client
     - ls -al
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
-    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $TAG_SERVER_LATEST"
-    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $TAG_CMS_LATEST"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $TAG_SERVER_LATEST && docker pull $TAG_CMS_LATEST && docker pull $TAG_WEBSITE_LATEST"
     - scp -i $ID_RSA -o StrictHostKeyChecking=no docker-compose.yml $SERVER_USER@$SERVER_IP:~
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker-compose up -d --no-deps"
   after_script:
