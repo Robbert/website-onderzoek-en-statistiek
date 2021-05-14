@@ -1,0 +1,74 @@
+{
+  "kind": "collectionType",
+  "collectionName": "videos",
+  "info": {
+    "name": "video",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "shortTitle": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "required": true
+    },
+    "teaser": {
+      "type": "text",
+      "required": false
+    },
+    "intro": {
+      "type": "text",
+      "required": false
+    },
+    "body": {
+      "type": "richtext",
+      "required": false
+    },
+    "teaserImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "videoLink": {
+      "type": "string"
+    },
+    "subtitleLink": {
+      "type": "string"
+    },
+    "subtitleDefault": {
+      "type": "boolean",
+      "default": false
+    },
+    "publicationDate": {
+      "type": "date"
+    },
+    "theme": {
+      "via": "videos",
+      "collection": "theme"
+    },
+    "publishedAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "author": {
+      "plugin": "admin",
+      "model": "user"
+    }
+  }
+}

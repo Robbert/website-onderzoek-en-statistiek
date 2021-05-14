@@ -69,8 +69,8 @@
       "pluginOptions": {}
     },
     "theme": {
-      "collection": "theme",
-      "via": "articles"
+      "via": "articles",
+      "collection": "theme"
     },
     "createdBy": {
       "type": "string",

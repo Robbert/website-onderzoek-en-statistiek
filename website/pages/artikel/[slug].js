@@ -1,9 +1,11 @@
 import ReactMarkdown from "react-markdown";
 import Moment from "react-moment";
-import { fetchAPI, getStrapiURL } from "../../lib/api";
+
 import Layout from "../../components/Layout";
-import Image from "../../components/Image";
 import Seo from "../../components/Seo";
+import { fetchAPI, getStrapiURL, getStrapiMedia } from "../../lib/utils";
+
+import styles from "./article.module.css";
 
 const Article = ({ article }) => {
 
@@ -14,19 +16,21 @@ const Article = ({ article }) => {
     article: true,
   };
 
-  console.log(article)
+  const coverImageStyle = {
+    "backgroundImage": `url(${getStrapiMedia(article.coverImage)})` 
+  }
 
   return (
-    <Layout >
-    <Seo seo={seo} />
-      <Image image={article.coverImage} style={{"width": "100%"}} />
-      <h1>{article.title}</h1>
-      <Moment locale="nl" format="D MMMM YYYY">{article.published_at}</Moment>
-      <ReactMarkdown 
-        source={article.body} 
-        escapeHtml={false} 
-        transformImageUri={src => getStrapiURL() + src}
-      />
+    <Layout>
+      <Seo seo={seo} />
+      <div className={styles.coverImage} style={coverImageStyle} />
+        <h1>{article.title}</h1>
+        <Moment locale="nl" format="D MMMM YYYY">{article.published_at}</Moment>
+        <ReactMarkdown 
+          source={article.body} 
+          escapeHtml={false} 
+          transformImageUri={src => getStrapiURL() + src}
+        />
     </Layout>
   );
 };

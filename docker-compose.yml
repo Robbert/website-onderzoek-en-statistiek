@@ -2,7 +2,7 @@ version: '3'
 
 services:
   webserver:
-    image: registry.gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/server:latest
+    image: ${TAG_SERVER_COMMIT}
     restart: unless-stopped
     container_name: os-server
     environment:
@@ -17,7 +17,7 @@ services:
       - nginx_secrets:/etc/letsencrypt
 
   cms:
-    image: registry.gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/cms:latest
+    image: ${TAG_CMS_COMMIT}
     restart: unless-stopped
     container_name: os-cms
     networks:
@@ -25,10 +25,11 @@ services:
     expose:
       - 1337
     volumes:
-      - cms_data:/srv/app/.tmp
+      - cms_files:/srv/cms/public/uploads
+      - cms_data:/srv/cms/.tmp
 
   website:
-    image: registry.gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/website:latest
+    image: ${TAG_WEBSITE_COMMIT}
     restart: unless-stopped
     container_name: os-website
     networks:
@@ -38,8 +39,8 @@ services:
 
 volumes:
   nginx_secrets:
+  cms_files:  
   cms_data:
-
 
 networks:
   backbone:

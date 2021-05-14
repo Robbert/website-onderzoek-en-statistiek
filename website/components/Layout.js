@@ -8,19 +8,6 @@ const Layout = ({ children }) => (
     <div className="main">
       {children}
     </div>
-
-    <style jsx global >{`
-      nav li { 
-        padding: 4px; 
-        height: 0px !important; 
-      }
-      .main { 
-        max-width: 800px;
-        margin: 16px auto;
-      }
-    `}</style>
-
-
   </>
 );
 

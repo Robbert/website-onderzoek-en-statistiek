@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "themes",
   "info": {
-    "name": "Theme"
+    "name": "Theme",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -22,10 +23,56 @@
       "collection": "article",
       "dominant": true
     },
+    "interactives": {
+      "via": "theme",
+      "collection": "interactive",
+      "dominant": true
+    },
     "publications": {
       "via": "theme",
       "collection": "publication",
       "dominant": true
+    },
+    "videos": {
+      "via": "theme",
+      "collection": "video",
+      "dominant": true
+    },
+    "collections": {
+      "via": "themes",
+      "collection": "collection"
+    },
+    "intro": {
+      "type": "richtext"
+    },
+    "coverImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "teaserImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "features": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.collections"
+      ]
     }
   }
 }

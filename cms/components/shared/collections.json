@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_shared_collections",
+  "info": {
+    "name": "collections",
+    "icon": "archive"
+  },
+  "options": {},
+  "attributes": {
+    "collections": {
+      "collection": "collection"
+    }
+  }
+}

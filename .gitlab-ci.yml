@@ -19,12 +19,6 @@ variables:
   TAG_WEBSITE_COMMIT: $CI_REGISTRY_IMAGE/website:$CI_COMMIT_SHORT_SHA
 
 build server:
-  only:
-    - master
-    changes:
-      - server/**/*
-      - .gitlab-ci.yml
-      - docker-compose.yml
   image: docker:latest
   stage: build
   services:
@@ -35,15 +29,12 @@ build server:
     - docker push $TAG_SERVER_LATEST
     - docker push $TAG_SERVER_COMMIT
   only:
-    
-
-build cms:
-  only:
-    - master
     changes:
-      - cms/**/*
+      - server/**/*
       - .gitlab-ci.yml
       - docker-compose.yml
+
+build cms:
   image: docker:latest
   stage: build
   services:
@@ -53,14 +44,13 @@ build cms:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_CMS_LATEST
     - docker push $TAG_CMS_COMMIT
-
-build website:
   only:
-    - master
     changes:
-      - website/**/*
+      - cms/**/*
       - .gitlab-ci.yml
       - docker-compose.yml
+  
+build website:
   image: docker:latest
   stage: build
   services:
@@ -70,6 +60,11 @@ build website:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_WEBSITE_LATEST
     - docker push $TAG_WEBSITE_COMMIT
+  only:  
+    changes:
+      - website/**/*
+      - .gitlab-ci.yml
+      - docker-compose.yml
 
 deploy production:
   image: tiangolo/docker-with-compose:latest
@@ -79,12 +74,11 @@ deploy production:
     - apk update && apk add openssh-client
     - ls -al
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
-    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $TAG_SERVER_LATEST && docker pull $TAG_CMS_LATEST && docker pull $TAG_WEBSITE_LATEST"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $TAG_SERVER_COMMIT && docker pull $TAG_CMS_COMMIT && docker pull $TAG_WEBSITE_COMMIT"
     - scp -i $ID_RSA -o StrictHostKeyChecking=no docker-compose.yml $SERVER_USER@$SERVER_IP:~
-    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker-compose up -d --no-deps"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP TAG_SERVER_COMMIT=$TAG_SERVER_COMMIT TAG_CMS_COMMIT=$TAG_CMS_COMMIT TAG_WEBSITE_COMMIT=$TAG_WEBSITE_COMMIT "docker-compose up -d --no-deps"
   after_script:
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker image prune -a -f"
-
   environment:
     name: production
     url: https://onderzoek-en-statistiek.nl

@@ -1,0 +1,10 @@
+.main { 
+    max-width: 900px;
+    margin: 16px auto;
+    padding: 12px;
+}
+
+nav li { 
+    padding: 4px; 
+    height: 0px !important; 
+}

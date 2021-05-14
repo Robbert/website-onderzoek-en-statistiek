@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_shared_publications",
+  "info": {
+    "name": "publications",
+    "icon": "file-pdf"
+  },
+  "options": {},
+  "attributes": {
+    "publications": {
+      "collection": "publication"
+    }
+  }
+}

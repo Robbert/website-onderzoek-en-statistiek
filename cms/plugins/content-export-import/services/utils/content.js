@@ -22,8 +22,8 @@ const parseInlineImages = async (data) => {
   return parsedImages;
 }
 
-const importItemByContentType = async (id, item) => {
-  
+const importItemByContentType = async (contentType, item) => {
+
   // change filename with media id for cover and teaser images
   const coverImage = await strapi.query("file", "upload").findOne({ name: item.coverImage})
   if (coverImage && coverImage.id) item.coverImage = coverImage.id
@@ -32,9 +32,11 @@ const importItemByContentType = async (id, item) => {
   if (teaserImage && teaserImage.id) item.teaserImage = teaserImage.id  
   
   // replace url for inline images
-  item.body = await parseInlineImages(item.body);
+  if (item.body) {
+    item.body = await parseInlineImages(item.body);
+  }
 
-  return strapi.query(id).create(item);
+  return strapi.query(contentType).create(item);
 };
 
 

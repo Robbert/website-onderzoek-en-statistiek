@@ -6,16 +6,19 @@ const Nav = () => {
     return (
       <MenuInline>
         <MenuItem>
-        <Link href="/">Voorpagina</Link>
+          <Link href="/artikel"><a>Artikelen</a></Link>
         </MenuItem>
         <MenuItem>
-        <Link href="/artikel">Artikelen</Link>
+          <Link href="/publicatie"><a>Publicaties</a></Link>
         </MenuItem>
         <MenuItem>
-        <Link href="/publicatie">Publicaties</Link>
+          <Link href="/video"><a>Video</a></Link>
         </MenuItem>
         <MenuItem>
-        <Link href="/specials">Specials</Link>
+          <Link href="/interactief"><a>Interactief</a></Link>
+        </MenuItem>
+        <MenuItem>
+          <Link href="/dossier"><a>Dossiers</a></Link>
         </MenuItem>
       </MenuInline>
     )

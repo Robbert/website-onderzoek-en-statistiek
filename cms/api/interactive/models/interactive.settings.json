@@ -1,0 +1,66 @@
+{
+  "kind": "collectionType",
+  "collectionName": "interactives",
+  "info": {
+    "name": "interactive"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "draft",
+        "published"
+      ],
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "shortTitle": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "required": true
+    },
+    "teaser": {
+      "type": "text",
+      "required": false
+    },
+    "teaserImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "contentLink": {
+      "type": "string"
+    },
+    "publicationDate": {
+      "type": "date"
+    },
+    "theme": {
+      "collection": "theme",
+      "via": "interactives"
+    },
+    "publishedAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "author": {
+      "plugin": "admin",
+      "model": "user"
+    }
+  }
+}

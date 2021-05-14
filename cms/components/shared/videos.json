@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_shared_videos",
+  "info": {
+    "name": "videos",
+    "icon": "video"
+  },
+  "options": {},
+  "attributes": {
+    "videos": {
+      "collection": "video"
+    }
+  }
+}

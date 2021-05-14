@@ -4,7 +4,7 @@ import { Heading } from "@amsterdam/asc-ui";
 
 import Layout from "../../components/Layout";
 import Seo from "../../components/Seo";
-import { fetchAPI } from "../../lib/api";
+import { fetchAPI } from "../../lib/utils";
 
 const Publications = ({ publications }) => {
   
