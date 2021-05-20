@@ -4,7 +4,7 @@ import { Heading } from "@amsterdam/asc-ui";
 
 import Layout from "../../components/Layout";
 import Seo from "../../components/Seo";
-import { fetchAPI, parseFeatureList } from "../../lib/utils";
+import { fetchAPI, flattenFeatureList } from "../../lib/utils";
 
 const Collection = ({ collection }) => {
 
@@ -13,7 +13,7 @@ const Collection = ({ collection }) => {
     metaDescription: collection.teaser,
   };
 
-  const featurelist = parseFeatureList(collection.features).map(item => (
+  const featurelist = flattenFeatureList(collection.features).map(item => (
     <li key={`feature-${item.slug}`}>
       <Link key={item.slug} href={item.path} >
         <a>{item.name}: {item.title}</a>
@@ -25,7 +25,7 @@ const Collection = ({ collection }) => {
     <Layout >
     <Seo seo={seo} />
       
-      <h1>Dossier {collection.name}</h1>
+      <Heading>Dossier {collection.title}</Heading>
       <ReactMarkdown source={collection.intro} escapeHtml={false} />
       
       <Heading forwardedAs="h3">Uitgelicht</Heading>

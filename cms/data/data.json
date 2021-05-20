@@ -1,51 +1,51 @@
 {
   "themes": [
     {
-      "name": "Werk en sociale zekerheid",
+      "title": "Werk en sociale zekerheid",
       "slug": "werk-en-sociale-zekerheid"
     },
     {
-      "name": "Bevolking",
+      "title": "Bevolking",
       "slug": "bevolking"
     },
     {
-      "name": "Wonen",
+      "title": "Wonen",
       "slug": "wonen"
     },
     {
-      "name": "Ruimte en topografie",
+      "title": "Ruimte en topografie",
       "slug": "ruimte-en-topografie"
     },
     {
-      "name": "Duurzaamheid en milieu",
+      "title": "Duurzaamheid en milieu",
       "slug": "duurzaamheid-en-milieu"
     },
     {
-      "name": "Economie en toerisme",
+      "title": "Economie en toerisme",
       "slug": "economie-en-toerisme"
     },
     {
-      "name": "Onderwijs en wetenschap",
+      "title": "Onderwijs en wetenschap",
       "slug": "onderwijs-en-wetenschap"
     },
     {
-      "name": "Bestuur",
+      "title": "Bestuur",
       "slug": "bestuur"
     },
     {
-      "name": "Cultuur en recreatie",
+      "title": "Cultuur en recreatie",
       "slug": "cultuur-en-recreatie"
     },
     {
-      "name": "Openbare orde en veiligheid",
+      "title": "Openbare orde en veiligheid",
       "slug": "openbare -orde-en-veiligheid"
     },
     {
-      "name": "Verkeer",
+      "title": "Verkeer",
       "slug": "verkeer"
     },
     {
-      "name": "Zorg en welzijn",
+      "title": "Zorg en welzijn",
       "slug": "zorg-en-welzijn"
     }
   ],

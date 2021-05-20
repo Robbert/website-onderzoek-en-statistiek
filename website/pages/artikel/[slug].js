@@ -3,6 +3,7 @@ import Moment from "react-moment";
 
 import Layout from "../../components/Layout";
 import Seo from "../../components/Seo";
+import Related from "../../components/Related";
 import { fetchAPI, getStrapiURL, getStrapiMedia } from "../../lib/utils";
 
 import styles from "./article.module.css";
@@ -24,13 +25,14 @@ const Article = ({ article }) => {
     <Layout>
       <Seo seo={seo} />
       <div className={styles.coverImage} style={coverImageStyle} />
-        <h1>{article.title}</h1>
+        <Heading>{article.title}</Heading>
         <Moment locale="nl" format="D MMMM YYYY">{article.published_at}</Moment>
         <ReactMarkdown 
           source={article.body} 
           escapeHtml={false} 
           transformImageUri={src => getStrapiURL() + src}
         />
+        <Related data={article.related} />
     </Layout>
   );
 };
@@ -50,7 +52,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const articles = await fetchAPI(
-    `/articles?slug=${params.slug}&status=published`
+    `/articles?slug=${params.slug}`
   );
 
   return {

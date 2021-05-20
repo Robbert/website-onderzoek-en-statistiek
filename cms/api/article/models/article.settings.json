@@ -8,10 +8,10 @@
   "options": {
     "increments": true,
     "timestamps": true,
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "attributes": {
-    "publishedAt": {
+    "publicationDate": {
       "type": "datetime",
       "required": true
     },
@@ -39,15 +39,6 @@
       "type": "richtext",
       "required": true
     },
-    "status": {
-      "type": "enumeration",
-      "enum": [
-        "draft",
-        "published"
-      ],
-      "required": true,
-      "default": "draft"
-    },
     "coverImage": {
       "model": "file",
       "via": "related",
@@ -72,13 +63,10 @@
       "via": "articles",
       "collection": "theme"
     },
-    "createdBy": {
-      "type": "string",
-      "private": true
-    },
-    "updatedBy": {
-      "type": "string",
-      "private": true
+    "related": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.related"
     }
   }
 }

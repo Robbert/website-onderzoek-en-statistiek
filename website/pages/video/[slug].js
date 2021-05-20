@@ -4,7 +4,8 @@ import { Heading } from "@amsterdam/asc-ui";
 
 import Layout from "../../components/Layout";
 import Seo from "../../components/Seo";
-import { fetchAPI, parseFeatureList } from "../../lib/utils";
+import Related from "../../components/Related";
+import { fetchAPI } from "../../lib/utils";
 
 const Video = ({ video }) => {
 
@@ -17,10 +18,9 @@ const Video = ({ video }) => {
     <Layout >
 
         <Seo seo={seo} />
-      
-        <h1>Video {video.name}</h1>
+        <Heading>Video {video.title}</Heading>
         <ReactMarkdown source={video.intro} escapeHtml={false} />
-
+        <Related data={video.related} />
     </Layout>
   );
 };

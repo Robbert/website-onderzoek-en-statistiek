@@ -25,7 +25,7 @@ const Theme = ({ theme }) => {
     <Layout >
     <Seo seo={seo} />
       
-      <h1>Thema {theme.name}</h1>
+      <Heading>Thema {theme.title}</Heading>
       <ReactMarkdown source={theme.intro} escapeHtml={false} />
       
       <Heading forwardedAs="h3">Uitgelicht</Heading>

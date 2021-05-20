@@ -1,9 +1,3 @@
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - cms/node_modules/
-    - website/node_modules/
-
 stages:
   - build
   - deploy
@@ -18,11 +12,16 @@ variables:
   TAG_WEBSITE_LATEST: $CI_REGISTRY_IMAGE/website:latest
   TAG_WEBSITE_COMMIT: $CI_REGISTRY_IMAGE/website:$CI_COMMIT_SHORT_SHA
 
+services:
+  - docker:19.03.12-dind
+
+cache:
+  paths:
+    - node_modules/
+    - .next/cache/
+
 build server:
-  image: docker:latest
   stage: build
-  services:
-    - docker:dind
   script:
     - docker build -t $TAG_SERVER_LATEST -t $TAG_SERVER_COMMIT ./server
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
@@ -35,13 +34,10 @@ build server:
       - docker-compose.yml
 
 build cms:
-  image: docker:latest
   stage: build
-  services:
-    - docker:dind
   script:
-    - docker build -t $TAG_CMS_LATEST -t $TAG_CMS_COMMIT ./cms
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker build -t $TAG_CMS_LATEST -t $TAG_CMS_COMMIT ./cms
     - docker push $TAG_CMS_LATEST
     - docker push $TAG_CMS_COMMIT
   only:
@@ -51,10 +47,11 @@ build cms:
       - docker-compose.yml
   
 build website:
-  image: docker:latest
   stage: build
   services:
     - docker:dind
+  before_script:
+    - docker info
   script:
     - docker build -t $TAG_WEBSITE_LATEST -t $TAG_WEBSITE_COMMIT ./website
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
@@ -67,16 +64,25 @@ build website:
       - docker-compose.yml
 
 deploy production:
-  image: tiangolo/docker-with-compose:latest
   stage: deploy
   script:
     - chmod og= $ID_RSA
     - apk update && apk add openssh-client
     - ls -al
-    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
-    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $TAG_SERVER_COMMIT && docker pull $TAG_CMS_COMMIT && docker pull $TAG_WEBSITE_COMMIT"
-    - scp -i $ID_RSA -o StrictHostKeyChecking=no docker-compose.yml $SERVER_USER@$SERVER_IP:~
-    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP TAG_SERVER_COMMIT=$TAG_SERVER_COMMIT TAG_CMS_COMMIT=$TAG_CMS_COMMIT TAG_WEBSITE_COMMIT=$TAG_WEBSITE_COMMIT "docker-compose up -d --no-deps"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
+        "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
+        "docker pull $TAG_SERVER_LATEST && docker pull $TAG_CMS_LATEST && docker pull $TAG_WEBSITE_LATEST"
+    - scp -i $ID_RSA -o StrictHostKeyChecking=no 
+        docker-compose.yml $SERVER_USER@$SERVER_IP:~
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no 
+        $SERVER_USER@$SERVER_IP 
+        TAG_SERVER_LATEST=$TAG_SERVER_LATEST 
+        TAG_CMS_LATEST=$TAG_CMS_LATEST 
+        TAG_WEBSITE_LATEST=$TAG_WEBSITE_LATEST 
+        DATABASE_USERNAME=$DATABASE_USERNAME
+        DATABASE_PASSWORD=$DATABASE_PASSWORD 
+        "docker-compose up -d --no-deps"
   after_script:
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker image prune -a -f"
   environment:

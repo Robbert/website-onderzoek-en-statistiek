@@ -25,12 +25,7 @@ const Interactive = ({ interactive, assets }) => {
       document.head.appendChild(element)
       const promise = new Promise (resolve => { element.onload = () => { resolve() } })
 
-      return (
-        {
-          promise: promise,
-          element: element
-        }
-      )
+      return { promise, element }
     })
 
     const promises = elements.map(element => element.promise)
@@ -69,7 +64,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const interactives = await fetchAPI(
-    `/interactives?slug=${params.slug}&status=published`
+    `/interactives?slug=${params.slug}`
   );
 
   const assets = await fetch(`${interactives[0].contentLink}/asset-manifest.json`).then(res => res.json())

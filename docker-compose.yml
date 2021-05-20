@@ -2,12 +2,12 @@ version: '3'
 
 services:
   webserver:
-    image: ${TAG_SERVER_COMMIT}
+    image: ${TAG_SERVER_LATEST}
     restart: unless-stopped
     container_name: os-server
     environment:
-      - CERTBOT_EMAIL=bas.broekhuizen@gmail.com
-      - STAGING=0
+      CERTBOT_EMAIL: bas.broekhuizen@gmail.com
+      STAGING: 0
     ports:
       - 80:80
       - 443:443
@@ -16,32 +16,60 @@ services:
     volumes:
       - nginx_secrets:/etc/letsencrypt
 
+  database:
+    image: postgres
+    container_name: os-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: strapi
+      POSTGRES_USER: $DATABASE_USERNAME
+      POSTGRES_PASSWORD: $DATABASE_PASSWORD
+    networks:
+        - backbone
+    ports:
+        - 5432
+    volumes:
+      - cms_data:/var/lib/postgresql/data
+
   cms:
-    image: ${TAG_CMS_COMMIT}
+    image: ${TAG_CMS_LATEST}
     restart: unless-stopped
     container_name: os-cms
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_NAME: strapi
+      DATABASE_HOST: database
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: $DATABASE_USERNAME
+      DATABASE_PASSWORD: $DATABASE_PASSWORD
     networks:
         - backbone
     expose:
       - 1337
     volumes:
       - cms_files:/srv/cms/public/uploads
-      - cms_data:/srv/cms/.tmp
-
+    depends_on:
+      - database
+      - webserver
+    
   website:
-    image: ${TAG_WEBSITE_COMMIT}
+    image: ${TAG_WEBSITE_LATEST}
     restart: unless-stopped
     container_name: os-website
     networks:
       - backbone
     expose:
       - 3000
+    depends_on:
+      - webserver
+      - database
+      - cms
 
 volumes:
   nginx_secrets:
-  cms_files:  
+  cms_files:
   cms_data:
 
 networks:
   backbone:
-    driver: bridge 
+    driver: bridge

@@ -2,8 +2,15 @@
 
 ## Development
 
+### Prerequisites
+- nodejs
+- yarn
+- docker
+- docker-compose
+
 ### CMS
-* Go to cms folder: `cd cms`
+* Start local database: `docker-compose -f docker-compose.dev.yml up`
+* Open a new terminal and go to cms folder: `cd cms`
 * Install dependencies: `yarn`
 * Start dev server : `yarn develop`
 * Visit CMS at http://localhost:1337
@@ -16,21 +23,23 @@
 * Go to website folder: `cd website`
 * Install dependencies: `yarn`
 * Start dev server:
-    * To use local cms: `yarn develop`
-    * To use acc api: `yarn dev-with-acc`
+    * To use local cms api: `yarn develop`
+    * To use acc cms api: `yarn dev-with-acc`
 * Visit website at http://localhost:3000
 
 ## TODO
 * Decide on CSS strategy (styled-jsx (default), css-modules, styled components) ✅
-* Add next routes for all OS pages
-* Add strapi models for all OS content types
+* Dockerize (including nginx as reverse proxy and seperate container for database) ✅ 
+* Setup CI (that enables to deploy nginx, cms and website seperately) ✅  
+* Add strapi models for all OS content types ✅
+* Change database from sqlite to postgres ✅
+* Add next routes for all OS pages ✅
+* Secure content (database and uploads) between updates
 * Add seed data with OS content
 * Add importers for all drupal content
-* Change database from sqlite to postgres
-* Dockerize (including nginx as reverse proxy and seperate container for database)
-* Setup CI (with option to deploy nginx, cms or website seperately?)
-* Secure content (database and uploads) between updates
 * Setup backup of database and uploads (using /backend/config/cron.js?)
+
+See the [issue board](https://gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/-/boards) for more.
 
 ## Resources
 * https://nextjs.org/docs

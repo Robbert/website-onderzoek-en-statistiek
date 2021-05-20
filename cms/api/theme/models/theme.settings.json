@@ -12,38 +12,25 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "shortTitle": {
       "type": "string"
     },
     "slug": {
-      "type": "uid"
+      "type": "uid",
+      "targetField": "title",
+      "required": true
     },
-    "articles": {
-      "via": "theme",
-      "collection": "article",
-      "dominant": true
-    },
-    "interactives": {
-      "via": "theme",
-      "collection": "interactive",
-      "dominant": true
-    },
-    "publications": {
-      "via": "theme",
-      "collection": "publication",
-      "dominant": true
-    },
-    "videos": {
-      "via": "theme",
-      "collection": "video",
-      "dominant": true
-    },
-    "collections": {
-      "via": "themes",
-      "collection": "collection"
+    "teaser": {
+      "type": "text",
+      "required": false
     },
     "intro": {
-      "type": "richtext"
+      "type": "richtext",
+      "required": false
     },
     "coverImage": {
       "model": "file",
@@ -73,6 +60,26 @@
         "shared.videos",
         "shared.collections"
       ]
+    },
+    "articles": {
+      "via": "theme",
+      "collection": "article"
+    },
+    "publications": {
+      "via": "theme",
+      "collection": "publication"
+    },
+    "videos": {
+      "via": "theme",
+      "collection": "video"
+    },
+    "collections": {
+      "via": "theme",
+      "collection": "collection"
+    },
+    "interactives": {
+      "via": "theme",
+      "collection": "interactive"
     }
   }
 }

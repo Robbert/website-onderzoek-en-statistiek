@@ -1,16 +1,14 @@
 [
   {
-     "publishedAt":"2021-04-28T14:00:00+02:00",
-     "title":"Coronamonitor",
-     "slug":"coronamonitor",
-     "contentLink": "https://acc.static.amsterdam.nl/corona/",
-     "status":"published"
+    "publicationDate": 1619611200000,
+    "title":"Coronamonitor",
+    "slug":"coronamonitor",
+    "contentLink": "https://acc.static.amsterdam.nl/corona/"
   },
   {
-     "publishedAt":"2021-04-23T10:00:00+02:00",
-     "title":"Straatnamen",
-     "slug":"straatnamen",
-     "contentLink": "https://static.amsterdam.nl/straatnamen/",
-     "status":"published"
+    "publicationDate": 1619611200000,
+    "title":"Straatnamen",
+    "slug":"straatnamen",
+    "contentLink": "https://static.amsterdam.nl/straatnamen/"
   }
 ]

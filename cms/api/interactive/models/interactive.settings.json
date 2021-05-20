@@ -11,12 +11,8 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "status": {
-      "type": "enumeration",
-      "enum": [
-        "draft",
-        "published"
-      ],
+    "publicationDate": {
+      "type": "datetime",
       "required": true
     },
     "title": {
@@ -28,6 +24,7 @@
     },
     "slug": {
       "type": "uid",
+      "targetField": "title",
       "required": true
     },
     "teaser": {
@@ -47,20 +44,9 @@
     "contentLink": {
       "type": "string"
     },
-    "publicationDate": {
-      "type": "date"
-    },
     "theme": {
       "collection": "theme",
       "via": "interactives"
-    },
-    "publishedAt": {
-      "type": "datetime",
-      "required": true
-    },
-    "author": {
-      "plugin": "admin",
-      "model": "user"
     }
   }
 }

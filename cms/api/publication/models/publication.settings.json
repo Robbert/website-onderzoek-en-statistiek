@@ -12,13 +12,8 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "status": {
-      "type": "enumeration",
-      "enum": [
-        "draft",
-        "published"
-      ],
-      "required": true
+    "publicationDate": {
+      "type": "datetime"
     },
     "title": {
       "type": "string",
@@ -29,6 +24,7 @@
     },
     "slug": {
       "type": "uid",
+      "targetField": "title",
       "required": true
     },
     "teaser": {
@@ -76,9 +72,6 @@
       "required": true,
       "pluginOptions": {}
     },
-    "publicationDate": {
-      "type": "date"
-    },
     "publicationDateOnlyYear": {
       "type": "boolean",
       "default": false
@@ -88,19 +81,17 @@
       "default": false
     },
     "publicationSource": {
-      "type": "string"
+      "type": "string",
+      "default": "Onderzoek en Statistiek"
     },
     "theme": {
       "via": "publications",
       "collection": "theme"
     },
-    "publishedAt": {
-      "type": "datetime",
-      "required": true
-    },
-    "author": {
-      "plugin": "admin",
-      "model": "user"
+    "related": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.related"
     }
   }
 }

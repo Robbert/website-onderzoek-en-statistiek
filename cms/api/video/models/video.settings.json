@@ -12,6 +12,9 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "publicationDate": {
+      "type": "datetime"
+    },
     "title": {
       "type": "string",
       "required": true
@@ -21,6 +24,7 @@
     },
     "slug": {
       "type": "uid",
+      "targetField": "title",
       "required": true
     },
     "teaser": {
@@ -55,20 +59,14 @@
       "type": "boolean",
       "default": false
     },
-    "publicationDate": {
-      "type": "date"
-    },
     "theme": {
       "via": "videos",
       "collection": "theme"
     },
-    "publishedAt": {
-      "type": "datetime",
-      "required": true
-    },
-    "author": {
-      "plugin": "admin",
-      "model": "user"
+    "related": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.related"
     }
   }
 }

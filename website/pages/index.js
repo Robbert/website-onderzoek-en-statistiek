@@ -19,12 +19,10 @@ const Home = ({ themes, homepage }) => {
   const themelist = themes.map(item => (
     <li key={`theme-${item.slug}`}>
       <Link href={"/thema/" + item.slug}>
-        <a>{item.name}</a>
+        <a>{item.title}</a>
         </Link>
     </li>
   ))
-
-  const items = themes.map(item => <li key={item.slug}><Link href={"/thema/" + item.slug}>{item.name}</Link></li>)
 
   return (
     <Layout>

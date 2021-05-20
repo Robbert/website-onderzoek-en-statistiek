@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_shared_related",
+  "info": {
+    "name": "related",
+    "icon": "list-ul",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "articles": {
+      "collection": "article"
+    },
+    "publications": {
+      "collection": "publication"
+    },
+    "videos": {
+      "collection": "video"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.links"
+    }
+  }
+}

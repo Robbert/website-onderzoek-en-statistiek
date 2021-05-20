@@ -20,31 +20,14 @@
     },
     "slug": {
       "type": "uid",
-      "targetField": "title"
+      "targetField": "title",
+      "required": true
     },
     "teaser": {
       "type": "text"
     },
     "intro": {
       "type": "richtext"
-    },
-    "themes": {
-      "via": "collections",
-      "collection": "theme",
-      "dominant": true
-    },
-    "features": {
-      "type": "dynamiczone",
-      "components": [
-        "shared.articles",
-        "shared.publications",
-        "shared.videos"
-      ]
-    },
-    "Blocks": {
-      "type": "component",
-      "repeatable": true,
-      "component": "shared.list"
     },
     "coverImage": {
       "model": "file",
@@ -69,6 +52,23 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "theme": {
+      "via": "collections",
+      "collection": "theme"
+    },
+    "features": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos"
+      ]
+    },
+    "lists": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.list"
     }
   }
 }
