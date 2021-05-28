@@ -1,24 +1,23 @@
-import ReactMarkdown from "react-markdown";
-import Moment from "react-moment";
-import { Heading } from "@amsterdam/asc-ui";
+import ReactMarkdown from 'react-markdown'
+import Moment from 'react-moment'
+import { Heading } from '@amsterdam/asc-ui'
 
-import Layout from "../../components/Layout";
-import Seo from "../../components/Seo";
-import Related from "../../components/Related";
-import { fetchAPI, getStrapiMedia } from "../../lib/utils";
+import Layout from '../../components/Layout'
+import Seo from '../../components/Seo'
+import Related from '../../components/Related'
+import { fetchAPI, getStrapiMedia } from '../../lib/utils'
 
 const Publication = ({ publication }) => {
-
   const seo = {
     metaTitle: publication.title,
-    metaDescription: publication.description
-  };
+    metaDescription: publication.description,
+  }
 
-  const downloadUrl = getStrapiMedia(publication.file);
+  const downloadUrl = getStrapiMedia(publication.file)
 
   return (
-    <Layout >
-    <Seo seo={seo} />
+    <Layout>
+      <Seo seo={seo} />
       <Heading>{publication.title}</Heading>
       <Moment locale="nl" format="D MMMM YYYY">{publication.published_at}</Moment>
       <ReactMarkdown source={publication.intro} escapeHtml={false} />
@@ -26,11 +25,11 @@ const Publication = ({ publication }) => {
       <p><a href={downloadUrl} download={publication.file.name}>download pdf</a></p>
       <Related data={publication.related} />
     </Layout>
-  );
-};
+  )
+}
 
 export async function getStaticPaths() {
-  const publications = await fetchAPI("/publications");
+  const publications = await fetchAPI('/publications')
 
   return {
     paths: publications.map((publication) => ({
@@ -39,18 +38,18 @@ export async function getStaticPaths() {
       },
     })),
     fallback: false,
-  };
+  }
 }
 
 export async function getStaticProps({ params }) {
   const publications = await fetchAPI(
-    `/publications?slug=${params.slug}`
-  );
+    `/publications?slug=${params.slug}`,
+  )
 
   return {
-    props: { publication: publications[0]},
+    props: { publication: publications[0] },
     revalidate: 1,
-  };
+  }
 }
 
-export default Publication;
+export default Publication

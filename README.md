@@ -8,6 +8,9 @@
 - docker
 - docker-compose
 
+### Recommendations
+We use ESLint style rules in this repository, so it's strongly advised to have an ESLint plugin for your editor/IDE
+
 ### CMS
 * Start local database: `docker-compose -f docker-compose.dev.yml up`
 * Open a new terminal and go to cms folder: `cd cms`

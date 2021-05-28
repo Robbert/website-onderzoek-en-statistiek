@@ -1,6 +1,6 @@
 import { Header } from '@amsterdam/asc-ui'
 
-import Nav from "./Nav";
+import Nav from './Nav'
 
 const Layout = ({ children }) => (
   <>
@@ -9,6 +9,6 @@ const Layout = ({ children }) => (
       {children}
     </div>
   </>
-);
+)
 
-export default Layout;
+export default Layout
