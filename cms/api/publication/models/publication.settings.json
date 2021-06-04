@@ -15,6 +15,15 @@
     "publicationDate": {
       "type": "datetime"
     },
+    "formatPublicationDate": {
+      "type": "enumeration",
+      "enum": [
+        "DagMaandJaar",
+        "MaandJaar",
+        "Jaar"
+      ],
+      "default": "MaandJaar"
+    },
     "title": {
       "type": "string",
       "required": true
@@ -43,7 +52,6 @@
       "model": "file",
       "via": "related",
       "allowedTypes": [
-        "files",
         "images"
       ],
       "plugin": "upload",
@@ -64,21 +72,11 @@
       "model": "file",
       "via": "related",
       "allowedTypes": [
-        "files",
-        "images",
-        "videos"
+        "files"
       ],
       "plugin": "upload",
       "required": true,
       "pluginOptions": {}
-    },
-    "publicationDateOnlyYear": {
-      "type": "boolean",
-      "default": false
-    },
-    "publicationDateOnlyMonthAndYear": {
-      "type": "boolean",
-      "default": false
     },
     "publicationSource": {
       "type": "string",

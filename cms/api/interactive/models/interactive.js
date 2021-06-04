@@ -1,8 +1,12 @@
 'use strict';
+const utils  = require('../../../lib/utils');
 
-/**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#lifecycle-hooks)
- * to customize this model
- */
-
-module.exports = {};
+module.exports = {
+    lifecycles: {
+        async beforeCreate(item) {
+          if (item.origin && item.origin === 'drupal'){
+            item = await utils.parseContentFromDrupal('interactive', item);
+          }
+      },
+    },
+};
