@@ -29,7 +29,7 @@ const Publication = ({ publication }) => {
 }
 
 export async function getStaticPaths() {
-  const publications = await fetchAPI('/publications')
+  const publications = await fetchAPI('/publications?_limit=-1')
 
   return {
     paths: publications.map((publication) => ({

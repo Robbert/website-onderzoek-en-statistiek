@@ -66,12 +66,25 @@ export async function getStaticProps({ params }) {
     `/interactives?slug=${params.slug}`,
   )
 
-  const assets = await fetch(`${interactives[0].contentLink}/asset-manifest.json`).then((res) => res.json())
+  const assets = await fetch(`${interactives[0].contentLink}/asset-manifest.json`)
+    .then((res) => {
+      if (!res.ok) {
+        // eslint-disable-next-line no-console
+        console.warn(`no asset-manifest found for ${interactives[0].slug}`)
+        return null
+      }
+      if (!res.json().entrypoints) {
+        // eslint-disable-next-line no-console
+        console.warn(`no entrypoints found in asset-manifest for ${interactives[0].slug}`)
+        return null
+      }
+      return res.json()
+    })
 
   return {
     props: {
       interactive: interactives[0],
-      assets: assets.entrypoints,
+      assets: assets ? assets.entrypoints : [],
     },
     revalidate: 1,
   }

@@ -7,7 +7,7 @@ import Seo from '../../components/Seo'
 import { fetchAPI } from '../../lib/utils'
 
 const Themes = ({ themes }) => {
-  const items = themes.map((item) => <li key={item.slug}><Link href={`/thema/${item.slug}`}>{item.name}</Link></li>)
+  const items = themes.map((item) => <li key={item.slug}><Link href={`/thema/${item.slug}`}>{item.title}</Link></li>)
 
   return (
     <Layout>
