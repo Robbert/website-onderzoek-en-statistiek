@@ -44,9 +44,9 @@ export async function getStaticPaths() {
   const collections = await fetchAPI('/collections')
 
   return {
-    paths: collections.map((collection) => ({
+    paths: collections.map(({ slug }) => ({
       params: {
-        slug: collection.slug,
+        slug,
       },
     })),
     fallback: false,

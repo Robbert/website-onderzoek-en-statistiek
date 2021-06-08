@@ -73,9 +73,13 @@
       "type": "boolean",
       "default": false
     },
-    "externalSource": {
+    "externalVideoSource": {
       "type": "string",
-      "regex":  "^https://"
+      "regex":  "^$|https://"
+    },
+    "externalEmbedSource": {
+      "type": "string",
+      "regex":  "^$|https://"
     },
     "theme": {
       "via": "videos",

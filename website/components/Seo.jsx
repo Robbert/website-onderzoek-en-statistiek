@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useContext } from 'react'
 
-import { GlobalContext } from '../pages/_app'
+import { GlobalContext } from '../pages/_app.page'
 import { getStrapiMedia } from '../lib/utils'
 
 const Seo = ({ seo }) => {

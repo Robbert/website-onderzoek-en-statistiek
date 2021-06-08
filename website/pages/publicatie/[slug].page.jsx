@@ -32,9 +32,9 @@ export async function getStaticPaths() {
   const publications = await fetchAPI('/publications?_limit=-1')
 
   return {
-    paths: publications.map((publication) => ({
+    paths: publications.map(({ slug }) => ({
       params: {
-        slug: publication.slug,
+        slug,
       },
     })),
     fallback: false,

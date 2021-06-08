@@ -7,7 +7,13 @@ import Seo from '../../components/Seo'
 import { fetchAPI } from '../../lib/utils'
 
 const Videos = ({ videos }) => {
-  const items = videos.map((item) => <li key={item.slug}><Link href={`/video/${item.slug}`}>{item.title}</Link></li>)
+  const items = videos.map((item) => (
+    <li key={item.slug}>
+      <Link href={`/video/${item.slug}`}>
+        {item.title}
+      </Link>
+    </li>
+  ))
 
   return (
     <Layout>

@@ -30,9 +30,7 @@ const Interactive = ({ interactive, assets }) => {
 
     const promises = elements.map((element) => element.promise)
 
-    Promise.all(promises).then(() => {
-      window.renderApp()
-    })
+    Promise.all(promises).then(() => window.renderApp && window.renderApp())
 
     return () => elements.forEach((element) => element.element.remove())
   }, [])
@@ -50,10 +48,10 @@ export async function getStaticPaths() {
   const interactives = await fetchAPI('/interactives')
 
   return {
-    paths: interactives.map((interactive) => (
+    paths: interactives.map(({ slug }) => (
       {
         params: {
-          slug: interactive.slug,
+          slug,
         },
       }
     )),
@@ -68,23 +66,20 @@ export async function getStaticProps({ params }) {
 
   const assets = await fetch(`${interactives[0].contentLink}/asset-manifest.json`)
     .then((res) => {
-      if (!res.ok) {
-        // eslint-disable-next-line no-console
-        console.warn(`no asset-manifest found for ${interactives[0].slug}`)
-        return null
+      if (res.ok) {
+        return res.json()
       }
-      if (!res.json().entrypoints) {
-        // eslint-disable-next-line no-console
-        console.warn(`no entrypoints found in asset-manifest for ${interactives[0].slug}`)
-        return null
-      }
-      return res.json()
+      throw new Error(`no asset-manifest found for ${interactives[0].slug}`)
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.log(error)
     })
 
   return {
     props: {
       interactive: interactives[0],
-      assets: assets ? assets.entrypoints : [],
+      assets: assets?.entrypoints ? assets.entrypoints : [],
     },
     revalidate: 1,
   }
