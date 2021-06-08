@@ -23,16 +23,43 @@ export async function fetchAPI(path) {
   return []
 }
 
-// for future use
-export function translateContentType(type) {
-  const contentTypes = {
-    article: 'Artikel',
-    publication: 'Publicatie',
-    video: 'Video',
-    theme: 'Thema',
-    collection: 'Dossier',
-  }
-  return contentTypes[type]
+export function getLatestContent(list, number) {
+  return list
+    .sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate))
+    .slice(0, number)
+}
+
+export const contentTypes = {
+  article: {
+    type: 'article',
+    name: 'artikel',
+    plural: 'artikelen',
+  },
+  publication: {
+    type: 'publication',
+    name: 'publicatie',
+    plural: 'publicaties',
+  },
+  video: {
+    type: 'video',
+    name: 'video',
+    plural: 'videos',
+  },
+  interactive: {
+    type: 'interactive',
+    name: 'interactief',
+    plural: 'interactief',
+  },
+  theme: {
+    type: 'theme',
+    name: 'thema',
+    plural: 'themas',
+  },
+  collection: {
+    type: 'collection',
+    name: 'dossier',
+    plural: 'dossiers',
+  },
 }
 
 export function flattenFeatureList(list) {
