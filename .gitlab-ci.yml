@@ -28,6 +28,9 @@ build server:
     - docker push $TAG_SERVER_LATEST
     - docker push $TAG_SERVER_COMMIT
   only:
+    refs:
+      - develop
+      - main 
     changes:
       - server/**/*
       - .gitlab-ci.yml
@@ -41,6 +44,9 @@ build cms:
     - docker push $TAG_CMS_LATEST
     - docker push $TAG_CMS_COMMIT
   only:
+    refs:
+      - develop
+      - main  
     changes:
       - cms/**/*
       - .gitlab-ci.yml
@@ -57,13 +63,16 @@ build website:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_WEBSITE_LATEST
     - docker push $TAG_WEBSITE_COMMIT
-  only:  
+  only:
+    refs:
+      - develop
+      - main  
     changes:
       - website/**/*
       - .gitlab-ci.yml
       - docker-compose.yml
 
-deploy production:
+deploy acceptance:
   stage: deploy
   script:
     - chmod og= $ID_RSA
@@ -89,4 +98,5 @@ deploy production:
     name: production
     url: https://onderzoek-en-statistiek.nl
   only:
-    - master
+    refs:
+      - develop
