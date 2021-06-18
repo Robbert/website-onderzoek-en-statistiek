@@ -1,7 +1,6 @@
 "use strict";
 
 const fs = require("fs");
-const path = require("path");
 const mime = require("mime-types");
 const {
   themes,
@@ -105,38 +104,6 @@ async function importHomepage() {
   await createEntry({ model: "homepage", entry: homepage, files });
 }
 
-// TODO: add user 'Redactie' as second user in bootstrap
-// async function importWriters() {
-//   return Promise.all(writers.map(async (writer) => {
-//     const files = {
-//       picture: getFileData(`${writer.email}.jpg`),
-//     };
-//     return createEntry({
-//       model: "writer",
-//       entry: writer,
-//       files,
-//     });
-//   }));
-// }
-
-// async function importArticles() {
-//   return Promise.all(articles.map((article) => {
-//     const files = {
-//       image: getFileData(`${article.slug}.jpg`)
-//     };
-//     return createEntry({ model: "article", entry: article, files });
-//   }));
-// }
-
-// async function importPublications() {
-//   return Promise.all(publications.map((publication) => {
-//     const files = {
-//       image: getFileData(`${publication.slug}.jpg`),
-//       file: getFileData(`${publication.slug}.pdf`),
-//     };
-//     return createEntry({ model: "publication", entry: publication, files });
-//   }));
-// }
 
 async function importGlobal() {
   const files = {
@@ -164,6 +131,7 @@ async function importSeedData() {
 }
 
 module.exports = async () => {
+  await registerPermissionActions();
   const shouldImportSeedData = await isFirstRun();
 
   if (shouldImportSeedData) {
@@ -176,4 +144,29 @@ module.exports = async () => {
       console.error(error);
     }
   }
+};
+
+const registerPermissionActions = async () => {
+  const actions = [
+    {
+      section: 'plugins',
+      displayName: 'Read',
+      uid: 'read',
+      pluginName: 'entity-relationship-chart',
+    },
+    {
+      section: 'plugins',
+      displayName: 'Read',
+      uid: 'read',
+      pluginName: 'content-export-import',
+    },
+    {
+      section: 'plugins',
+      displayName: 'Read',
+      uid: 'read',
+      pluginName: 'utilities',
+    },
+  ];
+
+  await strapi.admin.services.permission.actionProvider.registerMany(actions);
 };

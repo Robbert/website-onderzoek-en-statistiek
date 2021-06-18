@@ -112,5 +112,5 @@ exports
 *.cache
 build
 .strapi-updater.json
-
+.temp
 ./data/media

@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/export",
+      "handler": "utilities.exportDatabase",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/import",
+      "handler": "utilities.importDatabase",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

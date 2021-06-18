@@ -7,6 +7,7 @@
 - yarn
 - docker
 - docker-compose
+- postgres (psql and pg_dump) v13
 
 ### Recommendations
 We use ESLint style rules in this repository, so it's strongly advised to have an ESLint plugin for your editor/IDE

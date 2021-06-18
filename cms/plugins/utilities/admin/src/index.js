@@ -11,12 +11,10 @@ export default strapi => {
   const name = pluginPkg.strapi.name;
 
   const plugin = {
-    icon,
-    name,
     blockerComponent: null,
     blockerComponentProps: {},
     description: pluginDescription,
-    icon: pluginPkg.strapi.icon,
+    icon,
     id: pluginId,
     initializer: Initializer,
     injectedComponents: [],
@@ -24,28 +22,26 @@ export default strapi => {
     isRequired: pluginPkg.strapi.required || false,
     layout: null,
     lifecycles,
-    leftMenuLinks: [],
-    leftMenuSections: [],
     mainComponent: App,
-    name: pluginPkg.strapi.name,
+    name,
     preventComponentRendering: false,
     trads,
     menu: {
       pluginsSectionLinks: [
         {
-          icon,
-          name,
           destination: `/plugins/${pluginId}`,
+          icon,
           label: {
             id: `${pluginId}.plugin.name`,
             defaultMessage: name,
           },
+          name,
           permissions: [
-            { action: 'plugins::content-export-import.read', subject: null },
+            { action: 'plugins::utilities.read', subject: null },
           ]
         },
-      ]
-    }
+      ],
+    },
   };
 
   return strapi.registerPlugin(plugin);
