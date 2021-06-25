@@ -1,14 +1,24 @@
+import { createContext } from 'react'
+import { GlobalStyle, ThemeProvider } from '@amsterdam/asc-ui'
 import App from 'next/app'
 import Head from 'next/head'
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+} from '@apollo/client'
+import { fetchAPI, getStrapiMedia, getStrapiURL } from '../lib/utils'
 
 import '../assets/css/style.css'
 
-import { createContext } from 'react'
-import { GlobalStyle, ThemeProvider } from '@amsterdam/asc-ui'
-import { fetchAPI, getStrapiMedia } from '../lib/utils'
-
 // Store Strapi Global object in context
 export const GlobalContext = createContext({})
+
+// Create Apollo client for graphql queries
+const client = new ApolloClient({
+  uri: getStrapiURL('/graphql'),
+  cache: new InMemoryCache(),
+})
 
 const MyApp = ({ Component, pageProps }) => {
   const { global } = pageProps
@@ -22,7 +32,9 @@ const MyApp = ({ Component, pageProps }) => {
       <ThemeProvider>
         <GlobalStyle />
         <GlobalContext.Provider value={global}>
-          <Component {...pageProps} />
+          <ApolloProvider client={client}>
+            <Component {...pageProps} />
+          </ApolloProvider>
         </GlobalContext.Provider>
       </ThemeProvider>
     </>

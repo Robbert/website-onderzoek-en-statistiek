@@ -19,6 +19,9 @@ const Nav = () => (
     <MenuItem>
       <Link href="/dossier"><a>Dossiers</a></Link>
     </MenuItem>
+    <MenuItem>
+      <Link href="/zoek"><a>Zoek</a></Link>
+    </MenuItem>
   </MenuInline>
 )
 
