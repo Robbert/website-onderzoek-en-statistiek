@@ -1,3 +1,5 @@
+const slugify = require('slugify');
+
 const parseBody = async body => {
     const regex = /\(([^\)]+)\)/g;
     
@@ -35,7 +37,9 @@ const parseBody = async body => {
 const convertSlugsToIds = async (slugs, category) => {
     const promises = slugs.map(async slug => await strapi.query(category).findOne({ slug: slug}))
     const ids = await Promise.all(promises)
-        .then(items => items.map(item => item.id))
+        .then(items => items.map(item => {
+            if (item.id) return item.id
+        }))
         .catch(err => console.log(err.message));
     return ids
 }
@@ -71,6 +75,24 @@ const parseContentFromDrupal = async (contentType, item) => {
     return item;
 }
 
+const parseContentFromDcat = async (item) => {
+
+    console.log(`importing dataset ${item.title} from dcat`)
+
+    item.slug = slugify(item.title, {lower: true});
+
+    if (item.theme) item.theme = await convertSlugsToIds(item.theme, "theme");
+
+    const promises = item.resources.map(async resource => {
+        resource.file = await convertFilenameToId(resource.file);
+        return resource;
+    })
+    item.resources = await Promise.all(promises)
+    
+    return item
+}
+
 module.exports = {
     parseContentFromDrupal,
+    parseContentFromDcat
 }

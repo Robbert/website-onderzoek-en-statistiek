@@ -1,3 +1,5 @@
+import { ApolloClient, InMemoryCache } from '@apollo/client'
+
 export function getStrapiURL(path = '') {
   return `${
     process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337'
@@ -22,6 +24,11 @@ export async function fetchAPI(path) {
 
   return []
 }
+
+export const apolloClient = new ApolloClient({
+  uri: getStrapiURL('/graphql'),
+  cache: new InMemoryCache(),
+})
 
 export function getLatestContent(list, number) {
   return list
@@ -59,6 +66,11 @@ export const contentTypes = {
     type: 'collection',
     name: 'dossier',
     plural: 'dossiers',
+  },
+  dataset: {
+    type: 'dataset',
+    name: 'dataset',
+    plural: 'datasets',
   },
 }
 

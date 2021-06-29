@@ -80,6 +80,10 @@
     "interactives": {
       "via": "theme",
       "collection": "interactive"
+    },
+    "datasets": {
+      "via": "theme",
+      "collection": "dataset"
     }
   }
 }

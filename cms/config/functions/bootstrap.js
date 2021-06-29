@@ -104,7 +104,6 @@ async function importHomepage() {
   await createEntry({ model: "homepage", entry: homepage, files });
 }
 
-
 async function importGlobal() {
   const files = {
     "favicon": getFileData("favicon.png"),
@@ -121,13 +120,16 @@ async function importSeedData() {
     article: ['find', 'findone'],
     publication: ['find', 'findone'],
     theme: ['find', 'findone'],
-    writer: ['find', 'findone'],
+    video: ['find', 'findone'],
+    interactive: ['find', 'findone'],
+    collection: ['find', 'findone'],
+    dataset: ['find', 'findone'],
   });
 
-  // Create all entries
-  await importThemes();
+  // Create basic entries
   await importHomepage();
   await importGlobal();
+  await importThemes();
 }
 
 module.exports = async () => {

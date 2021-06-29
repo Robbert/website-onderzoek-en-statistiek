@@ -1,0 +1,147 @@
+{
+  "kind": "collectionType",
+  "collectionName": "datasets",
+  "info": {
+    "name": "dataset",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "dcat_identifier": {
+      "type": "uid"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
+    },
+    "owner": {
+      "type": "string",
+      "default": "Gemeente Amsterdam, Onderzoek en Statistiek"
+    },
+    "publisherName": {
+      "type": "string",
+      "default": "Gemeente Amsterdam, Onderzoek en Statistiek",
+      "required": true
+    },
+    "publisherMail": {
+      "type": "email",
+      "required": true,
+      "default": "redactie.ois@amsterdam.nl"
+    },
+    "contactName": {
+      "type": "string",
+      "required": true,
+      "default": "Onderzoek en Statistiek"
+    },
+    "contactMail": {
+      "type": "email",
+      "required": true,
+      "default": "redactie.ois@amsterdam.nl"
+    },
+    "purpose": {
+      "type": "text",
+      "default": "Verzamelen statistieken"
+    },
+    "legalFoundation": {
+      "type": "text"
+    },
+    "license": {
+      "type": "enumeration",
+      "enum": [
+        "cc_by",
+        "cc_by_nc",
+        "cc_by_nc_nd",
+        "cc_by_nc_sa",
+        "cc_by_nd",
+        "cc_by_sa",
+        "cc_nc",
+        "cc_zero",
+        "anders"
+      ],
+      "default": "cc_by"
+    },
+    "frequency": {
+      "type": "enumeration",
+      "enum": [
+        "onbekend",
+        "continu",
+        "dagelijks",
+        "wekelijks",
+        "tweewekelijks",
+        "maandelijks",
+        "elk_kwartaal",
+        "halfjaarlijks",
+        "jaarlijks",
+        "tweejaarlijks",
+        "vierjaarlijks",
+        "vijfjaarlijks",
+        "tienjaarlijks",
+        "regelmatig",
+        "onregelmatig",
+        "anders"
+      ],
+      "default": "jaarlijks"
+    },
+    "temporalUnit": {
+      "type": "enumeration",
+      "enum": [
+        "onbekend",
+        "realtime",
+        "minuten",
+        "uren",
+        "dagdelen",
+        "dagen",
+        "weken",
+        "maanden",
+        "kwartalen",
+        "jaren",
+        "anders"
+      ],
+      "default": "jaren"
+    },
+    "spatialUnit": {
+      "type": "enumeration",
+      "enum": [
+        "onbekend",
+        "specifiek",
+        "land",
+        "regio",
+        "gemeente",
+        "stadsdeel",
+        "gebied",
+        "wijk",
+        "buurt",
+        "bouwblok",
+        "postcode",
+        "anders"
+      ],
+      "default": "gemeente"
+    },
+    "spatialDescription": {
+      "type": "string",
+      "default": "Amsterdam"
+    },
+    "theme": {
+      "collection": "theme",
+      "via": "datasets"
+    },
+    "resources": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.resources"
+    }
+  }
+}

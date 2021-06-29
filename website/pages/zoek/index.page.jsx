@@ -83,6 +83,19 @@ const query = gql`
     ) {
       ${fields}
     }
+    datasets(
+      limit: 10
+      where: {
+        _or: [
+          { title_contains: $q }
+          { description_contains: $q }
+          { theme: { title_contains: $q } }
+        ]
+      }
+    ) {
+      title
+      slug
+    }
   }
 `
 
@@ -92,6 +105,7 @@ const SEARCH_TYPES = [
   'interactive',
   'publication',
   'video',
+  'dataset',
 ]
 
 const StyledHeading = styled(Heading)`

@@ -4,9 +4,9 @@ const utils  = require('../../../lib/utils');
 module.exports = {
     lifecycles: {
         async beforeCreate(item) {
-          if (item.origin === 'drupal'){
-            item = await utils.parseContentFromDrupal('interactive', item);
-          }
-      },
+            if (item.origin === 'dcat'){
+            item = await utils.parseContentFromDcat(item);
+            }
+        },
     },
 };
