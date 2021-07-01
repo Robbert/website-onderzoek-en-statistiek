@@ -16,12 +16,11 @@ export function getStrapiMedia(media) {
 
 export async function fetchAPI(path) {
   const requestUrl = getStrapiURL(path)
-  const response = await fetch(requestUrl)
+  const response = await fetch(requestUrl).catch((err) => err)
   if (response.status === 200) {
     const data = await response.json()
     return data
   }
-
   return []
 }
 

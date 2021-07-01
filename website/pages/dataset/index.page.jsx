@@ -42,9 +42,12 @@ export async function getStaticProps() {
   `
 
   const { data } = await apolloClient.query({ query })
+    .catch((error) => error)
+
+  const themes = data?.themes || []
 
   return {
-    props: { data: data.themes },
+    props: { data: themes },
     revalidate: 1,
   }
 }

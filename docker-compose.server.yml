@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  webserver:
+    image: registry.gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/server:latest
+    restart: unless-stopped
+    container_name: os-server
+    environment:
+      CERTBOT_EMAIL: bas.broekhuizen@gmail.com
+      STAGING: 0
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - os-network
+    volumes:
+      - nginx_secrets:/etc/letsencrypt
+
+volumes:
+  nginx_secrets:
+
+networks:
+  os-network:
+    name: os-network

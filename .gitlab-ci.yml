@@ -4,13 +4,10 @@ stages:
 
 variables:
   TAG_SERVER_LATEST: $CI_REGISTRY_IMAGE/server:latest
-  TAG_SERVER_COMMIT: $CI_REGISTRY_IMAGE/server:$CI_COMMIT_SHORT_SHA
-
-  TAG_CMS_LATEST: $CI_REGISTRY_IMAGE/cms:latest
-  TAG_CMS_COMMIT: $CI_REGISTRY_IMAGE/cms:$CI_COMMIT_SHORT_SHA
-
-  TAG_WEBSITE_LATEST: $CI_REGISTRY_IMAGE/website:latest
-  TAG_WEBSITE_COMMIT: $CI_REGISTRY_IMAGE/website:$CI_COMMIT_SHORT_SHA
+  TAG_CMS_LATEST_ACC: $CI_REGISTRY_IMAGE/cms:latest-acc
+  TAG_CMS_LATEST_PROD: $CI_REGISTRY_IMAGE/cms:latest-prod
+  TAG_WEBSITE_LATEST_ACC: $CI_REGISTRY_IMAGE/website:latest-acc
+  TAG_WEBSITE_LATEST_PROD: $CI_REGISTRY_IMAGE/website:latest-prod
 
 services:
   - docker:19.03.12-dind
@@ -20,59 +17,59 @@ cache:
     - node_modules/
     - .next/cache/
 
+
+# build server for acceptance and production
 build server:
   stage: build
   script:
-    - docker build -t $TAG_SERVER_LATEST -t $TAG_SERVER_COMMIT ./server
+    - docker build -t $TAG_SERVER_LATEST ./server
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_SERVER_LATEST
-    - docker push $TAG_SERVER_COMMIT
   only:
     refs:
       - develop
-      - main 
+      - main
     changes:
       - server/**/*
       - .gitlab-ci.yml
       - docker-compose.yml
 
-build cms:
+# build cms for acceptance
+build cms acc:
   stage: build
   script:
+    - docker build -t $TAG_CMS_LATEST_ACC --build-arg NODE_ENV=development ./cms
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker build -t $TAG_CMS_LATEST -t $TAG_CMS_COMMIT ./cms
-    - docker push $TAG_CMS_LATEST
-    - docker push $TAG_CMS_COMMIT
+    - docker push $TAG_CMS_LATEST_ACC
   only:
     refs:
-      - develop
-      - main  
+      - develop 
     changes:
       - cms/**/*
       - .gitlab-ci.yml
       - docker-compose.yml
-  
-build website:
+
+# build website for acceptance  
+build website acc:
   stage: build
   services:
     - docker:dind
   before_script:
     - docker info
   script:
-    - docker build -t $TAG_WEBSITE_LATEST -t $TAG_WEBSITE_COMMIT ./website
+    - docker build -t $TAG_WEBSITE_LATEST_ACC --build-arg NEXT_PUBLIC_STRAPI_API_URL=https://acc.cms.onderzoek-en-statistiek.nl --build-arg NODE_ENV=development ./website
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker push $TAG_WEBSITE_LATEST
-    - docker push $TAG_WEBSITE_COMMIT
+    - docker push $TAG_WEBSITE_LATEST_ACC
   only:
     refs:
       - develop
-      - main  
     changes:
       - website/**/*
       - .gitlab-ci.yml
       - docker-compose.yml
 
-deploy acceptance:
+# deploy acceptance
+deploy acc:
   stage: deploy
   script:
     - chmod og= $ID_RSA
@@ -81,17 +78,80 @@ deploy acceptance:
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
         "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
-        "docker pull $TAG_SERVER_LATEST && docker pull $TAG_CMS_LATEST && docker pull $TAG_WEBSITE_LATEST"
+        "docker pull $TAG_SERVER_LATEST && docker pull $TAG_CMS_LATEST_ACC && docker pull $TAG_WEBSITE_LATEST_ACC"
     - scp -i $ID_RSA -o StrictHostKeyChecking=no 
-        docker-compose.yml $SERVER_USER@$SERVER_IP:~
+        docker-compose.* $SERVER_USER@$SERVER_IP:~
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no 
         $SERVER_USER@$SERVER_IP 
-        TAG_SERVER_LATEST=$TAG_SERVER_LATEST 
-        TAG_CMS_LATEST=$TAG_CMS_LATEST 
-        TAG_WEBSITE_LATEST=$TAG_WEBSITE_LATEST 
         DATABASE_USERNAME=$DATABASE_USERNAME
         DATABASE_PASSWORD=$DATABASE_PASSWORD 
-        "docker-compose up -d --no-deps"
+        "docker-compose -f docker-compose.acc.yml --project-name acceptance up -d --no-deps --remove-orphans"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
+        "docker-compose -f docker-compose.server.yml --project-name server up -d --no-deps --remove-orphans"
+  after_script:
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker image prune -a -f"
+  environment:
+    name: acceptance
+    url: https://acc.onderzoek-en-statistiek.nl
+  only:
+    refs:
+      - develop
+
+
+# Build cms for production
+build cms prod:
+  stage: build
+  script:
+    - docker build -t $TAG_CMS_LATEST_PROD --build-arg NODE_ENV=production ./cms
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push $TAG_CMS_LATEST_PROD
+  only:
+    refs:
+      - main 
+    changes:
+      - cms/**/*
+      - .gitlab-ci.yml
+      - docker-compose.yml
+  
+# Build website for production
+build website prod:
+  stage: build
+  services:
+    - docker:dind
+  before_script:
+    - docker info
+  script:
+    - docker build -t $TAG_WEBSITE_LATEST_PROD --build-arg NEXT_PUBLIC_STRAPI_API_URL=https://cms.onderzoek-en-statistiek.nl --build-arg NODE_ENV=production ./website
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push $TAG_WEBSITE_LATEST_PROD
+  only:
+    refs:
+      - main
+    changes:
+      - website/**/*
+      - .gitlab-ci.yml
+      - docker-compose.yml
+
+# deploy production
+deploy prod:
+  stage: deploy
+  script:
+    - chmod og= $ID_RSA
+    - apk update && apk add openssh-client
+    - ls -al
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
+        "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
+        "docker pull $TAG_SERVER_LATEST && docker pull $TAG_CMS_LATEST_PROD && docker pull $TAG_WEBSITE_LATEST_PROD"
+    - scp -i $ID_RSA -o StrictHostKeyChecking=no 
+        docker-compose.* $SERVER_USER@$SERVER_IP:~
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no 
+        $SERVER_USER@$SERVER_IP
+        DATABASE_USERNAME=$DATABASE_USERNAME
+        DATABASE_PASSWORD=$DATABASE_PASSWORD 
+        "docker-compose -f docker-compose.yml --project-name production up -d --no-deps --remove-orphans"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
+      "docker-compose -f docker-compose.server.yml --project-name server up -d --no-deps --remove-orphans"
   after_script:
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker image prune -a -f"
   environment:
@@ -99,4 +159,4 @@ deploy acceptance:
     url: https://onderzoek-en-statistiek.nl
   only:
     refs:
-      - develop
+      - main

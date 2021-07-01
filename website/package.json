@@ -5,7 +5,7 @@
   "scripts": {
     "develop": "next dev",
     "dev": "next dev",
-    "dev-with-acc": "NEXT_PUBLIC_STRAPI_API_URL=https://cms.onderzoek-en-statistiek.nl next dev",
+    "dev-with-acc": "NEXT_PUBLIC_STRAPI_API_URL=https://acc.cms.onderzoek-en-statistiek.nl next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",

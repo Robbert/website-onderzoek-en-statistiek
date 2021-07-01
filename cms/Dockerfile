@@ -13,7 +13,8 @@ RUN yarn install
 
 COPY . .
 
-ENV NODE_ENV production
+ARG NODE_ENV 
+ENV NODE_ENV $NODE_ENV
 
 RUN export NODE_OPTIONS="--max-old-space-size=8192" && yarn build --no-optimization --clean 
 

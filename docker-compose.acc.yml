@@ -3,7 +3,7 @@ version: '3'
 services:
   database:
     image: postgres
-    container_name: os-db-prod
+    container_name: os-db-acc
     restart: unless-stopped
     environment:
       POSTGRES_DB: strapi
@@ -17,33 +17,33 @@ services:
       - cms_data:/var/lib/postgresql/data
 
   cms:
-    image: registry.gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/cms:latest-prod
+    image: registry.gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/cms:latest-acc
     restart: unless-stopped
-    container_name: os-cms-prod
+    container_name: os-cms-acc
     environment:
       DATABASE_CLIENT: postgres
       DATABASE_NAME: strapi
-      DATABASE_HOST: os-db-prod
+      DATABASE_HOST: os-db-acc
       DATABASE_PORT: 5432
       DATABASE_USERNAME: $DATABASE_USERNAME
       DATABASE_PASSWORD: $DATABASE_PASSWORD
     networks:
       - os-network
     ports:
-      - 1338:1337
+      - 1337:1337
     volumes:
       - cms_files:/srv/cms/public/uploads
     depends_on:
       - database
     
   website:
-    image: registry.gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/website:latest-prod
+    image: registry.gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/website:latest-acc
     restart: unless-stopped
-    container_name: os-website-prod
+    container_name: os-website-acc
     networks:
       - os-network
     ports:
-      - 3001:3000
+      - 3000:3000
     depends_on:
       - database
       - cms
