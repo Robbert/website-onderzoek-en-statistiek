@@ -5,7 +5,7 @@
   "scripts": {
     "develop": "next dev",
     "dev": "next dev",
-    "dev-with-acc": "NEXT_PUBLIC_STRAPI_API_URL=https://acc.cms.onderzoek-en-statistiek.nl next dev",
+    "dev-with-acc": "cross-env NEXT_PUBLIC_STRAPI_API_URL=https://acc.cms.onderzoek-en-statistiek.nl next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -26,6 +26,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "^7.27.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.23.3",
