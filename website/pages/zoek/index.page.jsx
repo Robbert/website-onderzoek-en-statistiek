@@ -5,7 +5,6 @@ import {
 import { useQuery, gql } from '@apollo/client'
 import styled from 'styled-components'
 import Link from 'next/link'
-import Layout from '../../components/Layout'
 import Seo from '../../components/Seo'
 import { contentTypes } from '../../lib/utils'
 
@@ -181,11 +180,11 @@ const Search = () => {
   const [searchQuery, setSearchQuery] = useState('')
 
   return (
-    <Layout>
+    <>
       <Seo />
       <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
       <Results searchQuery={searchQuery} />
-    </Layout>
+    </>
   )
 }
 

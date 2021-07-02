@@ -1,7 +1,6 @@
 import ReactMarkdown from 'react-markdown'
 import { Heading } from '@amsterdam/asc-ui'
 
-import Layout from '../../components/Layout'
 import Seo from '../../components/Seo'
 import Related from '../../components/Related'
 import { fetchAPI, getStrapiMedia } from '../../lib/utils'
@@ -71,7 +70,7 @@ const Video = ({ video }) => {
   }
 
   return (
-    <Layout>
+    <>
       <Seo seo={seo} />
       <Heading gutterBottom={40}>
         {`Video ${title}`}
@@ -88,7 +87,7 @@ const Video = ({ video }) => {
       {externalVideoSource && <ExternalVideo source={externalVideoSource} />}
       {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
       <Related data={related} />
-    </Layout>
+    </>
   )
 }
 

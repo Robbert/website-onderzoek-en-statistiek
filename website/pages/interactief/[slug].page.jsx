@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { fetchAPI } from '../../lib/utils'
-import Layout from '../../components/Layout'
 import Seo from '../../components/Seo'
 
 const Interactive = ({ interactive, assets }) => {
@@ -36,11 +35,11 @@ const Interactive = ({ interactive, assets }) => {
   }, [])
 
   return (
-    <Layout>
+    <>
       <Seo seo={seo} />
       <h1>{interactive.title}</h1>
       <div id="micro-frontend" />
-    </Layout>
+    </>
   )
 }
 

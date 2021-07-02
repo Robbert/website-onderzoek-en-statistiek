@@ -2,7 +2,6 @@ import React from 'react'
 import Link from 'next/link'
 import { Heading } from '@amsterdam/asc-ui'
 
-import Layout from '../components/Layout'
 import Seo from '../components/Seo'
 import { fetchAPI, flattenFeatureList } from '../lib/utils'
 
@@ -29,14 +28,14 @@ const Home = ({ themes, homepage }) => {
   ))
 
   return (
-    <Layout>
+    <>
       <Seo seo={homepage.seo} />
       <Heading forwardedAs="h2">Voorpagina</Heading>
       <Heading forwardedAs="h3">Uitgelicht</Heading>
       <ul>{featurelist}</ul>
       <Heading forwardedAs="h3">Thema‘s</Heading>
       <ul>{themelist}</ul>
-    </Layout>
+    </>
   )
 }
 

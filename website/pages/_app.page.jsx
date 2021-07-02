@@ -1,11 +1,22 @@
 import { createContext } from 'react'
-import { GlobalStyle, ThemeProvider } from '@amsterdam/asc-ui'
+import {
+  GlobalStyle, ThemeProvider, themeColor,
+} from '@amsterdam/asc-ui'
 import App from 'next/app'
 import Head from 'next/head'
 import { ApolloProvider } from '@apollo/client'
-import { fetchAPI, getStrapiMedia, apolloClient } from '../lib/utils'
+import { createGlobalStyle } from 'styled-components'
+
+import { fetchAPI, apolloClient } from '../lib/utils'
+import Layout from '../components/Layout'
 
 import '../assets/css/style.css'
+
+const BodyStyle = createGlobalStyle`
+  body {
+    background-color: ${themeColor('tint', 'level3')};
+  }
+`
 
 // Store Strapi Global object in context
 export const GlobalContext = createContext({})
@@ -16,14 +27,17 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <link rel="shortcut icon" href={getStrapiMedia(global.favicon)} />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <link href="/fonts/fonts.css" rel="stylesheet" />
       </Head>
       <ThemeProvider>
         <GlobalStyle />
+        <BodyStyle />
         <GlobalContext.Provider value={global}>
           <ApolloProvider client={apolloClient}>
-            <Component {...pageProps} />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           </ApolloProvider>
         </GlobalContext.Provider>
       </ThemeProvider>

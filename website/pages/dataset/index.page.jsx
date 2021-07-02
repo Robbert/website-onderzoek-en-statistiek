@@ -3,14 +3,13 @@ import Link from 'next/link'
 import { Heading, List, ListItem } from '@amsterdam/asc-ui'
 import { gql } from '@apollo/client'
 
-import Layout from '../../components/Layout'
 import Seo from '../../components/Seo'
 import { apolloClient } from '../../lib/utils'
 
 import * as Styled from './dataset.style'
 
 const Datasets = ({ data }) => (
-  <Layout>
+  <>
     <Seo />
     <Heading forwardedAs="h2">Datasets per thema</Heading>
     {data.map((theme) => (
@@ -24,7 +23,7 @@ const Datasets = ({ data }) => (
         </List>
       </Styled.Harmonica>
     ))}
-  </Layout>
+  </>
 )
 
 export async function getStaticProps() {

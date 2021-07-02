@@ -2,7 +2,6 @@ import ReactMarkdown from 'react-markdown'
 import Moment from 'react-moment'
 import { Heading } from '@amsterdam/asc-ui'
 
-import Layout from '../../components/Layout'
 import Seo from '../../components/Seo'
 import { fetchAPI, getStrapiMedia } from '../../lib/utils'
 
@@ -33,7 +32,7 @@ const Dataset = ({
   ))
 
   return (
-    <Layout>
+    <>
       <Seo seo={seo} />
       <Heading>
         {`Dataset ${title}`}
@@ -71,7 +70,7 @@ const Dataset = ({
           {resourceLinks}
         </Styled.Row>
       </Styled.MetaData>
-    </Layout>
+    </>
   )
 }
 

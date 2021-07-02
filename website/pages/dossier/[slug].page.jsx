@@ -2,7 +2,6 @@ import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
 import { Heading } from '@amsterdam/asc-ui'
 
-import Layout from '../../components/Layout'
 import Seo from '../../components/Seo'
 import { fetchAPI, flattenFeatureList } from '../../lib/utils'
 
@@ -26,7 +25,7 @@ const Collection = ({ collection }) => {
   ))
 
   return (
-    <Layout>
+    <>
       <Seo seo={seo} />
       <Heading>
         Dossier
@@ -36,7 +35,7 @@ const Collection = ({ collection }) => {
       <ReactMarkdown source={collection.intro} escapeHtml={false} />
       <Heading forwardedAs="h3">Uitgelicht</Heading>
       <ul>{featurelist}</ul>
-    </Layout>
+    </>
   )
 }
 

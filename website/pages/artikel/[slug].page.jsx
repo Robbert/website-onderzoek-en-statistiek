@@ -2,38 +2,45 @@ import ReactMarkdown from 'react-markdown'
 import Moment from 'react-moment'
 import { Heading } from '@amsterdam/asc-ui'
 
-import Layout from '../../components/Layout'
 import Seo from '../../components/Seo'
 import Related from '../../components/Related'
 import { fetchAPI, getStrapiURL, getStrapiMedia } from '../../lib/utils'
 
 import styles from './article.module.css'
 
-const Article = ({ article }) => {
+const Article = ({
+  title,
+  teaser,
+  teaserImage,
+  coverImage,
+  publicationDate,
+  body,
+  related,
+}) => {
   const seo = {
-    metaTitle: article.title,
-    metaDescription: article.teaser,
-    // shareImage: article.teaserImage,
+    metaTitle: title,
+    metaDescription: teaser,
+    shareImage: teaserImage,
     article: true,
   }
 
   const coverImageStyle = {
-    backgroundImage: `url(${getStrapiMedia(article.coverImage)})`,
+    backgroundImage: `url(${getStrapiMedia(coverImage)})`,
   }
 
   return (
-    <Layout>
+    <>
       <Seo seo={seo} />
       <div className={styles.coverImage} style={coverImageStyle} />
-      <Heading>{article.title}</Heading>
-      <Moment locale="nl" format="D MMMM YYYY">{article.published_at}</Moment>
+      <Heading>{title}</Heading>
+      <Moment locale="nl" format="D MMMM YYYY">{publicationDate}</Moment>
       <ReactMarkdown
-        source={article.body}
+        source={body}
         escapeHtml={false}
         transformImageUri={(src) => getStrapiURL() + src}
       />
-      <Related data={article.related} />
-    </Layout>
+      <Related data={related} />
+    </>
   )
 }
 
@@ -56,7 +63,7 @@ export async function getStaticProps({ params }) {
   )
 
   return {
-    props: { article: articles[0] },
+    props: { ...articles[0] },
     revalidate: 1,
   }
 }

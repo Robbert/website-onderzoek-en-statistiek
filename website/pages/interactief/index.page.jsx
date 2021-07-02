@@ -4,7 +4,6 @@ import {
   Heading, Paragraph, Card, CardContent, CardMedia,
 } from '@amsterdam/asc-ui'
 
-import Layout from '../../components/Layout'
 import Seo from '../../components/Seo'
 import { fetchAPI } from '../../lib/utils'
 
@@ -24,11 +23,11 @@ const Interactives = ({ interactives }) => {
   ))
 
   return (
-    <Layout>
+    <>
       <Seo />
       <Heading forwardedAs="h2">Interactief</Heading>
       {cards}
-    </Layout>
+    </>
   )
 }
 

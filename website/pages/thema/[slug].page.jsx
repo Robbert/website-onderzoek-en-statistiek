@@ -2,7 +2,6 @@ import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
 import { Heading } from '@amsterdam/asc-ui'
 
-import Layout from '../../components/Layout'
 import Seo from '../../components/Seo'
 import {
   fetchAPI, flattenFeatureList, getLatestContent, contentTypes,
@@ -57,7 +56,7 @@ const Theme = ({
   })
 
   return (
-    <Layout>
+    <>
       <Seo seo={seo} />
 
       <Heading>
@@ -70,7 +69,7 @@ const Theme = ({
 
       {latestContentLists}
 
-    </Layout>
+    </>
   )
 }
 
