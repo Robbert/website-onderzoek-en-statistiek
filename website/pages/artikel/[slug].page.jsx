@@ -1,11 +1,11 @@
 import ReactMarkdown from 'react-markdown'
+import { useRouter } from 'next/router'
 import Moment from 'react-moment'
-import { Heading } from '@amsterdam/asc-ui'
+import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import Related from '../../components/Related'
 import { fetchAPI, getStrapiURL, getStrapiMedia } from '../../lib/utils'
-
 import styles from './article.module.css'
 
 const Article = ({
@@ -17,6 +17,12 @@ const Article = ({
   body,
   related,
 }) => {
+  const router = useRouter()
+
+  if (router.isFallback) {
+    return <div><Spinner /></div>
+  }
+
   const seo = {
     metaTitle: title,
     metaDescription: teaser,
@@ -53,7 +59,7 @@ export async function getStaticPaths() {
         slug,
       },
     })),
-    fallback: false,
+    fallback: true,
   }
 }
 

@@ -7,7 +7,6 @@ import {
 
 import Seo from '../../components/Seo'
 import { fetchAPI, getStrapiMedia } from '../../lib/utils'
-
 import styles from './article.module.css'
 
 const Articles = ({ articles }) => {

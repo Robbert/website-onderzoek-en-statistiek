@@ -1,6 +1,7 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import ReactMarkdown from 'react-markdown'
-import { Heading } from '@amsterdam/asc-ui'
+import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import {
@@ -10,6 +11,11 @@ import {
 const Theme = ({
   title, teaser, features, intro, ...props
 }) => {
+  const router = useRouter()
+  if (router.isFallback) {
+    return <div><Spinner /></div>
+  }
+
   const seo = {
     metaTitle: title,
     metaDescription: teaser,
@@ -80,7 +86,7 @@ export async function getStaticPaths() {
     paths: themes.map(({ slug }) => ({
       params: { slug },
     })),
-    fallback: false,
+    fallback: true,
   }
 }
 

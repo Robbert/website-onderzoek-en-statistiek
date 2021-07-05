@@ -1,10 +1,10 @@
 import ReactMarkdown from 'react-markdown'
+import { useRouter } from 'next/router'
 import Moment from 'react-moment'
-import { Heading } from '@amsterdam/asc-ui'
+import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import { fetchAPI, getStrapiMedia } from '../../lib/utils'
-
 import * as Styled from './dataset.style'
 
 const Dataset = ({
@@ -18,6 +18,12 @@ const Dataset = ({
   frequency,
   resources,
 }) => {
+  const router = useRouter()
+
+  if (router.isFallback) {
+    return <div><Spinner /></div>
+  }
+
   const seo = {
     metaTitle: title,
     metaDescription: description,
@@ -83,7 +89,7 @@ export async function getStaticPaths() {
         slug,
       },
     })),
-    fallback: false,
+    fallback: true,
   }
 }
 

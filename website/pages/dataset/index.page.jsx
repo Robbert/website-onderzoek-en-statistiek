@@ -5,7 +5,6 @@ import { gql } from '@apollo/client'
 
 import Seo from '../../components/Seo'
 import { apolloClient } from '../../lib/utils'
-
 import * as Styled from './dataset.style'
 
 const Datasets = ({ data }) => (

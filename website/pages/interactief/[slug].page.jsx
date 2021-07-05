@@ -1,8 +1,17 @@
 import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { Spinner } from '@amsterdam/asc-ui'
+
 import { fetchAPI } from '../../lib/utils'
 import Seo from '../../components/Seo'
 
 const Interactive = ({ interactive, assets }) => {
+  const router = useRouter()
+
+  if (router.isFallback) {
+    return <div><Spinner /></div>
+  }
+
   const seo = {
     metaTitle: interactive.title,
     metaDescription: interactive.teaser,
@@ -54,7 +63,7 @@ export async function getStaticPaths() {
         },
       }
     )),
-    fallback: false,
+    fallback: true,
   }
 }
 

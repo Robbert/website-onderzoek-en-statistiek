@@ -1,0 +1,264 @@
+[{
+  "key": "plugin_content_manager_configuration_content_types::application::article.article",
+  "value": {
+    "uid": "application::article.article",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "title",
+      "defaultSortBy": "title",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "body": {
+        "edit": {
+          "label": "Body",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "Body",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "coverImage": {
+        "edit": {
+          "label": "CoverImage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "CoverImage",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "theme": {
+        "edit": {
+          "label": "Thema",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "Thema",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "created_at": {
+        "edit": {
+          "label": "Created_at",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "Created_at",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "related": {
+        "edit": {
+          "label": "Related",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "Related",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "teaserImage": {
+        "edit": {
+          "label": "TeaserImage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "TeaserImage",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "slug": {
+        "edit": {
+          "label": "Slug",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "Slug",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "intro": {
+        "edit": {
+          "label": "Intro",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "Intro",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "teaser": {
+        "edit": {
+          "label": "Teaser",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "Teaser",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updated_at": {
+        "edit": {
+          "label": "Updated_at",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "Updated_at",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "title": {
+        "edit": {
+          "label": "Kop",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "Kop",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "publicationDate": {
+        "edit": {
+          "label": "Publicatiedatum",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "Publicatiedatum",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "Id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "shortTitle": {
+        "edit": {
+          "label": "Korte kop",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "Korte kop",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "edit": [
+        [{
+          "name": "title",
+          "size": 6
+        }, {
+          "name": "publicationDate",
+          "size": 6
+        }],
+        [{
+          "name": "shortTitle",
+          "size": 6
+        }, {
+          "name": "slug",
+          "size": 6
+        }],
+        [{
+          "name": "teaser",
+          "size": 6
+        }, {
+          "name": "intro",
+          "size": 6
+        }],
+        [{
+          "name": "body",
+          "size": 12
+        }],
+        [{
+          "name": "coverImage",
+          "size": 6
+        }, {
+          "name": "teaserImage",
+          "size": 6
+        }],
+        [{
+          "name": "related",
+          "size": 12
+        }]
+      ],
+      "editRelations": ["theme"],
+      "list": ["id", "publicationDate", "title", "shortTitle"]
+    }
+  },
+  "type": "object",
+  "environment": "",
+  "tag": ""
+},
+{
+  "key": "plugin_upload_settings",
+  "value": {
+    "sizeOptimization": false,
+    "responsiveDimensions": false
+  },
+  "type": "object",
+  "environment": "development",
+  "tag": ""
+}
+]

@@ -1,10 +1,10 @@
 import ReactMarkdown from 'react-markdown'
-import { Heading } from '@amsterdam/asc-ui'
+import { useRouter } from 'next/router'
+import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import Related from '../../components/Related'
 import { fetchAPI, getStrapiMedia } from '../../lib/utils'
-
 import * as Styled from './video.style'
 
 const LocalVideo = ({ videoSource, subtitleSource, enableSubtitleByDefault }) => {
@@ -52,21 +52,25 @@ const ExternalEmbed = ({ source }) => (
   />
 )
 
-const Video = ({ video }) => {
-  const {
-    title,
-    intro,
-    videoFile,
-    subtitleFile,
-    subtitleDefault,
-    externalVideoSource,
-    externalEmbedSource,
-    related,
-  } = video
+const Video = ({
+  title,
+  intro,
+  teaser,
+  videoFile,
+  subtitleFile,
+  subtitleDefault,
+  externalVideoSource,
+  externalEmbedSource,
+  related,
+}) => {
+  const router = useRouter()
+  if (router.isFallback) {
+    return <div><Spinner /></div>
+  }
 
   const seo = {
-    metaTitle: video.title,
-    metaDescription: video.teaser,
+    metaTitle: title,
+    metaDescription: teaser,
   }
 
   return (
@@ -100,7 +104,7 @@ export async function getStaticPaths() {
         slug,
       },
     })),
-    fallback: false,
+    fallback: true,
   }
 }
 
@@ -108,7 +112,7 @@ export async function getStaticProps({ params }) {
   const videos = await fetchAPI(`/videos?slug=${params.slug}`)
 
   return {
-    props: { video: videos[0] },
+    props: { ...videos[0] },
     revalidate: 1,
   }
 }

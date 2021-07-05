@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "description": "CMS Onderzoek en Statistiek",
   "scripts": {
-    "develop": "strapi develop",
-    "start": "strapi start",
+    "develop": "strapi config:restore -f config/strapi-config.json -s replace && strapi develop",
+    "start": "strapi config:restore -f config/strapi-config.json -s replace && strapi start",
     "build": "strapi build",
     "strapi": "strapi"
   },
@@ -41,11 +41,6 @@
   },
   "author": {
     "name": "Onderzoek en statistiek"
-  },
-  "strapi": {
-    "uuid": "9a884e72-6cd1-49b1-bb01-32927aa63741",
-    "template": "https://github.com/strapi/strapi-template-blog",
-    "starter": "https://github.com/strapi/strapi-starter-next-blog"
   },
   "engines": {
     "node": ">=10.16.0 <=14.x.x",
