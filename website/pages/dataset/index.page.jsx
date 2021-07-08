@@ -42,7 +42,7 @@ export async function getStaticProps() {
   const { data } = await apolloClient.query({ query })
     .catch((error) => error)
 
-  const themes = data?.themes || []
+  const themes = data?.themes.slice().sort((a, b) => a.title.localeCompare(b.title)) || []
 
   return {
     props: { data: themes },

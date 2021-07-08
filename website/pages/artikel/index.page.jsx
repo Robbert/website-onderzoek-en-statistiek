@@ -1,30 +1,34 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import {
-  Heading, Paragraph, Card, CardContent, CardMedia,
-} from '@amsterdam/asc-ui'
+import { Heading, Paragraph } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import { fetchAPI, getStrapiMedia } from '../../lib/utils'
-import styles from './article.module.css'
+import * as Styled from './article.style'
 
 const Articles = ({ articles }) => {
   const cards = articles.map(({
     slug, title, teaser, teaserImage,
   }) => (
-    <Link key={slug} href={`/artikel/${slug}`}>
-      <a className={styles.card}>
-        <Card horizontal>
-          <CardMedia maxWidth={144}>
-            { teaserImage && <Image src={getStrapiMedia(teaserImage)} width={144} height={144} /> }
-          </CardMedia>
-          <CardContent>
+    <Link key={slug} href={`/artikel/${slug}`} passHref>
+      <Styled.Anchor>
+        <Styled.ArticleCard horizontal>
+          <Styled.Media maxWidth={144}>
+            { teaserImage && (
+              <Image
+                src={getStrapiMedia(teaserImage)}
+                width={144}
+                height={144}
+              />
+            ) }
+          </Styled.Media>
+          <Styled.Content>
             <Heading as="h4">{title}</Heading>
             <Paragraph>{teaser}</Paragraph>
-          </CardContent>
-        </Card>
-      </a>
+          </Styled.Content>
+        </Styled.ArticleCard>
+      </Styled.Anchor>
     </Link>
   ))
 

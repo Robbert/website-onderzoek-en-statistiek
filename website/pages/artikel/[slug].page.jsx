@@ -1,12 +1,14 @@
 import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 import Moment from 'react-moment'
-import { Heading, Spinner } from '@amsterdam/asc-ui'
+import { Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import Related from '../../components/Related'
-import { fetchAPI, getStrapiURL, getStrapiMedia } from '../../lib/utils'
-import styles from './article.module.css'
+import InlineImage from '../../components/InlineImage'
+import { fetchAPI, getStrapiMedia } from '../../lib/utils'
+import * as Styled from './article.style'
 
 const Article = ({
   title,
@@ -30,22 +32,37 @@ const Article = ({
     article: true,
   }
 
-  const coverImageStyle = {
-    backgroundImage: `url(${getStrapiMedia(coverImage)})`,
+  const renderers = {
+    image: (props) => <InlineImage {...props} />,
+    paragraph: ({ children }) => {
+      if (children[0]?.type?.name === 'image'
+        || (children[0]?.type === 'a' && children[0]?.props?.children[0]?.type?.name === 'image')) {
+        return children[0]
+      }
+      return <p>{children}</p>
+    },
   }
 
   return (
     <>
       <Seo seo={seo} />
-      <div className={styles.coverImage} style={coverImageStyle} />
-      <Heading>{title}</Heading>
-      <Moment locale="nl" format="D MMMM YYYY">{publicationDate}</Moment>
-      <ReactMarkdown
-        source={body}
-        escapeHtml={false}
-        transformImageUri={(src) => getStrapiURL() + src}
+      <Image
+        src={getStrapiMedia(coverImage)}
+        width="1280"
+        height="590"
+        layout="responsive"
+        placeholder="blur"
       />
-      <Related data={related} />
+      <Styled.Title>{title}</Styled.Title>
+      <Moment locale="nl" format="D MMMM YYYY">{publicationDate}</Moment>
+      <Styled.Body>
+        <ReactMarkdown
+          source={body}
+          escapeHtml={false}
+          renderers={renderers}
+        />
+        <Related data={related} />
+      </Styled.Body>
     </>
   )
 }
