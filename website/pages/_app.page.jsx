@@ -10,8 +10,6 @@ import { createGlobalStyle } from 'styled-components'
 import { fetchAPI, apolloClient } from '../lib/utils'
 import Layout from '../components/Layout'
 
-import '../assets/css/style.css'
-
 const BodyStyle = createGlobalStyle`
   body {
     background-color: ${themeColor('tint', 'level3')};

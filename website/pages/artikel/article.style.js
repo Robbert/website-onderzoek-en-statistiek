@@ -20,7 +20,7 @@ export const Media = styled(CardMedia)`
 export const Content = styled(CardContent)`
   padding: 0 16px 16px 0;
   margin-left: 16px;
-  min-height 144px;
+  min-height: 144px;
   border-bottom: 1px solid ${themeColor('tint', 'level3')};
 `
 
