@@ -1,5 +1,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 
+export const PLACEHOLDER_IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN89x8AAuEB74Y0o2cAAAAASUVORK5CYII='
+
 export function getStrapiURL(path = '') {
   return `${
     process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337'

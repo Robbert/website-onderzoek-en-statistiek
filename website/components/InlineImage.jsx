@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
-import { getStrapiURL } from '../lib/utils'
+import { getStrapiURL, PLACEHOLDER_IMAGE } from '../lib/utils'
 
 const InlineImage = ({ src, alt }) => {
   const [dimensions, setDimensions] = useState({ width: 3, height: 2 })
@@ -12,6 +12,7 @@ const InlineImage = ({ src, alt }) => {
       .then((response) => response.json())
       .then((result) => result[0])
       .then(({ width, height }) => setDimensions({ width, height }))
+      .catch() // TODO: log image errors in Sentry
     return () => abortController.abort()
   }, [])
 
@@ -22,6 +23,7 @@ const InlineImage = ({ src, alt }) => {
       width={dimensions.width}
       height={dimensions.height}
       placeholder="blur"
+      blurDataURL={PLACEHOLDER_IMAGE}
     />
   )
 }

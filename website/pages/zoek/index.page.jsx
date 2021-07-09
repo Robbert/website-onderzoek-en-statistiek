@@ -5,6 +5,7 @@ import {
 import { useQuery, gql } from '@apollo/client'
 import styled from 'styled-components'
 import Link from 'next/link'
+
 import Seo from '../../components/Seo'
 import { contentTypes } from '../../lib/utils'
 

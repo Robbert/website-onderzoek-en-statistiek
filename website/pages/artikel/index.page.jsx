@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Heading, Paragraph } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
-import { fetchAPI, getStrapiMedia } from '../../lib/utils'
+import { fetchAPI, getStrapiMedia, PLACEHOLDER_IMAGE } from '../../lib/utils'
 import * as Styled from './article.style'
 
 const Articles = ({ articles }) => {
@@ -15,13 +15,13 @@ const Articles = ({ articles }) => {
       <Styled.Anchor>
         <Styled.ArticleCard horizontal>
           <Styled.Media maxWidth={144}>
-            { teaserImage && (
-              <Image
-                src={getStrapiMedia(teaserImage)}
-                width={144}
-                height={144}
-              />
-            ) }
+            <Image
+              src={teaserImage ? getStrapiMedia(teaserImage) : PLACEHOLDER_IMAGE}
+              width={144}
+              height={144}
+              placeholder="blur"
+              blurDataURL={PLACEHOLDER_IMAGE}
+            />
           </Styled.Media>
           <Styled.Content>
             <Heading as="h4">{title}</Heading>

@@ -1,35 +1,35 @@
-"use strict";
+'use strict';
 
-const fs = require("fs");
-const mime = require("mime-types");
+const fs = require('fs');
+const mime = require('mime-types');
 const {
   themes,
   homepage,
-  global
-} = require("../../data/data.json");
+  global,
+} = require('../../data/data.json');
 
 async function isFirstRun() {
   const pluginStore = strapi.store({
     environment: strapi.config.environment,
-    type: "type",
-    name: "setup",
+    type: 'type',
+    name: 'setup',
   });
-  const initHasRun = await pluginStore.get({ key: "initHasRun" });
-  await pluginStore.set({ key: "initHasRun", value: true });
+  const initHasRun = await pluginStore.get({ key: 'initHasRun' });
+  await pluginStore.set({ key: 'initHasRun', value: true });
   return !initHasRun;
-};
+}
 
 async function setPublicPermissions(newPermissions) {
   // Find the ID of the public role
   const publicRole = await strapi
-    .query("role", "users-permissions")
-    .findOne({ type: "public" });
+    .query('role', 'users-permissions')
+    .findOne({ type: 'public' });
 
   // List all available permissions
   const publicPermissions = await strapi
-    .query("permission", "users-permissions")
+    .query('permission', 'users-permissions')
     .find({
-      type: ["users-permissions", "application"],
+      type: ['users-permissions', 'application'],
       role: publicRole.id,
     });
 
@@ -46,27 +46,25 @@ async function setPublicPermissions(newPermissions) {
       }
       return true;
     })
-    .map((permission) => {
-      // Enable the selected permissions
-      return strapi
-        .query("permission", "users-permissions")
-        .update({ id: permission.id }, { enabled: true })
-    });
+  // Enable the selected permissions
+    .map((permission) => strapi
+      .query('permission', 'users-permissions')
+      .update({ id: permission.id }, { enabled: true }));
   await Promise.all(updatePromises);
 }
 
 function getFileSizeInBytes(filePath) {
   const stats = fs.statSync(filePath);
-  const fileSizeInBytes = stats["size"];
+  const fileSizeInBytes = stats.size;
   return fileSizeInBytes;
-};
+}
 
 function getFileData(fileName) {
   const filePath = `./data/uploads/${fileName}`;
 
   // Parse the file metadata
   const size = getFileSizeInBytes(filePath);
-  const ext = fileName.split(".").pop();
+  const ext = fileName.split('.').pop();
   const mimeType = mime.lookup(ext);
 
   return {
@@ -74,7 +72,7 @@ function getFileData(fileName) {
     name: fileName,
     size,
     type: mimeType,
-  }
+  };
 }
 
 // Create an entry and attach files if there are any
@@ -92,24 +90,22 @@ async function createEntry({ model, entry, files }) {
 }
 
 async function importThemes() {
-  return Promise.all(themes.map((theme) => {
-    return createEntry({ model: "theme", entry: theme });
-  }));
+  return Promise.all(themes.map((theme) => createEntry({ model: 'theme', entry: theme })));
 }
 
 async function importHomepage() {
   const files = {
-    "seo.shareImage": getFileData("default-image.png"),
+    'seo.shareImage': getFileData('default-image.png'),
   };
-  await createEntry({ model: "homepage", entry: homepage, files });
+  await createEntry({ model: 'homepage', entry: homepage, files });
 }
 
 async function importGlobal() {
   const files = {
-    "favicon": getFileData("favicon.png"),
-    "defaultSeo.shareImage": getFileData("default-image.png"),
+    favicon: getFileData('favicon.png'),
+    'defaultSeo.shareImage': getFileData('default-image.png'),
   };
-  return createEntry({ model: "global", entry: global, files });
+  return createEntry({ model: 'global', entry: global, files });
 }
 
 async function importSeedData() {
@@ -131,22 +127,6 @@ async function importSeedData() {
   await importGlobal();
   await importThemes();
 }
-
-module.exports = async () => {
-  await registerPermissionActions();
-  const shouldImportSeedData = await isFirstRun();
-
-  if (shouldImportSeedData) {
-    try {
-      console.log('Setting up your starter...');
-      await importSeedData();
-      console.log('Ready to go');
-    } catch (error) {
-      console.log('Could not import seed data');
-      console.error(error);
-    }
-  }
-};
 
 const registerPermissionActions = async () => {
   const actions = [
@@ -171,4 +151,20 @@ const registerPermissionActions = async () => {
   ];
 
   await strapi.admin.services.permission.actionProvider.registerMany(actions);
+};
+
+module.exports = async () => {
+  await registerPermissionActions();
+  const shouldImportSeedData = await isFirstRun();
+
+  if (shouldImportSeedData) {
+    try {
+      console.log('Setting up your starter...');
+      await importSeedData();
+      console.log('Ready to go');
+    } catch (error) {
+      console.log('Could not import seed data');
+      console.error(error);
+    }
+  }
 };

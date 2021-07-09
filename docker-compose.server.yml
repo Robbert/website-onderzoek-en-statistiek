@@ -15,6 +15,7 @@ services:
       - os-network
     volumes:
       - nginx_secrets:/etc/letsencrypt
+      - /etc/ssl:/etc/ssl:ro
 
 volumes:
   nginx_secrets:

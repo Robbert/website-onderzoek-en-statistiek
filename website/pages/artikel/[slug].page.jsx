@@ -7,7 +7,7 @@ import { Spinner } from '@amsterdam/asc-ui'
 import Seo from '../../components/Seo'
 import Related from '../../components/Related'
 import InlineImage from '../../components/InlineImage'
-import { fetchAPI, getStrapiMedia } from '../../lib/utils'
+import { fetchAPI, getStrapiMedia, PLACEHOLDER_IMAGE } from '../../lib/utils'
 import * as Styled from './article.style'
 
 const Article = ({
@@ -46,13 +46,16 @@ const Article = ({
   return (
     <>
       <Seo seo={seo} />
+      {coverImage && (
       <Image
         src={getStrapiMedia(coverImage)}
         width="1280"
         height="590"
         layout="responsive"
         placeholder="blur"
+        blurDataURL={PLACEHOLDER_IMAGE}
       />
+      )}
       <Styled.Title>{title}</Styled.Title>
       <Moment locale="nl" format="D MMMM YYYY">{publicationDate}</Moment>
       <Styled.Body>
