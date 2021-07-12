@@ -16,6 +16,7 @@ const Article = ({
   teaserImage,
   coverImage,
   publicationDate,
+  intro,
   body,
   related,
 }) => {
@@ -58,6 +59,10 @@ const Article = ({
       )}
       <Styled.Title>{title}</Styled.Title>
       <Moment locale="nl" format="D MMMM YYYY">{publicationDate}</Moment>
+      <ReactMarkdown
+        source={intro}
+        renderers={{ paragraph: ({ children }) => <Styled.Intro>{children}</Styled.Intro> }}
+      />
       <Styled.Body>
         <ReactMarkdown
           source={body}

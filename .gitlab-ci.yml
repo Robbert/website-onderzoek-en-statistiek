@@ -31,8 +31,7 @@ build server:
       - main
     changes:
       - server/**/*
-      - .gitlab-ci.yml
-      - docker-compose.yml
+      - /*.yml
 
 # build cms for acceptance
 build cms acc:
@@ -46,8 +45,7 @@ build cms acc:
       - develop 
     changes:
       - cms/**/*
-      - .gitlab-ci.yml
-      - docker-compose.yml
+      - /*.yml
 
 # build website for acceptance  
 build website acc:
@@ -65,8 +63,7 @@ build website acc:
       - develop
     changes:
       - website/**/*
-      - .gitlab-ci.yml
-      - docker-compose.yml
+      - /*.yml
 
 # deploy acceptance
 deploy acc:
@@ -110,8 +107,7 @@ build cms prod:
       - main 
     changes:
       - cms/**/*
-      - .gitlab-ci.yml
-      - docker-compose.yml
+      - /*.yml
   
 # Build website for production
 build website prod:
@@ -129,8 +125,7 @@ build website prod:
       - main
     changes:
       - website/**/*
-      - .gitlab-ci.yml
-      - docker-compose.yml
+      - /*.yml
 
 # deploy production
 deploy prod:

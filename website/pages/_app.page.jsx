@@ -6,6 +6,7 @@ import App from 'next/app'
 import Head from 'next/head'
 import { ApolloProvider } from '@apollo/client'
 import { createGlobalStyle } from 'styled-components'
+import 'moment/locale/nl'
 
 import { fetchAPI, apolloClient } from '../lib/utils'
 import Layout from '../components/Layout'

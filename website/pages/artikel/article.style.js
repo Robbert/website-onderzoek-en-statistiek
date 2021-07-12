@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {
-  CustomHTMLBlock, Heading, Card, CardContent, CardMedia, themeColor,
+  CustomHTMLBlock, Heading, Card, CardContent, CardMedia, themeColor, Paragraph,
 } from '@amsterdam/asc-ui'
 
 export const Anchor = styled.a`
@@ -22,6 +22,11 @@ export const Content = styled(CardContent)`
   margin-left: 16px;
   min-height: 144px;
   border-bottom: 1px solid ${themeColor('tint', 'level3')};
+`
+
+export const Intro = styled(Paragraph)`
+  padding: 16px 0 0 0;
+  font-weight: 700;
 `
 
 export const Body = styled(CustomHTMLBlock)`
