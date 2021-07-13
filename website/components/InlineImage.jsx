@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
-import { getStrapiURL, PLACEHOLDER_IMAGE } from '../lib/utils'
+import { prependStrapiURL, PLACEHOLDER_IMAGE } from '../lib/utils'
 
 const InlineImage = ({ src, alt }) => {
   const [dimensions, setDimensions] = useState({ width: 3, height: 2 })
 
   useEffect(() => {
     const abortController = new AbortController()
-    fetch(`${getStrapiURL()}/upload/files?url=${src}`, { signal: abortController.signal })
+    fetch(prependStrapiURL(`/upload/files?url=${src}`), { signal: abortController.signal })
       .then((response) => response.json())
       .then((result) => result[0])
       .then(({ width, height }) => setDimensions({ width, height }))
@@ -18,7 +18,7 @@ const InlineImage = ({ src, alt }) => {
 
   return (
     <Image
-      src={getStrapiURL() + src}
+      src={prependStrapiURL(src)}
       alt={alt}
       width={dimensions.width}
       height={dimensions.height}

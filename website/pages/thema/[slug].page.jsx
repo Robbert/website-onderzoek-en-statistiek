@@ -5,20 +5,15 @@ import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import {
-  fetchAPI, flattenFeatureList, getLatestContent, contentTypes,
+  fetchAPI, flattenFeatureList, getLatestContent, contentTypes, getStrapiMedia,
 } from '../../lib/utils'
 
 const Theme = ({
-  title, teaser, features, intro, ...props
+  title, shortTitle, teaser, features, intro, teaserImage, ...props
 }) => {
   const router = useRouter()
   if (router.isFallback) {
     return <div><Spinner /></div>
-  }
-
-  const seo = {
-    metaTitle: title,
-    metaDescription: teaser,
   }
 
   const featurelist = features.length > 0
@@ -63,18 +58,18 @@ const Theme = ({
 
   return (
     <>
-      <Seo seo={seo} />
-
+      <Seo
+        title={shortTitle || title}
+        description={teaser}
+        image={getStrapiMedia(teaserImage)}
+      />
       <Heading>
         {`Thema: ${title}`}
       </Heading>
       <ReactMarkdown source={intro} escapeHtml={false} />
-
       <Heading forwardedAs="h3">Uitgelicht</Heading>
       <ul>{featurelist}</ul>
-
       {latestContentLists}
-
     </>
   )
 }

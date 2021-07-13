@@ -24,11 +24,6 @@ const Dataset = ({
     return <div><Spinner /></div>
   }
 
-  const seo = {
-    metaTitle: title,
-    metaDescription: description,
-  }
-
   const resourceLinks = resources.map(({ id, title: resourceTitle, file }) => (
     <Styled.Value key={id}>
       <a href={getStrapiMedia(file)}>
@@ -39,7 +34,11 @@ const Dataset = ({
 
   return (
     <>
-      <Seo seo={seo} />
+      <Seo
+        title={`Dataset: ${title}`}
+        description={description}
+        article
+      />
       <Heading>
         {`Dataset ${title}`}
       </Heading>

@@ -2,22 +2,40 @@ import { ApolloClient, InMemoryCache } from '@apollo/client'
 
 export const PLACEHOLDER_IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN89x8AAuEB74Y0o2cAAAAASUVORK5CYII='
 
-export function getStrapiURL(path = '') {
-  return `${
-    process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337'
-  }${path}`
+export function prependStrapiURL(path = '') {
+  let root = 'http://localhost:1337'
+
+  if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'acceptance') {
+    root = 'https://acc.cms.onderzoek-en-statistiek.nl'
+  } else if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'production') {
+    root = 'https://cms.onderzoek-en-statistiek.nl'
+  }
+
+  return `${root}${path}`
+}
+
+export function prependRootURL(path = '') {
+  let root = 'http://localhost:3000'
+
+  if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'acceptance') {
+    root = 'https://acc.onderzoek-en-statistiek.nl'
+  } else if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'production') {
+    root = 'https://onderzoek-en-statistiek.nl'
+  }
+
+  return `${root}${path}`
 }
 
 export function getStrapiMedia(media) {
   if (!media) return null
   const imageUrl = media.url.startsWith('/')
-    ? getStrapiURL(media.url)
+    ? prependStrapiURL(media.url)
     : media.url
   return imageUrl
 }
 
 export async function fetchAPI(path) {
-  const requestUrl = getStrapiURL(path)
+  const requestUrl = prependStrapiURL(path)
   const response = await fetch(requestUrl).catch((err) => err)
   if (response.status === 200) {
     const data = await response.json()
@@ -27,7 +45,7 @@ export async function fetchAPI(path) {
 }
 
 export const apolloClient = new ApolloClient({
-  uri: getStrapiURL('/graphql'),
+  uri: prependStrapiURL('/graphql'),
   cache: new InMemoryCache(),
 })
 

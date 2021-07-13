@@ -56,7 +56,7 @@ const renderers = {
   ,
 }
 
-const Pdf = ({ title, publicationSource, body }) => (
+const PdfDocument = ({ title, publicationSource, body }) => (
   <Document
     title={title}
     author={publicationSource}
@@ -79,4 +79,4 @@ const Pdf = ({ title, publicationSource, body }) => (
   </Document>
 )
 
-export default Pdf
+export default PdfDocument

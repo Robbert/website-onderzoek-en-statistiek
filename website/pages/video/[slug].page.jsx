@@ -54,6 +54,7 @@ const ExternalEmbed = ({ source }) => (
 
 const Video = ({
   title,
+  shortTitle,
   intro,
   teaser,
   videoFile,
@@ -62,20 +63,21 @@ const Video = ({
   externalVideoSource,
   externalEmbedSource,
   related,
+  teaserImage,
 }) => {
   const router = useRouter()
   if (router.isFallback) {
     return <div><Spinner /></div>
   }
 
-  const seo = {
-    metaTitle: title,
-    metaDescription: teaser,
-  }
-
   return (
     <>
-      <Seo seo={seo} />
+      <Seo
+        title={shortTitle || title}
+        description={teaser}
+        image={getStrapiMedia(teaserImage)}
+        video
+      />
       <Heading gutterBottom={40}>
         {`Video ${title}`}
       </Heading>

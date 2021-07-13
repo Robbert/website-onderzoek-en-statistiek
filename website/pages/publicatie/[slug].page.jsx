@@ -8,12 +8,22 @@ import { Spinner } from '@amsterdam/asc-ui'
 import Seo from '../../components/Seo'
 import Related from '../../components/Related'
 import InlineImage from '../../components/InlineImage'
-import PDF from '../../components/Pdf'
+import PdfDocument from '../../components/PdfDocument'
 import { fetchAPI, getStrapiMedia } from '../../lib/utils'
 import * as Styled from './publication.style'
 
 const Publication = ({
-  slug, title, description, intro, body, publicationDate, publicationSource, file, related,
+  slug,
+  title,
+  shortTitle,
+  description,
+  intro,
+  body,
+  publicationDate,
+  publicationSource,
+  file,
+  related,
+  teaserImage,
 }) => {
   const [isClient, setIsClient] = useState(false)
   useEffect(() => {
@@ -23,11 +33,6 @@ const Publication = ({
   const router = useRouter()
   if (router.isFallback) {
     return <div><Spinner /></div>
-  }
-
-  const seo = {
-    metaTitle: title,
-    metaDescription: description,
   }
 
   const renderers = {
@@ -48,7 +53,12 @@ const Publication = ({
 
   return (
     <>
-      <Seo seo={seo} />
+      <Seo
+        title={shortTitle || title}
+        description={description}
+        image={getStrapiMedia(teaserImage)}
+        article
+      />
       <Styled.Title>{title}</Styled.Title>
       <Moment locale="nl" format="D MMMM YYYY">{publicationDate}</Moment>
       <ReactMarkdown
@@ -58,7 +68,7 @@ const Publication = ({
 
       <p><a href={downloadUrl} download={file.name}>Download opgemaakte publicatie</a></p>
       { isClient && body && (
-      <PDFDownloadLink document={<PDF {...pdfContent} />} fileName={`toegankelijke-samenvatting-${slug}.pdf`}>
+      <PDFDownloadLink document={<PdfDocument {...pdfContent} />} fileName={`toegankelijke-samenvatting-${slug}.pdf`}>
         {({ loading }) => (loading ? <Spinner /> : 'Download toegankelijke samenvatting')}
       </PDFDownloadLink>
       )}

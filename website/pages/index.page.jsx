@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Heading } from '@amsterdam/asc-ui'
 
 import Seo from '../components/Seo'
-import { fetchAPI, flattenFeatureList } from '../lib/utils'
+import { fetchAPI, flattenFeatureList, getStrapiMedia } from '../lib/utils'
 
 const Home = ({ themes, homepage }) => {
   const featurelist = flattenFeatureList(homepage.features).map((item) => (
@@ -27,9 +27,15 @@ const Home = ({ themes, homepage }) => {
     </li>
   ))
 
+  const { metaTitle, metaDescription, shareImage } = homepage.seo
+
   return (
     <>
-      <Seo seo={homepage.seo} />
+      <Seo
+        title={metaTitle}
+        description={metaDescription}
+        image={getStrapiMedia(shareImage)}
+      />
       <Heading forwardedAs="h2">Voorpagina</Heading>
       <Heading forwardedAs="h3">Uitgelicht</Heading>
       <ul>{featurelist}</ul>

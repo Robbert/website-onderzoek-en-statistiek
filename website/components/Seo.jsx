@@ -1,47 +1,42 @@
 import Head from 'next/head'
-import { useContext } from 'react'
 
-import { GlobalContext } from '../pages/_app.page'
-import { getStrapiMedia } from '../lib/utils'
+import { prependRootURL } from '../lib/utils'
 
-const Seo = ({ seo }) => {
-  const { defaultSeo, siteName } = useContext(GlobalContext)
-  const seoWithDefaults = {
-    ...defaultSeo,
-    ...seo,
-  }
-  const fullSeo = {
-    ...seoWithDefaults,
-    // Add title suffix
-    metaTitle: `${seoWithDefaults.metaTitle} | ${siteName}`,
-    // Get full image URL
-    shareImage: getStrapiMedia(seoWithDefaults.shareImage),
-  }
+const Seo = ({
+  title = 'Onderzoek en Statistiek',
+  description = 'Website Onderzoek en Statistiek',
+  image,
+  article,
+  video,
+}) => {
+  const imagePath = image || prependRootURL('/default_image.png')
+  const fullTitle = `${title} | Website Onderzoek en Statistiek`
 
   return (
     <Head>
-      {fullSeo.metaTitle && (
+      {title && (
         <>
-          <title>{fullSeo.metaTitle}</title>
-          <meta property="og:title" content={fullSeo.metaTitle} />
-          <meta name="twitter:title" content={fullSeo.metaTitle} />
+          <title>{fullTitle}</title>
+          <meta property="og:title" content={fullTitle} />
+          <meta name="twitter:title" content={fullTitle} />
         </>
       )}
-      {fullSeo.metaDescription && (
+      {description && (
         <>
-          <meta name="description" content={fullSeo.metaDescription} />
-          <meta property="og:description" content={fullSeo.metaDescription} />
-          <meta name="twitter:description" content={fullSeo.metaDescription} />
+          <meta name="description" content={description} />
+          <meta property="og:description" content={description} />
+          <meta name="twitter:description" content={description} />
         </>
       )}
-      {fullSeo.shareImage && (
+      {imagePath && (
         <>
-          <meta property="og:image" content={fullSeo.shareImage} />
-          <meta name="twitter:image" content={fullSeo.shareImage} />
-          <meta name="image" content={fullSeo.shareImage} />
+          <meta property="og:image" content={imagePath} />
+          <meta name="twitter:image" content={imagePath} />
+          <meta name="image" content={imagePath} />
         </>
       )}
-      {fullSeo.article && <meta property="og:type" content="article" />}
+      {article && <meta property="og:type" content="article" />}
+      {video && <meta property="og:type" content="video" />}
       <meta name="twitter:card" content="summary_large_image" />
     </Head>
   )

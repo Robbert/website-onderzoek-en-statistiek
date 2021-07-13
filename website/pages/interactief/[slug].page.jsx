@@ -2,20 +2,16 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Spinner } from '@amsterdam/asc-ui'
 
-import { fetchAPI } from '../../lib/utils'
+import { fetchAPI, getStrapiMedia } from '../../lib/utils'
 import Seo from '../../components/Seo'
 
-const Interactive = ({ interactive, assets }) => {
+const Interactive = ({
+  title, shortTitle, teaser, contentLink, teaserImage, assets,
+}) => {
   const router = useRouter()
 
   if (router.isFallback) {
     return <div><Spinner /></div>
-  }
-
-  const seo = {
-    metaTitle: interactive.title,
-    metaDescription: interactive.teaser,
-    article: true,
   }
 
   useEffect(() => {
@@ -24,10 +20,10 @@ const Interactive = ({ interactive, assets }) => {
       if (asset.endsWith('css')) {
         element = document.createElement('link')
         element.rel = 'stylesheet'
-        element.href = `${interactive.contentLink}/${asset}`
+        element.href = `${contentLink}/${asset}`
       } else if (asset.endsWith('js')) {
         element = document.createElement('script')
-        element.src = `${interactive.contentLink}/${asset}`
+        element.src = `${contentLink}/${asset}`
         element.async = true
       }
       document.head.appendChild(element)
@@ -45,8 +41,13 @@ const Interactive = ({ interactive, assets }) => {
 
   return (
     <>
-      <Seo seo={seo} />
-      <h1>{interactive.title}</h1>
+      <Seo
+        title={shortTitle || title}
+        description={teaser}
+        image={getStrapiMedia(teaserImage)}
+        article
+      />
+      <h1>{title}</h1>
       <div id="micro-frontend" />
     </>
   )
@@ -86,7 +87,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      interactive: interactives[0],
+      ...interactives[0],
       assets: assets?.entrypoints ? assets.entrypoints : [],
     },
     revalidate: 1,

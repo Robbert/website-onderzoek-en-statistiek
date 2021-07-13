@@ -5,7 +5,6 @@ const mime = require('mime-types');
 const {
   themes,
   homepage,
-  global,
 } = require('../../data/data.json');
 
 async function isFirstRun() {
@@ -100,18 +99,9 @@ async function importHomepage() {
   await createEntry({ model: 'homepage', entry: homepage, files });
 }
 
-async function importGlobal() {
-  const files = {
-    favicon: getFileData('favicon.png'),
-    'defaultSeo.shareImage': getFileData('default-image.png'),
-  };
-  return createEntry({ model: 'global', entry: global, files });
-}
-
 async function importSeedData() {
   // Allow read of application content types
   await setPublicPermissions({
-    global: ['find'],
     homepage: ['find'],
     article: ['find', 'findone'],
     publication: ['find', 'findone'],
@@ -124,7 +114,6 @@ async function importSeedData() {
 
   // Create basic entries
   await importHomepage();
-  await importGlobal();
   await importThemes();
 }
 

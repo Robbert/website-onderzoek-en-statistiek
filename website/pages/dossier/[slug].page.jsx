@@ -4,21 +4,18 @@ import ReactMarkdown from 'react-markdown'
 import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
-import { fetchAPI, flattenFeatureList } from '../../lib/utils'
+import { fetchAPI, flattenFeatureList, getStrapiMedia } from '../../lib/utils'
 
-const Collection = ({ collection }) => {
+const Collection = ({
+  title, shortTitle, teaser, intro, features, teaserImage,
+}) => {
   const router = useRouter()
 
   if (router.isFallback) {
     return <div><Spinner /></div>
   }
 
-  const seo = {
-    metaTitle: collection.title,
-    metaDescription: collection.teaser,
-  }
-
-  const featurelist = flattenFeatureList(collection.features).map((item) => (
+  const featurelist = flattenFeatureList(features).map((item) => (
     <li key={`feature-${item.slug}`}>
       <Link key={item.slug} href={item.path}>
         <a>
@@ -33,13 +30,15 @@ const Collection = ({ collection }) => {
 
   return (
     <>
-      <Seo seo={seo} />
+      <Seo
+        title={`Dossier: ${shortTitle || title}`}
+        description={teaser}
+        image={getStrapiMedia(teaserImage)}
+      />
       <Heading>
-        Dossier
-        {' '}
-        {collection.title}
+        {`Dossier ${title}`}
       </Heading>
-      <ReactMarkdown source={collection.intro} escapeHtml={false} />
+      <ReactMarkdown source={intro} escapeHtml={false} />
       <Heading forwardedAs="h3">Uitgelicht</Heading>
       <ul>{featurelist}</ul>
     </>
@@ -65,7 +64,7 @@ export async function getStaticProps({ params }) {
   )
 
   return {
-    props: { collection: collections[0] },
+    props: { ...collections[0] },
     revalidate: 1,
   }
 }

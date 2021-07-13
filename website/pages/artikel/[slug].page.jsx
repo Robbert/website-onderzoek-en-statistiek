@@ -12,6 +12,7 @@ import * as Styled from './article.style'
 
 const Article = ({
   title,
+  shortTitle,
   teaser,
   teaserImage,
   coverImage,
@@ -24,13 +25,6 @@ const Article = ({
 
   if (router.isFallback) {
     return <div><Spinner /></div>
-  }
-
-  const seo = {
-    metaTitle: title,
-    metaDescription: teaser,
-    shareImage: teaserImage,
-    article: true,
   }
 
   const renderers = {
@@ -46,7 +40,12 @@ const Article = ({
 
   return (
     <>
-      <Seo seo={seo} />
+      <Seo
+        title={shortTitle || title}
+        description={teaser}
+        image={getStrapiMedia(teaserImage)}
+        article
+      />
       {coverImage && (
       <Image
         src={getStrapiMedia(coverImage)}

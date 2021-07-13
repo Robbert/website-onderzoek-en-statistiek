@@ -58,14 +58,5 @@
     "hero": {
       "title": "Onderzoek en statistiek"
     }
-  },
-  "global": {
-    "siteName":"Website Onderzoek en statistiek",
-    "defaultSeo":{
-      "metaTitle":"Onderzoek en statistiek",
-      "metaDescription":"Website Onderzoek en statistiek",
-      "shareImage":null
-    },
-    "favicon":null
   }
 }
