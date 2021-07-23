@@ -11,18 +11,7 @@
     "draftAndPublish": false
   },
   "attributes": {
-    "seo": {
-      "type": "component",
-      "repeatable": false,
-      "component": "shared.seo"
-    },
-    "hero": {
-      "type": "component",
-      "repeatable": false,
-      "component": "sections.hero",
-      "required": true
-    },
-    "features": {
+    "firstFeatures": {
       "type": "dynamiczone",
       "components": [
         "shared.articles",
@@ -30,6 +19,33 @@
         "shared.videos",
         "shared.collections"
       ]
+    },
+    "secondFeatures": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.collections"
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "heroImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "collections": {
+      "collection": "collection"
     }
   }
 }

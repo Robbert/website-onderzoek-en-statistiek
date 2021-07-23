@@ -7,15 +7,12 @@ import {
   List,
   ListItem,
   Link,
-  Row,
   Column,
   Paragraph,
 } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
-const StyledRow = styled(Row)`
-  max-width: 960px;
-`
+import ContentContainer from './ContentContainer'
 
 const FooterBottomContainer = styled.div`
   max-width: 960px;
@@ -26,7 +23,7 @@ const Footer = () => (
   <CompactThemeProvider>
     <FooterComponent>
       <FooterTop>
-        <StyledRow halign="flex-start">
+        <ContentContainer halign="flex-start">
           <Column
             wrap
             span={{
@@ -76,7 +73,7 @@ const Footer = () => (
               </List>
             </FooterSection>
           </Column>
-        </StyledRow>
+        </ContentContainer>
       </FooterTop>
       <FooterBottomContainer>
         <FooterBottom>

@@ -7,6 +7,7 @@ import { Spinner } from '@amsterdam/asc-ui'
 import Seo from '../../components/Seo'
 import Related from '../../components/Related'
 import InlineImage from '../../components/InlineImage'
+import ContentContainer from '../../components/ContentContainer'
 import { fetchAPI, getStrapiMedia, PLACEHOLDER_IMAGE } from '../../lib/utils'
 import * as Styled from './article.style'
 
@@ -39,7 +40,7 @@ const Article = ({
   }
 
   return (
-    <>
+    <ContentContainer>
       <Seo
         title={shortTitle || title}
         description={teaser}
@@ -70,7 +71,7 @@ const Article = ({
         />
         <Related data={related} />
       </Styled.Body>
-    </>
+    </ContentContainer>
   )
 }
 

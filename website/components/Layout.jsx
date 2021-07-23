@@ -10,12 +10,8 @@ const StyledContainer = styled(Container)`
 
 const Main = styled.main`
   width: 100%;
-  max-width: 960px;
-  margin: 0 auto;
-  padding-left: 44px;
-  padding-right: 44px;
   padding-top: 56px;
-  padding-bottom: 72px;
+  padding-bottom: 40px;
 `
 
 const Layout = ({ children }) => (

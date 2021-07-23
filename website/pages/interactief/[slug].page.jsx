@@ -1,9 +1,15 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Spinner } from '@amsterdam/asc-ui'
+import styled from 'styled-components'
 
 import { fetchAPI, getStrapiMedia } from '../../lib/utils'
 import Seo from '../../components/Seo'
+import ContentContainer from '../../components/ContentContainer'
+
+const Container = styled.div`
+  width: 100%;
+`
 
 const Interactive = ({
   title, shortTitle, teaser, contentLink, teaserImage, assets,
@@ -40,7 +46,7 @@ const Interactive = ({
   }, [])
 
   return (
-    <>
+    <ContentContainer>
       <Seo
         title={shortTitle || title}
         description={teaser}
@@ -48,8 +54,8 @@ const Interactive = ({
         article
       />
       <h1>{title}</h1>
-      <div id="micro-frontend" />
-    </>
+      <Container id="micro-frontend" />
+    </ContentContainer>
   )
 }
 

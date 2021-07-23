@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
+import ContentContainer from '../../components/ContentContainer'
 import {
   fetchAPI, flattenFeatureList, getLatestContent, contentTypes, getStrapiMedia,
 } from '../../lib/utils'
@@ -57,7 +58,7 @@ const Theme = ({
   })
 
   return (
-    <>
+    <ContentContainer>
       <Seo
         title={shortTitle || title}
         description={teaser}
@@ -70,7 +71,7 @@ const Theme = ({
       <Heading forwardedAs="h3">Uitgelicht</Heading>
       <ul>{featurelist}</ul>
       {latestContentLists}
-    </>
+    </ContentContainer>
   )
 }
 

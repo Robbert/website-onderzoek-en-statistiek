@@ -5,6 +5,7 @@ import {
 } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
+import ContentContainer from '../../components/ContentContainer'
 import { fetchAPI } from '../../lib/utils'
 
 const Interactives = ({ interactives }) => {
@@ -23,11 +24,11 @@ const Interactives = ({ interactives }) => {
   ))
 
   return (
-    <>
+    <ContentContainer>
       <Seo />
       <Heading forwardedAs="h2">Interactief</Heading>
       {cards}
-    </>
+    </ContentContainer>
   )
 }
 

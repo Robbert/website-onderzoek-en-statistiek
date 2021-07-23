@@ -4,6 +4,7 @@ import Moment from 'react-moment'
 import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
+import ContentContainer from '../../components/ContentContainer'
 import { fetchAPI, getStrapiMedia } from '../../lib/utils'
 import * as Styled from './dataset.style'
 
@@ -33,7 +34,7 @@ const Dataset = ({
   ))
 
   return (
-    <>
+    <ContentContainer>
       <Seo
         title={`Dataset: ${title}`}
         description={description}
@@ -75,7 +76,7 @@ const Dataset = ({
           {resourceLinks}
         </Styled.Row>
       </Styled.MetaData>
-    </>
+    </ContentContainer>
   )
 }
 

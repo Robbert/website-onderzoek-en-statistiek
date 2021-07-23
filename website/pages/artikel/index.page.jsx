@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Heading, Paragraph } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
+import ContentContainer from '../../components/ContentContainer'
 import { fetchAPI, getStrapiMedia, PLACEHOLDER_IMAGE } from '../../lib/utils'
 import * as Styled from './article.style'
 
@@ -33,11 +34,11 @@ const Articles = ({ articles }) => {
   ))
 
   return (
-    <>
+    <ContentContainer>
       <Seo />
       <Heading forwardedAs="h2">Artikelen</Heading>
       {cards}
-    </>
+    </ContentContainer>
   )
 }
 

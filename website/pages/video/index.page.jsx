@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Heading } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
+import ContentContainer from '../../components/ContentContainer'
 import { fetchAPI } from '../../lib/utils'
 
 const Videos = ({ videos }) => {
@@ -15,11 +16,11 @@ const Videos = ({ videos }) => {
   ))
 
   return (
-    <>
+    <ContentContainer>
       <Seo />
       <Heading forwardedAs="h2">Video</Heading>
       {items}
-    </>
+    </ContentContainer>
   )
 }
 

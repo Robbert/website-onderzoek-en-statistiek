@@ -3,19 +3,20 @@ import Link from 'next/link'
 import { Heading } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
+import ContentContainer from '../../components/ContentContainer'
 import { fetchAPI } from '../../lib/utils'
 
 const Collections = ({ collections }) => {
   const items = collections.map((item) => <li key={item.slug}><Link href={`/dossier/${item.slug}`}>{item.title}</Link></li>)
 
   return (
-    <>
+    <ContentContainer>
       <Seo />
       <Heading forwardedAs="h2">Dossiers</Heading>
       <ul>
         {items}
       </ul>
-    </>
+    </ContentContainer>
   )
 }
 

@@ -1,32 +1,18 @@
 import React from 'react'
-import Link from 'next/link'
-import { Heading } from '@amsterdam/asc-ui'
+import { gql } from '@apollo/client'
 
+import {
+  apolloClient,
+  fetchAPI,
+  getStrapiMedia,
+} from '../lib/utils'
 import Seo from '../components/Seo'
-import { fetchAPI, flattenFeatureList, getStrapiMedia } from '../lib/utils'
+import HeroSection from '../components/HomePage/HeroSection'
+import FeatureSection from '../components/HomePage/FeatureSection'
+import ThemeSection from '../components/HomePage/ThemeSection'
+import CollectionSection from '../components/HomePage/CollectionSection'
 
 const Home = ({ themes, homepage }) => {
-  const featurelist = flattenFeatureList(homepage.features).map((item) => (
-    <li key={`feature-${item.slug}`}>
-      <Link key={item.slug} href={item.path}>
-        <a>
-          {item.name}
-          :
-          {' '}
-          {item.title}
-        </a>
-      </Link>
-    </li>
-  ))
-
-  const themelist = themes.map((item) => (
-    <li key={`theme-${item.slug}`}>
-      <Link href={`/thema/${item.slug}`}>
-        <a>{item.title}</a>
-      </Link>
-    </li>
-  ))
-
   const { metaTitle, metaDescription, shareImage } = homepage.seo
 
   return (
@@ -36,23 +22,43 @@ const Home = ({ themes, homepage }) => {
         description={metaDescription}
         image={getStrapiMedia(shareImage)}
       />
-      <Heading forwardedAs="h2">Voorpagina</Heading>
-      <Heading forwardedAs="h3">Uitgelicht</Heading>
-      <ul>{featurelist}</ul>
-      <Heading forwardedAs="h3">Thema‘s</Heading>
-      <ul>{themelist}</ul>
+      <HeroSection
+        image={homepage.heroImage}
+        features={homepage.firstFeatures}
+      />
+      <FeatureSection
+        features={homepage.secondFeatures}
+      />
+      <ThemeSection
+        themes={themes}
+      />
+      <CollectionSection
+        collections={homepage.collections}
+      />
     </>
   )
 }
 
 export async function getStaticProps() {
-  const [themes, homepage] = await Promise.all([
-    fetchAPI('/themes'),
-    fetchAPI('/homepage'),
-  ])
+  const query = gql`
+    query getThemes {
+      themes {
+        title,
+        slug,
+        teaserImage {
+          url
+        }
+      }
+    }
+  `
+
+  const { data } = await apolloClient.query({ query })
+    .catch((error) => error)
+
+  const homepage = await fetchAPI('/homepage')
 
   return {
-    props: { themes, homepage },
+    props: { homepage, themes: data.themes },
     revalidate: 1,
   }
 }

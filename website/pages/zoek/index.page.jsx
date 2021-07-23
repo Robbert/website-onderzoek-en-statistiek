@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import Link from 'next/link'
 
 import Seo from '../../components/Seo'
+import ContentContainer from '../../components/ContentContainer'
 import { contentTypes } from '../../lib/utils'
 
 const commonFilters = `
@@ -181,11 +182,11 @@ const Search = () => {
   const [searchQuery, setSearchQuery] = useState('')
 
   return (
-    <>
+    <ContentContainer>
       <Seo />
       <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
       <Results searchQuery={searchQuery} />
-    </>
+    </ContentContainer>
   )
 }
 

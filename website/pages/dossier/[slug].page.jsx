@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
+import ContentContainer from '../../components/ContentContainer'
 import { fetchAPI, flattenFeatureList, getStrapiMedia } from '../../lib/utils'
 
 const Collection = ({
@@ -29,7 +30,7 @@ const Collection = ({
   ))
 
   return (
-    <>
+    <ContentContainer>
       <Seo
         title={`Dossier: ${shortTitle || title}`}
         description={teaser}
@@ -41,7 +42,7 @@ const Collection = ({
       <ReactMarkdown source={intro} escapeHtml={false} />
       <Heading forwardedAs="h3">Uitgelicht</Heading>
       <ul>{featurelist}</ul>
-    </>
+    </ContentContainer>
   )
 }
 

@@ -6,6 +6,7 @@ import { PDFDownloadLink } from '@react-pdf/renderer'
 import { Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
+import ContentContainer from '../../components/ContentContainer'
 import Related from '../../components/Related'
 import InlineImage from '../../components/InlineImage'
 import PdfDocument from '../../components/PdfDocument'
@@ -52,7 +53,7 @@ const Publication = ({
   }
 
   return (
-    <>
+    <ContentContainer>
       <Seo
         title={shortTitle || title}
         description={description}
@@ -83,7 +84,7 @@ const Publication = ({
         )}
         { related.length > 0 && <Related data={related} /> }
       </Styled.Main>
-    </>
+    </ContentContainer>
   )
 }
 

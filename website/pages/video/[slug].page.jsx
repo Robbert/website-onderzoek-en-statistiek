@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
+import ContentContainer from '../../components/ContentContainer'
 import Related from '../../components/Related'
 import { fetchAPI, getStrapiMedia } from '../../lib/utils'
 import * as Styled from './video.style'
@@ -71,7 +72,7 @@ const Video = ({
   }
 
   return (
-    <>
+    <ContentContainer>
       <Seo
         title={shortTitle || title}
         description={teaser}
@@ -93,7 +94,7 @@ const Video = ({
       {externalVideoSource && <ExternalVideo source={externalVideoSource} />}
       {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
       <Related data={related} />
-    </>
+    </ContentContainer>
   )
 }
 
