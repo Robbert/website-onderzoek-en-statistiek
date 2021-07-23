@@ -23,7 +23,7 @@ const ThemeSection = ({ themes }) => (
       <Heading gutterBottom={24}>Thema‘s</Heading>
     </Column>
     {themes
-      .slice() // strict mode freezes arrays, so we need to make a copy being able to sort
+      .slice() // strict mode freezes arrays, so we need to make a copy to be able to sort
       .sort((a, b) => a.title.localeCompare(b.title))
       .map(({ title, slug, teaserImage }) => (
         <StyledColumn

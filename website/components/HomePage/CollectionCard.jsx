@@ -58,8 +58,6 @@ const ImageWrapper = styled.div`
 `
 
 const CollectionCard = ({
-  loading = false,
-  showError = false,
   title = '',
   teaser = '',
   href,
@@ -67,7 +65,7 @@ const CollectionCard = ({
 }) => (
   <NextLink href={href} passHref>
     <Link>
-      <StyledCard horizontal animateLoading={!showError} isLoading={loading} showError={showError}>
+      <StyledCard horizontal>
         <StyledCardContent>
           <StyledHeading forwardedAs="h3">{title}</StyledHeading>
           <Paragraph>{teaser}</Paragraph>

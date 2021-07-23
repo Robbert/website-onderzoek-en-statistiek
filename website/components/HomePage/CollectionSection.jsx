@@ -39,7 +39,7 @@ const CollectionSection = ({ collections }) => (
     >
       <Heading gutterBottom={24}>Dossiers</Heading>
     </Column>
-    {collections.map(({
+    {collections?.map(({
       title, teaser, slug, teaserImage,
     }) => (
       <CardContainer

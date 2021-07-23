@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { Spinner } from '@amsterdam/asc-ui'
+import { Spinner, Heading } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
 import { fetchAPI, getStrapiMedia } from '../../lib/utils'
@@ -53,7 +53,7 @@ const Interactive = ({
         image={getStrapiMedia(teaserImage)}
         article
       />
-      <h1>{title}</h1>
+      <Heading>{title}</Heading>
       <Container id="micro-frontend" />
     </ContentContainer>
   )
