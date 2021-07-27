@@ -49,12 +49,6 @@ export const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
 })
 
-export function getLatestContent(list, number) {
-  return list
-    .sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate))
-    .slice(0, number)
-}
-
 export const contentTypes = {
   article: {
     type: 'article',

@@ -50,6 +50,7 @@ const Article = ({
       {coverImage && (
       <Image
         src={getStrapiMedia(coverImage)}
+        alt=""
         width="1280"
         height="590"
         layout="responsive"

@@ -5,30 +5,33 @@ import {
   Card,
   CardContent,
   Heading,
-  Paragraph,
   themeColor,
-  themeSpacing,
 } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
 import { getStrapiMedia, PLACEHOLDER_IMAGE } from '../../lib/utils'
 
-const StyledHeading = styled(Heading)`
-  margin-bottom: ${themeSpacing(2)};
+const Title = styled(Heading)`
+  margin-bottom: 8px;
   width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
 `
 
 const Link = styled.a`
   text-decoration: none;
   color: ${themeColor('tint', 'level7')};
-  border-bottom: ${themeColor('tint', 'level3')} 1px solid;
   width: 100%;
-  min-height: 66px;
+  min-height: 120px;
+  padding-left: 12px;
+  padding-right: 12px;
+  background-color: white;
+  margin-bottom: 24px;
 
   &:hover {
-    border-bottom: ${themeColor('secondary')} 1px solid;
-
-    ${StyledHeading} {
+    ${Title} {
       color: ${themeColor('secondary')};
       text-decoration: underline;
     }
@@ -38,18 +41,18 @@ const Link = styled.a`
 const StyledCard = styled(Card)`
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  padding: ${themeSpacing(2)} 0;
-  margin: ${themeSpacing(6)} 0;
+  align-items: center;
+  margin: 16px 0;
   pointer-events: none; /* FF 60 fix */
 
   @media screen and ${breakpoint('min-width', 'tabletM')} {
-    margin: ${themeSpacing(6, 2)};
+    margin: 16px 8px;
   }
 `
 const StyledCardContent = styled(CardContent)`
   padding: 0;
-  margin-right: ${themeSpacing(4)};
+  margin-right: 16px;
+  min-height: 88px; // TODO: the default ASC min height of this component is 90px, which doesnt adhere to the 4px grid. Fix this in ASC
 `
 
 const ImageWrapper = styled.div`
@@ -57,9 +60,8 @@ const ImageWrapper = styled.div`
   max-width: 80px;
 `
 
-const CollectionCard = ({
+const LatestCard = ({
   title = '',
-  teaser = '',
   href,
   teaserImage,
 }) => (
@@ -67,8 +69,7 @@ const CollectionCard = ({
     <Link>
       <StyledCard horizontal>
         <StyledCardContent>
-          <StyledHeading forwardedAs="h3">{title}</StyledHeading>
-          <Paragraph>{teaser}</Paragraph>
+          <Title as="h4">{title}</Title>
         </StyledCardContent>
         <ImageWrapper>
           <Image
@@ -91,4 +92,4 @@ const CollectionCard = ({
   </NextLink>
 )
 
-export default CollectionCard
+export default LatestCard

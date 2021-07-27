@@ -49,10 +49,11 @@ const HeroSection = ({ image, features }) => (
   <Container>
     <Image
       src={
-      image
-        ? getStrapiMedia(image)
-        : PLACEHOLDER_IMAGE
-    }
+        image
+          ? getStrapiMedia(image)
+          : PLACEHOLDER_IMAGE
+      }
+      alt=""
       layout="fill"
       placeholder="blur"
       objectFit="cover"

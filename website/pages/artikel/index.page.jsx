@@ -18,6 +18,7 @@ const Articles = ({ articles }) => {
           <Styled.Media maxWidth={144}>
             <Image
               src={teaserImage ? getStrapiMedia(teaserImage) : PLACEHOLDER_IMAGE}
+              alt=""
               width={144}
               height={144}
               placeholder="blur"

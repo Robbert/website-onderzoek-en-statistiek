@@ -44,6 +44,7 @@ const ThemeCard = ({ href, title, teaserImage }) => (
                 ? getStrapiMedia(teaserImage)
                 : PLACEHOLDER_IMAGE
             }
+            alt=""
             width="100"
             height="100"
             layout="responsive"
