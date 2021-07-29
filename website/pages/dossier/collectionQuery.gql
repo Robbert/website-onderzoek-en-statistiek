@@ -1,0 +1,74 @@
+query getCollectionData($slug: String) {
+  collections(where: { slug: $slug }) {
+    title
+    shortTitle
+    teaser
+    intro
+    coverImage {
+      url
+    }
+    teaserImage {
+      url
+    }
+    features {
+      ... on ComponentSharedArticles {
+        articles {
+          title
+          shortTitle
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          shortTitle
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          shortTitle
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+    }
+    lists {
+      id
+      title
+      articles {
+        title
+        shortTitle
+        teaserImage {
+          url
+        }
+        slug
+      }
+      publications {
+        title
+        shortTitle
+        teaserImage {
+          url
+        }
+        slug
+      }
+      videos {
+        title
+        shortTitle
+        teaserImage {
+          url
+        }
+        slug
+      }
+    }
+  }
+}

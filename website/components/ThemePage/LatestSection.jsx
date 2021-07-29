@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import NextLink from 'next/link'
 import {
-  themeColor, Heading, Link, CompactThemeProvider, breakpoint,
+  themeColor, Heading, Link, CompactThemeProvider, breakpoint, List, ListItem,
 } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
@@ -69,19 +69,30 @@ const AscLink = forwardRef(({ children, ...otherProps }, ref) => (
   </span>
 ))
 
+const StyledList = styled(List)`
+  margin: 0;
+`
+
+const StyledListItem = styled(ListItem)`
+  margin-bottom: 0;
+`
+
 const ContentList = ({ type, features }) => (
   <ListContainer>
     <StyledHeading gutterBottom={24}>{contentTypes[type].plural}</StyledHeading>
-    {features.map(({
-      title, shortTitle, slug, teaserImage,
-    }) => (
-      <LatestCard
-        key={title}
-        href={`/${contentTypes[type].name}/${slug}`}
-        title={shortTitle || title}
-        teaserImage={teaserImage}
-      />
-    ))}
+    <StyledList>
+      {features.map(({
+        title, shortTitle, slug, teaserImage,
+      }) => (
+        <StyledListItem key={title}>
+          <LatestCard
+            href={`/${contentTypes[type].name}/${slug}`}
+            title={shortTitle || title}
+            teaserImage={teaserImage}
+          />
+        </StyledListItem>
+      ))}
+    </StyledList>
     <NextLink href="/zoek" passHref>
       <AscLink inList>{`Meer ${contentTypes[type].plural}`}</AscLink>
     </NextLink>

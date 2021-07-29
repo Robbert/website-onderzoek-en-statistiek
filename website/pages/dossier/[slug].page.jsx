@@ -1,14 +1,15 @@
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import ReactMarkdown from 'react-markdown'
-import { Heading, Spinner } from '@amsterdam/asc-ui'
+import { Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
-import ContentContainer from '../../components/ContentContainer'
-import { fetchAPI, flattenFeatureList, getStrapiMedia } from '../../lib/utils'
+import { apolloClient, fetchAPI, getStrapiMedia } from '../../lib/utils'
+import HeroSection from '../../components/CollectionPage/HeroSection'
+import FeatureSection from '../../components/CollectionPage/FeatureSection'
+import ListSection from '../../components/CollectionPage/ListSection'
+import QUERY from './collectionQuery.gql'
 
 const Collection = ({
-  title, shortTitle, teaser, intro, features, teaserImage,
+  title, shortTitle, teaser, teaserImage, intro, lists, features,
 }) => {
   const router = useRouter()
 
@@ -16,33 +17,17 @@ const Collection = ({
     return <div><Spinner /></div>
   }
 
-  const featurelist = flattenFeatureList(features).map((item) => (
-    <li key={`feature-${item.slug}`}>
-      <Link key={item.slug} href={item.path}>
-        <a>
-          {item.name}
-          :
-          {' '}
-          {item.title}
-        </a>
-      </Link>
-    </li>
-  ))
-
   return (
-    <ContentContainer>
+    <>
       <Seo
         title={`Dossier: ${shortTitle || title}`}
         description={teaser}
         image={getStrapiMedia(teaserImage)}
       />
-      <Heading>
-        {`Dossier ${title}`}
-      </Heading>
-      <ReactMarkdown source={intro} escapeHtml={false} />
-      <Heading forwardedAs="h3">Uitgelicht</Heading>
-      <ul>{featurelist}</ul>
-    </ContentContainer>
+      <HeroSection title={`Dossier ${title}`} intro={intro} />
+      <FeatureSection features={features} />
+      <ListSection lists={lists} />
+    </>
   )
 }
 
@@ -60,12 +45,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const collections = await fetchAPI(
-    `/collections?slug=${params.slug}`,
+  const { data } = await apolloClient.query(
+    {
+      query: QUERY,
+      variables: { slug: params.slug },
+    },
   )
+    .catch() // TODO: log this error in sentry
 
   return {
-    props: { ...collections[0] },
+    props: data.collections[0],
     revalidate: 1,
   }
 }

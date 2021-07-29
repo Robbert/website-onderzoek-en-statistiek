@@ -29,6 +29,11 @@ const HighlightBlock = styled.section`
 const Title = styled(Heading)`
   color: white;
 `
+/**
+ * TODO: this component is exactly the same as the HeroSection in the ThemePage folder.
+ * I've kept these as seperate components because these will probably change in the next design
+ * iterations. If they don't, we should merge these two components.
+ */
 
 const HeroSection = ({ title, image, intro }) => (
   <Container>

@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import { Spinner } from '@amsterdam/asc-ui'
-import { gql } from '@apollo/client'
 
 import Seo from '../../components/Seo'
 import HeroSection from '../../components/ThemePage/HeroSection'
@@ -8,6 +7,7 @@ import LatestSection from '../../components/ThemePage/LatestSection'
 import {
   fetchAPI, getStrapiMedia, apolloClient,
 } from '../../lib/utils'
+import QUERY from './themeQuery.gql'
 
 const Theme = ({
   title,
@@ -48,53 +48,13 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const contentTypeQuery = `
-    title
-    shortTitle
-    slug
-    teaserImage {
-      url
-    }
-  `
-
-  const query = gql`
-    query getThemeData($slug: String) {
-      themes(where: { slug: $slug }) {
-        title
-        shortTitle
-        teaser
-        intro
-        teaserImage {
-          url
-        }
-        coverImage {
-          url
-        }
-        collections(limit: 2, sort: "published_at:desc") {
-          ${contentTypeQuery}
-        }
-        videos(limit: 2, sort: "publicationDate:desc") {
-          ${contentTypeQuery}
-        }
-        interactives(limit: 2, sort: "publicationDate:desc") {
-          ${contentTypeQuery}
-        }
-        articles(limit: 2, sort: "publicationDate:desc") {
-          ${contentTypeQuery}
-        }
-        publications(limit: 2, sort: "publicationDate:desc") {
-          ${contentTypeQuery}
-        }
-        datasets(limit: 2, sort: "published_at:desc") {
-          title
-          slug
-        }
-      }
-    }
-  `
-
-  const { data } = await apolloClient.query({ query, variables: { slug: params.slug } })
-    .catch((error) => error)
+  const { data } = await apolloClient.query(
+    {
+      query: QUERY,
+      variables: { slug: params.slug },
+    },
+  )
+    .catch() // TODO: log this error in sentry
 
   return {
     props: data.themes[0],

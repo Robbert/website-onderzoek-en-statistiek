@@ -1,0 +1,105 @@
+query getHomepageData {
+  homepage {
+    seo {
+      metaTitle
+      metaDescription
+      shareImage {
+        url
+      }
+    }
+    heroImage {
+      url
+    }
+    firstFeatures {
+      ... on ComponentSharedArticles {
+        articles {
+          title
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedCollections {
+        collections {
+          title
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+    }
+    secondFeatures {
+      ... on ComponentSharedArticles {
+        articles {
+          title
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedCollections {
+        collections {
+          title
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+    }
+    collections {
+      title
+      teaser
+      slug
+      teaserImage {
+        url
+      }
+    }
+  }
+  themes {
+    title
+    slug
+    teaserImage {
+      url
+    }
+  }
+}

@@ -1,0 +1,58 @@
+query getThemeData($slug: String) {
+  themes(where: { slug: $slug }) {
+    title
+    shortTitle
+    teaser
+    intro
+    teaserImage {
+      url
+    }
+    coverImage {
+      url
+    }
+    collections(limit: 2, sort: "published_at:desc") {
+      title
+      shortTitle
+      slug
+      teaserImage {
+        url
+      }
+    }
+    videos(limit: 2, sort: "publicationDate:desc") {
+      title
+      shortTitle
+      slug
+      teaserImage {
+        url
+      }
+    }
+    interactives(limit: 2, sort: "publicationDate:desc") {
+      title
+      shortTitle
+      slug
+      teaserImage {
+        url
+      }
+    }
+    articles(limit: 2, sort: "publicationDate:desc") {
+      title
+      shortTitle
+      slug
+      teaserImage {
+        url
+      }
+    }
+    publications(limit: 2, sort: "publicationDate:desc") {
+      title
+      shortTitle
+      slug
+      teaserImage {
+        url
+      }
+    }
+    datasets(limit: 2, sort: "published_at:desc") {
+      title
+      slug
+    }
+  }
+}

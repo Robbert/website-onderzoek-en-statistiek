@@ -1,9 +1,5 @@
-import React from 'react'
-import { gql } from '@apollo/client'
-
 import {
   apolloClient,
-  fetchAPI,
   getStrapiMedia,
 } from '../lib/utils'
 import Seo from '../components/Seo'
@@ -11,6 +7,7 @@ import HeroSection from '../components/HomePage/HeroSection'
 import FeatureSection from '../components/HomePage/FeatureSection'
 import ThemeSection from '../components/HomePage/ThemeSection'
 import CollectionSection from '../components/HomePage/CollectionSection'
+import QUERY from './homepageQuery.gql'
 
 const Home = ({ themes, homepage }) => {
   const { metaTitle, metaDescription, shareImage } = homepage.seo
@@ -40,25 +37,11 @@ const Home = ({ themes, homepage }) => {
 }
 
 export async function getStaticProps() {
-  const query = gql`
-    query getThemes {
-      themes {
-        title,
-        slug,
-        teaserImage {
-          url
-        }
-      }
-    }
-  `
-
-  const { data } = await apolloClient.query({ query })
-    .catch((error) => error)
-
-  const homepage = await fetchAPI('/homepage')
+  const { data } = await apolloClient.query({ query: QUERY })
+    .catch() // TODO: log this error in sentry
 
   return {
-    props: { homepage, themes: data.themes },
+    props: { homepage: data.homepage, themes: data.themes },
     revalidate: 1,
   }
 }

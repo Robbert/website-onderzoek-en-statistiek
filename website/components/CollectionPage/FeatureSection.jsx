@@ -26,6 +26,12 @@ const StyledListItem = styled(ListItem)`
   margin-bottom: 0;
 `
 
+/**
+ * TODO: this component is exactly the same as the FeatureSection in the HomePage folder.
+ * I've kept these as seperate components because these will probably change in the next design
+ * iterations. If they don't, we should merge these two components.
+ */
+
 const FeatureSection = ({ features }) => (
   <Container>
     <StyledList>

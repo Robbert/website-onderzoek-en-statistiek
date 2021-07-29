@@ -43,6 +43,12 @@ const Link = styled.a`
   }
 `
 
+/**
+ * TODO: this component is exactly the same as the FeatureCard in the HomePage folder.
+ * I've kept these as seperate components because these will probably change in the next design
+ * iterations. If they don't, we should merge these two components.
+ */
+
 const FeatureCard = ({ href, title, teaserImage }) => (
   <NextLink href={href} passHref>
     <Link>

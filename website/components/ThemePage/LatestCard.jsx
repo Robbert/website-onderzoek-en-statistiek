@@ -21,6 +21,7 @@ const Title = styled(Heading)`
 `
 
 const Link = styled.a`
+  display: block;
   text-decoration: none;
   color: ${themeColor('tint', 'level7')};
   width: 100%;
@@ -42,11 +43,11 @@ const StyledCard = styled(Card)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 16px 0;
+  padding: 16px 0;
   pointer-events: none; /* FF 60 fix */
 
   @media screen and ${breakpoint('min-width', 'tabletM')} {
-    margin: 16px 8px;
+    padding: 16px 8px;
   }
 `
 const StyledCardContent = styled(CardContent)`
