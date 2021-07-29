@@ -35,7 +35,7 @@ const Title = styled(Heading)`
  * iterations. If they don't, we should merge these two components.
  */
 
-const HeroSection = ({ title, image, intro }) => (
+const HeroSection = ({ image, title, intro }) => (
   <Container>
     <Image
       src={

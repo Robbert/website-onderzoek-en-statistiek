@@ -9,7 +9,14 @@ import ListSection from '../../components/CollectionPage/ListSection'
 import QUERY from './collectionQuery.gql'
 
 const Collection = ({
-  title, shortTitle, teaser, teaserImage, intro, lists, features,
+  title,
+  shortTitle,
+  teaser,
+  teaserImage,
+  coverImage,
+  intro,
+  lists,
+  features,
 }) => {
   const router = useRouter()
 
@@ -24,7 +31,11 @@ const Collection = ({
         description={teaser}
         image={getStrapiMedia(teaserImage)}
       />
-      <HeroSection title={`Dossier ${title}`} intro={intro} />
+      <HeroSection
+        image={coverImage}
+        title={`Dossier ${title}`}
+        intro={intro}
+      />
       <FeatureSection features={features} />
       <ListSection lists={lists} />
     </>
