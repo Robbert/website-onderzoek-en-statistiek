@@ -1,0 +1,21 @@
+query getDatasetData($slug: String) {
+  datasets(where: { slug: $slug }) {
+    title
+  	description
+  	contactName
+  	contactMail
+  	purpose
+  	published_at
+  	updated_at
+  	frequency
+  	resources {
+      id
+      title
+      file {
+        url
+        ext
+      }
+    } 
+    slug
+  }
+}

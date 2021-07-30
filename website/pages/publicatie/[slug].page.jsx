@@ -10,14 +10,14 @@ import ContentContainer from '../../components/ContentContainer'
 import Related from '../../components/Related'
 import InlineImage from '../../components/InlineImage'
 import PdfDocument from '../../components/PdfDocument'
-import { fetchAPI, getStrapiMedia } from '../../lib/utils'
+import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
 import * as Styled from './publication.style'
+import QUERY from './publication.query.gql'
 
 const Publication = ({
   slug,
   title,
   shortTitle,
-  description,
   intro,
   body,
   publicationDate,
@@ -49,14 +49,13 @@ const Publication = ({
 
   const downloadUrl = getStrapiMedia(file)
   const pdfContent = {
-    title, publicationSource, description, intro, body,
+    title, publicationSource, intro, body,
   }
 
   return (
     <ContentContainer>
       <Seo
         title={shortTitle || title}
-        description={description}
         image={getStrapiMedia(teaserImage)}
         article
       />
@@ -102,12 +101,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const publications = await fetchAPI(
-    `/publications?slug=${params.slug}`,
+  const { data } = await apolloClient.query(
+    {
+      query: QUERY,
+      variables: { slug: params.slug },
+    },
   )
+    .catch() // TODO: log this error in sentry
 
   return {
-    props: { ...publications[0] },
+    props: data.publications[0],
     revalidate: 1,
   }
 }

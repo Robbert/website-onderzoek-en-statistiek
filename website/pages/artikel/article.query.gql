@@ -1,0 +1,34 @@
+query getArticleData($slug: String) {
+  articles(where: { slug: $slug }) {
+    title
+    shortTitle
+    teaser
+    teaserImage {
+      url
+    }
+    coverImage {
+      url
+    }
+    publicationDate
+    intro
+    body
+    related {
+      articles {
+        title
+        slug
+      }
+      publications {
+        title
+        slug
+      }
+      videos {
+        title
+        slug
+      }
+      links {
+        text
+        url
+      }
+    }
+  }
+}

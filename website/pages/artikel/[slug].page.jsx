@@ -8,7 +8,10 @@ import Seo from '../../components/Seo'
 import Related from '../../components/Related'
 import InlineImage from '../../components/InlineImage'
 import ContentContainer from '../../components/ContentContainer'
-import { fetchAPI, getStrapiMedia, PLACEHOLDER_IMAGE } from '../../lib/utils'
+import {
+  fetchAPI, getStrapiMedia, PLACEHOLDER_IMAGE, apolloClient,
+} from '../../lib/utils'
+import QUERY from './article.query.gql'
 import * as Styled from './article.style'
 
 const Article = ({
@@ -90,12 +93,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const articles = await fetchAPI(
-    `/articles?slug=${params.slug}`,
+  const { data } = await apolloClient.query(
+    {
+      query: QUERY,
+      variables: { slug: params.slug },
+    },
   )
+    .catch() // TODO: log this error in sentry
 
   return {
-    props: { ...articles[0] },
+    props: data.articles[0],
     revalidate: 1,
   }
 }

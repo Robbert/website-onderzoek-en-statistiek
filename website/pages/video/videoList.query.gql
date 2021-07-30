@@ -1,0 +1,6 @@
+query getVideoListData {
+  videos {
+    slug
+    title
+  }
+}

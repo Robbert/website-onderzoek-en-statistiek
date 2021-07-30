@@ -1,0 +1,38 @@
+query getVideoData($slug: String) {
+  videos(where: { slug: $slug }) {
+    title
+    shortTitle
+    intro
+    teaser
+    videoFile {
+      url
+    }
+    subtitleFile {
+      url
+    }
+    subtitleDefault
+    externalVideoSource
+    externalEmbedSource
+    related {
+      articles {
+        title
+        slug
+      }
+      publications {
+        title
+        slug
+      }
+      videos {
+        title
+        slug
+      }
+      links {
+        text
+        url
+      }
+    }
+    teaserImage {
+      url
+    }
+  }
+}

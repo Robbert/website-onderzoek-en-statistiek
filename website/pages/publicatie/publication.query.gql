@@ -1,0 +1,36 @@
+query getPublicationData($slug: String) {
+  publications(where: { slug: $slug }) {
+    slug
+    title
+    shortTitle
+    intro
+    body
+    publicationDate
+    publicationSource
+    file {
+      name
+      url
+    }
+    related {
+      articles {
+        title
+        slug
+      }
+      publications {
+        title
+        slug
+      }
+      videos {
+        title
+        slug
+      }
+      links {
+        text
+        url
+      }
+    }
+    teaserImage {
+      url
+    }
+  }
+}

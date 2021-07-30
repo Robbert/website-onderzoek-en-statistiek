@@ -5,7 +5,8 @@ import { Heading, Spinner } from '@amsterdam/asc-ui'
 import Seo from '../../components/Seo'
 import ContentContainer from '../../components/ContentContainer'
 import Related from '../../components/Related'
-import { fetchAPI, getStrapiMedia } from '../../lib/utils'
+import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
+import QUERY from './video.query.gql'
 import * as Styled from './video.style'
 
 const LocalVideo = ({ videoSource, subtitleSource, enableSubtitleByDefault }) => {
@@ -112,10 +113,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const videos = await fetchAPI(`/videos?slug=${params.slug}`)
+  const { data } = await apolloClient.query(
+    {
+      query: QUERY,
+      variables: { slug: params.slug },
+    },
+  )
+    .catch() // TODO: log this error in sentry
 
   return {
-    props: { ...videos[0] },
+    props: data.videos[0],
     revalidate: 1,
   }
 }

@@ -5,7 +5,10 @@ import { Heading, Paragraph } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import ContentContainer from '../../components/ContentContainer'
-import { fetchAPI, getStrapiMedia, PLACEHOLDER_IMAGE } from '../../lib/utils'
+import {
+  getStrapiMedia, PLACEHOLDER_IMAGE, apolloClient,
+} from '../../lib/utils'
+import QUERY from './articleList.query.gql'
 import * as Styled from './article.style'
 
 const Articles = ({ articles }) => {
@@ -44,10 +47,12 @@ const Articles = ({ articles }) => {
 }
 
 export async function getStaticProps() {
-  const articles = await fetchAPI('/articles?_sort=publicationDate:DESC')
+  const { data } = await apolloClient.query(
+    { query: QUERY },
+  ).catch() // TODO: log this error in sentry
 
   return {
-    props: { articles },
+    props: data,
     revalidate: 1,
   }
 }

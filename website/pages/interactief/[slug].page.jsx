@@ -3,9 +3,10 @@ import { useRouter } from 'next/router'
 import { Spinner, Heading } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
-import { fetchAPI, getStrapiMedia } from '../../lib/utils'
+import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
 import Seo from '../../components/Seo'
 import ContentContainer from '../../components/ContentContainer'
+import QUERY from './interactive.query.gql'
 
 const Container = styled.div`
   width: 100%;
@@ -75,16 +76,20 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const interactives = await fetchAPI(
-    `/interactives?slug=${params.slug}`,
+  const { data } = await apolloClient.query(
+    {
+      query: QUERY,
+      variables: { slug: params.slug },
+    },
   )
+    .catch() // TODO: log this error in sentry
 
-  const assets = await fetch(`${interactives[0].contentLink}/asset-manifest.json`)
+  const assets = await fetch(`${data.interactives[0].contentLink}/asset-manifest.json`)
     .then((res) => {
       if (res.ok) {
         return res.json()
       }
-      throw new Error(`no asset-manifest found for ${interactives[0].slug}`)
+      throw new Error(`no asset-manifest found for ${data.interactives[0].slug}`)
     })
     .catch((error) => {
       // eslint-disable-next-line no-console
@@ -93,7 +98,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      ...interactives[0],
+      ...data.interactives[0],
       assets: assets?.entrypoints ? assets.entrypoints : [],
     },
     revalidate: 1,

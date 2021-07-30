@@ -1,0 +1,10 @@
+query getDatasetsByTheme {
+  themes (sort: "title:asc") {
+    title
+    slug
+    datasets {
+      title
+      slug
+    }
+  }
+}

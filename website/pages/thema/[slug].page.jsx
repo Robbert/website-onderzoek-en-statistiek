@@ -7,7 +7,7 @@ import LatestSection from '../../components/ThemePage/LatestSection'
 import {
   fetchAPI, getStrapiMedia, apolloClient,
 } from '../../lib/utils'
-import QUERY from './themeQuery.gql'
+import QUERY from './theme.query.gql'
 
 const Theme = ({
   title,

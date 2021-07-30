@@ -1,0 +1,10 @@
+query getArticleListData {
+  articles(sort: "publicationDate:desc") {
+    title
+    slug
+    teaser
+    teaserImage {
+      url
+    }
+  }
+}

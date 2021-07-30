@@ -7,7 +7,7 @@ import HeroSection from '../components/HomePage/HeroSection'
 import FeatureSection from '../components/HomePage/FeatureSection'
 import ThemeSection from '../components/HomePage/ThemeSection'
 import CollectionSection from '../components/HomePage/CollectionSection'
-import QUERY from './homepageQuery.gql'
+import QUERY from './homepage.query.gql'
 
 const Home = ({ themes, homepage }) => {
   const { metaTitle, metaDescription, shareImage } = homepage.seo
@@ -41,7 +41,7 @@ export async function getStaticProps() {
     .catch() // TODO: log this error in sentry
 
   return {
-    props: { homepage: data.homepage, themes: data.themes },
+    props: data,
     revalidate: 1,
   }
 }

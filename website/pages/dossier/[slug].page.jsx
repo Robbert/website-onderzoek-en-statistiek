@@ -6,7 +6,7 @@ import { apolloClient, fetchAPI, getStrapiMedia } from '../../lib/utils'
 import HeroSection from '../../components/CollectionPage/HeroSection'
 import FeatureSection from '../../components/CollectionPage/FeatureSection'
 import ListSection from '../../components/CollectionPage/ListSection'
-import QUERY from './collectionQuery.gql'
+import QUERY from './collection.query.gql'
 
 const Collection = ({
   title,

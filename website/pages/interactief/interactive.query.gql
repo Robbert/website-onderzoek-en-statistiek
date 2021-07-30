@@ -1,0 +1,12 @@
+query getInteractiveData($slug: String) {
+  interactives(where: { slug: $slug }) {
+    slug
+    title
+    shortTitle
+    teaser
+    contentLink
+    teaserImage {
+      url
+    }
+  }
+}

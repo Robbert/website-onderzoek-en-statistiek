@@ -5,7 +5,8 @@ import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import ContentContainer from '../../components/ContentContainer'
-import { fetchAPI, getStrapiMedia } from '../../lib/utils'
+import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
+import QUERY from './dataset.query.gql'
 import * as Styled from './dataset.style'
 
 const Dataset = ({
@@ -94,12 +95,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const datasets = await fetchAPI(
-    `/datasets?slug=${params.slug}`,
+  const { data } = await apolloClient.query(
+    {
+      query: QUERY,
+      variables: { slug: params.slug },
+    },
   )
+    .catch() // TODO: log this error in sentry
 
   return {
-    props: { ...datasets[0] },
+    props: data.datasets[0],
     revalidate: 1,
   }
 }

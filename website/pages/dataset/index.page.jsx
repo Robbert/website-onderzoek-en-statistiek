@@ -1,18 +1,18 @@
 import React from 'react'
 import Link from 'next/link'
 import { Heading, List, ListItem } from '@amsterdam/asc-ui'
-import { gql } from '@apollo/client'
 
 import Seo from '../../components/Seo'
 import ContentContainer from '../../components/ContentContainer'
 import { apolloClient } from '../../lib/utils'
+import QUERY from './datasetList.query.gql'
 import * as Styled from './dataset.style'
 
-const Datasets = ({ data }) => (
+const Datasets = ({ themes }) => (
   <ContentContainer>
     <Seo />
     <Heading forwardedAs="h2">Datasets per thema</Heading>
-    {data.map((theme) => (
+    {themes.map((theme) => (
       <Styled.Harmonica title={theme.title} key={theme.slug}>
         <List variant="bullet">
           {theme.datasets.map((item) => (
@@ -27,26 +27,11 @@ const Datasets = ({ data }) => (
 )
 
 export async function getStaticProps() {
-  const query = gql`
-    query getDatasetsByTheme {
-      themes {
-        title,
-        slug,
-        datasets {
-          title,
-          slug
-        }
-      }
-    }
-  `
-
-  const { data } = await apolloClient.query({ query })
-    .catch((error) => error)
-
-  const themes = data?.themes.slice().sort((a, b) => a.title.localeCompare(b.title)) || []
+  const { data } = await apolloClient.query({ query: QUERY })
+    .catch() // TODO: log this error in sentry
 
   return {
-    props: { data: themes },
+    props: data,
     revalidate: 1,
   }
 }

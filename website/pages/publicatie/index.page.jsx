@@ -4,7 +4,8 @@ import { Heading } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import ContentContainer from '../../components/ContentContainer'
-import { fetchAPI } from '../../lib/utils'
+import { apolloClient } from '../../lib/utils'
+import QUERY from './publicationList.query.gql'
 
 const Publications = ({ publications }) => {
   const items = publications.map((item) => <li key={item.slug}><Link href={`/publicatie/${item.slug}`}>{item.title}</Link></li>)
@@ -21,10 +22,11 @@ const Publications = ({ publications }) => {
 }
 
 export async function getStaticProps() {
-  const publications = await fetchAPI('/publications')
+  const { data } = await apolloClient.query({ query: QUERY })
+    .catch() // TODO: log this error in sentry
 
   return {
-    props: { publications },
+    props: data,
     revalidate: 1,
   }
 }

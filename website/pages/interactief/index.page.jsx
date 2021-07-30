@@ -6,7 +6,8 @@ import {
 
 import Seo from '../../components/Seo'
 import ContentContainer from '../../components/ContentContainer'
-import { fetchAPI } from '../../lib/utils'
+import { apolloClient } from '../../lib/utils'
+import QUERY from './interactiveList.query.gql'
 
 const Interactives = ({ interactives }) => {
   const cards = interactives.map((item) => (
@@ -33,10 +34,11 @@ const Interactives = ({ interactives }) => {
 }
 
 export async function getStaticProps() {
-  const interactives = await fetchAPI('/interactives')
+  const { data } = await apolloClient.query({ query: QUERY })
+    .catch() // TODO: log this error in sentry
 
   return {
-    props: { interactives },
+    props: data,
     revalidate: 1,
   }
 }
