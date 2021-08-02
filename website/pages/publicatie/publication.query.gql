@@ -1,14 +1,10 @@
 query getPublicationData($slug: String) {
   publications(where: { slug: $slug }) {
     slug
-    author
     title
     shortTitle
     intro
     body
-    introduction
-    results
-    conclusion
     publicationDate
     publicationSource
     file {
