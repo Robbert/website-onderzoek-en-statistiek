@@ -24,6 +24,9 @@
       ],
       "default": "MaandJaar"
     },
+    "author": {
+      "type": "string"
+    },
     "title": {
       "type": "string",
       "required": true
@@ -47,6 +50,15 @@
     "body": {
       "type": "richtext",
       "required": false
+    },
+    "introduction": {
+      "type": "richtext"
+    },
+    "results": {
+      "type": "richtext"
+    },
+    "conclusion": {
+      "type": "richtext"
     },
     "coverImage": {
       "model": "file",
