@@ -1,7 +1,9 @@
 import styled from 'styled-components'
 import {
-  CustomHTMLBlock, Heading, Card, CardContent, CardMedia, themeColor, Paragraph,
+  CustomHTMLBlock, Heading, Paragraph, breakpoint, themeColor, Card, CardMedia, CardContent,
 } from '@amsterdam/asc-ui'
+
+import ContentContainer from '../../components/ContentContainer'
 
 export const Anchor = styled.a`
   display: block; 
@@ -22,6 +24,29 @@ export const Content = styled(CardContent)`
   margin-left: 16px;
   min-height: 144px;
   border-bottom: 1px solid ${themeColor('tint', 'level3')};
+`
+
+export const ImageWrapper = styled.div`
+  width: 100%;
+  height: 360px;
+  position: relative;
+`
+
+export const Container = styled(ContentContainer)`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  column-gap: 36px;
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    grid-template-columns: 1fr;
+  }
+`
+
+export const ArticleContainer = styled.div`
+  margin-top: -80px;
+  background-color: white;
+  z-index: 1;
+  padding: 24px;
 `
 
 export const Intro = styled(Paragraph)`

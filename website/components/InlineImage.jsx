@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { prependStrapiURL, PLACEHOLDER_IMAGE } from '../lib/utils'
 
 const InlineImage = ({ src, alt }) => {
-  const [dimensions, setDimensions] = useState({ width: 3, height: 2 })
+  const [dimensions, setDimensions] = useState({ width: 300, height: 200 })
 
   useEffect(() => {
     const abortController = new AbortController()

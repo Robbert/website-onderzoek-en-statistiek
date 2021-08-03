@@ -5,9 +5,8 @@ import Moment from 'react-moment'
 import { Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
-import Related from '../../components/Related'
+import Sidebar from '../../components/ArticlePage/Sidebar'
 import InlineImage from '../../components/InlineImage'
-import ContentContainer from '../../components/ContentContainer'
 import {
   fetchAPI, getStrapiMedia, PLACEHOLDER_IMAGE, apolloClient,
 } from '../../lib/utils'
@@ -24,6 +23,7 @@ const Article = ({
   intro,
   body,
   related,
+  theme,
 }) => {
   const router = useRouter()
 
@@ -43,7 +43,7 @@ const Article = ({
   }
 
   return (
-    <ContentContainer>
+    <>
       <Seo
         title={shortTitle || title}
         description={teaser}
@@ -51,31 +51,41 @@ const Article = ({
         article
       />
       {coverImage && (
-      <Image
-        src={getStrapiMedia(coverImage)}
-        alt=""
-        width="1280"
-        height="590"
-        layout="responsive"
-        placeholder="blur"
-        blurDataURL={PLACEHOLDER_IMAGE}
-      />
-      )}
-      <Styled.Title>{title}</Styled.Title>
-      <Moment locale="nl" format="D MMMM YYYY">{publicationDate}</Moment>
-      <ReactMarkdown
-        source={intro}
-        renderers={{ paragraph: ({ children }) => <Styled.Intro>{children}</Styled.Intro> }}
-      />
-      <Styled.Body>
-        <ReactMarkdown
-          source={body}
-          escapeHtml={false}
-          renderers={renderers}
+      <Styled.ImageWrapper>
+        <Image
+          src={
+                coverImage
+                  ? getStrapiMedia(coverImage)
+                  : PLACEHOLDER_IMAGE
+              }
+          alt=""
+          layout="fill"
+          placeholder="blur"
+          objectFit="cover"
+          blurDataURL={PLACEHOLDER_IMAGE}
+          priority
         />
-        <Related data={related} />
-      </Styled.Body>
-    </ContentContainer>
+      </Styled.ImageWrapper>
+      )}
+      <Styled.Container>
+        <Styled.ArticleContainer>
+          <Styled.Title>{title}</Styled.Title>
+          <Moment locale="nl" format="D MMMM YYYY">{publicationDate}</Moment>
+          <ReactMarkdown
+            source={intro}
+            renderers={{ paragraph: ({ children }) => <Styled.Intro>{children}</Styled.Intro> }}
+          />
+          <Styled.Body>
+            <ReactMarkdown
+              source={body}
+              escapeHtml={false}
+              renderers={renderers}
+            />
+          </Styled.Body>
+        </Styled.ArticleContainer>
+        <Sidebar related={related} theme={theme} />
+      </Styled.Container>
+    </>
   )
 }
 

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Moment from 'react-moment'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import {
-  Spinner, Paragraph, AccordionWrapper,
+  Spinner, AccordionWrapper,
 } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
@@ -50,7 +50,7 @@ const Publication = ({
         || (children[0]?.type === 'a' && children[0]?.props?.children[0]?.type?.name === 'image')) {
         return children[0]
       }
-      return <Paragraph>{children}</Paragraph>
+      return <p>{children}</p>
     },
   }
 

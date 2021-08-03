@@ -1,44 +1,26 @@
 import { forwardRef } from 'react'
-import Image from 'next/image'
 import NextLink from 'next/link'
 import {
   themeColor,
-  Button,
-  Spinner,
   List,
   ListItem,
   Link,
   Heading,
   CompactThemeProvider,
+  breakpoint,
 } from '@amsterdam/asc-ui'
-import { Download } from '@amsterdam/asc-assets'
 import styled from 'styled-components'
 
-import {
-  getStrapiMedia,
-  PLACEHOLDER_IMAGE,
-  formatBytes,
-  flattenFeatureList,
-} from '../../lib/utils'
-import useDownload from '../../lib/useDownload'
+import { flattenFeatureList } from '../../lib/utils'
 
 const Container = styled.div`
   background-color: ${themeColor('tint', 'level2')};
   padding: 24px;
-`
+  margin-top: 44px;
 
-const ImageWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  background-color: ${themeColor('tint', 'level3')};
-  margin-bottom: 24px;
-`
-
-const StyledButton = styled(Button)`
-  width: 100%;
-  justify-content: center;
-  align-items: end;
-  margin-bottom: 36px;
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    margin-top: 0;
+  }
 `
 
 // TODO: ASC Link is wrapped by this component because it
@@ -50,39 +32,10 @@ const AscLink = forwardRef(({ children, ...otherProps }, ref) => (
   </span>
 ))
 
-const Sidebar = ({
-  image, file, related, theme,
-}) => {
-  const [, downloadLoading, downloadFile] = useDownload()
-
-  return (
-    <CompactThemeProvider>
+const Sidebar = ({ related, theme }) => (
+  <CompactThemeProvider>
+    <div>
       <Container>
-        <ImageWrapper>
-          <Image
-            src={
-              image
-                ? getStrapiMedia(image)
-                : PLACEHOLDER_IMAGE
-            }
-            alt=""
-            width="300"
-            height="400"
-            layout="intrinsic"
-            placeholder="blur"
-            sizes="384px"
-            blurDataURL={PLACEHOLDER_IMAGE}
-            priority
-          />
-        </ImageWrapper>
-        <StyledButton
-          variant="primary"
-          iconSize={20}
-          iconLeft={downloadLoading ? <Spinner /> : <Download />}
-          onClick={() => { downloadFile(getStrapiMedia(file)) }}
-        >
-          {`Download pdf (${formatBytes(file.size * 1000)})`}
-        </StyledButton>
         {related
         && (
         <>
@@ -124,8 +77,8 @@ const Sidebar = ({
         </>
         )}
       </Container>
-    </CompactThemeProvider>
-  )
-}
+    </div>
+  </CompactThemeProvider>
+)
 
 export default Sidebar
