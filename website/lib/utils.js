@@ -47,6 +47,11 @@ export async function fetchAPI(path) {
 export const apolloClient = new ApolloClient({
   uri: prependStrapiURL('/graphql'),
   cache: new InMemoryCache(),
+  defaultOptions: {
+    query: {
+      fetchPolicy: 'no-cache',
+    },
+  },
 })
 
 export const contentTypes = {
