@@ -1,20 +1,19 @@
 import {
-  CompactThemeProvider, Heading, themeColor, breakpoint, List, ListItem,
+  CompactThemeProvider, Heading, themeColor, breakpoint,
 } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
+import { flattenFeatureObject } from '../../lib/utils'
 import ContentContainer from '../ContentContainer'
-import CollectionCard from './CollectionCard'
+import Card from '../Card'
 
 const Container = styled(ContentContainer)`
   margin-bottom: 20px;
 `
 
-const StyledHeading = styled(Heading)`
-  width: 100%;
-`
-
-const StyledList = styled(List)`
+const StyledList = styled.ul`
+  list-style: none;
+  padding: 0;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -30,22 +29,20 @@ const StyledList = styled(List)`
   }
 `
 
-const StyledListItem = styled(ListItem)`
+const StyledListItem = styled.li`
   margin-bottom: 0;
 
-  // Add border-top to first row of dossier cards when three cards are shown
+  // Add border-top to first row of dossier cards
   &:nth-child(-n+3) {
     border-top: ${themeColor('tint', 'level3')} 1px solid;
   }
 
-  // Add border-top to first row of dossier cards when two cards are shown
   @media screen and ${breakpoint('max-width', 'laptop')} {
     &:nth-child(3) {
       border-top: none;
     }
   }
 
-  // Add border-top to first row of dossier cards when one card is shown
   @media screen and ${breakpoint('max-width', 'tabletM')} {
     &:nth-child(2) {
       border-top: none;
@@ -56,17 +53,19 @@ const StyledListItem = styled(ListItem)`
 const CollectionSection = ({ collections }) => (
   <CompactThemeProvider>
     <Container>
-      <StyledHeading gutterBottom={24}>Dossiers</StyledHeading>
+      <Heading gutterBottom={24}>Dossiers</Heading>
       <StyledList>
-        {collections?.map(({
+        {flattenFeatureObject(collections).map(({
           title, teaser, slug, teaserImage,
         }) => (
           <StyledListItem key={slug}>
-            <CollectionCard
+            <Card
               href={`/dossier/${slug}`}
               title={title}
               teaser={teaser}
               teaserImage={teaserImage}
+              horizontal
+              imageSize={80}
             />
           </StyledListItem>
         ))}

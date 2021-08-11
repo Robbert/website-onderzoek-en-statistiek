@@ -1,18 +1,20 @@
-import { List, ListItem, breakpoint } from '@amsterdam/asc-ui'
+import { breakpoint, Heading } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
 import ContentContainer from '../ContentContainer'
-import { flattenFeatureList } from '../../lib/utils'
-import FeatureCard from './FeatureCard'
+import { flattenFeatureObject } from '../../lib/utils'
+import Card from '../Card'
 
 const Container = styled(ContentContainer)`
   margin-bottom: 20px;
 `
 
-const StyledList = styled(List)`
+const StyledList = styled.ul`
+  list-style: none;
+  padding: 0;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 24px;
   row-gap: 24px;
   margin-bottom: 24px;
@@ -22,21 +24,25 @@ const StyledList = styled(List)`
   }
 `
 
-const StyledListItem = styled(ListItem)`
+const StyledListItem = styled.li`
   margin-bottom: 0;
 `
 
 const FeatureSection = ({ features }) => (
   <Container>
+    <Heading gutterBottom={24}>Uitgelicht</Heading>
     <StyledList>
-      {flattenFeatureList(features).map(({
+      {flattenFeatureObject(features).map(({
         path, title, shortTitle, teaserImage,
       }) => (
         <StyledListItem key={path}>
-          <FeatureCard
+          <Card
             href={path}
             title={shortTitle || title}
             teaserImage={teaserImage}
+            imageAspect={16 / 9}
+            backgroundColor="level2"
+            shadow
           />
         </StyledListItem>
       ))}

@@ -1,9 +1,7 @@
-import {
-  Heading, List, ListItem, breakpoint,
-} from '@amsterdam/asc-ui'
+import { Heading, breakpoint } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
-import ThemeCard from './ThemeCard'
+import Card from '../Card'
 import ContentContainer from '../ContentContainer'
 
 const Container = styled(ContentContainer)`
@@ -14,13 +12,19 @@ const StyledHeading = styled(Heading)`
   width: 100%;
 `
 
-const StyledList = styled(List)`
+const StyledList = styled.ul`
+  list-style: none;
+  padding: 0;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   column-gap: 24px;
   row-gap: 24px;
   margin-bottom: 24px;
+
+  @media screen and ${breakpoint('max-width', 'laptopM')} {
+    grid-template-columns: repeat(4, 1fr);
+  }
 
   @media screen and ${breakpoint('max-width', 'tabletM')} {
     grid-template-columns: repeat(2, 1fr);
@@ -31,7 +35,7 @@ const StyledList = styled(List)`
   }
 `
 
-const StyledListItem = styled(ListItem)`
+const StyledListItem = styled.li`
   margin-bottom: 0;
 `
 
@@ -40,11 +44,17 @@ const ThemeSection = ({ themes }) => (
     <StyledHeading gutterBottom={24}>Thema‘s</StyledHeading>
     <StyledList>
       {themes
-        .slice() // strict mode freezes arrays, so we need to make a copy to be able to sort
+        .slice()
         .sort((a, b) => a.title.localeCompare(b.title))
         .map(({ title, slug, teaserImage }) => (
           <StyledListItem key={slug}>
-            <ThemeCard href={`/thema/${slug}`} title={title} teaserImage={teaserImage} />
+            <Card
+              href={`/thema/${slug}`}
+              title={title}
+              teaserImage={teaserImage}
+              imageAspect={16 / 9}
+              shadow
+            />
           </StyledListItem>
         ))}
     </StyledList>

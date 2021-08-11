@@ -24,12 +24,20 @@ const HeaderWrapper = styled.section`
 `
 
 const StyledHeader = styled(HeaderComponent)`
-  max-width: 960px;
+  padding: 0;
+  margin: 0 44px;
   a {
     /* Making sure the anchors in the header have a decent clickable area size */
     display: flex;
     height: 100%;
     align-items: start;
+  }
+
+  @media screen and ${breakpoint('max-width', 'laptopM')} {
+    margin: 0 32px;
+  }
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    margin: 0 24px;
   }
 
   ${styles.HeaderTitleStyle} {

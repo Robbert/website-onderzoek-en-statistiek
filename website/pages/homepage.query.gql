@@ -1,3 +1,4 @@
+# Write your query or mutation here
 query getHomepageData {
   homepage {
     seo {
@@ -10,88 +11,90 @@ query getHomepageData {
     heroImage {
       url
     }
-    firstFeatures {
-      ... on ComponentSharedArticles {
-        articles {
+    incoming {
+      ... on ComponentSharedFeatures {
+        articles{
           title
+          teaser
           slug
           teaserImage {
             url
           }
         }
       }
-      ... on ComponentSharedPublications {
+    ... on ComponentSharedFeatures {
         publications {
           title
+          teaser
           slug
           teaserImage {
             url
           }
         }
       }
-      ... on ComponentSharedVideos {
+      ... on ComponentSharedFeatures {
         videos {
           title
+          teaser
           slug
           teaserImage {
             url
           }
         }
       }
-      ... on ComponentSharedCollections {
-        collections {
+      ... on ComponentSharedFeatures {
+        interactives {
           title
+          teaser
           slug
           teaserImage {
             url
           }
         }
       }
-    }
-    secondFeatures {
-      ... on ComponentSharedArticles {
-        articles {
+      ... on ComponentSharedFeatures {
+        collections{
           title
+          teaser
           slug
           teaserImage {
             url
           }
         }
       }
-      ... on ComponentSharedPublications {
-        publications {
+    },
+    features {
+      ... on ComponentSharedFeatures {
+        interactives{
           title
+          teaser
           slug
           teaserImage {
             url
           }
         }
       }
-      ... on ComponentSharedVideos {
+    ... on ComponentSharedFeatures {
         videos {
           title
+          teaser
           slug
           teaserImage {
             url
           }
         }
       }
-      ... on ComponentSharedCollections {
-        collections {
-          title
-          slug
-          teaserImage {
-            url
-          }
-        }
-      }
-    }
+    },
     collections {
-      title
-      teaser
-      slug
-      teaserImage {
-        url
+      ... on ComponentSharedFeatures {
+        collections{
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
       }
     }
   }

@@ -3,14 +3,19 @@ import {
   getStrapiMedia,
 } from '../lib/utils'
 import Seo from '../components/Seo'
-import HeroSection from '../components/HomePage/HeroSection'
+import HeroSection from '../components/HeroSection'
 import FeatureSection from '../components/HomePage/FeatureSection'
 import ThemeSection from '../components/HomePage/ThemeSection'
 import CollectionSection from '../components/HomePage/CollectionSection'
 import QUERY from './homepage.query.gql'
 
 const Home = ({ themes, homepage }) => {
-  const { metaTitle, metaDescription, shareImage } = homepage.seo
+  if (!themes) return <div>Refresh page</div>
+
+  const {
+    seo, heroImage, incoming, features, collections,
+  } = homepage
+  const { metaTitle, metaDescription, shareImage } = seo
 
   return (
     <>
@@ -20,29 +25,35 @@ const Home = ({ themes, homepage }) => {
         image={getStrapiMedia(shareImage)}
       />
       <HeroSection
-        image={homepage.heroImage}
-        features={homepage.firstFeatures}
+        image={heroImage}
+        incoming={incoming}
       />
       <FeatureSection
-        features={homepage.secondFeatures}
+        features={features}
       />
       <ThemeSection
         themes={themes}
       />
       <CollectionSection
-        collections={homepage.collections}
+        collections={collections}
       />
     </>
   )
 }
 
 export async function getStaticProps() {
-  const { data } = await apolloClient.query({ query: QUERY })
-    .catch() // TODO: log this error in sentry
-
-  return {
-    props: data,
-    revalidate: 1,
+  try {
+    const { data } = await apolloClient.query({ query: QUERY })
+    return {
+      props: data,
+      revalidate: 1,
+    }
+  } catch (error) {
+    // TODO: log this error in sentry
+    return {
+      props: { },
+      revalidate: 1,
+    }
   }
 }
 

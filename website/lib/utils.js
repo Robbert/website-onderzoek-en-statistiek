@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 
 export const PLACEHOLDER_IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN89x8AAuEB74Y0o2cAAAAASUVORK5CYII='
@@ -128,6 +129,20 @@ export function flattenFeatureList(list) {
     )) || [],
   ]
   )).flat()
+}
+
+export function flattenFeatureObject(featureObject) {
+  return !featureObject ? [] : Object.values(featureObject)
+    .flat()
+    .filter((el) => typeof (el) === 'object')
+    .map((entry) => (
+      {
+        ...entry,
+        type: entry.__typename.toLowerCase(),
+        name: contentTypes[entry.__typename.toLowerCase()].name,
+        path: `/${contentTypes[entry.__typename.toLowerCase()].name}/${entry.slug}`,
+      }
+    ))
 }
 
 export function formatBytes(bytes, decimals = 1) {

@@ -9,9 +9,9 @@ import styled from 'styled-components'
 import {
   getStrapiMedia,
   PLACEHOLDER_IMAGE,
-  flattenFeatureList,
-} from '../../lib/utils'
-import ContentContainer from '../ContentContainer'
+  flattenFeatureObject,
+} from '../lib/utils'
+import ContentContainer from './ContentContainer'
 
 const Container = styled.div`
   position: relative;
@@ -45,7 +45,7 @@ const StyledList = styled(List)`
   margin-bottom: 0;
 `
 
-const HeroSection = ({ image, features }) => (
+const HeroSection = ({ image, incoming }) => (
   <Container>
     <Image
       src={
@@ -62,9 +62,9 @@ const HeroSection = ({ image, features }) => (
     />
     <ContentContainer>
       <HighlightBlock>
-        <StyledHeading gutterBottom={24}>Uitgelicht</StyledHeading>
+        <StyledHeading gutterBottom={24}>Actueel</StyledHeading>
         <StyledList>
-          {flattenFeatureList(features).map(({ path, title }) => (
+          {flattenFeatureObject(incoming).map(({ path, title }) => (
             <ListItem key={path}>
               <NextLink href={path} passHref>
                 <AscLink darkBackground inList>

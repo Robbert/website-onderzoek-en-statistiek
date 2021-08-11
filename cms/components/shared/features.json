@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_shared_features",
+  "info": {
+    "name": "features",
+    "icon": "list",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "articles": {
+      "collection": "article"
+    },
+    "publications": {
+      "collection": "publication"
+    },
+    "videos": {
+      "collection": "video"
+    },
+    "interactives": {
+      "collection": "interactive"
+    },
+    "collections": {
+      "collection": "collection"
+    }
+  }
+}

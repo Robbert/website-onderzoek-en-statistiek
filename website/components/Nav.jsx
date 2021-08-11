@@ -141,19 +141,22 @@ const MenuItems = () => (
       ))}
     </MenuFlyOut>
     <MenuFlyOut label="Thema's">
-      {THEMES.map(({ label, slug }) => (
-        <MenuItem key={slug}>
-          <Link href={slug} passHref>
-            <MenuButtonNext
-              as="a"
-              iconLeft={<ChevronRight />}
-              onClick={() => dropFocus()}
-            >
-              {label}
-            </MenuButtonNext>
-          </Link>
-        </MenuItem>
-      ))}
+      {THEMES
+        .slice()
+        .sort((a, b) => a.label.localeCompare(b.label))
+        .map(({ label, slug }) => (
+          <MenuItem key={slug}>
+            <Link href={slug} passHref>
+              <MenuButtonNext
+                as="a"
+                iconLeft={<ChevronRight />}
+                onClick={() => dropFocus()}
+              >
+                {label}
+              </MenuButtonNext>
+            </Link>
+          </MenuItem>
+        ))}
     </MenuFlyOut>
   </>
 )
