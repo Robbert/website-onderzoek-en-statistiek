@@ -5,6 +5,7 @@
     "cms": "cd cms && yarn develop",
     "website:install": "cd website && yarn",
     "website:acc": "cd website && yarn dev-with-acc",
+    "website:analyze": "cd website && yarn analyze",
     "website": "cd website && yarn develop"
   },
   "license": "MIT"

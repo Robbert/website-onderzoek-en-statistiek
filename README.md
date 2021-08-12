@@ -25,5 +25,6 @@ We use ESLint style rules in this repository, so it's strongly advised to have a
     * To use local cms api: `yarn website`
     * To use acc cms api: `yarn website:acc`
 * Visit website at http://localhost:3000
+* To analyze bundle sizes: `yarn website:analyze`
 
 See the [issue board](https://gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/-/boards) for current issues.

@@ -1,22 +1,22 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
 import Moment from 'react-moment'
-import { PDFDownloadLink } from '@react-pdf/renderer'
+// import { PDFDownloadLink } from '@react-pdf/renderer'
 import {
   Spinner, AccordionWrapper,
 } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import InlineImage from '../../components/InlineImage'
-import PdfDocument from '../../components/PdfDocument'
+// import PdfDocument from '../../components/PdfDocument'
 import Sidebar from '../../components/PublicationPage/Sidebar'
 import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
 import * as Styled from './publication.style'
 import QUERY from './publication.query.gql'
 
 const Publication = ({
-  slug,
+//  slug,
   author,
   title,
   shortTitle,
@@ -26,17 +26,17 @@ const Publication = ({
   results,
   conclusion,
   publicationDate,
-  publicationSource,
+  //  publicationSource,
   file,
   related,
   teaserImage,
   coverImage,
   theme,
 }) => {
-  const [isClient, setIsClient] = useState(false)
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
+  // const [isClient, setIsClient] = useState(false)
+  // useEffect(() => {
+  //   setIsClient(true)
+  // }, [])
 
   const router = useRouter()
   if (router.isFallback) {
@@ -54,9 +54,9 @@ const Publication = ({
     },
   }
 
-  const pdfContent = {
-    title, publicationSource, intro, body,
-  }
+  // const pdfContent = {
+  //   title, publicationSource, intro, body,
+  // }
 
   return (
     <>
@@ -78,11 +78,13 @@ const Publication = ({
             )}
           </Styled.MetaList>
           <Styled.Intro>{intro}</Styled.Intro>
-          { isClient && body && (
-          <PDFDownloadLink document={<PdfDocument {...pdfContent} />} fileName={`toegankelijke-samenvatting-${slug}.pdf`}>
+          {/* { isClient && body && (
+          <PDFDownloadLink
+            document={<PdfDocument {...pdfContent} />}
+            fileName={`toegankelijke-samenvatting-${slug}.pdf`}>
             {({ loading }) => (loading ? <Spinner /> : 'Download toegankelijke samenvatting')}
           </PDFDownloadLink>
-          )}
+          )} */}
           <Styled.Main>
             { body && (
             <ReactMarkdown

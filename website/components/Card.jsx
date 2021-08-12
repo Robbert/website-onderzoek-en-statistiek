@@ -60,11 +60,8 @@ const Card = ({
             width="1"
             height="1"
             layout="responsive"
-            placeholder="blur"
             sizes="384px"
-            blurDataURL={PLACEHOLDER_IMAGE}
             priority
-            {...props}
           />
         </ImageWrapper>
         <CardContent>

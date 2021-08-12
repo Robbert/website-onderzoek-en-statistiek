@@ -55,9 +55,7 @@ const HeroSection = ({ image, incoming }) => (
       }
       alt=""
       layout="fill"
-      placeholder="blur"
       objectFit="cover"
-      blurDataURL={PLACEHOLDER_IMAGE}
       priority
     />
     <ContentContainer>
