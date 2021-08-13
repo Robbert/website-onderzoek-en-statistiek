@@ -1,5 +1,7 @@
 import Image from 'next/image'
-import { Heading, themeColor, breakpoint } from '@amsterdam/asc-ui'
+import {
+  Heading, themeColor, breakpoint,
+} from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
 import { getStrapiMedia, PLACEHOLDER_IMAGE } from '../lib/utils'
@@ -31,7 +33,7 @@ const ContentBlock = styled.div`
 `
 // TODO: IMHO ASC Heading should have color: inherit as default.
 // Maybe we can compose a PR with some small changes like this?
-const StyeldHeading = styled(Heading)`
+const StyledHeading = styled(Heading)`
   color: inherit;
 `
 
@@ -52,7 +54,7 @@ const HeroSection = ({
     />
     <ContentContainer>
       <ContentBlock offSet={offSet}>
-        <StyeldHeading gutterBottom={24}>{title}</StyeldHeading>
+        <StyledHeading gutterBottom={24}>{title}</StyledHeading>
         {children}
       </ContentBlock>
     </ContentContainer>
