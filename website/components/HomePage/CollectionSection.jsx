@@ -63,7 +63,7 @@ const CollectionSection = ({ collections }) => (
               href={`/dossier/${slug}`}
               title={title}
               teaser={teaser}
-              teaserImage={teaserImage}
+              image={teaserImage}
               horizontal
               imageSize={80}
             />

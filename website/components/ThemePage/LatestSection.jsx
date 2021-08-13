@@ -1,12 +1,11 @@
-import { forwardRef } from 'react'
-import NextLink from 'next/link'
 import {
-  themeColor, Heading, Link, CompactThemeProvider, breakpoint, List, ListItem,
+  themeColor, Heading, CompactThemeProvider, breakpoint,
 } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
 import ContentContainer from '../ContentContainer'
-import LatestCard from './LatestCard'
+import Card from '../Card'
+import Link from '../Link'
 import { contentTypes } from '../../lib/utils'
 
 const Wrapper = styled.div`
@@ -60,20 +59,13 @@ const StyledHeading = styled(Heading)`
   text-transform: capitalize;
 `
 
-// TODO: ASC Link is wrapped by this component because it
-// doesn't natively work with Next JS link
-// Maybe we can fix this in ASC and remove this wrapper?
-const AscLink = forwardRef(({ children, ...otherProps }, ref) => (
-  <span ref={ref}>
-    <Link {...otherProps}>{children}</Link>
-  </span>
-))
-
-const StyledList = styled(List)`
+const StyledList = styled.ul`
+  list-style: none;
+  padding: 0;
   margin: 0;
 `
 
-const StyledListItem = styled(ListItem)`
+const StyledListItem = styled.li`
   margin-bottom: 0;
 `
 
@@ -85,17 +77,19 @@ const ContentList = ({ type, features }) => (
         title, shortTitle, slug, teaserImage,
       }) => (
         <StyledListItem key={title}>
-          <LatestCard
+          <Card
             href={`/${contentTypes[type].name}/${slug}`}
             title={shortTitle || title}
-            teaserImage={teaserImage}
+            image={teaserImage}
+            horizontal
+            imageSize={80}
+            marginBottom={24}
           />
+
         </StyledListItem>
       ))}
     </StyledList>
-    <NextLink href="/zoek" passHref>
-      <AscLink inList>{`Meer ${contentTypes[type].plural}`}</AscLink>
-    </NextLink>
+    <Link href="/zoek" inList>{`Meer ${contentTypes[type].plural}`}</Link>
   </ListContainer>
 )
 

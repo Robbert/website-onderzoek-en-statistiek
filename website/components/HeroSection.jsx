@@ -1,52 +1,44 @@
-import { forwardRef } from 'react'
 import Image from 'next/image'
-import NextLink from 'next/link'
-import {
-  ListItem, Link, themeColor, Heading, List,
-} from '@amsterdam/asc-ui'
+import { Heading, themeColor, breakpoint } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
-import {
-  getStrapiMedia,
-  PLACEHOLDER_IMAGE,
-  flattenFeatureObject,
-} from '../lib/utils'
+import { getStrapiMedia, PLACEHOLDER_IMAGE } from '../lib/utils'
 import ContentContainer from './ContentContainer'
 
 const Container = styled.div`
   position: relative;
-  height: 393px;
-  margin-bottom: 80px;
+  height: 390px;
+  margin-bottom: ${({ offSet }) => (offSet ? '104px' : '80px')};
 `
 
-const HighlightBlock = styled.div`
+const ContentBlock = styled.div`
   position: absolute;
-  bottom: -28px;
   width: 600px;
-  max-width: calc(100% - 40px);
-  background-color: ${themeColor('primary', 'main')};
+  max-width: calc(100% - 48px);
   padding: 24px;
-`
-
-// TODO: ASC Link is wrapped by this component because it
-// doesn't natively work with Next JS link
-// Maybe we can fix this in ASC and remove this wrapper?
-const AscLink = forwardRef(({ children, ...otherProps }, ref) => (
-  <span ref={ref}>
-    <Link {...otherProps}>{children}</Link>
-  </span>
-))
-
-const StyledHeading = styled(Heading)`
   color: white;
+  background-color: ${themeColor('primary', 'main')};
+
+  top: ${({ offSet }) => (offSet ? 'unset' : 0)};
+  bottom: ${({ offSet }) => (offSet ? '-56px' : 0)};
+  left: ${({ offSet }) => (offSet ? '84px' : 0)};
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    top: unset;
+    bottom: -56px;
+    left: 24px;
+  }
+`
+// TODO: IMHO ASC Heading should have color: inherit as default.
+// Maybe we can compose a PR with some small changes like this?
+const StyeldHeading = styled(Heading)`
+  color: inherit;
 `
 
-const StyledList = styled(List)`
-  margin-bottom: 0;
-`
-
-const HeroSection = ({ image, incoming }) => (
-  <Container>
+const HeroSection = ({
+  image, title, children, offSet,
+}) => (
+  <Container offSet={offSet}>
     <Image
       src={
         image
@@ -59,20 +51,10 @@ const HeroSection = ({ image, incoming }) => (
       priority
     />
     <ContentContainer>
-      <HighlightBlock>
-        <StyledHeading gutterBottom={24}>Actueel</StyledHeading>
-        <StyledList>
-          {flattenFeatureObject(incoming).map(({ path, title }) => (
-            <ListItem key={path}>
-              <NextLink href={path} passHref>
-                <AscLink darkBackground inList>
-                  {title}
-                </AscLink>
-              </NextLink>
-            </ListItem>
-          ))}
-        </StyledList>
-      </HighlightBlock>
+      <ContentBlock offSet={offSet}>
+        <StyeldHeading gutterBottom={24}>{title}</StyeldHeading>
+        {children}
+      </ContentBlock>
     </ContentContainer>
   </Container>
 )

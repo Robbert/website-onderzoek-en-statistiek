@@ -1,18 +1,20 @@
-import { List, ListItem, breakpoint } from '@amsterdam/asc-ui'
+import { breakpoint } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
 import ContentContainer from '../ContentContainer'
 import { flattenFeatureList } from '../../lib/utils'
-import FeatureCard from './FeatureCard'
+import Card from '../Card'
 
 const Container = styled(ContentContainer)`
   margin-bottom: 20px;
 `
 
-const StyledList = styled(List)`
+const StyledList = styled.ul`
+  list-style: none;
+  padding: 0;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 24px;
   row-gap: 24px;
   margin-bottom: 24px;
@@ -22,15 +24,9 @@ const StyledList = styled(List)`
   }
 `
 
-const StyledListItem = styled(ListItem)`
+const StyledListItem = styled.li`
   margin-bottom: 0;
 `
-
-/**
- * TODO: this component is exactly the same as the FeatureSection in the HomePage folder.
- * I've kept these as seperate components because these will probably change in the next design
- * iterations. If they don't, we should merge these two components.
- */
 
 const FeatureSection = ({ features }) => (
   <Container>
@@ -39,10 +35,13 @@ const FeatureSection = ({ features }) => (
         path, title, shortTitle, teaserImage,
       }) => (
         <StyledListItem key={path}>
-          <FeatureCard
+          <Card
             href={path}
             title={shortTitle || title}
-            teaserImage={teaserImage}
+            image={teaserImage}
+            imageAspect={16 / 9}
+            backgroundColor="level2"
+            shadow
           />
         </StyledListItem>
       ))}

@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
-import { Spinner } from '@amsterdam/asc-ui'
+import { Spinner, Paragraph } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
-import HeroSection from '../../components/ThemePage/HeroSection'
+import HeroSection from '../../components/HeroSection'
 import LatestSection from '../../components/ThemePage/LatestSection'
 import {
   fetchAPI, getStrapiMedia, apolloClient,
@@ -30,7 +30,9 @@ const Theme = ({
         description={teaser}
         image={getStrapiMedia(teaserImage)}
       />
-      <HeroSection image={coverImage} title={title} intro={intro} />
+      <HeroSection image={coverImage} title={title}>
+        <Paragraph>{intro}</Paragraph>
+      </HeroSection>
       <LatestSection {...otherProps} />
     </>
   )

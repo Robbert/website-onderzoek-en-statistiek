@@ -39,7 +39,7 @@ const FeatureSection = ({ features }) => (
           <Card
             href={path}
             title={shortTitle || title}
-            teaserImage={teaserImage}
+            image={teaserImage}
             imageAspect={16 / 9}
             backgroundColor="level2"
             shadow

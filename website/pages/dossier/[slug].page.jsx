@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router'
-import { Spinner } from '@amsterdam/asc-ui'
+import { Paragraph, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import { apolloClient, fetchAPI, getStrapiMedia } from '../../lib/utils'
-import HeroSection from '../../components/CollectionPage/HeroSection'
+import HeroSection from '../../components/HeroSection'
 import FeatureSection from '../../components/CollectionPage/FeatureSection'
 import ListSection from '../../components/CollectionPage/ListSection'
 import QUERY from './collection.query.gql'
@@ -31,11 +31,9 @@ const Collection = ({
         description={teaser}
         image={getStrapiMedia(teaserImage)}
       />
-      <HeroSection
-        image={coverImage}
-        title={`Dossier ${title}`}
-        intro={intro}
-      />
+      <HeroSection image={coverImage} title={`Dossier ${title}`}>
+        <Paragraph>{intro}</Paragraph>
+      </HeroSection>
       <FeatureSection features={features} />
       <ListSection lists={lists} />
     </>

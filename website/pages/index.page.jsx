@@ -1,9 +1,11 @@
 import {
   apolloClient,
   getStrapiMedia,
+  flattenFeatureObject,
 } from '../lib/utils'
 import Seo from '../components/Seo'
 import HeroSection from '../components/HeroSection'
+import LinkList from '../components/LinkList'
 import FeatureSection from '../components/HomePage/FeatureSection'
 import ThemeSection from '../components/HomePage/ThemeSection'
 import CollectionSection from '../components/HomePage/CollectionSection'
@@ -24,10 +26,9 @@ const Home = ({ themes, homepage }) => {
         description={metaDescription}
         image={getStrapiMedia(shareImage)}
       />
-      <HeroSection
-        image={heroImage}
-        incoming={incoming}
-      />
+      <HeroSection image={heroImage} title="Actueel" offSet>
+        <LinkList links={flattenFeatureObject(incoming)} />
+      </HeroSection>
       <FeatureSection
         features={features}
       />

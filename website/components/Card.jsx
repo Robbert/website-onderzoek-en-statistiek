@@ -12,6 +12,7 @@ const Link = styled.a`
   display: block;
   width: 100%;
   text-decoration: none;
+  margin-bottom: ${({ marginBottom }) => `${marginBottom}px` || '0px'};
 
   ${styles.CardContentStyle} {
     min-height: 72px;
@@ -44,16 +45,16 @@ const Image = styled(NextImage)`
 `
 
 const Card = ({
-  href, title, teaserImage, height, ...props
+  href, title, image, icon, height, marginBottom, ...props
 }) => (
   <NextLink href={href} passHref>
-    <Link>
+    <Link marginBottom={marginBottom}>
       <BaseCard {...props}>
         <ImageWrapper {...props}>
           <Image
             src={
-              teaserImage
-                ? getStrapiMedia(teaserImage)
+              image
+                ? getStrapiMedia(image)
                 : PLACEHOLDER_IMAGE
             }
             alt=""
@@ -62,7 +63,9 @@ const Card = ({
             layout="responsive"
             sizes="384px"
             priority
+            imageAspect={props.imageAspect}
           />
+          { icon && <Icon size={25}>{icon}</Icon>}
         </ImageWrapper>
         <CardContent>
           <Heading as="h6">{title}</Heading>

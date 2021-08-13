@@ -4,7 +4,7 @@ import {
 import styled, { css } from 'styled-components'
 
 import ContentContainer from '../ContentContainer'
-import LatestCard from './ListCard'
+import Card from '../Card'
 import { flattenFeatureList } from '../../lib/utils'
 
 const Wrapper = styled.div`
@@ -14,10 +14,14 @@ const Wrapper = styled.div`
 const Grid = styled(ContentContainer)`
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 24px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and ${breakpoint('max-width', 'tabletM')} {
     grid-template-columns: 1fr;
   }
 `
@@ -28,8 +32,8 @@ const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  // if there are more than 2 lists...
-  ${({ listsLength }) => listsLength > 2 && css`
+  // if there are more than 3 lists...
+  ${({ listsLength }) => listsLength > 3 && css`
     // ...add border-bottom to first row of content lists
     &:nth-child(-n+2) {
       border-bottom: 2px solid;
@@ -63,10 +67,13 @@ const ContentList = ({ title, list, listsLength }) => (
           title: cardTitle, shortTitle, teaserImage, name, slug,
         }) => (
           <StyledListItem key={slug}>
-            <LatestCard
+            <Card
               href={`/${name}/${slug}`}
               title={shortTitle || cardTitle}
-              teaserImage={teaserImage}
+              image={teaserImage}
+              horizontal
+              imageSize={80}
+              marginBottom={24}
             />
           </StyledListItem>
         ))}

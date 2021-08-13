@@ -7,6 +7,7 @@
     "dev": "next dev",
     "dev-with-acc": "cross-env NEXT_PUBLIC_DEPLOY_ENV=acceptance next dev",
     "build": "next build",
+    "build-with-acc": "cross-env NEXT_PUBLIC_DEPLOY_ENV=acceptance next build",
     "start": "next start",
     "analyze": "cross-env NEXT_PUBLIC_DEPLOY_ENV=acceptance cross-env ANALYZE=true next build",
     "lint": "eslint .",

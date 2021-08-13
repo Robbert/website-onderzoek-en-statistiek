@@ -51,7 +51,7 @@ const ThemeSection = ({ themes }) => (
             <Card
               href={`/thema/${slug}`}
               title={title}
-              teaserImage={teaserImage}
+              image={teaserImage}
               imageAspect={16 / 9}
               shadow
             />
