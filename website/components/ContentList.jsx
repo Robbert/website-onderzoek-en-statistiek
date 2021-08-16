@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 import Card from './Card'
+import { contentTypes } from '../lib/utils'
 
 const StyledList = styled.ul`
   list-style: none;
@@ -17,11 +18,11 @@ const ContentList = ({ items }) => (
   <StyledList>
     {items
       .map(({
-        title, slug, teaser, teaserImage,
+        title, slug, teaser, teaserImage, __typename,
       }) => (
         <StyledListItem key={slug}>
           <Card
-            href={`/dossier/${slug}`}
+            href={`/${contentTypes[__typename.toLowerCase()].name}/${slug}`}
             title={title}
             teaser={teaser}
             image={teaserImage}
