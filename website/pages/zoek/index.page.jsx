@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import {
-  Heading, Spinner, themeSpacing, themeColor,
+  Heading, Spinner, themeSpacing, themeColor, Input, Label,
 } from '@amsterdam/asc-ui'
 import { useQuery, gql } from '@apollo/client'
 import styled from 'styled-components'
-import Link from 'next/link'
 
 import Seo from '../../components/Seo'
 import ContentContainer from '../../components/ContentContainer'
+import ContentList from '../../components/ContentList'
 import { contentTypes } from '../../lib/utils'
 
 const commonFilters = `
@@ -117,19 +117,11 @@ const SpinnerContainer = styled.div`
   margin-top: ${themeSpacing(6)};
 `
 
-const Result = ({ title, data, type }) => (
-  <>
+const Result = ({ title, data }) => (
+  <div>
     <StyledHeading as="h2">{title}</StyledHeading>
-    <ul>
-      {data.map(({ title: linkTitle, slug }) => (
-        <li key={slug}>
-          <Link href={`${type}/${slug}`}>
-            <a>{linkTitle}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  </>
+    <ContentList items={data} />
+  </div>
 )
 
 const irrelevantWords = [
@@ -184,7 +176,8 @@ const Search = () => {
   return (
     <ContentContainer>
       <Seo />
-      <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+      <Label htmlFor="searchfield" label="Zoeken" />
+      <Input id="searchfield" type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
       <Results searchQuery={searchQuery} />
     </ContentContainer>
   )

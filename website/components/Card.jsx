@@ -12,6 +12,7 @@ const Link = styled.a`
   display: block;
   width: 100%;
   text-decoration: none;
+  color: inherit;
   margin-bottom: ${({ marginBottom }) => `${marginBottom}px` || '0px'};
 
   ${styles.CardContentStyle} {
@@ -35,17 +36,17 @@ const Link = styled.a`
 const ImageWrapper = styled.div`
   width: 100%;
   max-width: ${({ imageSize }) => (imageSize ? `${imageSize}px` : '100%')};
-  aspect-ratio: ${({ imageAspect }) => imageAspect || 1};
+  aspect-ratio: ${({ ratio }) => ratio || 1};
   overflow: hidden;
 `
 
 // center image vertical if aspect ratio is not 1
 const Image = styled(NextImage)`
-  top: ${(props) => (props.imageAspect ? '-50% !important' : '0px')}; 
+  top: ${(props) => (props.ratio ? '-50% !important' : '0px')}; 
 `
 
 const Card = ({
-  href, title, image, icon, height, marginBottom, ...props
+  href, title, teaser, image, icon = true, height, marginBottom, ...props
 }) => (
   <NextLink href={href} passHref>
     <Link marginBottom={marginBottom}>
@@ -63,17 +64,20 @@ const Card = ({
             layout="responsive"
             sizes="384px"
             priority
-            imageAspect={props.imageAspect}
+            ratio={props.ratio}
           />
-          { icon && <Icon size={25}>{icon}</Icon>}
         </ImageWrapper>
         <CardContent>
           <Heading as="h6">{title}</Heading>
+          {teaser && <p>{teaser}</p>}
         </CardContent>
         <CardActions>
+          {icon
+          && (
           <Icon size={15}>
             <ChevronRight />
           </Icon>
+          )}
         </CardActions>
       </BaseCard>
     </Link>

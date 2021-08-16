@@ -39,7 +39,7 @@ const FeatureSection = ({ features }) => (
             href={path}
             title={shortTitle || title}
             image={teaserImage}
-            imageAspect={16 / 9}
+            ratio={16 / 9}
             backgroundColor="level2"
             shadow
           />

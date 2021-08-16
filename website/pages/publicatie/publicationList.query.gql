@@ -1,6 +1,10 @@
 query getPublicationListData {
-  publications {
+  publications(limit: 20, sort: "publicationDate:desc") {
     slug
     title
+    teaser
+    teaserImage {
+      url
+    }
   }
 }

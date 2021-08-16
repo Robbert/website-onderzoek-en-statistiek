@@ -1,5 +1,5 @@
 query getArticleListData {
-  articles(sort: "publicationDate:desc") {
+  articles(limit: 20, sort: "publicationDate:desc") {
     title
     slug
     teaser

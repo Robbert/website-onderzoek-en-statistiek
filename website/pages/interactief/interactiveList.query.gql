@@ -1,7 +1,10 @@
 query getInteractiveListData {
-  interactives {
+  interactives(limit: 20) {
     slug
     title
     teaser
+    teaserImage {
+      url
+    }
   }
 }

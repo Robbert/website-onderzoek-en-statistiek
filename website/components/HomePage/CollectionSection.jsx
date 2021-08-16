@@ -56,13 +56,12 @@ const CollectionSection = ({ collections }) => (
       <Heading gutterBottom={24}>Dossiers</Heading>
       <StyledList>
         {flattenFeatureObject(collections).map(({
-          title, teaser, slug, teaserImage,
+          title, slug, teaserImage,
         }) => (
           <StyledListItem key={slug}>
             <Card
               href={`/dossier/${slug}`}
               title={title}
-              teaser={teaser}
               image={teaserImage}
               horizontal
               imageSize={80}

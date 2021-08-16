@@ -52,7 +52,7 @@ const ThemeSection = ({ themes }) => (
               href={`/thema/${slug}`}
               title={title}
               image={teaserImage}
-              imageAspect={16 / 9}
+              ratio={16 / 9}
               shadow
             />
           </StyledListItem>

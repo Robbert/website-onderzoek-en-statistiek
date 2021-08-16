@@ -28,4 +28,7 @@ export const Value = styled.dd`
 
 export const Harmonica = styled(Accordion)`
     margin-top: ${themeSpacing(3)};
+    + div {
+        width: 100%;
+    }
 `

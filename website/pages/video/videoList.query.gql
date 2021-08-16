@@ -1,6 +1,10 @@
 query getVideoListData {
-  videos {
+  videos(limit: 20, sort: "publicationDate:desc") {
     slug
     title
+    teaser
+    teaserImage {
+      url
+    }
   }
 }

@@ -1,6 +1,10 @@
 query getCollectionListData {
-  collections {
+  collections(limit: 20) {
     title
     slug
+    teaser
+    teaserImage {
+      url
+    }
   }
 }
