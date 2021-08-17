@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { Spinner, Heading } from '@amsterdam/asc-ui'
+import { Spinner } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
 import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
 import Seo from '../../components/Seo'
 import ContentContainer from '../../components/ContentContainer'
+import IFrame from '../../components/IFrame'
 import QUERY from './interactive.query.gql'
 
 const Container = styled.div`
@@ -13,9 +14,15 @@ const Container = styled.div`
 `
 
 const Interactive = ({
-  title, shortTitle, teaser, contentLink, teaserImage, assets,
+  title, shortTitle, teaser, implementation, contentLink, teaserImage, assets,
 }) => {
   const router = useRouter()
+
+  useEffect(() => {
+    if (implementation === 'link') {
+      router.push(contentLink)
+    }
+  }, [implementation])
 
   if (router.isFallback) {
     return <div><Spinner /></div>
@@ -54,8 +61,9 @@ const Interactive = ({
         image={getStrapiMedia(teaserImage)}
         article
       />
-      <Heading>{title}</Heading>
-      <Container id="micro-frontend" />
+      { implementation === 'insert'
+        ? <Container id="micro-frontend" />
+        : <IFrame src={contentLink} title={title} />}
     </ContentContainer>
   )
 }
@@ -84,12 +92,14 @@ export async function getStaticProps({ params }) {
   )
     .catch() // TODO: log this error in sentry
 
-  const assets = await fetch(`${data.interactives[0].contentLink}/asset-manifest.json`)
+  const { contentLink, slug } = data.interactives[0]
+
+  const assets = await fetch(`${contentLink}/asset-manifest.json`)
     .then((res) => {
       if (res.ok) {
         return res.json()
       }
-      throw new Error(`no asset-manifest found for ${data.interactives[0].slug}`)
+      throw new Error(`no asset-manifest found for ${slug}`)
     })
     .catch((error) => {
       // eslint-disable-next-line no-console

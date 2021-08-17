@@ -8,5 +8,7 @@ query getInteractiveData($slug: String) {
     teaserImage {
       url
     }
+    implementation
+    contentLink
   }
 }

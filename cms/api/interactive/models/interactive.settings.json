@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "interactives",
   "info": {
-    "name": "interactive"
+    "name": "interactive",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -43,6 +44,15 @@
     },
     "contentLink": {
       "type": "string"
+    },
+    "implementation": {
+      "type": "enumeration",
+      "enum": [
+        "insert",
+        "frame",
+        "link"
+      ],
+      "default": "insert"
     },
     "theme": {
       "collection": "theme",
