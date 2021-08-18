@@ -125,21 +125,6 @@ function dropFocus() {
 
 const MenuItems = () => (
   <>
-    <MenuFlyOut label="Categorieën">
-      {CATEGORIES.map(({ label, slug }) => (
-        <MenuItem key={slug}>
-          <Link href={slug} passHref>
-            <MenuButtonNext
-              as="a"
-              iconLeft={<ChevronRight />}
-              onClick={() => dropFocus()}
-            >
-              {label}
-            </MenuButtonNext>
-          </Link>
-        </MenuItem>
-      ))}
-    </MenuFlyOut>
     <MenuFlyOut label="Thema's">
       {THEMES
         .slice()
@@ -157,6 +142,21 @@ const MenuItems = () => (
             </Link>
           </MenuItem>
         ))}
+    </MenuFlyOut>
+    <MenuFlyOut label="Categorieën">
+      {CATEGORIES.map(({ label, slug }) => (
+        <MenuItem key={slug}>
+          <Link href={slug} passHref>
+            <MenuButtonNext
+              as="a"
+              iconLeft={<ChevronRight />}
+              onClick={() => dropFocus()}
+            >
+              {label}
+            </MenuButtonNext>
+          </Link>
+        </MenuItem>
+      ))}
     </MenuFlyOut>
   </>
 )

@@ -145,7 +145,7 @@ export function flattenFeatureObject(featureObject) {
     ))
 }
 
-export function formatBytes(bytes, decimals = 1) {
+export function formatBytes(bytes, decimals = 0) {
   if (bytes === 0) return '0 Bytes'
 
   const k = 1024
@@ -155,4 +155,13 @@ export function formatBytes(bytes, decimals = 1) {
   const i = Math.floor(Math.log(bytes) / Math.log(k))
 
   return `${parseFloat((bytes / k ** i).toFixed(dm)).toLocaleString('nl-NL')} ${sizes[i]}`
+}
+
+export function formatDate(d) {
+  return new Intl.DateTimeFormat('nl', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour12: false,
+  }).format(new Date(d))
 }

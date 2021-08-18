@@ -1,14 +1,13 @@
 import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import Moment from 'react-moment'
 import { Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
-import Sidebar from '../../components/ArticlePage/Sidebar'
+import Related from '../../components/Related'
 import InlineImage from '../../components/InlineImage'
 import {
-  fetchAPI, getStrapiMedia, PLACEHOLDER_IMAGE, apolloClient,
+  fetchAPI, getStrapiMedia, PLACEHOLDER_IMAGE, apolloClient, flattenFeatureList, formatDate,
 } from '../../lib/utils'
 import QUERY from './article.query.gql'
 import * as Styled from './article.style'
@@ -68,13 +67,10 @@ const Article = ({
       </Styled.ImageWrapper>
       )}
       <Styled.Container>
-        <Styled.ArticleContainer>
+        <Styled.MainContent>
           <Styled.Title>{title}</Styled.Title>
-          <Moment locale="nl" format="D MMMM YYYY">{publicationDate}</Moment>
-          <ReactMarkdown
-            source={intro}
-            renderers={{ paragraph: ({ children }) => <Styled.Intro>{children}</Styled.Intro> }}
-          />
+          <span>{formatDate(publicationDate)}</span>
+          <Styled.Intro>{intro}</Styled.Intro>
           <Styled.Body>
             <ReactMarkdown
               source={body}
@@ -82,8 +78,17 @@ const Article = ({
               renderers={renderers}
             />
           </Styled.Body>
-        </Styled.ArticleContainer>
-        <Sidebar related={related} theme={theme} />
+        </Styled.MainContent>
+        <Styled.SideBar>
+          { related
+          && (
+          <Related
+            related={flattenFeatureList([related])}
+            links={related.links}
+            themes={theme}
+          />
+          )}
+        </Styled.SideBar>
       </Styled.Container>
     </>
   )

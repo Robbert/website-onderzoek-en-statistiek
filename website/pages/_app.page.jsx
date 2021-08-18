@@ -4,7 +4,6 @@ import {
 import Head from 'next/head'
 import { ApolloProvider } from '@apollo/client'
 import { createGlobalStyle } from 'styled-components'
-import 'moment/locale/nl'
 
 import { apolloClient } from '../lib/utils'
 import Layout from '../components/Layout'

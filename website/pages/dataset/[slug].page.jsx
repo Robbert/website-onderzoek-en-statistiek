@@ -1,11 +1,12 @@
 import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
-import Moment from 'react-moment'
 import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import ContentContainer from '../../components/ContentContainer'
-import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
+import {
+  fetchAPI, getStrapiMedia, apolloClient, formatDate,
+} from '../../lib/utils'
 import QUERY from './dataset.query.gql'
 import * as Styled from './dataset.style'
 
@@ -51,13 +52,13 @@ const Dataset = ({
         <Styled.Row>
           <Styled.Key>Publicatiedatum</Styled.Key>
           <Styled.Value>
-            <Moment locale="nl" format="D MMMM YYYY">{published}</Moment>
+            {formatDate(published)}
           </Styled.Value>
         </Styled.Row>
         <Styled.Row>
           <Styled.Key>Wijzigingsdatum</Styled.Key>
           <Styled.Value>
-            <Moment locale="nl" format="D MMMM YYYY">{updated}</Moment>
+            {formatDate(updated)}
           </Styled.Value>
         </Styled.Row>
         <Styled.Row>

@@ -1,9 +1,13 @@
 query getVideoData($slug: String) {
   videos(where: { slug: $slug }) {
+    publicationDate
     title
     shortTitle
     intro
     teaser
+    teaserImage {
+      url
+    }
     videoFile {
       url
     }
@@ -31,8 +35,9 @@ query getVideoData($slug: String) {
         url
       }
     }
-    teaserImage {
-      url
+    theme {
+      title
+      slug
     }
   }
 }

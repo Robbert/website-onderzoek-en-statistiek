@@ -14,9 +14,9 @@ const Datasets = ({ themes }) => (
     {themes.map((theme) => (
       <Styled.Harmonica title={theme.title} key={theme.slug}>
         <List variant="bullet">
-          {theme.datasets.map((item) => (
-            <ListItem key={item.slug}>
-              <Link href={`/dataset/${item.slug}`}>{item.title}</Link>
+          {theme.datasets.map(({ slug, title, contactName }) => (
+            <ListItem key={slug}>
+              <Link href={`/dataset/${slug}`}>{`${title} (${contactName})`}</Link>
             </ListItem>
           ))}
         </List>

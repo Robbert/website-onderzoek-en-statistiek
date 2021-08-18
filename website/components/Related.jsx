@@ -1,43 +1,59 @@
-import Link from 'next/link'
-import { Heading } from '@amsterdam/asc-ui'
+import { Heading, ListItem, List } from '@amsterdam/asc-ui'
 
-import { flattenFeatureList } from '../lib/utils'
+import Link from './Link'
 
-const Related = ({ data }) => {
-  if (!data) return null
+const Related = ({ related, links, themes }) => (
+  <>
+    {
+      related && related.length > 0 && (
+      <>
+        <Heading forwardedAs="h2">Zie ook</Heading>
+        <List>
+          { related.map(({ slug, path, title }) => (
+            <ListItem key={slug}>
+              <Link href={path} inList>
+                {title}
+              </Link>
+            </ListItem>
+          )) }
+        </List>
+      </>
+      )
+    }
+    {
+      links && links.length > 0 && (
+      <>
+        <Heading forwardedAs="h2">Links</Heading>
+        <List>
+          { links.map(({ url, text }) => (
+            <ListItem key={url}>
+              <Link href={url} inList>
+                {text}
+              </Link>
+            </ListItem>
+          )) }
+        </List>
+      </>
+      )
+    }
+    {
+      themes && themes.length > 0 && (
+      <>
+        <Heading forwardedAs="h2">{themes.lenght === 1 ? 'Thema' : "Thema's"}</Heading>
+        <List>
+          { themes.map(({ slug, title }) => (
+            <ListItem key={slug}>
+              <Link href={`/thema/${slug}`} inList>
+                {title}
+              </Link>
+            </ListItem>
+          )) }
+        </List>
+      </>
+      )
+    }
 
-  const relatedItems = flattenFeatureList([data]).map((item) => (
-    <li key={item.slug}>
-      <Link key={item.slug} href={item.path}>
-        <a>
-          {item.name}
-          :
-          {' '}
-          {item.title}
-        </a>
-      </Link>
-    </li>
-  ))
-
-  const relatedLinks = data.links.map((item) => (
-    <li key={item.url}>
-      <a href={item.url}>
-        link:
-        {' '}
-        {item.text}
-      </a>
-    </li>
-  ))
-
-  return (
-    <>
-      <Heading forwardedAs="h2">Gerelateerd</Heading>
-      <ul>
-        {relatedItems}
-        {relatedLinks}
-      </ul>
-    </>
-  )
-}
+  </>
+)
 
 export default Related

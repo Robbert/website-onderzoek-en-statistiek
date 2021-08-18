@@ -18,14 +18,14 @@ const ContentList = ({ items }) => (
   <StyledList>
     {items
       .map(({
-        title, slug, teaser, teaserImage, __typename,
+        title, slug, teaser, teaserImage, coverImage, __typename,
       }) => (
         <StyledListItem key={slug}>
           <Card
             href={`/${contentTypes[__typename.toLowerCase()].name}/${slug}`}
             title={title}
             teaser={teaser}
-            image={teaserImage}
+            image={teaserImage || coverImage}
             horizontal
             imageSize={144}
             marginBottom={24}

@@ -1,22 +1,18 @@
-// import { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
-import Moment from 'react-moment'
-// import { PDFDownloadLink } from '@react-pdf/renderer'
-import {
-  Spinner, AccordionWrapper,
-} from '@amsterdam/asc-ui'
+import { Spinner, AccordionWrapper } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import InlineImage from '../../components/InlineImage'
-// import PdfDocument from '../../components/PdfDocument'
-import Sidebar from '../../components/PublicationPage/Sidebar'
-import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
+import DownloadButton from '../../components/DownloadButton'
+import Related from '../../components/Related'
+import {
+  fetchAPI, getStrapiMedia, apolloClient, flattenFeatureList, PLACEHOLDER_IMAGE, formatDate,
+} from '../../lib/utils'
 import * as Styled from './publication.style'
 import QUERY from './publication.query.gql'
 
 const Publication = ({
-//  slug,
   author,
   title,
   shortTitle,
@@ -26,18 +22,12 @@ const Publication = ({
   results,
   conclusion,
   publicationDate,
-  //  publicationSource,
   file,
   related,
   teaserImage,
   coverImage,
   theme,
 }) => {
-  // const [isClient, setIsClient] = useState(false)
-  // useEffect(() => {
-  //   setIsClient(true)
-  // }, [])
-
   const router = useRouter()
   if (router.isFallback) {
     return <div><Spinner /></div>
@@ -54,10 +44,6 @@ const Publication = ({
     },
   }
 
-  // const pdfContent = {
-  //   title, publicationSource, intro, body,
-  // }
-
   return (
     <>
       <Seo
@@ -73,18 +59,11 @@ const Publication = ({
             {author && <Styled.MetaListItem>{author}</Styled.MetaListItem>}
             {publicationDate && (
             <Styled.MetaListItem>
-              <Moment locale="nl" format="D MMMM YYYY">{publicationDate}</Moment>
+              {formatDate(publicationDate)}
             </Styled.MetaListItem>
             )}
           </Styled.MetaList>
           <Styled.Intro>{intro}</Styled.Intro>
-          {/* { isClient && body && (
-          <PDFDownloadLink
-            document={<PdfDocument {...pdfContent} />}
-            fileName={`toegankelijke-samenvatting-${slug}.pdf`}>
-            {({ loading }) => (loading ? <Spinner /> : 'Download toegankelijke samenvatting')}
-          </PDFDownloadLink>
-          )} */}
           <Styled.Main>
             { body && (
             <ReactMarkdown
@@ -128,7 +107,27 @@ const Publication = ({
           </Styled.AccordionWrapperWrapper>
           )}
         </div>
-        <Sidebar image={coverImage} file={file} related={related} theme={theme} />
+        <Styled.SideBar>
+          <Styled.CoverImage>
+            <img
+              src={
+                coverImage
+                  ? getStrapiMedia(coverImage)
+                  : PLACEHOLDER_IMAGE
+            }
+              alt=""
+            />
+          </Styled.CoverImage>
+          <DownloadButton file={file} image={coverImage} />
+          { related
+            && (
+            <Related
+              related={flattenFeatureList([related])}
+              links={related.links}
+              themes={theme}
+            />
+            )}
+        </Styled.SideBar>
       </Styled.Container>
     </>
   )

@@ -1,11 +1,11 @@
-import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
 import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
-import ContentContainer from '../../components/ContentContainer'
 import Related from '../../components/Related'
-import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
+import {
+  fetchAPI, getStrapiMedia, apolloClient, flattenFeatureList, formatDate,
+} from '../../lib/utils'
 import QUERY from './video.query.gql'
 import * as Styled from './video.style'
 
@@ -57,6 +57,7 @@ const ExternalEmbed = ({ source }) => (
 const Video = ({
   title,
   shortTitle,
+  publicationDate,
   intro,
   teaser,
   videoFile,
@@ -66,6 +67,7 @@ const Video = ({
   externalEmbedSource,
   related,
   teaserImage,
+  theme,
 }) => {
   const router = useRouter()
   if (router.isFallback) {
@@ -73,29 +75,42 @@ const Video = ({
   }
 
   return (
-    <ContentContainer>
+    <>
       <Seo
         title={shortTitle || title}
         description={teaser}
         image={getStrapiMedia(teaserImage)}
         video
       />
-      <Heading gutterBottom={40}>
-        {`Video ${title}`}
-      </Heading>
-      <ReactMarkdown source={intro} escapeHtml={false} />
-      {videoFile?.url
-      && (
-      <LocalVideo
-        videoSource={videoFile}
-        subtitleSource={subtitleFile}
-        enableSubtitleByDefault={subtitleDefault}
-      />
-      )}
-      {externalVideoSource && <ExternalVideo source={externalVideoSource} />}
-      {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
-      <Related data={related} />
-    </ContentContainer>
+      <Styled.Container>
+        <Styled.MainContent>
+          <Heading gutterBottom={16}>
+            {`Video ${title}`}
+          </Heading>
+          <span>{formatDate(publicationDate)}</span>
+          <Styled.Intro>{intro}</Styled.Intro>
+          {videoFile?.url && (
+            <LocalVideo
+              videoSource={videoFile}
+              subtitleSource={subtitleFile}
+              enableSubtitleByDefault={subtitleDefault}
+            />
+          )}
+          {externalVideoSource && <ExternalVideo source={externalVideoSource} />}
+          {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
+        </Styled.MainContent>
+        <Styled.SideBar>
+          { related
+          && (
+          <Related
+            related={flattenFeatureList([related])}
+            links={related.links}
+            themes={theme}
+          />
+          )}
+        </Styled.SideBar>
+      </Styled.Container>
+    </>
   )
 }
 
