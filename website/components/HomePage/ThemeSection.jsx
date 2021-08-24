@@ -44,7 +44,7 @@ const ThemeSection = ({ themes }) => (
     <StyledHeading gutterBottom={24}>Thema‘s</StyledHeading>
     <StyledList>
       {themes
-        .slice()
+        .slice() // strict mode freezes arrays, so we need to make a copy to be able to sort
         .sort((a, b) => a.title.localeCompare(b.title))
         .map(({ title, slug, teaserImage }) => (
           <StyledListItem key={slug}>

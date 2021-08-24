@@ -1,14 +1,11 @@
 import {
-  AmsterdamLogo,
   breakpoint,
-  Header as HeaderComponent,
+  Header as HeaderASC,
   styles,
 } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
-import Nav from './Nav'
-
-const HeaderWrapper = styled.section`
+export const HeaderWrapper = styled.section`
   width: 100%;
 
   // this z-index is set so the fly out menu is always shown on top of other content
@@ -23,7 +20,7 @@ const HeaderWrapper = styled.section`
   }
 `
 
-const StyledHeader = styled(HeaderComponent)`
+export const Header = styled(HeaderASC)`
   padding: 0;
   margin: 0 44px;
   a {
@@ -59,18 +56,3 @@ const StyledHeader = styled(HeaderComponent)`
     }
   }
 `
-
-const Header = () => (
-  <HeaderWrapper>
-    <StyledHeader
-      tall
-      title="Onderzoek en Statistiek"
-      homeLink="/"
-      navigation={Nav()}
-      ssr
-      logo={AmsterdamLogo}
-    />
-  </HeaderWrapper>
-)
-
-export default Header

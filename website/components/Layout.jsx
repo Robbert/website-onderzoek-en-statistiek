@@ -1,7 +1,7 @@
 import { Container } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
-import Header from './Header'
+import Header from './Header/Header'
 import Footer from './Footer'
 
 const StyledContainer = styled(Container)`
