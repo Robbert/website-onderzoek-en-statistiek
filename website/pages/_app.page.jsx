@@ -2,10 +2,8 @@ import {
   GlobalStyle, ThemeProvider, themeColor,
 } from '@amsterdam/asc-ui'
 import Head from 'next/head'
-import { ApolloProvider } from '@apollo/client'
 import { createGlobalStyle } from 'styled-components'
 
-import { apolloClient } from '../lib/utils'
 import Layout from '../components/Layout'
 
 const BodyStyle = createGlobalStyle`
@@ -23,11 +21,9 @@ const MyApp = ({ Component, pageProps }) => (
     <ThemeProvider>
       <GlobalStyle />
       <BodyStyle />
-      <ApolloProvider client={apolloClient}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ApolloProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ThemeProvider>
   </>
 )
