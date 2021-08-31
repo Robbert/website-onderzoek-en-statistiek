@@ -7,6 +7,7 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'airbnb',
+    'plugin:@next/next/recommended',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -15,9 +16,11 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-  ],
+  settings: {
+    next: {
+      rootDir: 'website',
+    },
+  },
   rules: {
     semi: ['error', 'never'],
     'react/jsx-props-no-spreading': 'off',

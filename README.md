@@ -10,7 +10,19 @@
 - postgres (psql and pg_dump) v13
 
 ### Recommendations
-We use ESLint style rules in this repository, so it's strongly advised to have an ESLint plugin for your editor/IDE
+We use ESLint and stylelint style rules in this repository, so it's strongly advised to have an ESLint and stylelint plugin for your editor/IDE
+
+#### Protip for VSCode users
+Add the following to your VSCode `settings.json`, to fix lint errors on save:
+
+```
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  }
+}
+```
 
 ### CMS
 * Start local database: `yarn cms:db`
