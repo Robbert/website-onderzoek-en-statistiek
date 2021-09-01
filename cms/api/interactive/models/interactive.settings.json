@@ -52,7 +52,8 @@
         "frame",
         "link"
       ],
-      "default": "insert"
+      "default": "insert",
+      "required": true
     },
     "theme": {
       "collection": "theme",

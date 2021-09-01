@@ -1,41 +1,30 @@
-import { useState } from 'react'
-import Fuse from 'fuse.js'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import {
-  Heading, Input, Label, Checkbox, FilterOption, List, ListItem,
+  Heading, Label, Checkbox, List, ListItem, Paragraph,
 } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo'
 import Link from '../../components/Link'
 import {
-  contentTypes, formatDate, fetchAPI,
+  contentTypes, formatDate, apolloClient, prependRootURL,
 } from '../../lib/utils'
+import useFetch from '../../lib/useFetch'
+import QUERY from './search.query.gql'
 import * as Styled from './search.style'
 
-const sortResults = (a, b, order) => {
-  if (order === 'desc') return new Date(b.publicationDate) - new Date(a.publicationDate)
-  if (order === 'asc') return new Date(a.publicationDate) - new Date(b.publicationDate)
-  return a.score - b.score
-}
+const Results = (props) => {
+  const params = Object.entries(props).filter(([, value]) => value.length > 0)
+  const queryString = new URLSearchParams(params).toString()
+  const url = prependRootURL(`/api/search?${queryString}`)
+  const { data, error, isLoading } = useFetch(url)
 
-const Results = ({
-  content, searchQuery, sortOrder, category, themeFilter, searchIndex,
-}) => {
-  const list = searchQuery !== ''
-    ? searchIndex.search(searchQuery).map(({ score, item }) => ({ score, ...item }))
-    : content
-
-  const results = list
-    .filter(({ type }) => (category === 'all' || category === type))
-    .filter(({ theme }) => (
-      themeFilter.length === 0
-      || themeFilter.some((t) => theme.includes(t))
-    ))
-    .sort((a, b) => sortResults(a, b, sortOrder))
-    .slice(0, 20)
+  if (isLoading || !data) return null
+  if (error) return <Paragraph>Er ging iets mis, probeer opnieuw te zoeken.</Paragraph>
 
   return (
     <List>
-      {results.map(({
+      {data.results.map(({
         slug, title, type, publicationDate,
       }) => (
         <ListItem key={`${type}-${slug}`}>
@@ -51,10 +40,10 @@ const Results = ({
   )
 }
 
-const Search = ({ themes, content }) => {
+const Search = ({ themes }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [sortOrder, setSortOrder] = useState('desc')
-  const [category, setCategory] = useState('all')
+  const [category, setCategory] = useState('')
   const [themeFilter, setThemeFilter] = useState([])
 
   const handleThemeChange = (slug) => {
@@ -64,12 +53,31 @@ const Search = ({ themes, content }) => {
     setThemeFilter(newSelection)
   }
 
-  const fuseOptions = {
-    includeScore: true,
-    keys: ['title', 'teaser', 'intro'],
-  }
+  const router = useRouter()
 
-  const searchIndex = new Fuse(content, fuseOptions)
+  useEffect(() => {
+    const query = {}
+    if (searchQuery) query.q = encodeURI(searchQuery)
+    if (sortOrder !== 'desc') query.sort = encodeURI(sortOrder)
+    if (themeFilter.length > 0) query.theme = encodeURI(themeFilter)
+    if (category) query.category = encodeURI(category)
+    router.push({
+      pathname: '/zoek',
+      query,
+    })
+  }, [searchQuery, sortOrder, themeFilter, category])
+
+  useEffect(() => {
+    if (router.isReady) {
+      const {
+        q, sort, category: cat, theme,
+      } = router.query
+      if (q) setSearchQuery(decodeURI(q))
+      if (sort) setSortOrder(sort)
+      if (cat) setCategory(cat)
+      if (theme) setThemeFilter(theme.split(','))
+    }
+  }, [router.isReady])
 
   return (
     <>
@@ -77,7 +85,7 @@ const Search = ({ themes, content }) => {
       <Styled.Container>
         <div>
           <Label htmlFor="searchfield" label="Zoeken" hidden />
-          <Input id="searchfield" type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+          <Styled.SearchBar id="searchfield" type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
           <Styled.PageTitle forwardedAs="h2">Resultaten</Styled.PageTitle>
           <Styled.SortBar>
             <Label htmlFor="selectSort" label="Sorteren" hidden />
@@ -88,45 +96,50 @@ const Search = ({ themes, content }) => {
             </Styled.Select>
           </Styled.SortBar>
           <Results
-            content={content}
-            searchIndex={searchIndex}
-            searchQuery={searchQuery}
-            sortOrder={sortOrder}
-            themeFilter={themeFilter}
+            q={searchQuery}
+            sort={sortOrder}
+            theme={themeFilter}
             category={category}
           />
         </div>
         <Styled.SideBar>
           <Heading forwardedAs="h2">Filters</Heading>
-          <Styled.FilterBox label="Categorieën">
-            <FilterOption
-              active={category === 'all'}
-              href="#"
-              onClick={() => setCategory('all')}
-            >
-              Alle categorieën
-            </FilterOption>
-            {
-            Object.values(contentTypes).filter((cat) => cat.type !== 'theme').map(({ type, plural }) => (
-              <Styled.FilterOption
-                key={type}
-                active={category === type}
-                href="#"
-                onClick={() => setCategory(type)}
-              >
-                {plural}
-              </Styled.FilterOption>
-            ))
-          }
-          </Styled.FilterBox>
           <Styled.FilterBox label="Thema's">
             {
               themes.map(({ title, slug }) => (
                 <Label key={slug} align="flex-start" htmlFor={slug} label={title}>
-                  <Checkbox id={slug} variant="primary" onChange={() => handleThemeChange(slug)} checked={themeFilter.includes(slug)} />
+                  <Checkbox
+                    id={slug}
+                    variant="primary"
+                    onChange={() => handleThemeChange(slug)}
+                    checked={themeFilter.includes(slug)}
+                  />
                 </Label>
               ))
             }
+          </Styled.FilterBox>
+          <Styled.FilterBox label="Categorieën">
+            <Styled.FilterButton
+              active={category === ''}
+              variant="textButton"
+              onClick={() => setCategory('')}
+            >
+              <Styled.FilterButtonLabel>Alle categorieën</Styled.FilterButtonLabel>
+            </Styled.FilterButton>
+            {
+            Object.values(contentTypes).filter((cat) => cat.type !== 'theme').map(({ type, plural }) => (
+              <Styled.FilterButton
+                key={type}
+                variant="textButton"
+                active={category === type}
+                onClick={() => setCategory(type)}
+              >
+                <Styled.FilterButtonLabel>
+                  {plural}
+                </Styled.FilterButtonLabel>
+              </Styled.FilterButton>
+            ))
+          }
           </Styled.FilterBox>
         </Styled.SideBar>
       </Styled.Container>
@@ -135,29 +148,12 @@ const Search = ({ themes, content }) => {
 }
 
 export async function getStaticProps() {
-  const themes = await fetchAPI('/themes').then((res) => res.map(({ title, slug }) => ({ title, slug })))
-  const articles = await fetchAPI('/articles?_limit=-1').then((res) => res.map((c) => ({ ...c, type: 'article' })))
-  const publications = await fetchAPI('/publications?_limit=-1').then((res) => res.map((c) => ({ ...c, type: 'publication' })))
-  const videos = await fetchAPI('/videos?_limit=-1').then((res) => res.map((c) => ({ ...c, type: 'video' })))
-  const interactives = await fetchAPI('/interactives?_limit=-1').then((res) => res.map((c) => ({ ...c, type: 'interactive', intro: '' })))
-  const datasets = await fetchAPI('/datasets?_limit=-1').then((res) => res.map((c) => ({
-    ...c, type: 'dataset', publicationDate: c.updated_at, teaser: c.legalFoundation, intro: c.description,
-  })))
-  const collections = await fetchAPI('/collections?_limit=-1').then((res) => res.map((c) => ({
-    ...c, type: 'collection', publicationDate: c.updated_at,
-  })))
-
-  const content = [
-    ...articles, ...publications, ...videos, ...interactives, ...collections, ...datasets,
-  ].map(({
-    slug, title, teaser, intro, publicationDate, type, theme,
-  }) => ({
-    slug, title, teaser, intro, publicationDate, type, theme: theme.map((item) => item.slug),
-  }))
+  const { data } = await apolloClient.query({ query: QUERY })
+    .catch() // TODO: log this error in sentry
 
   return {
-    props: { themes, content },
-    revalidate: 10,
+    props: data,
+    revalidate: 1,
   }
 }
 

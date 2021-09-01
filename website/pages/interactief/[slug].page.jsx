@@ -92,19 +92,18 @@ export async function getStaticProps({ params }) {
   )
     .catch() // TODO: log this error in sentry
 
-  const { contentLink, slug } = data.interactives[0]
+  const { contentLink, implementation } = data.interactives[0]
 
-  const assets = await fetch(`${contentLink}/asset-manifest.json`)
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-      throw new Error(`no asset-manifest found for ${slug}`)
-    })
-    .catch((error) => {
+  const assets = implementation === 'insert'
+    ? await fetch(`${contentLink}/asset-manifest.json`)
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        }
+        return []
       // eslint-disable-next-line no-console
-      console.log(error)
-    })
+      }).catch((e) => console.log(e))
+    : {}
 
   return {
     props: {
