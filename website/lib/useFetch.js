@@ -13,8 +13,10 @@ function useFetch(url) {
         const result = await resp.json()
         setData(result)
       } catch (e) {
-        setData([])
-        setError(e)
+        if (!abortController.signal.aborted) {
+          setData(null)
+          setError(e)
+        }
       }
       setIsLoading(false)
     }
