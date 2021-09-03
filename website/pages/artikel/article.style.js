@@ -35,7 +35,7 @@ export const SideBar = styled.div`
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-top: 0;
-}
+  }
 `
 
 export const Title = styled(Heading)`
