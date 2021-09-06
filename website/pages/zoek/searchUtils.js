@@ -1,24 +1,18 @@
-import { writeFileSync } from 'fs'
-import Fuse from 'fuse.js'
-
 import { fetchAPI } from '../../lib/utils'
 
 const normalize = ({
-  slug, title, shortTitle, teaser, intro, body, publicationDate, theme,
+  slug, title, shortTitle, teaser, intro, publicationDate, theme,
 }) => ({
   slug,
   title,
   shortTitle,
   teaser,
   intro,
-  body,
   publicationDate,
   theme: theme.map((item) => item.slug),
 })
 
-export const CACHEFILE = './.next/searchData.js'
-
-export default async function createNewIndex() {
+export async function getSearchContent() {
   const articles = await fetchAPI('/articles?_limit=-1')
     .then((result) => result.map((item) => ({
       ...normalize(item),
@@ -45,6 +39,7 @@ export default async function createNewIndex() {
     .then((result) => result.map((item) => ({
       ...normalize(item),
       type: 'dataset',
+      shortTitle: '',
       publicationDate: item.updated_at,
       teaser: item.legalFoundation,
       intro: item.description,
@@ -58,36 +53,54 @@ export default async function createNewIndex() {
       body: '',
     })))
 
-  const content = [
+  return [
     ...articles, ...publications, ...videos, ...interactives, ...collections, ...datasets,
   ]
-
-  const keys = [
-    {
-      name: 'title',
-      weight: 1,
-    },
-    {
-      name: 'teaser',
-      weight: 0.8,
-    },
-    {
-      name: 'intro',
-      weight: 0.8,
-    },
-    {
-      name: 'body',
-      weight: 0.5,
-    }]
-
-  const index = Fuse.createIndex(keys, content)
-  const searchData = { content, index }
-  const file = `exports.searchData = ${JSON.stringify(searchData)}`
-
-  try {
-    writeFileSync(CACHEFILE, file)
-    return 'succes'
-  } catch (e) {
-    return 'something went wrong'
-  }
 }
+
+export const fuseOptions = {
+  includeScore: true,
+  ignoreLocation: true,
+  minMatchCharLength: 2,
+  threshold: 0,
+  keys: ['title', 'shortTitle', 'teaser', 'intro'],
+}
+
+const sortResults = (a, b, order) => {
+  if (order === 'score') return a.score - b.score
+  if (order === 'op') return new Date(a.publicationDate) - new Date(b.publicationDate)
+  return new Date(b.publicationDate) - new Date(a.publicationDate)
+}
+
+export function searchContent(content, index, searchQuery, sortOrder, themeFilter, category) {
+  const base = searchQuery !== ''
+    ? index.search(searchQuery).map(({ score, item }) => ({ score, ...item }))
+    : content
+
+  return base
+    .filter(({ type }) => (!category || category === type))
+    .filter(({ theme }) => (
+      themeFilter.length === 0
+        || themeFilter.some((t) => theme.includes(t))
+    ))
+    .sort((a, b) => sortResults(a, b, sortOrder))
+}
+
+export function calculateFacetsTotals(themes, types, results) {
+  const facets = themes
+    .map(({ slug }) => slug)
+    .concat(Object.keys(types))
+    .reduce((acc, curr) => {
+      acc[curr] = 0
+      return acc
+    }, {})
+  results.forEach((result) => {
+    facets[result.type] += 1
+    result.theme.forEach((theme) => {
+      facets[theme] += 1
+    })
+  })
+  return facets
+}
+
+export const formatFacetNumber = (number) => (number > 0 ? `(${number})` : '')

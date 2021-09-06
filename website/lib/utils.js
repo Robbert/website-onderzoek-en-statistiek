@@ -93,6 +93,9 @@ export const contentTypes = {
   },
 }
 
+export const translateContentType = (contentType) => Object.values(contentTypes)
+  .find(({ name }) => name === contentType).type
+
 export function flattenFeatureList(list) {
   return !list ? [] : list.map((section) => ([
     ...section.articles?.map((entry) => (
