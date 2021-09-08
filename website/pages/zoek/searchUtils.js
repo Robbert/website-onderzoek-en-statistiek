@@ -72,7 +72,7 @@ const sortResults = (a, b, order) => {
   return new Date(b.publicationDate) - new Date(a.publicationDate)
 }
 
-export function searchContent(content, index, searchQuery, sortOrder, themeFilter, category) {
+export function getSearchResults(content, index, searchQuery, sortOrder, themeFilter, category) {
   const base = searchQuery !== ''
     ? index.search(searchQuery).map(({ score, item }) => ({ score, ...item }))
     : content

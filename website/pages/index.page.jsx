@@ -3,12 +3,11 @@ import {
   getStrapiMedia,
   flattenFeatureObject,
 } from '../lib/utils'
-import Seo from '../components/Seo'
-import HeroSection from '../components/HeroSection'
-import LinkList from '../components/LinkList'
-import FeatureSection from '../components/HomePage/FeatureSection'
-import ThemeSection from '../components/HomePage/ThemeSection'
-import CollectionSection from '../components/HomePage/CollectionSection'
+import Seo from '../components/Seo/Seo'
+import HeroSection from '../components/HeroSection/HeroSection'
+import PageSection from '../components/PageSection/PageSection'
+import LinkList from '../components/LinkList/LinkList'
+import CardList from '../components/CardList/CardList'
 import QUERY from './homepage.query.gql'
 
 const Home = ({ themes, homepage }) => {
@@ -26,18 +25,46 @@ const Home = ({ themes, homepage }) => {
         description={metaDescription}
         image={getStrapiMedia(shareImage)}
       />
+
       <HeroSection image={heroImage} title="Actueel" offSet>
-        <LinkList links={flattenFeatureObject(incoming)} />
+        <LinkList links={flattenFeatureObject(incoming)} darkBackground />
       </HeroSection>
-      <FeatureSection
-        features={features}
-      />
-      <ThemeSection
-        themes={themes}
-      />
-      <CollectionSection
-        collections={collections}
-      />
+
+      <PageSection title="Uitgelicht">
+        <CardList
+          columns={4}
+          items={flattenFeatureObject(features)}
+          hasTeaser={false}
+          ratio={16 / 9}
+          backgroundColor="level2"
+          shadow
+        />
+      </PageSection>
+
+      <PageSection title="Thema's">
+        <LinkList
+          columns={4}
+          gutterBottom={40}
+          links={
+            themes
+              .slice() // strict mode freezes arrays, so we need to make a copy to be able to sort
+              .sort((a, b) => a.title.localeCompare(b.title))
+              .map(({ title, slug }) => ({ title, path: `thema/${slug}` }))
+          }
+        />
+      </PageSection>
+
+      <PageSection title="Dossiers">
+        <CardList
+          columns={3}
+          items={flattenFeatureObject(collections)}
+          hasTeaser={false}
+          imageSize={80}
+          hasBorder
+          horizontal
+        />
+      </PageSection>
+
     </>
   )
 }

@@ -10,7 +10,7 @@ import {
   Button as ButtonASC,
 } from '@amsterdam/asc-ui'
 
-import ContentContainer from '../../components/ContentContainer'
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
 
 export const Container = styled(ContentContainer)`
   display: grid;

@@ -4,7 +4,8 @@ import {
 import Head from 'next/head'
 import { createGlobalStyle } from 'styled-components'
 
-import Layout from '../components/Layout'
+import '../public/fonts/fonts.css'
+import Layout from '../components/Layout/Layout'
 
 const BodyStyle = createGlobalStyle`
   body {
@@ -16,7 +17,6 @@ const MyApp = ({ Component, pageProps }) => (
   <>
     <Head>
       <link rel="shortcut icon" href="/favicon.ico" />
-      <link href="/fonts/fonts.css" rel="stylesheet" />
     </Head>
     <ThemeProvider>
       <GlobalStyle />

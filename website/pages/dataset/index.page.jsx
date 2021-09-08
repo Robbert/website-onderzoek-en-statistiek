@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { Heading, List, ListItem } from '@amsterdam/asc-ui'
 
-import Seo from '../../components/Seo'
-import ContentContainer from '../../components/ContentContainer'
+import Seo from '../../components/Seo/Seo'
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import { apolloClient } from '../../lib/utils'
 import QUERY from './datasetList.query.gql'
 import * as Styled from './dataset.style'

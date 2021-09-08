@@ -1,8 +1,8 @@
 import { Heading } from '@amsterdam/asc-ui'
 
-import Seo from '../../components/Seo'
-import ContentContainer from '../../components/ContentContainer'
-import ContentList from '../../components/ContentList'
+import Seo from '../../components/Seo/Seo'
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import CardList from '../../components/CardList/CardList'
 import { apolloClient } from '../../lib/utils'
 import QUERY from './themeList.query.gql'
 
@@ -10,7 +10,12 @@ const Themes = ({ themes }) => (
   <ContentContainer>
     <Seo />
     <Heading forwardedAs="h2">Thema‘s</Heading>
-    <ContentList items={themes} />
+    <CardList
+      items={themes}
+      hasIcon={false}
+      imageSize={144}
+      horizontal
+    />
   </ContentContainer>
 )
 

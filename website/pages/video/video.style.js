@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Paragraph, breakpoint, themeColor } from '@amsterdam/asc-ui'
 
-import ContentContainer from '../../components/ContentContainer'
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
 
 export const Container = styled(ContentContainer)`
   display: grid;
@@ -26,7 +26,7 @@ export const SideBar = styled.div`
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-top: 0;
-}
+  }
 `
 
 export const Intro = styled(Paragraph)`
@@ -40,17 +40,19 @@ export const Video = styled.video`
   margin-bottom: 48px;
 
   video {
-    // turn off play controls in iOS
+    /* turn off play controls in iOS */
     ::-webkit-media-controls-panel {
-      -webkit-appearance: none;
+      appearance: none;
       display: none !important;
     }
+
     ::-webkit-media-controls-play-button {
-      -webkit-appearance: none;
+      appearance: none;
       display: none !important;
     }
+
     ::-webkit-media-controls-start-playback-button {
-      -webkit-appearance: none;
+      appearance: none;
       display: none !important;
     }
   }

@@ -3,7 +3,7 @@ import {
   CustomHTMLBlock, Heading, Paragraph, breakpoint, themeColor,
 } from '@amsterdam/asc-ui'
 
-import ContentContainer from '../../components/ContentContainer'
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
 
 export const ImageWrapper = styled.div`
   width: 100%;

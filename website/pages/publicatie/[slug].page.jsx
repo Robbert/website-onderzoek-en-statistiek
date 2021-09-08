@@ -2,10 +2,10 @@ import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
 import { Spinner, AccordionWrapper } from '@amsterdam/asc-ui'
 
-import Seo from '../../components/Seo'
-import InlineImage from '../../components/InlineImage'
-import DownloadButton from '../../components/DownloadButton'
-import Related from '../../components/Related'
+import Seo from '../../components/Seo/Seo'
+import InlineImage from '../../components/InlineImage/InlineImage'
+import DownloadButton from '../../components/DownloadButton/DownloadButton'
+import Related from '../../components/Related/Related'
 import {
   fetchAPI, getStrapiMedia, apolloClient, flattenFeatureList, PLACEHOLDER_IMAGE, formatDate,
 } from '../../lib/utils'

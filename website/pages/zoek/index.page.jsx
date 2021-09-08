@@ -6,14 +6,14 @@ import Fuse from 'fuse.js'
 import { debounce } from 'lodash'
 import { Heading, Label, Checkbox } from '@amsterdam/asc-ui'
 
-import Seo from '../../components/Seo'
+import Seo from '../../components/Seo/Seo'
 import SearchResults from '../../components/SearchResults/SearchResults'
 import {
   contentTypes, translateContentType, apolloClient,
 } from '../../lib/utils'
 import QUERY from './search.query.gql'
 import {
-  getSearchContent, searchContent, calculateFacetsTotals, formatFacetNumber, fuseOptions,
+  getSearchContent, getSearchResults, calculateFacetsTotals, formatFacetNumber, fuseOptions,
 } from './searchUtils'
 import * as Styled from './search.style'
 
@@ -36,20 +36,17 @@ const Search = ({ themes, content }) => {
     setThemeFilter(newSelection)
   }
 
-  const throttledUpdate = debounce(() => {
-    const updatedResults = searchContent(content, index, searchQuery,
-      sortOrder, themeFilter, category)
-    setResults(updatedResults)
-    setfacetCount(calculateFacetsTotals(themes, contentTypes, updatedResults))
-  }, 300)
-
   useEffect(() => {
-    throttledUpdate()
-  }, [searchQuery, sortOrder, themeFilter, category])
+    const throttledUpdate = debounce(() => {
+      const updatedResults = getSearchResults(content, index, searchQuery,
+        sortOrder, themeFilter, category)
+      setResults(updatedResults)
+      setfacetCount(calculateFacetsTotals(themes, contentTypes, updatedResults))
+    }, 300)
 
-  useEffect(() => () => {
-    throttledUpdate.cancel()
-  }, [])
+    throttledUpdate()
+    return () => throttledUpdate.cancel()
+  }, [searchQuery, sortOrder, themeFilter, category])
 
   useEffect(() => {
     const query = {}

@@ -1,6 +1,6 @@
 import { AmsterdamLogo } from '@amsterdam/asc-ui'
 
-import Nav from '../Nav'
+import Nav from '../Navigation/Navigation'
 import * as Styled from './Header.style'
 
 const Header = () => (

@@ -1,7 +1,7 @@
 import { Heading, Paragraph } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
-import ContentContainer from '../../components/ContentContainer'
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
 
 /**
  * -  Sizes need to be set in units relative to the browsers base font size,

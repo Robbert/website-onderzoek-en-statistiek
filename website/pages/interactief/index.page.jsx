@@ -1,8 +1,8 @@
 import { Heading } from '@amsterdam/asc-ui'
 
-import Seo from '../../components/Seo'
-import ContentContainer from '../../components/ContentContainer'
-import ContentList from '../../components/ContentList'
+import Seo from '../../components/Seo/Seo'
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import CardList from '../../components/CardList/CardList'
 import { apolloClient } from '../../lib/utils'
 import QUERY from './interactiveList.query.gql'
 
@@ -10,7 +10,12 @@ const Interactives = ({ interactives }) => (
   <ContentContainer>
     <Seo />
     <Heading forwardedAs="h2">Interactief</Heading>
-    <ContentList items={interactives} />
+    <CardList
+      items={interactives}
+      hasIcon={false}
+      imageSize={144}
+      horizontal
+    />
   </ContentContainer>
 )
 

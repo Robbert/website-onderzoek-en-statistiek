@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router'
 import { Spinner, CustomHTMLBlock } from '@amsterdam/asc-ui'
 
-import Seo from '../../components/Seo'
-import HeroSection from '../../components/HeroSection'
-import LatestSection from '../../components/ThemePage/LatestSection'
+import Seo from '../../components/Seo/Seo'
+import HeroSection from '../../components/HeroSection/HeroSection'
+import LatestSection from '../../components/LatestSection/LatestSection'
 import {
   fetchAPI, getStrapiMedia, apolloClient,
 } from '../../lib/utils'

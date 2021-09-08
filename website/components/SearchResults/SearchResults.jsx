@@ -1,7 +1,7 @@
 import { List, ListItem } from '@amsterdam/asc-ui'
 
 import { contentTypes, formatDate } from '../../lib/utils'
-import Link from '../Link'
+import Link from '../Link/Link'
 
 const SearchResults = ({ results }) => (
   <List>

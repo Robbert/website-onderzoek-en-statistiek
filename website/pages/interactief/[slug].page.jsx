@@ -4,9 +4,9 @@ import { Spinner } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
 import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
-import Seo from '../../components/Seo'
-import ContentContainer from '../../components/ContentContainer'
-import IFrame from '../../components/IFrame'
+import Seo from '../../components/Seo/Seo'
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import IFrame from '../../components/IFrame/IFrame'
 import QUERY from './interactive.query.gql'
 
 const Container = styled.div`

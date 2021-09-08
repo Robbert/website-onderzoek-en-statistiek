@@ -2,8 +2,8 @@ import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
 import { Heading, Spinner } from '@amsterdam/asc-ui'
 
-import Seo from '../../components/Seo'
-import ContentContainer from '../../components/ContentContainer'
+import Seo from '../../components/Seo/Seo'
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import {
   fetchAPI, getStrapiMedia, apolloClient, formatDate,
 } from '../../lib/utils'

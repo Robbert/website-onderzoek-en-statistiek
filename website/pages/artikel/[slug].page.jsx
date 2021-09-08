@@ -3,9 +3,9 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { Spinner } from '@amsterdam/asc-ui'
 
-import Seo from '../../components/Seo'
-import Related from '../../components/Related'
-import InlineImage from '../../components/InlineImage'
+import Seo from '../../components/Seo/Seo'
+import Related from '../../components/Related/Related'
+import InlineImage from '../../components/InlineImage/InlineImage'
 import {
   fetchAPI, getStrapiMedia, PLACEHOLDER_IMAGE, apolloClient, flattenFeatureList, formatDate,
 } from '../../lib/utils'

@@ -1,11 +1,14 @@
 import { useRouter } from 'next/router'
 import { CustomHTMLBlock, Spinner } from '@amsterdam/asc-ui'
 
-import Seo from '../../components/Seo'
-import { apolloClient, fetchAPI, getStrapiMedia } from '../../lib/utils'
-import HeroSection from '../../components/HeroSection'
-import FeatureSection from '../../components/CollectionPage/FeatureSection'
-import ListSection from '../../components/CollectionPage/ListSection'
+import Seo from '../../components/Seo/Seo'
+import {
+  apolloClient, fetchAPI, getStrapiMedia, flattenFeatureList,
+} from '../../lib/utils'
+import HeroSection from '../../components/HeroSection/HeroSection'
+import PageSection from '../../components/PageSection/PageSection'
+import CardList from '../../components/CardList/CardList'
+import ListSection from '../../components/ListSection/ListSection'
 import QUERY from './collection.query.gql'
 
 const Collection = ({
@@ -36,7 +39,16 @@ const Collection = ({
           <p>{intro}</p>
         </CustomHTMLBlock>
       </HeroSection>
-      <FeatureSection features={features} />
+      <PageSection title="Uitgelicht">
+        <CardList
+          columns={3}
+          items={flattenFeatureList(features)}
+          hasTeaser={false}
+          ratio={16 / 9}
+          backgroundColor="level2"
+          shadow
+        />
+      </PageSection>
       <ListSection lists={lists} />
     </>
   )

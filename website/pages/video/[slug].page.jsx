@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import { Heading, Spinner } from '@amsterdam/asc-ui'
 
-import Seo from '../../components/Seo'
-import Related from '../../components/Related'
+import Seo from '../../components/Seo/Seo'
+import Related from '../../components/Related/Related'
 import {
   fetchAPI, getStrapiMedia, apolloClient, flattenFeatureList, formatDate,
 } from '../../lib/utils'

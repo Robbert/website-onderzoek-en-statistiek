@@ -8,7 +8,7 @@ import {
   Accordion as ASCAccordion,
 } from '@amsterdam/asc-ui'
 
-import ContentContainer from '../../components/ContentContainer'
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
 
 export const Container = styled(ContentContainer)`
   display: grid;
@@ -27,7 +27,7 @@ export const SideBar = styled.div`
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-top: 0;
-}
+  }
 `
 
 export const Title = styled(Heading)`
@@ -74,8 +74,8 @@ export const Accordion = styled(ASCAccordion)`
     margin-top: 0;
   }
 `
-// TODO: this component only exists because you can't currently style AccordionWrapper
-// Fix this in ASC and remove this component
+/* TODO: this component only exists because you can't currently style AccordionWrapper
+ * Fix this in ASC and remove this component */
 export const AccordionWrapperWrapper = styled.div`
   margin-bottom: 24px;
 `
@@ -84,6 +84,7 @@ export const CoverImage = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 24px;
+
   img {
     width: 100%;
     max-width: 400px;
