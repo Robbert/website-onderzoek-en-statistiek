@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 import {
-  Card as BaseCard, CardContent, Heading, CardActions, Icon,
+  Card as BaseCard, Heading, CardActions, Icon,
 } from '@amsterdam/asc-ui'
 import { ChevronRight } from '@amsterdam/asc-assets'
 
@@ -30,10 +30,10 @@ const Card = ({
             ratio={props.ratio}
           />
         </Styled.ImageWrapper>
-        <CardContent>
+        <Styled.CardContent>
           <Heading as="h6">{title}</Heading>
           {hasTeaser && teaser && <p>{teaser}</p>}
-        </CardContent>
+        </Styled.CardContent>
         <CardActions>
           {hasIcon
           && (

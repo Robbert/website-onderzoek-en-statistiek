@@ -1,4 +1,4 @@
-import { themeColor, breakpoint, Heading as HeadingASC } from '@amsterdam/asc-ui'
+import { themeColor, breakpoint } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -23,9 +23,4 @@ export const ContentBlock = styled.div`
     bottom: -56px;
     left: 24px;
   }
-`
-/* TODO: IMHO ASC Heading should have color: inherit as default. */
-/* Maybe we can compose a PR with some small changes like this? */
-export const Heading = styled(HeadingASC)`
-  color: inherit;
 `

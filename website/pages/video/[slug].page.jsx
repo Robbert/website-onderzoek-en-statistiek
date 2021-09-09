@@ -88,7 +88,7 @@ const Video = ({
             {`Video ${title}`}
           </Heading>
           <span>{formatDate(publicationDate)}</span>
-          <Styled.Intro>{intro}</Styled.Intro>
+          <Styled.Intro strong>{intro}</Styled.Intro>
           {videoFile?.url && (
             <LocalVideo
               videoSource={videoFile}

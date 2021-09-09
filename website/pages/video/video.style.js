@@ -31,7 +31,6 @@ export const SideBar = styled.div`
 
 export const Intro = styled(Paragraph)`
   padding: 16px 0 0 0;
-  font-weight: 700;
 `
 
 export const Video = styled.video`

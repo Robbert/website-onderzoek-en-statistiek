@@ -11,7 +11,7 @@ const Related = ({ related, links, themes }) => (
         <List>
           { related.map(({ slug, path, title }) => (
             <ListItem key={slug}>
-              <Link href={path} inList>
+              <Link href={path} inList strong>
                 {title}
               </Link>
             </ListItem>
@@ -27,7 +27,7 @@ const Related = ({ related, links, themes }) => (
         <List>
           { links.map(({ url, text }) => (
             <ListItem key={url}>
-              <Link href={url} inList>
+              <Link href={url} inList strong>
                 {text}
               </Link>
             </ListItem>
@@ -43,7 +43,7 @@ const Related = ({ related, links, themes }) => (
         <List>
           { themes.map(({ slug, title }) => (
             <ListItem key={slug}>
-              <Link href={`/thema/${slug}`} inList>
+              <Link href={`/thema/${slug}`} inList strong>
                 {title}
               </Link>
             </ListItem>

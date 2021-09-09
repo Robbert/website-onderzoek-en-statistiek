@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { Heading } from '@amsterdam/asc-ui'
 
 import { getStrapiMedia, PLACEHOLDER_IMAGE } from '../../lib/utils'
 import ContentContainer from '../ContentContainer/ContentContainer'
@@ -21,7 +22,7 @@ const HeroSection = ({
     />
     <ContentContainer>
       <Styled.ContentBlock offSet={offSet}>
-        <Styled.Heading gutterBottom={24}>{title}</Styled.Heading>
+        <Heading gutterBottom={24} color="bright">{title}</Heading>
         {children}
       </Styled.ContentBlock>
     </ContentContainer>

@@ -12,6 +12,7 @@ const SearchResults = ({ results }) => (
         <Link
           href={`/${contentTypes[type].name}/${slug}`}
           inList
+          strong
         >
           {`${contentTypes[type].name}: ${title} | ${formatDate(publicationDate)}`}
         </Link>

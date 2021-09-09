@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { Spinner, CustomHTMLBlock } from '@amsterdam/asc-ui'
+import { Spinner, Paragraph } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
 import HeroSection from '../../components/HeroSection/HeroSection'
@@ -31,9 +31,7 @@ const Theme = ({
         image={getStrapiMedia(teaserImage)}
       />
       <HeroSection image={coverImage} title={title}>
-        <CustomHTMLBlock>
-          <p>{intro}</p>
-        </CustomHTMLBlock>
+        <Paragraph>{intro}</Paragraph>
       </HeroSection>
       <LatestSection {...otherProps} />
     </>

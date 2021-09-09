@@ -95,7 +95,7 @@ const Search = ({ themes, content }) => {
             )
           </Styled.PageTitle>
           <Styled.SortBar>
-            <Label htmlFor="selectSort" label="Sorteren" hidden />
+            <Label htmlFor="selectSort" label="Sorteren" srOnly />
             <Styled.Select id="selectSort" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
               <option value="af">Aflopend datum</option>
               <option value="op">Oplopend datum</option>

@@ -1,5 +1,7 @@
 import NextImage from 'next/image'
-import { themeColor, styles, svgFill } from '@amsterdam/asc-ui'
+import {
+  themeColor, styles, svgFill, Heading as HeadingASC,
+} from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
 export const Link = styled.a`
@@ -11,13 +13,7 @@ export const Link = styled.a`
   border-top: 1px solid;
   border-color: ${({ hasBorder }) => (hasBorder ? themeColor('tint', 'level3') : 'transparent')};
 
-  ${styles.CardContentStyle} {
-    min-height: 72px;
-    padding: 16px 16px;
-  }
-
   :hover {
-
     ${styles.CardContentStyle} h6 {
       text-decoration: underline;
       color: ${themeColor('secondary', 'main')};
@@ -27,6 +23,12 @@ export const Link = styled.a`
       ${svgFill(themeColor('secondary', 'main'))}
     }
   }
+`
+
+export const CardContent = styled.div`
+  min-height: 72px;
+  padding: 16px;
+  width: 100%;
 `
 
 export const ImageWrapper = styled.div`
