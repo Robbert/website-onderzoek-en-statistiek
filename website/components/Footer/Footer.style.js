@@ -1,9 +1,9 @@
 import { breakpoint } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
-import ContentContainer from '../ContentContainer/ContentContainer'
+import ContainerComponent from '../Container/Container'
 
-export const Container = styled(ContentContainer)`
+export const Container = styled(ContainerComponent)`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
-import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import Container from '../../components/Container/Container'
 import {
   fetchAPI, getStrapiMedia, apolloClient, formatDate,
 } from '../../lib/utils'
@@ -36,7 +36,7 @@ const Dataset = ({
   ))
 
   return (
-    <ContentContainer>
+    <Container>
       <Seo
         title={`Dataset: ${title}`}
         description={description}
@@ -78,7 +78,7 @@ const Dataset = ({
           {resourceLinks}
         </Styled.Row>
       </Styled.MetaData>
-    </ContentContainer>
+    </Container>
   )
 }
 

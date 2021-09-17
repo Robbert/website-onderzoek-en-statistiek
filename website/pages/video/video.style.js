@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import { Paragraph, breakpoint, themeColor } from '@amsterdam/asc-ui'
 
-import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import ContainerComponent from '../../components/Container/Container'
 
-export const Container = styled(ContentContainer)`
+export const Container = styled(ContainerComponent)`
   display: grid;
   grid-template-columns: 2fr 1fr;
   column-gap: 36px;

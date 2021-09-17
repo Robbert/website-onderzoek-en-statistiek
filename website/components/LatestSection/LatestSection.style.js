@@ -3,13 +3,13 @@ import {
 } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
-import ContentContainer from '../ContentContainer/ContentContainer'
+import Container from '../Container/Container'
 
 export const Wrapper = styled.div`
   background-color: ${themeColor('tint', 'level2')};
 `
 
-export const Grid = styled(ContentContainer)`
+export const Grid = styled(Container)`
   display: grid;
   width: 100%;
   grid-template-columns: repeat(3, 1fr);

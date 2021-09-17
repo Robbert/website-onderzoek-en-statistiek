@@ -1,5 +1,5 @@
 import Card from '../Card/Card'
-import { contentTypes } from '../../lib/utils'
+import CONTENT_TYPES from '../../constants/contentTypes'
 import * as Styled from './CardList.style'
 
 const CardList = ({
@@ -12,7 +12,7 @@ const CardList = ({
       }) => (
         <Styled.ListItem key={slug}>
           <Card
-            href={`/${contentTypes[__typename.toLowerCase()].name}/${slug}`}
+            href={`/${CONTENT_TYPES[__typename.toLowerCase()].name}/${slug}`}
             title={shortTitle || title}
             teaser={teaser}
             image={teaserImage || coverImage}

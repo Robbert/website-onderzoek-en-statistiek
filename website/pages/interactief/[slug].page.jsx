@@ -5,11 +5,11 @@ import styled from 'styled-components'
 
 import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
 import Seo from '../../components/Seo/Seo'
-import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import Container from '../../components/Container/Container'
 import IFrame from '../../components/IFrame/IFrame'
 import QUERY from './interactive.query.gql'
 
-const Container = styled.div`
+const RenderContainer = styled.div`
   width: 100%;
 `
 
@@ -54,7 +54,7 @@ const Interactive = ({
   }, [])
 
   return (
-    <ContentContainer>
+    <Container>
       <Seo
         title={shortTitle || title}
         description={teaser}
@@ -62,9 +62,9 @@ const Interactive = ({
         article
       />
       { implementation === 'insert'
-        ? <Container id="micro-frontend" />
+        ? <RenderContainer id="micro-frontend" />
         : <IFrame src={contentLink} title={title} />}
-    </ContentContainer>
+    </Container>
   )
 }
 

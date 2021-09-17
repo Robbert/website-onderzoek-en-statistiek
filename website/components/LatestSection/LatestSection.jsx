@@ -2,19 +2,19 @@ import { CompactThemeProvider } from '@amsterdam/asc-ui'
 
 import Card from '../Card/Card'
 import Link from '../Link/Link'
-import { contentTypes } from '../../lib/utils'
+import CONTENT_TYPES from '../../constants/contentTypes'
 import * as Styled from './LatestSection.style'
 
 const ContentList = ({ type, features }) => (
   <Styled.ListContainer>
-    <Styled.Heading gutterBottom={24}>{contentTypes[type].plural}</Styled.Heading>
+    <Styled.Heading gutterBottom={24}>{CONTENT_TYPES[type].plural}</Styled.Heading>
     <Styled.List>
       {features.map(({
         title, shortTitle, slug, teaserImage,
       }) => (
         <Styled.ListItem key={title}>
           <Card
-            href={`/${contentTypes[type].name}/${slug}`}
+            href={`/${CONTENT_TYPES[type].name}/${slug}`}
             title={shortTitle || title}
             image={teaserImage}
             horizontal
@@ -25,7 +25,7 @@ const ContentList = ({ type, features }) => (
         </Styled.ListItem>
       ))}
     </Styled.List>
-    <Link href="/zoek" inList>{`Meer ${contentTypes[type].plural}`}</Link>
+    <Link href="/zoek" inList>{`Meer ${CONTENT_TYPES[type].plural}`}</Link>
   </Styled.ListContainer>
 )
 

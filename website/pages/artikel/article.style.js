@@ -3,7 +3,7 @@ import {
   CustomHTMLBlock, Heading, Paragraph, breakpoint, themeColor,
 } from '@amsterdam/asc-ui'
 
-import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import ContainerComponent from '../../components/Container/Container'
 
 export const ImageWrapper = styled.div`
   width: 100%;
@@ -11,7 +11,7 @@ export const ImageWrapper = styled.div`
   position: relative;
 `
 
-export const Container = styled(ContentContainer)`
+export const Container = styled(ContainerComponent)`
   display: grid;
   grid-template-columns: 2fr 1fr;
   column-gap: 36px;

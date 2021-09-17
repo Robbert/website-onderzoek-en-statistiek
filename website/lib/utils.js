@@ -1,6 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 
+import CONTENT_TYPES from '../constants/contentTypes'
+
 export const PLACEHOLDER_IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN89x8AAuEB74Y0o2cAAAAASUVORK5CYII='
 
 export function prependStrapiURL(path = '') {
@@ -55,45 +57,7 @@ export const apolloClient = new ApolloClient({
   },
 })
 
-export const contentTypes = {
-  article: {
-    type: 'article',
-    name: 'artikel',
-    plural: 'artikelen',
-  },
-  publication: {
-    type: 'publication',
-    name: 'publicatie',
-    plural: 'publicaties',
-  },
-  video: {
-    type: 'video',
-    name: 'video',
-    plural: 'videos',
-  },
-  interactive: {
-    type: 'interactive',
-    name: 'interactief',
-    plural: 'interactief',
-  },
-  theme: {
-    type: 'theme',
-    name: 'thema',
-    plural: 'themas',
-  },
-  collection: {
-    type: 'collection',
-    name: 'dossier',
-    plural: 'dossiers',
-  },
-  dataset: {
-    type: 'dataset',
-    name: 'dataset',
-    plural: 'datasets',
-  },
-}
-
-export const translateContentType = (contentType) => Object.values(contentTypes)
+export const translateContentType = (contentType) => Object.values(CONTENT_TYPES)
   .find(({ name }) => name === contentType).type
 
 export function flattenFeatureList(list) {
@@ -142,8 +106,8 @@ export function flattenFeatureObject(featureObject) {
       {
         ...entry,
         type: entry.__typename.toLowerCase(),
-        name: contentTypes[entry.__typename.toLowerCase()].name,
-        path: `/${contentTypes[entry.__typename.toLowerCase()].name}/${entry.slug}`,
+        name: CONTENT_TYPES[entry.__typename.toLowerCase()].name,
+        path: `/${CONTENT_TYPES[entry.__typename.toLowerCase()].name}/${entry.slug}`,
       }
     ))
 }

@@ -9,8 +9,9 @@ import { Heading, Label, Checkbox } from '@amsterdam/asc-ui'
 import Seo from '../../components/Seo/Seo'
 import SearchResults from '../../components/SearchResults/SearchResults'
 import {
-  contentTypes, translateContentType, apolloClient,
+  translateContentType, apolloClient,
 } from '../../lib/utils'
+import CONTENT_TYPES from '../../constants/contentTypes'
 import QUERY from './search.query.gql'
 import {
   getSearchContent, getSearchResults, calculateFacetsTotals, formatFacetNumber, fuseOptions,
@@ -23,7 +24,7 @@ const Search = ({ themes, content }) => {
   const [category, setCategory] = useState('')
   const [themeFilter, setThemeFilter] = useState([])
   const [results, setResults] = useState(content)
-  const [facetCount, setfacetCount] = useState(calculateFacetsTotals(themes, contentTypes, content))
+  const [facetCount, setfacetCount] = useState(calculateFacetsTotals(themes, CONTENT_TYPES, content))
 
   const router = useRouter()
 
@@ -41,7 +42,7 @@ const Search = ({ themes, content }) => {
       const updatedResults = getSearchResults(content, index, searchQuery,
         sortOrder, themeFilter, category)
       setResults(updatedResults)
-      setfacetCount(calculateFacetsTotals(themes, contentTypes, updatedResults))
+      setfacetCount(calculateFacetsTotals(themes, CONTENT_TYPES, updatedResults))
     }, 300)
 
     throttledUpdate()
@@ -53,7 +54,7 @@ const Search = ({ themes, content }) => {
     if (searchQuery) query.tekst = searchQuery
     if (sortOrder !== 'af') query.sorteer = sortOrder
     if (themeFilter.length > 0) query.thema = themeFilter.join(' ')
-    if (category) query.categorie = contentTypes[category].name
+    if (category) query.categorie = CONTENT_TYPES[category].name
     router.push(
       {
         pathname: '/zoek',
@@ -129,7 +130,7 @@ const Search = ({ themes, content }) => {
               <Styled.FilterButtonLabel>Alle categorieën</Styled.FilterButtonLabel>
             </Styled.FilterButton>
             {
-            Object.values(contentTypes).filter((cat) => cat.type !== 'theme').map(({ type, plural }) => (
+            Object.values(CONTENT_TYPES).filter((cat) => cat.type !== 'theme').map(({ type, plural }) => (
               <Styled.FilterButton
                 key={type}
                 variant="textButton"

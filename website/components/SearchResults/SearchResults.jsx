@@ -1,6 +1,7 @@
 import { List, ListItem } from '@amsterdam/asc-ui'
 
-import { contentTypes, formatDate } from '../../lib/utils'
+import { formatDate } from '../../lib/utils'
+import CONTENT_TYPES from '../../constants/contentTypes'
 import Link from '../Link/Link'
 
 const SearchResults = ({ results }) => (
@@ -10,11 +11,11 @@ const SearchResults = ({ results }) => (
     }) => (
       <ListItem key={`${type}-${slug}`}>
         <Link
-          href={`/${contentTypes[type].name}/${slug}`}
+          href={`/${CONTENT_TYPES[type].name}/${slug}`}
           inList
           strong
         >
-          {`${contentTypes[type].name}: ${title} | ${formatDate(publicationDate)}`}
+          {`${CONTENT_TYPES[type].name}: ${title} | ${formatDate(publicationDate)}`}
         </Link>
       </ListItem>
     ))}

@@ -3,8 +3,11 @@ import Footer from '../Footer/Footer'
 import * as Styled from './Layout.style'
 
 const Layout = ({ children }) => (
-  <Styled.Container maxWidth={1400}>
-    <Header />
+  <Styled.Container>
+    <Header
+      title="Onderzoek en Statistiek"
+      homeLink="/"
+    />
     <Styled.Main>
       {children}
     </Styled.Main>

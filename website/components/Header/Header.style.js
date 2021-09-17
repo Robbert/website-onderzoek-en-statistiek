@@ -1,64 +1,65 @@
-import {
-  breakpoint,
-  Header as HeaderASC,
-  styles,
-} from '@amsterdam/asc-ui'
 import styled from 'styled-components'
+import { breakpoint } from '@amsterdam/asc-ui'
 
-export const HeaderWrapper = styled.section`
-  width: 100%;
+import ContainerComponent from '../Container/Container'
+import LinkComponent from '../Link/Link'
+
+export const Container = styled(ContainerComponent)`
+  position: ${({ sticky }) => (sticky ? 'sticky' : 'relative')};
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
 
   /*
-   * this z-index is set so the fly out menu is always shown on top of other content
-   * 500 is a bit high, but this is because Leaflet (a map library we currently often use)
-   * sets a z-index of 400.
-   * */
-  & #header {
-    z-index: 500;
-  }
+   * this z-index is set so the header is shown on top of the backdrop
+   * 501 is a bit high, but this is because several external libraries we
+   * use set a high z-index.
+   */
+  z-index: 501;
+`
 
-  @media print {
+export const Heading = styled.h1`
+  margin: 0;
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    font-size: 18px;
+  }
+`
+
+export const Link = styled(LinkComponent)`
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-size: inherit;
+
+  :hover {
+    text-decoration: none;
+  }
+`
+
+const Logo = styled.img`
+  height: 42px;
+  margin-right: 100px;
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    margin-right: 24px;
+  }
+`
+
+export const LargeLogo = styled(Logo)`
+  @media screen and ${breakpoint('max-width', 'laptop')} {
     display: none;
   }
 `
 
-export const Header = styled(HeaderASC)`
-  padding: 0;
-  margin: 0 44px;
-
-  a {
-    /* Making sure the anchors in the header have a decent clickable area size */
-    display: flex;
-    height: 100%;
-    align-items: start;
+export const SmallLogo = styled(Logo)`
+  @media screen and ${breakpoint('min-width', 'laptop')} {
+    display: none;
   }
+`
 
-  @media screen and ${breakpoint('max-width', 'laptopM')} {
-    margin: 0 32px;
-  }
-
-  @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin: 0 24px;
-  }
-
-  ${styles.HeaderTitleStyle} {
-    @media screen and ${breakpoint('max-width', 'laptopM')} {
-      margin-top: 8px;
-    }
-
-    @media screen and ${breakpoint('max-width', 'laptop')} {
-      margin-top: 12px;
-    }
-  }
-
-  ${styles.HeaderNavigationStyle} {
-    @media screen and ${breakpoint('min-width', 'desktop')} {
-      margin-left: 29px;
-      margin-right: 29px;
-    }
-
-    @media screen and ${breakpoint('min-width', 'tabletM')} {
-      justify-content: space-between;
-    }
-  }
+export const Text = styled.span`
+  color: black;
 `

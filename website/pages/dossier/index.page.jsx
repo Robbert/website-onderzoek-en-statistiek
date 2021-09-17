@@ -2,13 +2,13 @@ import React from 'react'
 import { Heading } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
-import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import Container from '../../components/Container/Container'
 import CardList from '../../components/CardList/CardList'
 import { apolloClient } from '../../lib/utils'
 import QUERY from './collectionList.query.gql'
 
 const Collections = ({ collections }) => (
-  <ContentContainer>
+  <Container>
     <Seo />
     <Heading forwardedAs="h2">Dossiers</Heading>
     <CardList
@@ -17,7 +17,7 @@ const Collections = ({ collections }) => (
       imageSize={144}
       horizontal
     />
-  </ContentContainer>
+  </Container>
 )
 
 export async function getStaticProps() {

@@ -1,7 +1,7 @@
 import { Heading, Paragraph } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
-import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import Container from '../../components/Container/Container'
 
 /**
  * -  Sizes need to be set in units relative to the browsers base font size,
@@ -97,7 +97,7 @@ const Par = styled(Paragraph)`
 `
 
 const Articles = () => (
-  <ContentContainer>
+  <Container>
     <H1>Ruim een derde van de Amsterdamse leerlingen heeft een potentiële onderwijsachterstand</H1>
     <H2 as="h2">Ruim een derde van de Amsterdamse leerlingen heeft een potentiële onderwijsachterstand</H2>
     <H3 as="h3">Ruim een derde van de Amsterdamse leerlingen heeft een potentiële onderwijsachterstand</H3>
@@ -121,7 +121,7 @@ const Articles = () => (
       Vivamus lacinia felis et libero finibus, eget malesuada magna malesuada.
       Nulla id dolor rutrum, tristique tortor non, venenatis neque.
     </Par>
-  </ContentContainer>
+  </Container>
 )
 
 export default Articles

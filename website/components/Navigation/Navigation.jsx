@@ -1,170 +1,80 @@
-import React from 'react'
-import Link from 'next/link'
-import { MenuItem, MenuFlyOut, MenuButton } from '@amsterdam/asc-ui'
-import { ChevronRight, Search } from '@amsterdam/asc-assets'
+import { useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
+import { useActionOnEscape } from '@amsterdam/asc-ui'
 
+import FlyOutButton from '../FlyOutButton/FlyOutButton'
+import MegaMenu from '../MegaMenu/MegaMenu'
+import HEADER_LINKS from '../../constants/contentLinks'
+import useFocusWithArrows from '../../lib/useFocusWithArrows'
 import * as Styled from './Navigation.style'
 
-const CATEGORIES = [
-  {
-    label: 'Artikelen',
-    slug: '/artikel',
-  },
-  {
-    label: 'Publicaties',
-    slug: '/publicatie',
-  },
-  {
-    label: 'Video',
-    slug: '/video',
-  },
-  {
-    label: 'Interactief',
-    slug: '/interactief',
-  },
-  {
-    label: 'Dossiers',
-    slug: '/dossier',
-  },
-  {
-    label: 'Datasets',
-    slug: '/dataset',
-  },
-]
+const Navigation = ({ isOpen, setIsOpen }) => {
+  const menuRef = useRef()
+  const flyOutButtonRef = useRef()
+  const router = useRouter()
 
-const THEMES = [
-  {
-    label: 'Werk en sociale zekerheid',
-    slug: '/thema/werk-en-sociale-zekerheid',
-  },
-  {
-    label: 'Cultuur en recreatie',
-    slug: '/thema/cultuur-en-recreatie',
-  },
-  {
-    label: 'Wonen',
-    slug: '/thema/wonen',
-  },
-  {
-    label: 'Openbare orde en veiligheid',
-    slug: '/thema/openbare-orde-en-veiligheid',
-  },
-  {
-    label: 'Ruimte en topografie',
-    slug: '/thema/ruimte-en-topografie',
-  },
-  {
-    label: 'Bevolking',
-    slug: '/thema/bevolking',
-  },
-  {
-    label: 'Bestuur',
-    slug: '/thema/bestuur',
-  },
-  {
-    label: 'Duurzaamheid en milieu',
-    slug: '/thema/duurzaamheid-en-milieu',
-  },
-  {
-    label: 'Onderwijs en wetenschap',
-    slug: '/thema/onderwijs-en-wetenschap',
-  },
-  {
-    label: 'Economie en toerisme',
-    slug: '/thema/economie-en-toerisme',
-  },
-  {
-    label: 'Verkeer',
-    slug: '/thema/verkeer',
-  },
-  {
-    label: 'Zorg en welzijn',
-    slug: '/thema/zorg-en-welzijn',
-  },
-]
+  // close the menu when navigating to a different page
+  useEffect(() => {
+    if (isOpen) {
+      setIsOpen(false)
+    }
+  }, [router.asPath])
 
-// TODO: MenuButton is wrapped by this component because it
-// doesn't natively work with Next JS link
-// Maybe we can fix this in ASC and remove this wrapper?
-const MenuButtonNext = React.forwardRef(({ children, ...otherProps }, ref) => (
-  <span ref={ref}>
-    <MenuButton {...otherProps}>{children}</MenuButton>
-  </span>
-))
+  // close the menu and focus on flyOutButton on 'Escape' button press
+  const { onKeyDown: closeAndFocusOnEscape } = useActionOnEscape(() => {
+    setIsOpen(false)
+    return isOpen && flyOutButtonRef.current.focus()
+  })
 
-function dropFocus() {
-  if (document.activeElement instanceof HTMLElement) {
-    document.activeElement.blur()
-  }
-}
+  // focus on menu items with arrow keys
+  const menuItemSelectors = [
+    'a[href]:not([disabled])',
+    'button:not([disabled])',
+  ]
 
-const MenuItems = () => (
-  <>
-    <MenuFlyOut label="Thema's">
-      {THEMES
-        .slice()
-        .sort((a, b) => a.label.localeCompare(b.label))
-        .map(({ label, slug }) => (
-          <MenuItem key={slug}>
-            <Link href={slug} passHref>
-              <MenuButtonNext
-                as="a"
-                iconLeft={<ChevronRight />}
-                onClick={() => dropFocus()}
-              >
-                {label}
-              </MenuButtonNext>
-            </Link>
-          </MenuItem>
-        ))}
-    </MenuFlyOut>
-    <MenuFlyOut label="Categorieën">
-      {CATEGORIES.map(({ label, slug }) => (
-        <MenuItem key={slug}>
-          <Link href={slug} passHref>
-            <MenuButtonNext
-              as="a"
-              iconLeft={<ChevronRight />}
-              onClick={() => dropFocus()}
+  const { keyDown: focusMenuWithArrowKeys } = useFocusWithArrows(
+    menuRef, false, menuItemSelectors,
+  )
+
+  return (
+    <nav aria-label="Hoofdmenu">
+      <Styled.List
+        ref={menuRef}
+        onKeyDown={(e) => {
+          closeAndFocusOnEscape(e)
+          focusMenuWithArrowKeys(e)
+        }}
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget)) {
+            setIsOpen(false)
+          }
+        }}
+      >
+        {HEADER_LINKS.menuItems.map(({ label, slug }) => (
+          <Styled.Item key={slug}>
+            <Styled.Link
+              href={slug}
+              aria-current={router.asPath === slug && 'page'}
             >
               {label}
-            </MenuButtonNext>
-          </Link>
-        </MenuItem>
-      ))}
-    </MenuFlyOut>
-  </>
-)
-
-const Navigation = () => (
-  <>
-    <Styled.MenuInline>
-      <MenuItems />
-      <Styled.MenuItem>
-        <Link href="/zoek" passHref>
-          <MenuButtonNext
-            as="a"
-            icon={<Search />}
-            iconSize={20}
-            onClick={() => dropFocus()}
-          />
-        </Link>
-      </Styled.MenuItem>
-    </Styled.MenuInline>
-    <Styled.MenuToggle align="right">
-      <MenuItems />
-      <Styled.MenuItem>
-        <Link href="/zoek" passHref>
-          <MenuButtonNext
-            as="a"
-            onClick={() => dropFocus()}
+            </Styled.Link>
+          </Styled.Item>
+        ))}
+        <Styled.FlyOutItem>
+          <FlyOutButton
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            aria-expanded={isOpen}
+            aria-controls="menu"
+            ref={flyOutButtonRef}
           >
-            Zoek
-          </MenuButtonNext>
-        </Link>
-      </Styled.MenuItem>
-    </Styled.MenuToggle>
-  </>
-)
+            Menu
+          </FlyOutButton>
+          <MegaMenu isOpen={isOpen} currentPath={router.asPath} />
+        </Styled.FlyOutItem>
+      </Styled.List>
+    </nav>
+  )
+}
 
 export default Navigation
