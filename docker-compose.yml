@@ -29,8 +29,8 @@ services:
       DATABASE_PASSWORD: $DATABASE_PASSWORD
       STRAPI_ENVIRONMENT: production
       KEYCLOAK_NAME: $KEYCLOAK_NAME
-      KEYCLOAK_PASS_ACC: $KEYCLOAK_PASS_PROD
-      KEYCLOAK_REALM_ACC: datapunt-ad
+      KEYCLOAK_PASS_PROD: $KEYCLOAK_PASS_PROD
+      KEYCLOAK_REALM_PROD: datapunt-ad
     networks:
       - os-network
     ports:

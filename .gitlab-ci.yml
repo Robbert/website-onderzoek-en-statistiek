@@ -81,7 +81,9 @@ deploy acc:
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no 
         $SERVER_USER@$SERVER_IP 
         DATABASE_USERNAME=$DATABASE_USERNAME
-        DATABASE_PASSWORD=$DATABASE_PASSWORD 
+        DATABASE_PASSWORD=$DATABASE_PASSWORD
+        KEYCLOAK_NAME=$KEYCLOAK_NAME
+        KEYCLOAK_PASS_ACC=$KEYCLOAK_PASS_ACC
         "docker-compose -f docker-compose.acc.yml --project-name acceptance up -d --no-deps --remove-orphans"
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
         "docker-compose -f docker-compose.server.yml --project-name server up -d --no-deps --remove-orphans"
@@ -143,7 +145,9 @@ deploy prod:
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no 
         $SERVER_USER@$SERVER_IP
         DATABASE_USERNAME=$DATABASE_USERNAME
-        DATABASE_PASSWORD=$DATABASE_PASSWORD 
+        DATABASE_PASSWORD=$DATABASE_PASSWORD
+        KEYCLOAK_NAME=$KEYCLOAK_NAME
+        KEYCLOAK_PASS_PROD=$KEYCLOAK_PASS_PROD
         "docker-compose -f docker-compose.yml --project-name production up -d --no-deps --remove-orphans"
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
       "docker-compose -f docker-compose.server.yml --project-name server up -d --no-deps --remove-orphans"
