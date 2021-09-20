@@ -11,6 +11,8 @@ query getDatasetData($slug: String) {
   	resources {
       id
       title
+      type
+      url
       file {
         url
         ext

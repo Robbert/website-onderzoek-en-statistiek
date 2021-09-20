@@ -27,10 +27,12 @@ const Dataset = ({
     return <div><Spinner /></div>
   }
 
-  const resourceLinks = resources.map(({ id, title: resourceTitle, file }) => (
+  const resourceLinks = resources.map(({
+    id, title: resourceTitle, type, file, url,
+  }) => (
     <Styled.Value key={id}>
-      <a href={getStrapiMedia(file)}>
-        {`${file.ext.substring(1)}: ${resourceTitle}`}
+      <a href={file ? getStrapiMedia(file) : url}>
+        {`${type}: ${resourceTitle}`}
       </a>
     </Styled.Value>
   ))
