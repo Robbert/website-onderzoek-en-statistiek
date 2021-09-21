@@ -16,4 +16,18 @@ module.exports = withBundleAnalyzer({
     domains: ['localhost', 'cms.onderzoek-en-statistiek.nl', 'acc.cms.onderzoek-en-statistiek.nl'],
   },
   pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js', 'api.js'],
+  async headers() {
+    return [
+      {
+        source: '/(.*).(jpg|jpeg|gif|png|ico|svg)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value:
+              'public, max-age=604800, immutable',
+          },
+        ],
+      },
+    ]
+  },
 })

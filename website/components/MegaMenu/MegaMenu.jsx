@@ -28,17 +28,20 @@ const MegaMenu = ({ isOpen, currentPath }) => (
     <Styled.Item>
       <Heading as="h2" gutterBottom={28}>Thema‘s</Heading>
       <Styled.List>
-        {HEADER_LINKS.themes.map(({ label, slug }) => (
-          <Styled.Item key={slug}>
-            <Link
-              href={slug}
-              inList
-              aria-current={currentPath === slug && 'page'}
-            >
-              {label}
-            </Link>
-          </Styled.Item>
-        ))}
+        {HEADER_LINKS.themes
+          .slice()
+          .sort((a, b) => a.label.localeCompare(b.label))
+          .map(({ label, slug }) => (
+            <Styled.Item key={slug}>
+              <Link
+                href={slug}
+                inList
+                aria-current={currentPath === slug && 'page'}
+              >
+                {label}
+              </Link>
+            </Styled.Item>
+          ))}
       </Styled.List>
     </Styled.Item>
     <Styled.Item>

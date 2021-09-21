@@ -35,7 +35,7 @@ const Collection = ({
         image={getStrapiMedia(teaserImage)}
       />
       <HeroSection image={coverImage} title={`Dossier ${title}`}>
-        <Paragraph>{intro}</Paragraph>
+        <Paragraph color="bright">{intro}</Paragraph>
       </HeroSection>
       <PageSection title="Uitgelicht">
         <CardList

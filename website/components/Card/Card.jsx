@@ -26,7 +26,6 @@ const Card = ({
             height="1"
             layout="responsive"
             sizes="384px"
-            priority
             ratio={props.ratio}
           />
         </Styled.ImageWrapper>

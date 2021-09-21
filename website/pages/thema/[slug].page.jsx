@@ -31,7 +31,7 @@ const Theme = ({
         image={getStrapiMedia(teaserImage)}
       />
       <HeroSection image={coverImage} title={title}>
-        <Paragraph>{intro}</Paragraph>
+        <Paragraph color="bright">{intro}</Paragraph>
       </HeroSection>
       <LatestSection {...otherProps} />
     </>
