@@ -12,27 +12,27 @@ const HEADER_LINKS = {
   categories: [
     {
       label: 'Artikelen',
-      slug: '/artikel',
+      slug: '/zoek?categorie=artikel',
     },
     {
       label: 'Publicaties',
-      slug: '/publicatie',
+      slug: '/zoek?categorie=publicatie',
     },
     {
       label: 'Video',
-      slug: '/video',
+      slug: '/zoek?categorie=video',
     },
     {
       label: 'Interactief',
-      slug: '/interactief',
+      slug: '/zoek?categorie=interactief',
     },
     {
       label: 'Dossiers',
-      slug: '/dossier',
+      slug: '/zoek?categorie=dossier',
     },
     {
       label: 'Datasets',
-      slug: '/dataset',
+      slug: '/zoek?categorie=dataset',
     },
   ],
   themes: [

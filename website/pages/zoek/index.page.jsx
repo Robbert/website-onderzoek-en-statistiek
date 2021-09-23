@@ -1,5 +1,5 @@
 import {
-  useState, useEffect, useMemo,
+  useState, useEffect, useMemo, useCallback,
 } from 'react'
 import { useRouter } from 'next/router'
 import Fuse from 'fuse.js'
@@ -24,18 +24,47 @@ const Search = ({ themes, content }) => {
   const [category, setCategory] = useState('')
   const [themeFilter, setThemeFilter] = useState([])
   const [results, setResults] = useState(content)
-  const [facetCount, setfacetCount] = useState(calculateFacetsTotals(themes, CONTENT_TYPES, content))
+  const [facetCount, setfacetCount] = useState(
+    calculateFacetsTotals(themes, CONTENT_TYPES, content),
+  )
 
   const router = useRouter()
 
   const index = useMemo(() => new Fuse(content, fuseOptions), [content, fuseOptions])
 
+  const setUrlParameters = useCallback((paramName, paramValue) => {
+    const { query } = router
+    delete query[paramName]
+
+    if (paramName === 'thema' && paramValue.length > 0) query.thema = paramValue.join(' ')
+    if (paramName === 'categorie') query.categorie = CONTENT_TYPES[paramValue].name
+    if (paramName === 'sorteer' && paramName !== 'af') query.sorteer = paramValue
+    if (paramName === 'tekst' && paramValue !== '') query.tekst = paramValue
+
+    router.push(
+      router, undefined, {
+        shallow: true,
+        scroll: false,
+      },
+    )
+  })
+
   const handleThemeChange = (slug) => {
-    const newSelection = themeFilter.includes(slug)
+    const newThemeFilter = themeFilter.includes(slug)
       ? themeFilter.filter((item) => item !== slug)
       : [...themeFilter, slug]
-    setThemeFilter(newSelection)
+    setUrlParameters('thema', newThemeFilter)
   }
+
+  useEffect(() => {
+    const {
+      tekst: q, sorteer: sort, categorie: cat, thema: theme,
+    } = router.query
+    setSearchQuery(q ? decodeURI(q) : '')
+    setSortOrder(sort || 'af')
+    setCategory(cat ? translateContentType(cat) : '')
+    setThemeFilter(theme ? theme.split(' ') : [])
+  }, [router.query])
 
   useEffect(() => {
     const throttledUpdate = debounce(() => {
@@ -48,35 +77,6 @@ const Search = ({ themes, content }) => {
     throttledUpdate()
     return () => throttledUpdate.cancel()
   }, [searchQuery, sortOrder, themeFilter, category])
-
-  useEffect(() => {
-    const query = {}
-    if (searchQuery) query.tekst = searchQuery
-    if (sortOrder !== 'af') query.sorteer = sortOrder
-    if (themeFilter.length > 0) query.thema = themeFilter.join(' ')
-    if (category) query.categorie = CONTENT_TYPES[category].name
-    router.push(
-      {
-        pathname: '/zoek',
-        query,
-      }, undefined, {
-        shallow: true,
-        scroll: false,
-      },
-    )
-  }, [searchQuery, sortOrder, themeFilter, category])
-
-  useEffect(() => {
-    if (router.isReady) {
-      const {
-        tekst: q, sorteer: sort, categorie: cat, thema: theme,
-      } = router.query
-      if (q) setSearchQuery(decodeURI(q))
-      if (sort) setSortOrder(sort)
-      if (cat) setCategory(translateContentType(cat))
-      if (theme) setThemeFilter(theme.split(' '))
-    }
-  }, [router.isReady])
 
   return (
     <>
@@ -97,7 +97,7 @@ const Search = ({ themes, content }) => {
           </Styled.PageTitle>
           <Styled.SortBar>
             <Label htmlFor="selectSort" label="Sorteren" srOnly />
-            <Styled.Select id="selectSort" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+            <Styled.Select id="selectSort" value={sortOrder} onChange={(e) => setUrlParameters('sorteer', e.target.value)}>
               <option value="af">Aflopend datum</option>
               <option value="op">Oplopend datum</option>
               <option value="score">Relevantie</option>
@@ -135,7 +135,7 @@ const Search = ({ themes, content }) => {
                 key={type}
                 variant="textButton"
                 active={category === type}
-                onClick={() => setCategory(type)}
+                onClick={() => setUrlParameters('categorie', type)}
               >
                 <Styled.FilterButtonLabel>
                   {`${plural} ${formatFacetNumber(facetCount[type])}`}

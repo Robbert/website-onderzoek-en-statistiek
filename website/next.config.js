@@ -30,4 +30,43 @@ module.exports = withBundleAnalyzer({
       },
     ]
   },
+  async redirects() {
+    return [
+      {
+        source: '/artikel',
+        destination: '/zoek?categorie=artikel',
+        permanent: true,
+      },
+      {
+        source: '/publicatie',
+        destination: '/zoek?categorie=publicatie',
+        permanent: true,
+      },
+      {
+        source: '/video',
+        destination: '/zoek?categorie=video',
+        permanent: true,
+      },
+      {
+        source: '/interactief',
+        destination: '/zoek?categorie=interactief',
+        permanent: true,
+      },
+      {
+        source: '/dossier',
+        destination: '/zoek?categorie=dossier',
+        permanent: true,
+      },
+      {
+        source: '/dataset',
+        destination: '/zoek?categorie=dataset',
+        permanent: true,
+      },
+      {
+        source: '/thema',
+        destination: '/zoek',
+        permanent: true,
+      },
+    ]
+  },
 })
