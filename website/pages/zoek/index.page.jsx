@@ -41,12 +41,12 @@ const Search = ({ themes, content }) => {
     if (paramName === 'sorteer' && paramName !== 'af') query.sorteer = paramValue
     if (paramName === 'tekst' && paramValue !== '') query.tekst = paramValue
 
-    router.push(
-      router, undefined, {
+    router.push({ query },
+      undefined,
+      {
         shallow: true,
         scroll: false,
-      },
-    )
+      })
   })
 
   const handleThemeChange = (slug) => {
@@ -88,7 +88,7 @@ const Search = ({ themes, content }) => {
             id="searchfield"
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => setUrlParameters('tekst', e.target.value)}
           />
           <Styled.PageTitle forwardedAs="h2">
             Resultaten (
