@@ -1,6 +1,9 @@
 // https://github.com/vercel/next.js/tree/master/examples/with-styled-components
 
-import Document from 'next/document'
+// eslint-disable-next-line @next/next/no-document-import-in-page
+import Document, {
+  Html, Head, Main, NextScript,
+} from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
@@ -26,5 +29,19 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal()
     }
+  }
+
+  render() {
+    return (
+      <Html lang="nl">
+        <Head>
+          <link rel="shortcut icon" href="/favicon.ico" />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    )
   }
 }

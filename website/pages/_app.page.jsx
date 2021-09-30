@@ -1,11 +1,11 @@
 import {
-  GlobalStyle, ThemeProvider, themeColor,
+  GlobalStyle, ThemeProvider, themeColor, ascDefaultTheme,
 } from '@amsterdam/asc-ui'
-import Head from 'next/head'
 import { createGlobalStyle } from 'styled-components'
 
-import '../public/fonts/fonts.css'
 import Layout from '../components/Layout/Layout'
+
+import '../public/fonts/fonts.css'
 
 const BodyStyle = createGlobalStyle`
   body {
@@ -13,19 +13,24 @@ const BodyStyle = createGlobalStyle`
   }
 `
 
-const MyApp = ({ Component, pageProps }) => (
-  <>
-    <Head>
-      <link rel="shortcut icon" href="/favicon.ico" />
-    </Head>
-    <ThemeProvider>
+const MyApp = ({ Component, pageProps }) => {
+  const newTheme = {
+    ...ascDefaultTheme,
+    typography: {
+      ...ascDefaultTheme.typography,
+      fontFamily: 'Avenir Next W01, Helvetica Neue, Helvetica, Arial, sans-serif',
+    },
+  }
+
+  return (
+    <ThemeProvider theme={newTheme}>
       <GlobalStyle />
       <BodyStyle />
       <Layout>
         <Component {...pageProps} />
       </Layout>
     </ThemeProvider>
-  </>
-)
+  )
+}
 
 export default MyApp

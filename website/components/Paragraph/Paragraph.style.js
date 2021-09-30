@@ -6,11 +6,19 @@ import { typographyStyle } from '../../lib/typographyUtils'
 
 export const Paragraph = styled.p`
   color: ${themeColor('tint', 'level6')};
+  letter-spacing: 0.0125rem;
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    letter-spacing: 0;
+  }
 
   ${({ intro }) => intro && css`
     /* stylelint-disable indentation */
+    letter-spacing: 0.025rem;
+
     @media screen and ${breakpoint('max-width', 'laptop')} {
       font-weight: 700;
+      letter-spacing: 0.0125rem;
     }
   `}
 
