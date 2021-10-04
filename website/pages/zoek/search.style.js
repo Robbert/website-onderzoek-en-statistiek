@@ -3,7 +3,6 @@ import {
   Heading,
   breakpoint,
   themeColor,
-  Input,
   FilterBox as FilterBoxASC,
   Spinner as SpinnerASC,
   Select as SelectASC,
@@ -19,16 +18,6 @@ export const Container = styled(ContainerComponent)`
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     grid-template-columns: 1fr;
-  }
-`
-
-export const SearchBar = styled(Input)`
-  &:-webkit-autofill {
-    &,
-    &:hover,
-    &:focus {
-      transition: background-color 5000s ease-in-out 0s;
-    }
   }
 `
 

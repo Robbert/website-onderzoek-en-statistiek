@@ -1,4 +1,10 @@
-import { fetchAPI } from '../../lib/utils'
+/* eslint-disable no-underscore-dangle */
+import { createContext } from 'react'
+
+import { fetchAPI } from './utils'
+
+const SearchContext = createContext()
+export { SearchContext }
 
 const normalize = ({
   slug, title, shortTitle, teaser, intro, publicationDate, theme,
@@ -72,10 +78,11 @@ const sortResults = (a, b, order) => {
   return new Date(b.publicationDate) - new Date(a.publicationDate)
 }
 
-export function getSearchResults(content, index, searchQuery, sortOrder, themeFilter, category) {
-  const base = searchQuery !== ''
-    ? index.search(searchQuery).map(({ score, item }) => ({ score, ...item }))
-    : content
+export function getSearchResults(searchIndex, searchQuery, sortOrder, themeFilter, category) {
+  if (!searchIndex) return []
+  const base = searchQuery === ''
+    ? searchIndex._docs
+    : searchIndex.search(searchQuery).map(({ score, item }) => ({ score, ...item }))
 
   return base
     .filter(({ type }) => (!category || category === type))

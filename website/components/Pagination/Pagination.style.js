@@ -1,7 +1,11 @@
 import styled, { css } from 'styled-components'
 import { Button as ButtonASC, svgFill, themeColor } from '@amsterdam/asc-ui'
 
+import { calculateFluidStyle } from '../../lib/typographyUtils'
+
 export const List = styled.ul`
+  font-size: ${calculateFluidStyle(18, 24, 320, 1920)};
+  line-height: ${calculateFluidStyle(28, 40, 320, 1920)};
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
@@ -26,10 +30,8 @@ export const ListItem = styled.li`
 `
 
 export const PageNumberButton = styled.button`
-  cursor: pointer;
-  font-size: inherit;
-  line-height: inherit;
   font-weight: 400;
+  cursor: pointer;
   appearance: none;
   border: none;
   background: none;
@@ -41,7 +43,7 @@ export const PageNumberButton = styled.button`
   }
 
   ${({ isCurrent }) => isCurrent && css`
-  font-weight: 700;
+  font-weight: 800;
   `}
 `
 
@@ -59,5 +61,11 @@ export const Button = styled(ButtonASC)`
     color: ${themeColor('secondary', 'main')};
     text-decoration: underline;
   }
+
+  span {
+    display: inline-block;
+    height: inherit;
+  }
+
   ${svgFill(themeColor('primary'))}
 `

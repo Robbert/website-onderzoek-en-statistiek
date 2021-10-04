@@ -4,6 +4,7 @@ import { Spinner, Paragraph } from '@amsterdam/asc-ui'
 import Seo from '../../components/Seo/Seo'
 import HeroSection from '../../components/HeroSection/HeroSection'
 import LatestSection from '../../components/LatestSection/LatestSection'
+import ThemeSearch from '../../components/ThemeSearch/ThemeSearch'
 import {
   fetchAPI, getStrapiMedia, apolloClient,
 } from '../../lib/utils'
@@ -12,6 +13,7 @@ import QUERY from './theme.query.gql'
 const Theme = ({
   title,
   shortTitle,
+  slug,
   teaser,
   teaserImage,
   coverImage,
@@ -33,6 +35,10 @@ const Theme = ({
       <HeroSection image={coverImage} title={title}>
         <Paragraph color="bright">{intro}</Paragraph>
       </HeroSection>
+      <ThemeSearch
+        themeTitle={title}
+        slug={slug}
+      />
       <LatestSection {...otherProps} />
     </>
   )

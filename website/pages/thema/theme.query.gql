@@ -2,6 +2,7 @@ query getThemeData($slug: String) {
   themes(where: { slug: $slug }) {
     title
     shortTitle
+    slug
     teaser
     intro
     teaserImage {

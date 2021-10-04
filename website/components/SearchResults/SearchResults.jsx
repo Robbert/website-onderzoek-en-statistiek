@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { List, ListItem } from '@amsterdam/asc-ui'
 
+import Pagination from '../Pagination/Pagination'
+import Paragraph from '../Paragraph/Paragraph'
 import { formatDate } from '../../lib/utils'
 import CONTENT_TYPES from '../../constants/contentTypes'
-import Link from '../Link/Link'
-import Pagination from '../Pagination/Pagination'
+import * as Styled from './SearchResults.style'
 
 const SearchResults = ({ results }) => {
   const [page, setPage] = useState(1)
@@ -18,16 +19,23 @@ const SearchResults = ({ results }) => {
         {results
           .slice((page - 1) * pageSize, page * pageSize)
           .map(({
-            slug, title, type, publicationDate,
+            slug, title, teaser, type, publicationDate,
           }) => (
             <ListItem key={`${type}-${slug}`}>
-              <Link
+              <Styled.TypeLabel small gutterBottom={4}>
+                {CONTENT_TYPES[type].name}
+              </Styled.TypeLabel>
+              <Styled.Link
                 href={`/${CONTENT_TYPES[type].name}/${slug}`}
-                inList
-                strong
               >
-                {`${CONTENT_TYPES[type].name}: ${title} | ${formatDate(publicationDate)}`}
-              </Link>
+                {title}
+              </Styled.Link>
+              <Paragraph gutterBottom={4}>
+                {teaser}
+              </Paragraph>
+              <Paragraph small gutterBottom={64}>
+                {formatDate(publicationDate)}
+              </Paragraph>
             </ListItem>
           ))}
       </List>

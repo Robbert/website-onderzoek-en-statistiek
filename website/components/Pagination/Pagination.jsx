@@ -102,7 +102,7 @@ const Pagination = ({
             aria-label="Vorige pagina"
             data-testid="previousButton"
             onClick={onPrevious}
-            iconSize={10}
+            iconSize={12}
             iconLeft={<ChevronLeft />}
             variant="textButton"
             disabled={currentPage === 1}
@@ -114,10 +114,10 @@ const Pagination = ({
           <Styled.ListItem key={`pag-${pageNumberOrSpacer}`}>
             <Styled.PageNumberButton
               aria-label={
-                    pageNumberOrSpacer === currentPage
-                      ? `Pagina ${pageNumberOrSpacer}`
-                      : `Ga naar pagina ${pageNumberOrSpacer}`
-                  }
+                pageNumberOrSpacer === currentPage
+                  ? `Pagina ${pageNumberOrSpacer}`
+                  : `Ga naar pagina ${pageNumberOrSpacer}`
+              }
               aria-current={pageNumberOrSpacer === currentPage}
               data-testid={`pageButton-${pageNumberOrSpacer}`}
               onClick={() => onChangePage(pageNumberOrSpacer)}
@@ -139,7 +139,7 @@ const Pagination = ({
             aria-label="Volgende pagina"
             data-testid="nextButton"
             onClick={onNext}
-            iconSize={10}
+            iconSize={12}
             iconRight={<ChevronRight />}
             variant="textButton"
             disabled={currentPage === totalPages}

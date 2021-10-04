@@ -89,6 +89,7 @@ deploy acc:
         "docker-compose -f docker-compose.server.yml --project-name server up -d --no-deps --remove-orphans"
   after_script:
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker image prune -a -f"
+    - curl https://acc.onderzoek-en-statistiek.nl/api/build-search
   environment:
     name: acceptance
     url: https://acc.onderzoek-en-statistiek.nl
@@ -153,6 +154,7 @@ deploy prod:
       "docker-compose -f docker-compose.server.yml --project-name server up -d --no-deps --remove-orphans"
   after_script:
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker image prune -a -f"
+    - curl https://onderzoek-en-statistiek.nl/api/build-search
   environment:
     name: production
     url: https://onderzoek-en-statistiek.nl

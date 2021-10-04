@@ -1,36 +1,32 @@
+/* eslint-disable no-underscore-dangle */
 import {
-  useState, useEffect, useMemo, useCallback,
+  useState, useEffect, useCallback, useContext,
 } from 'react'
 import { useRouter } from 'next/router'
-import Fuse from 'fuse.js'
 import { debounce } from 'lodash'
 import { Heading, Label, Checkbox } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
+import SearchBar from '../../components/SearchBar/SearchBar'
 import SearchResults from '../../components/SearchResults/SearchResults'
-import {
-  translateContentType, apolloClient,
-} from '../../lib/utils'
+import { translateContentType, apolloClient } from '../../lib/utils'
 import CONTENT_TYPES from '../../constants/contentTypes'
 import QUERY from './search.query.gql'
 import {
-  getSearchContent, getSearchResults, calculateFacetsTotals, formatFacetNumber, fuseOptions,
-} from './searchUtils'
+  SearchContext, getSearchResults, calculateFacetsTotals, formatFacetNumber,
+} from '../../lib/searchUtils'
 import * as Styled from './search.style'
 
-const Search = ({ themes, content }) => {
+const Search = ({ themes }) => {
+  const searchIndex = useContext(SearchContext)
   const [searchQuery, setSearchQuery] = useState('')
   const [sortOrder, setSortOrder] = useState('af')
   const [category, setCategory] = useState('')
   const [themeFilter, setThemeFilter] = useState([])
-  const [results, setResults] = useState(content)
-  const [facetCount, setfacetCount] = useState(
-    calculateFacetsTotals(themes, CONTENT_TYPES, content),
-  )
+  const [results, setResults] = useState([])
+  const [facetCount, setfacetCount] = useState(null)
 
   const router = useRouter()
-
-  const index = useMemo(() => new Fuse(content, fuseOptions), [content, fuseOptions])
 
   const setUrlParameters = useCallback((paramName, paramValue) => {
     const { query } = router
@@ -57,6 +53,13 @@ const Search = ({ themes, content }) => {
   }
 
   useEffect(() => {
+    if (searchIndex) {
+      setResults(searchIndex._docs)
+      setfacetCount(calculateFacetsTotals(themes, CONTENT_TYPES, searchIndex._docs))
+    }
+  }, [searchIndex, themes, CONTENT_TYPES])
+
+  useEffect(() => {
     const {
       tekst: q, sorteer: sort, categorie: cat, thema: theme,
     } = router.query
@@ -68,7 +71,7 @@ const Search = ({ themes, content }) => {
 
   useEffect(() => {
     const throttledUpdate = debounce(() => {
-      const updatedResults = getSearchResults(content, index, searchQuery,
+      const updatedResults = getSearchResults(searchIndex, searchQuery,
         sortOrder, themeFilter, category)
       setResults(updatedResults)
       setfacetCount(calculateFacetsTotals(themes, CONTENT_TYPES, updatedResults))
@@ -76,19 +79,18 @@ const Search = ({ themes, content }) => {
 
     throttledUpdate()
     return () => throttledUpdate.cancel()
-  }, [searchQuery, sortOrder, themeFilter, category])
+  }, [searchIndex, searchQuery, sortOrder, themeFilter, category])
 
   return (
     <>
       <Seo />
       <Styled.Container>
         <div>
-          <Label htmlFor="searchfield" label="Zoeken" hidden />
-          <Styled.SearchBar
+          <SearchBar
             id="searchfield"
             type="text"
             value={searchQuery}
-            onChange={(e) => setUrlParameters('tekst', e.target.value)}
+            onChange={(q) => setUrlParameters('tekst', q)}
           />
           <Styled.PageTitle forwardedAs="h2">
             Resultaten (
@@ -110,7 +112,7 @@ const Search = ({ themes, content }) => {
           <Styled.FilterBox label="Thema's">
             {
               themes.map(({ title, slug }) => (
-                <Label key={slug} align="flex-start" htmlFor={slug} label={`${title} ${formatFacetNumber(facetCount[slug])}`}>
+                <Label key={slug} align="flex-start" htmlFor={slug} label={`${title} ${facetCount && formatFacetNumber(facetCount[slug])}`}>
                   <Checkbox
                     id={slug}
                     variant="primary"
@@ -130,19 +132,19 @@ const Search = ({ themes, content }) => {
               <Styled.FilterButtonLabel>Alle categorieën</Styled.FilterButtonLabel>
             </Styled.FilterButton>
             {
-            Object.values(CONTENT_TYPES).filter((cat) => cat.type !== 'theme').map(({ type, plural }) => (
-              <Styled.FilterButton
-                key={type}
-                variant="textButton"
-                active={category === type}
-                onClick={() => setUrlParameters('categorie', type)}
-              >
-                <Styled.FilterButtonLabel>
-                  {`${plural} ${formatFacetNumber(facetCount[type])}`}
-                </Styled.FilterButtonLabel>
-              </Styled.FilterButton>
-            ))
-          }
+              Object.values(CONTENT_TYPES).filter((cat) => cat.type !== 'theme').map(({ type, plural }) => (
+                <Styled.FilterButton
+                  key={type}
+                  variant="textButton"
+                  active={category === type}
+                  onClick={() => setUrlParameters('categorie', type)}
+                >
+                  <Styled.FilterButtonLabel>
+                    {`${plural} ${facetCount && formatFacetNumber(facetCount[type])}`}
+                  </Styled.FilterButtonLabel>
+                </Styled.FilterButton>
+              ))
+            }
           </Styled.FilterBox>
         </Styled.SideBar>
       </Styled.Container>
@@ -154,10 +156,8 @@ export async function getStaticProps() {
   const { data } = await apolloClient.query({ query: QUERY })
     .catch() // TODO: log this error in sentry
 
-  const content = await getSearchContent()
-
   return {
-    props: { themes: data.themes, content },
+    props: { themes: data.themes },
     revalidate: 10,
   }
 }
