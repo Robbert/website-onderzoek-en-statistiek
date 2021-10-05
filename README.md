@@ -41,3 +41,7 @@ Add the following to your VSCode `settings.json`, to fix lint errors on save:
 * To analyze bundle sizes: `yarn website:analyze`
 
 See the [issue board](https://gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/-/boards) for current issues.
+
+### Component readme's
+
+- [Grid](website/components/Grid/README.md)

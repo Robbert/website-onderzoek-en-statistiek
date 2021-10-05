@@ -1,6 +1,8 @@
 import { css } from 'styled-components'
 
-export const calculateFluidStyle = (minSizePx, maxSizePx, minScreenWidthPx, maxScreenWidthPx) => {
+export const calculateFluidStyle = (
+  minSizePx, maxSizePx, minScreenWidthPx = 320, maxScreenWidthPx = 1920,
+) => {
   const defaultBaseSize = 16
   const minSize = minSizePx / defaultBaseSize
   const maxSize = maxSizePx / defaultBaseSize
@@ -95,15 +97,11 @@ export const typographyStyle = css`
           ${calculateFluidStyle(
             typographyConfig[key].minFontSize,
             typographyConfig[key].maxFontSize,
-            320,
-            1920,
           )};
         line-height:
           ${calculateFluidStyle(
             typographyConfig[key].minLineHeight,
             typographyConfig[key].maxLineHeight,
-            320,
-            1920,
           )};
       `
     )
