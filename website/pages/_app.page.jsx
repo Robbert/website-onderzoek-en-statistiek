@@ -29,7 +29,16 @@ const MyApp = ({ Component, pageProps }) => {
 
   useEffect(() => {
     const abortController = new AbortController()
-    fetch('/searchContent.json', { signal: abortController.signal })
+
+    let uri = 'http://localhost:3000'
+
+    if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'acceptance') {
+      uri = 'https://acc.onderzoek.amsterdam.nl/static/acc'
+    } else if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'production') {
+      uri = 'https://onderzoek.amsterdam.nl/static/prod'
+    }
+
+    fetch(`${uri}/searchContent.json`, { signal: abortController.signal, mode: 'cors' })
       .then((response) => response.json())
       .then((searchContent) => {
         setSearchIndex(new Fuse(searchContent, fuseOptions))
