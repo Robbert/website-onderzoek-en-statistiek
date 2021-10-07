@@ -110,6 +110,13 @@ export function flattenFeatureList(list) {
         path: `/dataset/${entry.slug}`,
       }
     )) || [],
+    ...section.__typename === 'ComponentSharedLinks'
+      ? [{
+        type: 'externalLink',
+        name: 'externalLink',
+        title: section.text,
+        path: section.url,
+      }] : [],
   ]
   )).flat()
 }

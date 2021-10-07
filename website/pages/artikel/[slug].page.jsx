@@ -21,6 +21,7 @@ const Article = ({
   publicationDate,
   intro,
   body,
+  linkList,
   related,
   theme,
 }) => {
@@ -50,21 +51,21 @@ const Article = ({
         article
       />
       {coverImage && (
-      <Styled.ImageWrapper>
-        <Image
-          src={
-                coverImage
-                  ? getStrapiMedia(coverImage)
-                  : PLACEHOLDER_IMAGE
-              }
-          alt=""
-          layout="fill"
-          placeholder="blur"
-          objectFit="cover"
-          blurDataURL={PLACEHOLDER_IMAGE}
-          priority
-        />
-      </Styled.ImageWrapper>
+        <Styled.ImageWrapper>
+          <Image
+            src={
+              coverImage
+                ? getStrapiMedia(coverImage)
+                : PLACEHOLDER_IMAGE
+            }
+            alt=""
+            layout="fill"
+            placeholder="blur"
+            objectFit="cover"
+            blurDataURL={PLACEHOLDER_IMAGE}
+            priority
+          />
+        </Styled.ImageWrapper>
       )}
       <Styled.Container>
         <Styled.MainContent>
@@ -82,11 +83,11 @@ const Article = ({
         <Styled.SideBar>
           { related
           && (
-          <Related
-            related={flattenFeatureList([related])}
-            links={related.links}
-            themes={theme}
-          />
+            <Related
+              linkList={flattenFeatureList(linkList)}
+              related={flattenFeatureList(related)}
+              themes={theme}
+            />
           )}
         </Styled.SideBar>
       </Styled.Container>

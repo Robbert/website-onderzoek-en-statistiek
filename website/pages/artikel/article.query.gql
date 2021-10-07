@@ -12,22 +12,108 @@ query getArticleData($slug: String) {
     publicationDate
     intro
     body
-    related {
-      articles {
-        title
-        slug
+    linkList {
+      ... on ComponentSharedArticles {
+        articles {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
       }
-      publications {
-        title
-        slug
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
       }
-      videos {
-        title
-        slug
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
       }
-      links {
+      ... on ComponentSharedInteractives {
+        interactives {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedCollections {
+        collections {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedDatasets {
+        datasets {
+          title
+          slug
+        }
+      }
+      ... on ComponentSharedLinks {
         text
         url
+      }
+    }
+    related {
+      ... on ComponentSharedArticles {
+        articles {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
       }
     }
     theme {
