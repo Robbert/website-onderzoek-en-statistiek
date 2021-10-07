@@ -63,10 +63,26 @@
       "via": "articles",
       "collection": "theme"
     },
+    "linkList": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.interactives",
+        "shared.collections",
+        "shared.datasets",
+        "shared.links"
+      ]
+    },
     "related": {
-      "type": "component",
-      "repeatable": false,
-      "component": "shared.related"
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.interactives"
+      ]
     }
   }
 }
