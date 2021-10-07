@@ -136,7 +136,7 @@
     },
     "theme": {
       "via": "datasets",
-      "collection": "theme",
+      "collection": "theme"
     },
     "resources": {
       "type": "component",
