@@ -1,6 +1,7 @@
 import {
   apolloClient,
   getStrapiMedia,
+  // flattenFeatureList,
   flattenFeatureObject,
 } from '../lib/utils'
 import Seo from '../components/Seo/Seo'

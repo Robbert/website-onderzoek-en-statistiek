@@ -135,8 +135,8 @@
       "default": "Amsterdam"
     },
     "theme": {
+      "via": "datasets",
       "collection": "theme",
-      "via": "datasets"
     },
     "resources": {
       "type": "component",

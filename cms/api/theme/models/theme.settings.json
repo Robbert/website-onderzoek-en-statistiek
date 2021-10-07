@@ -58,7 +58,9 @@
         "shared.articles",
         "shared.publications",
         "shared.videos",
-        "shared.collections"
+        "shared.collections",
+        "shared.interactives",
+        "shared.links"
       ]
     },
     "articles": {

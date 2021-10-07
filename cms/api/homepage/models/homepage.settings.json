@@ -27,19 +27,26 @@
       "pluginOptions": {}
     },
     "incoming": {
-      "type": "component",
-      "repeatable": false,
-      "component": "shared.features"
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos"
+      ]
     },
     "features": {
-      "type": "component",
-      "repeatable": false,
-      "component": "shared.features"
+      "type": "dynamiczone",
+      "components": [
+        "shared.videos",
+        "shared.collections",
+        "shared.interactives"
+      ]
     },
     "collections": {
-      "type": "component",
-      "repeatable": false,
-      "component": "shared.features"
+      "type": "dynamiczone",
+      "components": [
+        "shared.collections"
+      ]
     }
   }
 }

@@ -94,6 +94,22 @@ export function flattenFeatureList(list) {
         path: `/dossier/${entry.slug}`,
       }
     )) || [],
+    ...section.interactives?.map((entry) => (
+      {
+        ...entry,
+        type: 'interactive',
+        name: 'interactief',
+        path: `/interactief/${entry.slug}`,
+      }
+    )) || [],
+    ...section.datasets?.map((entry) => (
+      {
+        ...entry,
+        type: 'dataset',
+        name: 'dataset',
+        path: `/dataset/${entry.slug}`,
+      }
+    )) || [],
   ]
   )).flat()
 }

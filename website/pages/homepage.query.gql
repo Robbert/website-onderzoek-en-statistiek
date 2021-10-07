@@ -13,6 +13,7 @@ query getHomepageData {
     }
     incoming {
       ... on ComponentSharedFeatures {
+#     ... on ComponentSharedArticles {
         articles{
           title
           teaser
@@ -22,7 +23,8 @@ query getHomepageData {
           }
         }
       }
-    ... on ComponentSharedFeatures {
+      ... on ComponentSharedFeatures {
+#     ... on ComponentSharedPublications {
         publications {
           title
           teaser
@@ -33,27 +35,8 @@ query getHomepageData {
         }
       }
       ... on ComponentSharedFeatures {
+#     ... on ComponentSharedVideos {
         videos {
-          title
-          teaser
-          slug
-          teaserImage {
-            url
-          }
-        }
-      }
-      ... on ComponentSharedFeatures {
-        interactives {
-          title
-          teaser
-          slug
-          teaserImage {
-            url
-          }
-        }
-      }
-      ... on ComponentSharedFeatures {
-        collections{
           title
           teaser
           slug
@@ -65,6 +48,7 @@ query getHomepageData {
     },
     features {
       ... on ComponentSharedFeatures {
+ #    ... on ComponentSharedInteractives {
         interactives{
           title
           teaser
@@ -74,8 +58,20 @@ query getHomepageData {
           }
         }
       }
-    ... on ComponentSharedFeatures {
+      ... on ComponentSharedFeatures {
+ #    ... on ComponentSharedVideos {
         videos {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedFeatures {
+#     ... on ComponentSharedCollections {
+        collections {
           title
           teaser
           slug
@@ -87,6 +83,7 @@ query getHomepageData {
     },
     collections {
       ... on ComponentSharedFeatures {
+#     ... on ComponentSharedCollections {
         collections{
           title
           teaser
