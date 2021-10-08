@@ -63,9 +63,9 @@ query getHomepageData {
         title
         teaser: description
         slug
-        # teaserImage {
-        #   url
-        # }
+        teaserImage {
+          url
+        }
       }
     }
   }

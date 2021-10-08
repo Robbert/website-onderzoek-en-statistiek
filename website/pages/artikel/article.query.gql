@@ -70,8 +70,8 @@ query getArticleData($slug: String) {
         }
       }
       ... on ComponentSharedLinks {
-        text
-        url
+        title
+        path
       }
     }
     related {

@@ -2,9 +2,8 @@ import { useRouter } from 'next/router'
 import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
-import Related from '../../components/Related/Related'
 import {
-  fetchAPI, getStrapiMedia, apolloClient, flattenFeatureList, formatDate,
+  fetchAPI, getStrapiMedia, apolloClient, formatDate,
 } from '../../lib/utils'
 import QUERY from './video.query.gql'
 import * as Styled from './video.style'
@@ -22,13 +21,13 @@ const LocalVideo = ({ videoSource, subtitleSource, enableSubtitleByDefault }) =>
     >
       <source src={videoSourceStrapi} type={videoSource.mime} />
       {subtitleSource && (
-      <track
-        default={!!enableSubtitleByDefault}
-        src={subtitleSourceStrapi}
-        kind="subtitles"
-        srcLang="nl"
-        label="Dutch"
-      />
+        <track
+          default={!!enableSubtitleByDefault}
+          src={subtitleSourceStrapi}
+          kind="subtitles"
+          srcLang="nl"
+          label="Dutch"
+        />
       )}
     </Styled.Video>
   )
@@ -99,16 +98,6 @@ const Video = ({
           {externalVideoSource && <ExternalVideo source={externalVideoSource} />}
           {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
         </Styled.MainContent>
-        <Styled.SideBar>
-          { related
-          && (
-          <Related
-            related={flattenFeatureList([related])}
-            links={related.links}
-            themes={theme}
-          />
-          )}
-        </Styled.SideBar>
       </Styled.Container>
     </>
   )

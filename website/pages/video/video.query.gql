@@ -17,24 +17,6 @@ query getVideoData($slug: String) {
     subtitleDefault
     externalVideoSource
     externalEmbedSource
-    related {
-      articles {
-        title
-        slug
-      }
-      publications {
-        title
-        slug
-      }
-      videos {
-        title
-        slug
-      }
-      links {
-        text
-        url
-      }
-    }
     theme {
       title
       slug

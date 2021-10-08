@@ -4,17 +4,14 @@ query getCollectionData($slug: String) {
     shortTitle
     teaser
     intro
-    coverImage {
-      url
-    }
     teaserImage {
       url
     }
-    features {
+    featured {
       ... on ComponentSharedArticles {
         articles {
           title
-          shortTitle
+          teaser
           slug
           teaserImage {
             url
@@ -24,7 +21,7 @@ query getCollectionData($slug: String) {
       ... on ComponentSharedPublications {
         publications {
           title
-          shortTitle
+          teaser
           slug
           teaserImage {
             url
@@ -34,41 +31,141 @@ query getCollectionData($slug: String) {
       ... on ComponentSharedVideos {
         videos {
           title
-          shortTitle
+          teaser
           slug
           teaserImage {
             url
           }
         }
       }
-    }
-    lists {
-      id
-      title
-      articles {
-        title
-        shortTitle
-        teaserImage {
-          url
+      ... on ComponentSharedInteractives {
+        interactives {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
         }
-        slug
       }
-      publications {
-        title
-        shortTitle
-        teaserImage {
-          url
+      ... on ComponentSharedDatasets {
+        datasets {
+          title
+          slug
         }
-        slug
-      }
-      videos {
-        title
-        shortTitle
-        teaserImage {
-          url
-        }
-        slug
       }
     }
+    collectionItems {
+      ... on ComponentSharedArticles {
+        articles {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedDatasets {
+        datasets {
+          title
+          slug
+        }
+      }
+    }
+    linkList {
+      ... on ComponentSharedArticles {
+        articles {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedCollections {
+        collections {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedDatasets {
+        datasets {
+          title
+          slug
+        }
+      }
+      ... on ComponentSharedLinks {
+        title
+        path
+      }
+    }
+    email
+    phoneNumber
   }
 }

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { Paragraph, Spinner } from '@amsterdam/asc-ui'
+import { Heading, Paragraph, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
 import {
@@ -8,7 +8,9 @@ import {
 import HeroSection from '../../components/HeroSection/HeroSection'
 import PageSection from '../../components/PageSection/PageSection'
 import CardList from '../../components/CardList/CardList'
-import ListSection from '../../components/ListSection/ListSection'
+import ContentList from '../../components/ContentList/ContentList'
+import Container from '../../components/Container/Container'
+import LinkList from '../../components/LinkList/LinkList'
 import QUERY from './collection.query.gql'
 
 const Collection = ({
@@ -16,10 +18,12 @@ const Collection = ({
   shortTitle,
   teaser,
   teaserImage,
-  coverImage,
   intro,
-  lists,
-  features,
+  featured,
+  collectionItems,
+  linkList,
+  email,
+  phoneNumber,
 }) => {
   const router = useRouter()
 
@@ -34,20 +38,34 @@ const Collection = ({
         description={teaser}
         image={getStrapiMedia(teaserImage)}
       />
-      <HeroSection image={coverImage} title={`Dossier ${title}`}>
+      <HeroSection title={`Dossier ${title}`}>
         <Paragraph color="bright">{intro}</Paragraph>
       </HeroSection>
       <PageSection title="Uitgelicht">
         <CardList
           columns={3}
-          items={flattenFeatureList(features)}
+          items={flattenFeatureList(featured)}
           hasTeaser={false}
           ratio={16 / 9}
           backgroundColor="level2"
           shadow
         />
       </PageSection>
-      <ListSection lists={lists} />
+      <ContentList title="Alles in dossier" list={flattenFeatureList(collectionItems)} />
+      <Container>
+        <Heading gutterBottom={32}>Zie ook</Heading>
+        <LinkList links={flattenFeatureList(linkList)} />
+        <Heading gutterBottom={32}>Heeft u een vraag over dit dossier?</Heading>
+        <Paragraph>
+          Neem contact met ons op via
+          {' '}
+          {email}
+          {' '}
+          of
+          {' '}
+          {phoneNumber}
+        </Paragraph>
+      </Container>
     </>
   )
 }

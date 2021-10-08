@@ -16,24 +16,6 @@ query getPublicationData($slug: String) {
       url
       size
     }
-    related {
-      articles {
-        title
-        slug
-      }
-      publications {
-        title
-        slug
-      }
-      videos {
-        title
-        slug
-      }
-      links {
-        text
-        url
-      }
-    }
     coverImage {
       url
     }
