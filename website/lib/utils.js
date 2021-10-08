@@ -112,10 +112,9 @@ export function flattenFeatureList(list) {
     )) || [],
     ...section.__typename === 'ComponentSharedLinks'
       ? [{
+        ...section,
         type: 'externalLink',
         name: 'externalLink',
-        title: section.text,
-        path: section.url,
       }] : [],
   ]
   )).flat()
