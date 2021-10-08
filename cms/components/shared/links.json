@@ -7,10 +7,10 @@
   },
   "options": {},
   "attributes": {
-    "text": {
+    "title": {
       "type": "string"
     },
-    "url": {
+    "path": {
       "type": "string",
       "required": true,
       "regex":  "^$|https://"

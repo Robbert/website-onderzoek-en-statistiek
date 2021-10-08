@@ -11,42 +11,46 @@
     "draftAndPublish": false
   },
   "attributes": {
-    "seo": {
-      "type": "component",
-      "repeatable": false,
-      "component": "shared.seo"
+    "largeFirstFeature": {
+      "type": "boolean",
+      "default": true
     },
-    "heroImage": {
-      "model": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
-      "plugin": "upload",
-      "required": false,
-      "pluginOptions": {}
-    },
-    "incoming": {
+    "featured": {
       "type": "dynamiczone",
       "components": [
         "shared.articles",
         "shared.publications",
-        "shared.videos"
-      ]
-    },
-    "features": {
-      "type": "dynamiczone",
-      "components": [
         "shared.videos",
-        "shared.collections",
-        "shared.interactives"
-      ]
-    },
-    "collections": {
-      "type": "dynamiczone",
-      "components": [
+        "shared.interactives",
+        "shared.datasets",
         "shared.collections"
       ]
+    },
+    "featuredCollections": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.collections"
+    },
+    "agenda": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.articles"
+    },
+    "shortcuts": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.interactives",
+        "shared.datasets",
+        "shared.collections"
+      ]
+    },
+    "relatedSites": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.links"
     }
   }
 }
