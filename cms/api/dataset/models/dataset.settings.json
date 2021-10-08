@@ -27,6 +27,16 @@
       "type": "richtext",
       "required": true
     },
+    "teaserImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
     "owner": {
       "type": "string",
       "default": "Gemeente Amsterdam, Onderzoek en Statistiek"
