@@ -51,15 +51,6 @@
       "type": "richtext",
       "required": false
     },
-    "introduction": {
-      "type": "richtext"
-    },
-    "results": {
-      "type": "richtext"
-    },
-    "conclusion": {
-      "type": "richtext"
-    },
     "coverImage": {
       "model": "file",
       "via": "related",
@@ -90,18 +81,21 @@
       "required": true,
       "pluginOptions": {}
     },
-    "publicationSource": {
-      "type": "string",
-      "default": "Onderzoek en Statistiek"
-    },
     "theme": {
       "via": "publications",
       "collection": "theme"
     },
-    "related": {
-      "type": "component",
-      "repeatable": false,
-      "component": "shared.related"
+    "linkList": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.videos",
+        "shared.datasets",
+        "shared.articles",
+        "shared.collections",
+        "shared.links",
+        "shared.publications",
+        "shared.interactives"
+      ]
     }
   }
 }
