@@ -1,9 +1,15 @@
 import { useRouter } from 'next/router'
-import { Heading, Spinner } from '@amsterdam/asc-ui'
+import {
+  CustomHTMLBlock, Spinner, List, ListItem,
+} from '@amsterdam/asc-ui'
+import ReactMarkdown from 'react-markdown'
 
 import Seo from '../../components/Seo/Seo'
+import Heading from '../../components/Heading/Heading'
+import InlineImage from '../../components/InlineImage/InlineImage'
+import Link from '../../components/Link/Link'
 import {
-  fetchAPI, getStrapiMedia, apolloClient, formatDate,
+  fetchAPI, getStrapiMedia, apolloClient, formatDate, flattenFeatureList,
 } from '../../lib/utils'
 import QUERY from './video.query.gql'
 import * as Styled from './video.style'
@@ -56,22 +62,36 @@ const ExternalEmbed = ({ source }) => (
 const Video = ({
   title,
   shortTitle,
-  publicationDate,
-  intro,
   teaser,
+  teaserImage,
+  publicationDate,
+  transcript,
+  intro,
+  body,
   videoFile,
   subtitleFile,
   subtitleDefault,
   externalVideoSource,
   externalEmbedSource,
-  related,
-  teaserImage,
-  theme,
+  linkList,
 }) => {
   const router = useRouter()
   if (router.isFallback) {
     return <div><Spinner /></div>
   }
+
+  const renderers = {
+    image: (props) => <InlineImage {...props} />,
+    paragraph: ({ children }) => {
+      if (children[0]?.type?.name === 'image'
+        || (children[0]?.type === 'a' && children[0]?.props?.children[0]?.type?.name === 'image')) {
+        return children[0]
+      }
+      return <p>{children}</p>
+    },
+  }
+
+  const flatLinkList = flattenFeatureList(linkList)
 
   return (
     <>
@@ -87,7 +107,25 @@ const Video = ({
             {`Video ${title}`}
           </Heading>
           <span>{formatDate(publicationDate)}</span>
+          {transcript && (
+            <CustomHTMLBlock>
+              <ReactMarkdown
+                source={transcript}
+                escapeHtml={false}
+                renderers={renderers}
+              />
+            </CustomHTMLBlock>
+          )}
           <Styled.Intro strong>{intro}</Styled.Intro>
+          {body && (
+            <CustomHTMLBlock>
+              <ReactMarkdown
+                source={body}
+                escapeHtml={false}
+                renderers={renderers}
+              />
+            </CustomHTMLBlock>
+          )}
           {videoFile?.url && (
             <LocalVideo
               videoSource={videoFile}
@@ -97,6 +135,20 @@ const Video = ({
           )}
           {externalVideoSource && <ExternalVideo source={externalVideoSource} />}
           {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
+          {flatLinkList && flatLinkList.length > 0 && (
+            <>
+              <Heading styleAs="h5" gutterBottom={20}>Zie ook</Heading>
+              <List>
+                {flatLinkList.map(({ path, title: linkTitle }) => (
+                  <ListItem key={path}>
+                    <Link href={path} inList strong>
+                      {linkTitle}
+                    </Link>
+                  </ListItem>
+                ))}
+              </List>
+            </>
+          )}
         </Styled.MainContent>
       </Styled.Container>
     </>

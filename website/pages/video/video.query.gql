@@ -1,13 +1,15 @@
 query getVideoData($slug: String) {
   videos(where: { slug: $slug }) {
-    publicationDate
     title
     shortTitle
-    intro
     teaser
     teaserImage {
       url
     }
+    publicationDate
+    transcript
+    intro
+    body
     videoFile {
       url
     }
@@ -17,9 +19,67 @@ query getVideoData($slug: String) {
     subtitleDefault
     externalVideoSource
     externalEmbedSource
-    theme {
-      title
-      slug
+    linkList {
+      ... on ComponentSharedArticles {
+        articles {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedCollections {
+        collections {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedDatasets {
+        datasets {
+          title
+          slug
+        }
+      }
+      ... on ComponentSharedLinks {
+        title
+        path
+      }
     }
   }
 }
