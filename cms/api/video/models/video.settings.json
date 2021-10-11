@@ -31,6 +31,9 @@
       "type": "text",
       "required": false
     },
+    "transcript": {
+      "type": "richtext"
+    },
     "intro": {
       "type": "text",
       "required": false
@@ -75,20 +78,27 @@
     },
     "externalVideoSource": {
       "type": "string",
-      "regex":  "^$|https://"
+      "regex": "^$|https://"
     },
     "externalEmbedSource": {
       "type": "string",
-      "regex":  "^$|https://"
+      "regex": "^$|https://"
     },
     "theme": {
       "via": "videos",
       "collection": "theme"
     },
-    "related": {
-      "type": "component",
-      "repeatable": false,
-      "component": "shared.related"
+    "linkList": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.interactives",
+        "shared.collections",
+        "shared.datasets",
+        "shared.links"
+      ]
     }
   }
 }

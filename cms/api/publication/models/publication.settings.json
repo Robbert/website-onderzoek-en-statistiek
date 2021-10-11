@@ -88,13 +88,13 @@
     "linkList": {
       "type": "dynamiczone",
       "components": [
-        "shared.videos",
-        "shared.datasets",
         "shared.articles",
-        "shared.collections",
-        "shared.links",
         "shared.publications",
-        "shared.interactives"
+        "shared.videos",
+        "shared.interactives",
+        "shared.collections",
+        "shared.datasets",
+        "shared.links"
       ]
     }
   }

@@ -22,8 +22,8 @@
         "shared.publications",
         "shared.videos",
         "shared.interactives",
-        "shared.datasets",
-        "shared.collections"
+        "shared.collections",
+        "shared.datasets"
       ]
     },
     "featuredCollections": {
@@ -43,8 +43,8 @@
         "shared.publications",
         "shared.videos",
         "shared.interactives",
-        "shared.datasets",
-        "shared.collections"
+        "shared.collections",
+        "shared.datasets"
       ]
     },
     "relatedSites": {
