@@ -1,16 +1,11 @@
 query getPublicationData($slug: String) {
   publications(where: { slug: $slug }) {
-    slug
     author
     title
     shortTitle
     intro
     body
-    introduction
-    results
-    conclusion
     publicationDate
-    publicationSource
     file {
       name
       url
@@ -22,9 +17,67 @@ query getPublicationData($slug: String) {
     teaserImage {
       url
     }
-    theme {
-      title
-      slug
+    linkList {
+      ... on ComponentSharedArticles {
+        articles {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedCollections {
+        collections {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedDatasets {
+        datasets {
+          title
+          slug
+        }
+      }
+      ... on ComponentSharedLinks {
+        title
+        path
+      }
     }
   }
 }

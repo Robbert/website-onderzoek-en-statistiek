@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import {
   CustomHTMLBlock,
-  Heading,
   themeColor,
   Paragraph,
   breakpoint,
@@ -28,10 +27,6 @@ export const SideBar = styled.div`
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-top: 0;
   }
-`
-
-export const Title = styled(Heading)`
-  width: 100%;
 `
 
 export const MetaList = styled.ul`

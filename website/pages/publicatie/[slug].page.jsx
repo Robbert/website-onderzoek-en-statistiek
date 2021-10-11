@@ -1,29 +1,31 @@
 import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
-import { Spinner, AccordionWrapper } from '@amsterdam/asc-ui'
+import {
+  Spinner, ListItem, List,
+} from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
 import InlineImage from '../../components/InlineImage/InlineImage'
 import DownloadButton from '../../components/DownloadButton/DownloadButton'
+import Link from '../../components/Link/Link'
+import Heading from '../../components/Heading/Heading'
 import {
-  fetchAPI, getStrapiMedia, apolloClient, PLACEHOLDER_IMAGE, formatDate,
+  fetchAPI, getStrapiMedia, apolloClient, PLACEHOLDER_IMAGE, formatDate, flattenFeatureList,
 } from '../../lib/utils'
 import * as Styled from './publication.style'
 import QUERY from './publication.query.gql'
 
 const Publication = ({
-  author,
   title,
   shortTitle,
+  teaserImage,
+  publicationDate,
+  author,
   intro,
   body,
-  introduction,
-  results,
-  conclusion,
-  publicationDate,
   file,
-  teaserImage,
   coverImage,
+  linkList,
 }) => {
   const router = useRouter()
   if (router.isFallback) {
@@ -41,6 +43,8 @@ const Publication = ({
     },
   }
 
+  const flatLinkList = flattenFeatureList(linkList)
+
   return (
     <>
       <Seo
@@ -50,7 +54,7 @@ const Publication = ({
       />
       <Styled.Container>
         <div>
-          <Styled.Title gutterBottom={16}>{title}</Styled.Title>
+          <Heading styleAs="h3" gutterBottom={16}>{title}</Heading>
           <Styled.MetaList>
             <Styled.MetaListItem>Publicatie</Styled.MetaListItem>
             {author && <Styled.MetaListItem>{author}</Styled.MetaListItem>}
@@ -70,39 +74,6 @@ const Publication = ({
               />
             )}
           </Styled.Main>
-          {(introduction || results || conclusion) && (
-            <Styled.AccordionWrapperWrapper>
-              <AccordionWrapper>
-                {introduction && (
-                  <Styled.Accordion title="Inleiding" id="Inleiding">
-                    <ReactMarkdown
-                      source={introduction}
-                      escapeHtml={false}
-                      renderers={renderers}
-                    />
-                  </Styled.Accordion>
-                )}
-                {results && (
-                  <Styled.Accordion title="Resultaten" id="Resultaten">
-                    <ReactMarkdown
-                      source={results}
-                      escapeHtml={false}
-                      renderers={renderers}
-                    />
-                  </Styled.Accordion>
-                )}
-                {conclusion && (
-                  <Styled.Accordion title="Conclusie" id="Conclusie">
-                    <ReactMarkdown
-                      source={conclusion}
-                      escapeHtml={false}
-                      renderers={renderers}
-                    />
-                  </Styled.Accordion>
-                )}
-              </AccordionWrapper>
-            </Styled.AccordionWrapperWrapper>
-          )}
         </div>
         <Styled.SideBar>
           <Styled.CoverImage>
@@ -116,6 +87,20 @@ const Publication = ({
             />
           </Styled.CoverImage>
           <DownloadButton file={file} image={coverImage} />
+          {flatLinkList && flatLinkList.length > 0 && (
+            <>
+              <Heading styleAs="h5" gutterBottom={20}>Zie ook</Heading>
+              <List>
+                { flatLinkList.map(({ path, title: linkTitle }) => (
+                  <ListItem key={path}>
+                    <Link href={path} inList strong>
+                      {linkTitle}
+                    </Link>
+                  </ListItem>
+                )) }
+              </List>
+            </>
+          )}
         </Styled.SideBar>
       </Styled.Container>
     </>
