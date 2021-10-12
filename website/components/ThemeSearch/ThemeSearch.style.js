@@ -6,7 +6,7 @@ import ContainerComponent from '../Container/Container'
 import BaseLink from '../Link/Link'
 
 export const Container = styled(ContainerComponent)`
-  margin: 24px 12%;
+  margin: 24px 0;
   padding-bottom: 24px;
 `
 

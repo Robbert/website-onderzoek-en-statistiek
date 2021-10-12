@@ -3,6 +3,7 @@ query getThemeData($slug: String) {
     title
     shortTitle
     slug
+    color
     teaser
     intro
     teaserImage {
@@ -11,49 +12,138 @@ query getThemeData($slug: String) {
     coverImage {
       url
     }
-    collections(limit: 2, sort: "published_at:desc") {
+    visualisation {
       title
-      shortTitle
-      slug
-      teaserImage {
+      description
+      source
+      image {
         url
       }
     }
-    videos(limit: 2, sort: "publicationDate:desc") {
-      title
-      shortTitle
-      slug
-      teaserImage {
-        url
+    topStory {
+      ... on ComponentSharedArticles {
+        articles{
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives{
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
       }
     }
-    interactives(limit: 2, sort: "publicationDate:desc") {
-      title
-      shortTitle
-      slug
-      teaserImage {
-        url
+    featured {
+      ... on ComponentSharedArticles {
+        articles{
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives{
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedCollections {
+        collections {
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedDatasets {
+        datasets {
+          title
+          teaser: description
+          slug
+          teaserImage {
+            url
+          }
+        }
       }
     }
-    articles(limit: 2, sort: "publicationDate:desc") {
+    collections {
       title
-      shortTitle
       slug
-      teaserImage {
+    }
+    combiPicture {
+      smallerImage {
         url
       }
-    }
-    publications(limit: 2, sort: "publicationDate:desc") {
-      title
-      shortTitle
-      slug
-      teaserImage {
+      biggerImage {
         url
       }
-    }
-    datasets(limit: 2, sort: "published_at:desc") {
-      title
-      slug
     }
   }
 }

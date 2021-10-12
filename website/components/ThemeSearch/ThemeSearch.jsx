@@ -28,7 +28,7 @@ const ThemeSearch = ({ themeTitle, slug }) => {
   }, [slug, searchIndex, searchQuery, category])
 
   return (
-    <Styled.Container>
+    <>
       <Heading gutterBottom={24} as="h2">
         {`Meer over ${themeTitle}`}
       </Heading>
@@ -75,7 +75,7 @@ const ThemeSearch = ({ themeTitle, slug }) => {
           </Button>
         </Styled.Link>
       )}
-    </Styled.Container>
+    </>
   )
 }
 

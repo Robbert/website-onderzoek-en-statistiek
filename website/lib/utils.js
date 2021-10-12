@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { themeColor } from '@amsterdam/asc-ui'
 
 import CONTENT_TYPES from '../constants/contentTypes'
 
@@ -59,6 +60,20 @@ export const apolloClient = new ApolloClient({
 
 export const translateContentType = (contentType) => Object.values(CONTENT_TYPES)
   .find(({ name }) => name === contentType).type
+
+export const translateColor = (name) => {
+  const translations = {
+    donkerblauw: 'darkblue',
+    donkergroen: 'darkgreen',
+    lichtblauw: 'lightblue',
+    lichtgroen: 'lightgreen',
+    oranje: 'orange',
+    roze: 'pink',
+    paars: 'purple',
+    geel: 'yellow',
+  }
+  return themeColor('supplement', translations[name])
+}
 
 export function flattenFeatureList(list) {
   return !list ? [] : list.map((section) => ([
