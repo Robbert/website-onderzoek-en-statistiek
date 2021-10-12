@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_shared_combi_pictures",
+  "info": {
+    "name": "combiPicture",
+    "icon": "images"
+  },
+  "options": {},
+  "attributes": {
+    "biggerImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "smallerImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    }
+  }
+}
