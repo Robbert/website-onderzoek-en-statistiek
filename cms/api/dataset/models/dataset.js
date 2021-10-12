@@ -32,6 +32,9 @@ module.exports = {
         item.dcat_identifier = getIdentifier(result.headers.location);
       }
     },
+    async afterPublish() {
+      utils.rebuildSearchContent();
+    },
     async afterUpdate(item) {
       token = await getToken();
       const { dcat_identifier: id, slug } = item;
@@ -41,6 +44,7 @@ module.exports = {
       if (result.statusCode !== 201 && result.statusCode !== 204) {
         throw strapi.errors.badRequest('Failed to update dataset in data catalog!');
       }
+      utils.rebuildSearchContent();
     },
     async afterDelete(item) {
       token = await getToken();
@@ -50,6 +54,7 @@ module.exports = {
       if (result.statusCode !== 204) {
         throw strapi.errors.badRequest('Failed to delete dataset in data catalog!');
       }
+      utils.rebuildSearchContent();
     },
   },
 };

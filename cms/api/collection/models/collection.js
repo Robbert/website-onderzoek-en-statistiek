@@ -1,8 +1,17 @@
 'use strict';
 
-/**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#lifecycle-hooks)
- * to customize this model
- */
+const utils = require('../../../lib/utils');
 
-module.exports = {};
+module.exports = {
+  lifecycles: {
+    async afterPublish() {
+      utils.rebuildSearchContent();
+    },
+    async afterUpdate() {
+      utils.rebuildSearchContent();
+    },
+    async afterDelete() {
+      utils.rebuildSearchContent();
+    },
+  },
+};

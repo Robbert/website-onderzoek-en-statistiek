@@ -31,6 +31,7 @@ services:
       KEYCLOAK_NAME: $KEYCLOAK_NAME
       KEYCLOAK_PASS_ACC: $KEYCLOAK_PASS_ACC
       KEYCLOAK_REALM_ACC: datapunt-ad-acc
+      WEBSITE_DOMAIN: https://acc.onderzoek.amsterdam.nl
     networks:
       - os-network
     ports:

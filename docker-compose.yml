@@ -31,6 +31,7 @@ services:
       KEYCLOAK_NAME: $KEYCLOAK_NAME
       KEYCLOAK_PASS_PROD: $KEYCLOAK_PASS_PROD
       KEYCLOAK_REALM_PROD: datapunt-ad
+      WEBSITE_DOMAIN: https://onderzoek.amsterdam.nl
     networks:
       - os-network
     ports:
