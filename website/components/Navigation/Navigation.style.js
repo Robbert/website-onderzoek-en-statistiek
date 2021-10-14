@@ -19,11 +19,9 @@ export const Item = styled.li`
 `
 
 export const Link = styled(LinkComponent)`
-  line-height: 24px;
   height: 100%;
   color: ${themeColor('tint', 'level6')};
   align-items: center;
-  font-weight: 400;
   padding-left: 20px;
   padding-right: 20px;
 `

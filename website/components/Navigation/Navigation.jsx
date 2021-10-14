@@ -55,6 +55,7 @@ const Navigation = ({ isOpen, setIsOpen }) => {
             <Styled.Link
               href={slug}
               aria-current={router.asPath === slug && 'page'}
+              variant="inList"
             >
               {label}
             </Styled.Link>

@@ -1,28 +1,21 @@
 import {
-  breakpoint,
   themeColor,
   Icon as IconASC,
+  breakpoint,
 } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
-import ContainerComponent from '../Container/Container'
+import { Grid as GridComponent } from '../Grid/Grid.style'
+import Link from '../Link/Link'
 
-export const Container = styled(ContainerComponent)`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 32px;
-  padding-top: 32px;
+export const Grid = styled(GridComponent)`
   padding-bottom: 48px;
   background-color: ${themeColor('primary')};
   color: white;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
-    grid-template-columns: auto;
+    padding-bottom: 16px;
   }
-`
-
-export const Section = styled.div`
-  max-width: 440px;
 `
 
 export const Icon = styled(IconASC)`
@@ -30,11 +23,15 @@ export const Icon = styled(IconASC)`
 `
 
 export const List = styled.ul`
-  padding: 12px 0;
+  padding: 4px 0;
   margin: 0;
 `
 
 export const ListItem = styled.li`
   display: inline;
   margin-right: 40px;
+`
+
+export const BottomLink = styled(Link)`
+  color: ${themeColor('tint', 'level6')};
 `

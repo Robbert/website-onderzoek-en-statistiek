@@ -7,6 +7,7 @@ import { typographyStyle } from '../../lib/typographyUtils'
 export const Paragraph = styled.p`
   color: ${themeColor('tint', 'level6')};
   letter-spacing: 0.0125rem;
+  font-weight: 500;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     letter-spacing: 0;

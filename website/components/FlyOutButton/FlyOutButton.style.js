@@ -7,7 +7,7 @@ export const Button = styled(ButtonASC)`
   height: 100%;
   color: ${themeColor('tint', 'level6')};
   align-items: center;
-  font-weight: ${({ isOpen }) => (isOpen ? 700 : 400)};
+  font-weight: ${({ isOpen }) => (isOpen ? 700 : 500)};
   padding-left: 20px;
   padding-right: 28px;
   border: none;
@@ -17,12 +17,7 @@ export const Button = styled(ButtonASC)`
   :hover {
     outline: none;
     background-color: transparent;
-    color: ${themeColor('secondary')};
     text-decoration: underline;
-
-    span + span {
-      background-color: ${themeColor('secondary')};
-    }
   }
 `
 

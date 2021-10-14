@@ -1,4 +1,5 @@
 import { css } from 'styled-components'
+import { svgFill } from '@amsterdam/asc-ui'
 
 export const calculateFluidStyle = (
   minSizePx, maxSizePx, minScreenWidthPx = 320, maxScreenWidthPx = 1920,
@@ -67,6 +68,12 @@ export const typographyConfig = {
     minLineHeight: 20,
     maxLineHeight: 24,
   },
+  a: {
+    minFontSize: 18,
+    maxFontSize: 24,
+    minLineHeight: 32,
+    maxLineHeight: 32,
+  },
 }
 
 export const typographyStyle = css`
@@ -78,7 +85,10 @@ export const typographyStyle = css`
   )}
   ${({ darkBackground }) => (
     darkBackground
-    && css`color: white;`
+    && css`
+    color: white;
+    ${svgFill('white')}
+    `
   )}
 
   ${({

@@ -2,6 +2,7 @@ import {
   breakpoint,
   ListItem as ListItemASC,
   List as ListASC,
+  Icon as IconASC,
 } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
@@ -27,4 +28,8 @@ export const List = styled(ListASC)`
 
 export const ListItem = styled(ListItemASC)`
   margin-bottom: 0;
+`
+
+export const Icon = styled(IconASC)`
+  margin-right: 12px;
 `
