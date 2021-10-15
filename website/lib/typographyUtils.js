@@ -19,62 +19,120 @@ export const calculateFluidStyle = (
   )
 }
 
-export const typographyConfig = {
+export const fluidTypoConfig = {
   h1: {
-    minFontSize: 32,
-    maxFontSize: 80,
-    minLineHeight: 40,
-    maxLineHeight: 88,
+    default: {
+      minFontSize: 32,
+      maxFontSize: 80,
+      minLineHeight: 40,
+      maxLineHeight: 88,
+    },
   },
   h2: {
-    minFontSize: 28,
-    maxFontSize: 56,
-    minLineHeight: 32,
-    maxLineHeight: 64,
+    default: {
+      minFontSize: 28,
+      maxFontSize: 56,
+      minLineHeight: 32,
+      maxLineHeight: 64,
+    },
   },
   h3: {
-    minFontSize: 24,
-    maxFontSize: 40,
-    minLineHeight: 32,
-    maxLineHeight: 48,
+    default: {
+      minFontSize: 24,
+      maxFontSize: 40,
+      minLineHeight: 32,
+      maxLineHeight: 48,
+    },
   },
   h4: {
-    minFontSize: 22,
-    maxFontSize: 32,
-    minLineHeight: 32,
-    maxLineHeight: 40,
+    default: {
+      minFontSize: 22,
+      maxFontSize: 32,
+      minLineHeight: 32,
+      maxLineHeight: 40,
+    },
   },
   h5: {
-    minFontSize: 18,
-    maxFontSize: 24,
-    minLineHeight: 32,
-    maxLineHeight: 32,
-  },
-  intro: {
-    minFontSize: 18,
-    maxFontSize: 32,
-    minLineHeight: 28,
-    maxLineHeight: 40,
+    default: {
+      minFontSize: 18,
+      maxFontSize: 24,
+      minLineHeight: 32,
+      maxLineHeight: 32,
+    },
   },
   p: {
-    minFontSize: 18,
-    maxFontSize: 24,
-    minLineHeight: 28,
-    maxLineHeight: 40,
-  },
-  small: {
-    minFontSize: 14,
-    maxFontSize: 18,
-    minLineHeight: 20,
-    maxLineHeight: 24,
+    default: {
+      minFontSize: 18,
+      maxFontSize: 24,
+      minLineHeight: 28,
+      maxLineHeight: 40,
+    },
+    intro: {
+      minFontSize: 18,
+      maxFontSize: 32,
+      minLineHeight: 28,
+      maxLineHeight: 40,
+    },
+    small: {
+      minFontSize: 14,
+      maxFontSize: 18,
+      minLineHeight: 20,
+      maxLineHeight: 24,
+    },
   },
   a: {
-    minFontSize: 18,
-    maxFontSize: 24,
-    minLineHeight: 32,
-    maxLineHeight: 32,
+    default: {
+      minFontSize: 18,
+      maxFontSize: 24,
+      minLineHeight: 32,
+      maxLineHeight: 32,
+    },
+  },
+  button: {
+    default: {
+      minFontSize: 18,
+      maxFontSize: 24,
+      minLineHeight: 28,
+      maxLineHeight: 40,
+    },
+    small: {
+      minFontSize: 16,
+      maxFontSize: 18,
+      minLineHeight: 22,
+      maxLineHeight: 24,
+    },
   },
 }
+
+export const fluidTypoStyle = css`
+  ${({
+  small, intro, styleAs, as,
+}) => {
+  const tag = (Object.keys(fluidTypoConfig).includes(styleAs) && styleAs)
+    || (Object.keys(fluidTypoConfig).includes(as) && as)
+    || 'p'
+
+  const prop = (small && Object.keys(fluidTypoConfig[tag]).includes('small') && 'small')
+    || (intro && Object.keys(fluidTypoConfig[tag]).includes('intro') && 'intro')
+    || 'default'
+
+  return (
+    css`
+        /* stylelint-disable indentation */
+        font-size:
+          ${calculateFluidStyle(
+            fluidTypoConfig[tag][prop].minFontSize,
+            fluidTypoConfig[tag][prop].maxFontSize,
+          )};
+        line-height:
+          ${calculateFluidStyle(
+            fluidTypoConfig[tag][prop].minLineHeight,
+            fluidTypoConfig[tag][prop].maxLineHeight,
+          )};
+      `
+  )
+}}
+`
 
 export const typographyStyle = css`
   margin-top: 0;
@@ -86,34 +144,8 @@ export const typographyStyle = css`
   ${({ darkBackground }) => (
     darkBackground
     && css`
-    color: white;
-    ${svgFill('white')}
+      color: white;
+      ${svgFill('white')}
     `
   )}
-
-  ${({
-    small, intro, styleAs, as,
-  }) => {
-    const key = (small && 'small')
-    || (intro && 'intro')
-    || (Object.keys(typographyConfig).includes(styleAs) && styleAs)
-    || (Object.keys(typographyConfig).includes(as) && as)
-    || 'p'
-
-    return (
-      css`
-        /* stylelint-disable indentation */
-        font-size:
-          ${calculateFluidStyle(
-            typographyConfig[key].minFontSize,
-            typographyConfig[key].maxFontSize,
-          )};
-        line-height:
-          ${calculateFluidStyle(
-            typographyConfig[key].minLineHeight,
-            typographyConfig[key].maxLineHeight,
-          )};
-      `
-    )
-  }}
 `

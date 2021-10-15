@@ -5,7 +5,6 @@ import * as Styled from './Link.style'
 const Link = ({
   href,
   as = 'a',
-  variant,
   external,
   children,
   ...otherProps
@@ -14,7 +13,6 @@ const Link = ({
     <Styled.Link
       href={external && href}
       as={as}
-      variant={variant}
       {...otherProps}
     >
       {children}

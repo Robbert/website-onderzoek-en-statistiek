@@ -2,7 +2,7 @@
 import { themeColor, breakpoint } from '@amsterdam/asc-ui'
 import styled, { css } from 'styled-components'
 
-import { typographyStyle } from '../../lib/typographyUtils'
+import { fluidTypoStyle, typographyStyle } from '../../lib/typographyUtils'
 
 export const Paragraph = styled.p`
   color: ${themeColor('tint', 'level6')};
@@ -23,5 +23,6 @@ export const Paragraph = styled.p`
     }
   `}
 
+  ${fluidTypoStyle}
   ${typographyStyle}
 `
