@@ -1,44 +1,53 @@
-import NextImage from 'next/image'
-import {
-  themeColor, styles, svgFill, Heading as HeadingASC,
-} from '@amsterdam/asc-ui'
-import styled from 'styled-components'
+/* eslint-disable import/prefer-default-export */
+import styled, { css } from 'styled-components'
+import { themeColor, breakpoint } from '@amsterdam/asc-ui'
+
+import Paragraph from '../Paragraph/Paragraph'
 
 export const Link = styled.a`
   display: block;
-  width: 100%;
   text-decoration: none;
-  color: inherit;
-  margin-bottom: ${({ marginBottom }) => `${marginBottom}px` || 0};
-  border-top: 1px solid;
-  border-color: ${({ hasBorder }) => (hasBorder ? themeColor('tint', 'level3') : 'transparent')};
+  overflow: hidden;
+  margin-bottom: 60px;
 
-  :hover {
-    ${styles.CardContentStyle} h6 {
-      text-decoration: underline;
-      color: ${themeColor('secondary', 'main')};
+  img {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  :hover,
+  :focus {
+    h1 {
+      color: ${themeColor('primary')};
     }
 
-    ${styles.IconStyle} {
-      ${svgFill(themeColor('secondary', 'main'))}
+    img {
+      transform: scale(1.07);
     }
   }
 `
 
-export const CardContent = styled.div`
-  min-height: 72px;
-  padding: 16px;
-  width: 100%;
-`
-
 export const ImageWrapper = styled.div`
-  width: 100%;
-  max-width: ${({ imageSize }) => (imageSize ? `${imageSize}px` : '100%')};
-  aspect-ratio: ${({ ratio }) => ratio || 1};
-  overflow: hidden;
+  position: relative;
+  height: ${({ large }) => (large ? '534px' : '360px')};
+
+  ${({ large }) => large
+  && css`
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    margin-left: -12px;
+    margin-right: -12px;
+  }`
+}
 `
 
-// center image vertical if aspect ratio is not 1
-export const Image = styled(NextImage)`
-  top: ${(props) => (props.ratio ? '-50% !important' : 0)};
+export const Type = styled(Paragraph)`
+  text-transform: capitalize;
+  margin-top: 20px;
+`
+
+export const Teaser = styled(Paragraph)`
+  /* stylelint-disable */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `

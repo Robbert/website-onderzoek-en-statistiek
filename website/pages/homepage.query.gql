@@ -12,6 +12,9 @@ query getHomepageData {
           teaserImage {
             url
           }
+          coverImage {
+            url
+          }
         }
       }
       ... on ComponentSharedPublications {
@@ -21,6 +24,9 @@ query getHomepageData {
           teaser
           slug
           teaserImage {
+            url
+          }
+          coverImage {
             url
           }
         }

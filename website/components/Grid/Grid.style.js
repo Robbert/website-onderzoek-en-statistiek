@@ -6,7 +6,7 @@ import Container from '../Container/Container'
 export const Grid = styled(Container)`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(${({ numberOfRows }) => (numberOfRows || 0)}, auto);
+  grid-template-rows: repeat(${({ numberOfRows }) => (numberOfRows || 1)}, auto);
   column-gap: 2%;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {

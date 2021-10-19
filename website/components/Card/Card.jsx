@@ -1,49 +1,51 @@
 import NextLink from 'next/link'
-import {
-  Card as BaseCard, Heading, CardActions, Icon,
-} from '@amsterdam/asc-ui'
-import { ChevronRight } from '@amsterdam/asc-assets'
+import NextImage from 'next/image'
 
-import * as Styled from './Card.style'
+import Heading from '../Heading/Heading'
 import { getStrapiMedia, PLACEHOLDER_IMAGE } from '../../lib/utils'
+import CONTENT_TYPES from '../../constants/contentTypes'
+import * as Styled from './Card.style'
+
+const WrappedImage = ({ image, large }) => (
+  <Styled.ImageWrapper large={large}>
+    <NextImage
+      src={
+        image
+          ? getStrapiMedia(image)
+          : PLACEHOLDER_IMAGE
+      }
+      alt=""
+      layout="fill"
+      objectFit="cover"
+    />
+  </Styled.ImageWrapper>
+)
 
 const Card = ({
-  href, shortTitle, title, teaser, image, height, marginBottom,
-  hasIcon = true, hasTeaser = true, hasBorder = false, ...props
+  href, image, type, title, teaser, large, clickableImage,
 }) => (
-  <NextLink href={href} passHref>
-    <Styled.Link marginBottom={marginBottom} hasBorder={hasBorder}>
-      <BaseCard {...props}>
-        <Styled.ImageWrapper {...props}>
-          <Styled.Image
-            src={
-              image
-                ? getStrapiMedia(image)
-                : PLACEHOLDER_IMAGE
-            }
-            alt=""
-            width="1"
-            height="1"
-            layout="responsive"
-            sizes="384px"
-            ratio={props.ratio}
-          />
-        </Styled.ImageWrapper>
-        <Styled.CardContent>
-          <Heading as="h6">{title}</Heading>
-          {hasTeaser && teaser && <p>{teaser}</p>}
-        </Styled.CardContent>
-        <CardActions>
-          {hasIcon
-          && (
-          <Icon size={15}>
-            <ChevronRight />
-          </Icon>
-          )}
-        </CardActions>
-      </BaseCard>
-    </Styled.Link>
-  </NextLink>
+  <>
+    {!clickableImage && <WrappedImage image={image} large={large} />}
+    <NextLink href={href} passHref>
+      <Styled.Link>
+        {clickableImage && <WrappedImage image={image} large={large} />}
+        <Styled.Type
+          small
+          gutterBottom={large ? 12 : 0}
+        >
+          {CONTENT_TYPES[type.toLowerCase()].name}
+        </Styled.Type>
+        <Heading
+          styleAs={large ? 'h2' : 'h4'}
+          small={!large}
+          gutterBottom={8}
+        >
+          {title}
+        </Heading>
+        <Styled.Teaser small={!large}>{teaser}</Styled.Teaser>
+      </Styled.Link>
+    </NextLink>
+  </>
 )
 
 export default Card

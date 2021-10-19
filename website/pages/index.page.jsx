@@ -3,15 +3,19 @@ import Seo from '../components/Seo/Seo'
 import Heading from '../components/Heading/Heading'
 import { Grid, GridItem } from '../components/Grid/Grid.style'
 import LinkList from '../components/LinkList/LinkList'
-import CardList from '../components/CardList/CardList'
 import QUERY from './homepage.query.gql'
+import Card from '../components/Card/Card'
+import CardList from '../components/CardList/CardList'
+import * as Styled from './homepage.style'
 
 const Home = ({ themes, homepage }) => {
   if (!themes) return <div>Refresh page</div>
 
   const {
-    featured, featuredCollections, agenda, shortcuts, relatedSites,
+    largeFirstFeature, featured, agenda, shortcuts, relatedSites,
   } = homepage
+
+  const flatFeatures = flattenFeatureList(featured)
 
   return (
     <>
@@ -20,7 +24,7 @@ const Home = ({ themes, homepage }) => {
         <GridItem colRange={{ small: 4, large: 12 }}>
           <Heading gutterBottom={40}>Onderzoek en Statistiek</Heading>
         </GridItem>
-        <GridItem colRange={{ small: 2, large: 4 }}>
+        <GridItem colRange={{ small: 2, large: 4 }} rowRange={6}>
           <Heading as="h6">Thema&apos;s</Heading>
           <LinkList
             gutterBottom={40}
@@ -51,28 +55,48 @@ const Home = ({ themes, homepage }) => {
           />
         </GridItem>
 
-        <GridItem colStart={{ small: 1, large: 5 }} colRange={{ small: 4, large: 8 }}>
+        {largeFirstFeature
+        && (
+          <GridItem colRange={{ small: 4, large: 8 }}>
+            <Card
+              href={flatFeatures[0].path}
+              image={flatFeatures[0].coverImage}
+              // eslint-disable-next-line no-underscore-dangle
+              type={flatFeatures[0].__typename}
+              title={flatFeatures[0].shortTitle || flatFeatures[0].title}
+              teaser={flatFeatures[0].teaser}
+              large
+            />
+          </GridItem>
+        )}
 
-          <CardList
-            columns={2}
-            items={flattenFeatureList(featured)}
-          />
-
-        </GridItem>
-
-        <GridItem colStart={1} colRange={{ small: 4, large: 12 }}>
-          <CardList
-            columns={3}
-            items={flattenFeatureList(featuredCollections)}
-            imageSize={80}
-            hasBorder
-            hasTeaser={false}
-            horizontal
-          />
-        </GridItem>
-
+        {largeFirstFeature
+        && (
+          <GridItem colRange={{ small: 4, large: 8 }}>
+            <Heading styleAs="h3" gutterBottom={32}>Uitgelicht</Heading>
+          </GridItem>
+        )}
+        <CardList>
+          {flatFeatures.slice(largeFirstFeature ? 1 : 0).map(
+            ({
+              path, title, shortTitle, teaser, teaserImage, __typename,
+            }, index) => (
+              <li css="display: contents;" key={path}>
+                <Styled.GridItem colRange={{ small: 4, large: 4 }} index={index}>
+                  <Card
+                    href={path}
+                    image={teaserImage}
+                    type={__typename}
+                    title={shortTitle || title}
+                    teaser={teaser}
+                    clickableImage
+                  />
+                </Styled.GridItem>
+              </li>
+            ),
+          )}
+        </CardList>
       </Grid>
-
     </>
   )
 }

@@ -51,6 +51,12 @@ export const fluidTypoConfig = {
       minLineHeight: 32,
       maxLineHeight: 40,
     },
+    small: {
+      minFontSize: 20,
+      maxFontSize: 28,
+      minLineHeight: 26,
+      maxLineHeight: 40,
+    },
   },
   h5: {
     default: {
