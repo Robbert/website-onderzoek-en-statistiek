@@ -15,7 +15,15 @@ export const Grid = styled(Container)`
 `
 
 export const gridItemStyle = css`
+  margin-bottom: ${({ gutterBottom }) => gutterBottom?.large || gutterBottom || 0}px;
+
   /* stylelint-disable */
+  ${({ gutterBottom }) => gutterBottom?.small && css`
+    @media screen and ${breakpoint('max-width', 'laptop')} {
+      margin-bottom: ${gutterBottom.small}px;
+    }
+  `}
+
   grid-column: ${({ colStart, colRange }) => `
     ${colStart?.large || colStart || 'auto'} / ${
       colRange?.large || colRange

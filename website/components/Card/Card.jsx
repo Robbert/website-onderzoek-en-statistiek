@@ -37,6 +37,7 @@ const Card = ({
         </Styled.Type>
         <Heading
           styleAs={large ? 'h2' : 'h4'}
+          as="h2"
           small={!large}
           gutterBottom={8}
         >

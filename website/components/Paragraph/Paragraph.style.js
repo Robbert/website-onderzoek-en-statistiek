@@ -18,7 +18,7 @@ export const Paragraph = styled.p`
     letter-spacing: 0.025rem;
 
     @media screen and ${breakpoint('max-width', 'laptop')} {
-      font-weight: 700;
+      font-weight: 900;
       letter-spacing: 0.0125rem;
     }
   `}

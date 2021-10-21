@@ -1,5 +1,5 @@
 import { css } from 'styled-components'
-import { svgFill } from '@amsterdam/asc-ui'
+import { svgFill, breakpoint } from '@amsterdam/asc-ui'
 
 export const calculateFluidStyle = (
   minSizePx, maxSizePx, minScreenWidthPx = 320, maxScreenWidthPx = 1920,
@@ -142,11 +142,19 @@ export const fluidTypoStyle = css`
 
 export const typographyStyle = css`
   margin-top: 0;
-  margin-bottom: ${({ gutterBottom }) => (typeof gutterBottom === 'number' ? `${gutterBottom}px` : 0)};
+  margin-bottom: ${({ gutterBottom }) => gutterBottom?.large || gutterBottom || 0}px;
+
+  ${({ gutterBottom }) => gutterBottom?.small && css`
+    @media screen and ${breakpoint('max-width', 'laptop')} {
+      margin-bottom: ${gutterBottom.small}px;
+    }
+  `}
+
   ${({ strong }) => (
     strong
     && css`font-weight: 700;`
   )}
+
   ${({ darkBackground }) => (
     darkBackground
     && css`
