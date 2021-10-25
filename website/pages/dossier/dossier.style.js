@@ -4,7 +4,11 @@ import { breakpoint, Icon as IconASC } from '@amsterdam/asc-ui'
 
 import { GridItem as GridItemComponent } from '../../components/Grid/Grid.style'
 
-export const GridItem = styled(GridItemComponent)`
+export const FeatureListItem = styled.li`
+  display: contents;
+`
+
+export const FeatureGridItem = styled(GridItemComponent)`
   margin-bottom: 40px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {

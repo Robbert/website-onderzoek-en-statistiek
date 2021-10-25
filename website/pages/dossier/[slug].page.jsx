@@ -24,7 +24,7 @@ const Collection = ({
   teaserImage,
   intro,
   featured,
-  collectionItems,
+  collectionItems: collectionItemsCms,
   linkList,
   email,
   phoneNumber,
@@ -34,6 +34,25 @@ const Collection = ({
   if (router.isFallback) {
     return <div><Spinner /></div>
   }
+
+  const collectionItems = flattenFeatureList(collectionItemsCms).map(
+    ({
+      path,
+      title: featureTitle,
+      shortTitle: featureShortTitle,
+      teaser: featureTeaser,
+      __typename,
+    }) => (
+      <li key={path}>
+        <SearchCard
+          href={path}
+          type={__typename}
+          title={featureShortTitle || featureTitle}
+          teaser={featureTeaser}
+        />
+      </li>
+    ),
+  )
 
   return (
     <>
@@ -59,8 +78,8 @@ const Collection = ({
                 teaserImage: featureTeaserImage,
                 __typename,
               }, index) => (
-                <li css="display: contents;" key={path}>
-                  <Styled.GridItem colRange={{ small: 4, large: 6 }} index={index}>
+                <Styled.FeatureListItem key={path}>
+                  <Styled.FeatureGridItem colRange={{ small: 4, large: 6 }} index={index}>
                     <Card
                       href={path}
                       image={featureTeaserImage}
@@ -69,8 +88,8 @@ const Collection = ({
                       teaser={featureTeaser}
                       clickableImage
                     />
-                  </Styled.GridItem>
-                </li>
+                  </Styled.FeatureGridItem>
+                </Styled.FeatureListItem>
               ),
             )}
           </CardList>
@@ -93,47 +112,13 @@ const Collection = ({
               gutterBottom={{ small: 72, large: 116 }}
             >
               <CardList>
-                {flattenFeatureList(collectionItems).slice(0, 5).map(
-                  ({
-                    path,
-                    title: featureTitle,
-                    shortTitle: featureShortTitle,
-                    teaser: featureTeaser,
-                    __typename,
-                  }) => (
-                    <li key={path}>
-                      <SearchCard
-                        href={path}
-                        type={__typename}
-                        title={featureShortTitle || featureTitle}
-                        teaser={featureTeaser}
-                      />
-                    </li>
-                  ),
-                )}
+                {collectionItems.slice(0, 5)}
               </CardList>
-              {flattenFeatureList(collectionItems).length > 5
+              {collectionItems.length > 5
               && (
                 <Disclosure id="other_collection_items">
                   <CardList>
-                    {flattenFeatureList(collectionItems).slice(5).map(
-                      ({
-                        path,
-                        title: featureTitle,
-                        shortTitle: featureShortTitle,
-                        teaser: featureTeaser,
-                        __typename,
-                      }) => (
-                        <li key={path}>
-                          <SearchCard
-                            href={path}
-                            type={__typename}
-                            title={featureShortTitle || featureTitle}
-                            teaser={featureTeaser}
-                          />
-                        </li>
-                      ),
-                    )}
+                    {collectionItems.slice(5)}
                   </CardList>
                 </Disclosure>
               )}
