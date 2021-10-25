@@ -1,9 +1,8 @@
 {
-  "collectionName": "components_shared_features",
+  "collectionName": "components_shared_link_lists",
   "info": {
-    "name": "features",
-    "icon": "list",
-    "description": ""
+    "name": "linkList",
+    "icon": "list-ul"
   },
   "options": {},
   "attributes": {
@@ -21,6 +20,14 @@
     },
     "collections": {
       "collection": "collection"
+    },
+    "datasets": {
+      "collection": "dataset"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.external-links"
     }
   }
 }

@@ -29,7 +29,17 @@
     "intro": {
       "type": "richtext"
     },
-    "teaserImage": {
+    "rectangularImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "squareImage": {
       "model": "file",
       "via": "related",
       "allowedTypes": [

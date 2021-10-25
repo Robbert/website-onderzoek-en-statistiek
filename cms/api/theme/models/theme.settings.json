@@ -46,7 +46,7 @@
       "type": "richtext",
       "required": false
     },
-    "coverImage": {
+    "rectangularImage": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
@@ -56,7 +56,7 @@
       "required": false,
       "pluginOptions": {}
     },
-    "teaserImage": {
+    "squareImage": {
       "model": "file",
       "via": "related",
       "allowedTypes": [

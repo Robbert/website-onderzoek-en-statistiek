@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "cms:db": "docker-compose -f docker-compose.dev.yml up",
+    "cms:db": "docker-compose -f docker-compose.dev.yml up -d",
     "cms:install": "cd cms && yarn",
     "cms": "cd cms && yarn develop",
     "website:install": "cd website && yarn",

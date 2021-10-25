@@ -7,7 +7,7 @@
   "options": {},
   "attributes": {
     "datasets": {
-      "collection": "dataset"
+      "model": "dataset"
     }
   }
 }

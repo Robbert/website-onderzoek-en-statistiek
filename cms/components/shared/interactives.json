@@ -7,7 +7,7 @@
   "options": {},
   "attributes": {
     "interactives": {
-      "collection": "interactive"
+      "model": "interactive"
     }
   }
 }

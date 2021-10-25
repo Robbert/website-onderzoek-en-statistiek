@@ -39,10 +39,24 @@
       "required": false
     },
     "body": {
-      "type": "richtext",
-      "required": false
+      "type": "dynamiczone",
+      "components": [
+        "shared.text",
+        "shared.visualisation",
+        "shared.link-list"
+      ]
     },
-    "teaserImage": {
+    "rectangularImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "squareImage": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
@@ -87,18 +101,6 @@
     "theme": {
       "via": "videos",
       "collection": "theme"
-    },
-    "linkList": {
-      "type": "dynamiczone",
-      "components": [
-        "shared.articles",
-        "shared.publications",
-        "shared.videos",
-        "shared.interactives",
-        "shared.collections",
-        "shared.datasets",
-        "shared.links"
-      ]
     }
   }
 }
