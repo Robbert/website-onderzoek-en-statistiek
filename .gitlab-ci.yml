@@ -31,14 +31,13 @@ build server:
       - main
     changes:
       - server/**/*
-      - .gitlab-ci.yml
-      - docker-compose.yml
+      - /*.yml
 
 # build cms for acceptance
 build cms acc:
   stage: build
   script:
-    - docker build -t $TAG_CMS_LATEST_ACC --build-arg NODE_ENV=development ./cms
+    - docker build -t $TAG_CMS_LATEST_ACC ./cms
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_CMS_LATEST_ACC
   only:
@@ -46,8 +45,7 @@ build cms acc:
       - develop 
     changes:
       - cms/**/*
-      - .gitlab-ci.yml
-      - docker-compose.yml
+      - /*.yml
 
 # build website for acceptance  
 build website acc:
@@ -57,7 +55,7 @@ build website acc:
   before_script:
     - docker info
   script:
-    - docker build -t $TAG_WEBSITE_LATEST_ACC --build-arg NEXT_PUBLIC_STRAPI_API_URL=https://acc.cms.onderzoek-en-statistiek.nl --build-arg NODE_ENV=development ./website
+    - docker build -t $TAG_WEBSITE_LATEST_ACC --build-arg NEXT_PUBLIC_DEPLOY_ENV=acceptance ./website
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_WEBSITE_LATEST_ACC
   only:
@@ -65,8 +63,7 @@ build website acc:
       - develop
     changes:
       - website/**/*
-      - .gitlab-ci.yml
-      - docker-compose.yml
+      - /*.yml
 
 # deploy acceptance
 deploy acc:
@@ -84,12 +81,15 @@ deploy acc:
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no 
         $SERVER_USER@$SERVER_IP 
         DATABASE_USERNAME=$DATABASE_USERNAME
-        DATABASE_PASSWORD=$DATABASE_PASSWORD 
+        DATABASE_PASSWORD=$DATABASE_PASSWORD
+        KEYCLOAK_NAME=$KEYCLOAK_NAME
+        KEYCLOAK_PASS_ACC=$KEYCLOAK_PASS_ACC
         "docker-compose -f docker-compose.acc.yml --project-name acceptance up -d --no-deps --remove-orphans"
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
         "docker-compose -f docker-compose.server.yml --project-name server up -d --no-deps --remove-orphans"
   after_script:
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker image prune -a -f"
+    - curl -u OenS:@Weesper113 https://acc.onderzoek-en-statistiek.nl/api/build-search
   environment:
     name: acceptance
     url: https://acc.onderzoek-en-statistiek.nl
@@ -102,7 +102,7 @@ deploy acc:
 build cms prod:
   stage: build
   script:
-    - docker build -t $TAG_CMS_LATEST_PROD --build-arg NODE_ENV=production ./cms
+    - docker build -t $TAG_CMS_LATEST_PROD ./cms
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_CMS_LATEST_PROD
   only:
@@ -110,8 +110,7 @@ build cms prod:
       - main 
     changes:
       - cms/**/*
-      - .gitlab-ci.yml
-      - docker-compose.yml
+      - /*.yml
   
 # Build website for production
 build website prod:
@@ -121,7 +120,7 @@ build website prod:
   before_script:
     - docker info
   script:
-    - docker build -t $TAG_WEBSITE_LATEST_PROD --build-arg NEXT_PUBLIC_STRAPI_API_URL=https://cms.onderzoek-en-statistiek.nl --build-arg NODE_ENV=production ./website
+    - docker build -t $TAG_WEBSITE_LATEST_PROD --build-arg NEXT_PUBLIC_DEPLOY_ENV=production ./website
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_WEBSITE_LATEST_PROD
   only:
@@ -129,8 +128,7 @@ build website prod:
       - main
     changes:
       - website/**/*
-      - .gitlab-ci.yml
-      - docker-compose.yml
+      - /*.yml
 
 # deploy production
 deploy prod:
@@ -148,12 +146,15 @@ deploy prod:
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no 
         $SERVER_USER@$SERVER_IP
         DATABASE_USERNAME=$DATABASE_USERNAME
-        DATABASE_PASSWORD=$DATABASE_PASSWORD 
+        DATABASE_PASSWORD=$DATABASE_PASSWORD
+        KEYCLOAK_NAME=$KEYCLOAK_NAME
+        KEYCLOAK_PASS_PROD=$KEYCLOAK_PASS_PROD
         "docker-compose -f docker-compose.yml --project-name production up -d --no-deps --remove-orphans"
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
       "docker-compose -f docker-compose.server.yml --project-name server up -d --no-deps --remove-orphans"
   after_script:
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker image prune -a -f"
+    - curl https://onderzoek-en-statistiek.nl/api/build-search
   environment:
     name: production
     url: https://onderzoek-en-statistiek.nl

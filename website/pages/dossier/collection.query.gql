@@ -1,0 +1,171 @@
+query getCollectionData($slug: String) {
+  collections(where: { slug: $slug }) {
+    title
+    shortTitle
+    teaser
+    intro
+    teaserImage {
+      url
+    }
+    featured {
+      ... on ComponentSharedArticles {
+        articles {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedDatasets {
+        datasets {
+          title
+          slug
+        }
+      }
+    }
+    collectionItems {
+      ... on ComponentSharedArticles {
+        articles {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedDatasets {
+        datasets {
+          title
+          slug
+        }
+      }
+    }
+    linkList {
+      ... on ComponentSharedArticles {
+        articles {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedCollections {
+        collections {
+          title
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedDatasets {
+        datasets {
+          title
+          slug
+        }
+      }
+      ... on ComponentSharedLinks {
+        title
+        path
+      }
+    }
+    email
+    phoneNumber
+  }
+}

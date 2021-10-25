@@ -1,0 +1,149 @@
+query getThemeData($slug: String) {
+  themes(where: { slug: $slug }) {
+    title
+    shortTitle
+    slug
+    color
+    teaser
+    intro
+    teaserImage {
+      url
+    }
+    coverImage {
+      url
+    }
+    visualisation {
+      title
+      description
+      source
+      image {
+        url
+      }
+    }
+    topStory {
+      ... on ComponentSharedArticles {
+        articles{
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives{
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+    }
+    featured {
+      ... on ComponentSharedArticles {
+        articles{
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives{
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedCollections {
+        collections {
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedDatasets {
+        datasets {
+          title
+          teaser: description
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+    }
+    collections {
+      title
+      slug
+    }
+    combiPicture {
+      smallerImage {
+        url
+      }
+      biggerImage {
+        url
+      }
+    }
+  }
+}

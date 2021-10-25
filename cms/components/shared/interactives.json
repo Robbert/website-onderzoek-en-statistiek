@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_shared_interactives",
+  "info": {
+    "name": "interactives",
+    "icon": "magic"
+  },
+  "options": {},
+  "attributes": {
+    "interactives": {
+      "model": "interactive"
+    }
+  }
+}

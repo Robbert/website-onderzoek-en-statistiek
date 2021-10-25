@@ -36,6 +36,9 @@
       "targetField": "title",
       "required": true
     },
+    "author": {
+      "type": "string"
+    },
     "teaser": {
       "type": "text",
       "required": false
@@ -45,10 +48,14 @@
       "required": false
     },
     "body": {
-      "type": "richtext",
-      "required": false
+      "type": "dynamiczone",
+      "components": [
+        "shared.text",
+        "shared.visualisation",
+        "shared.link-list"
+      ]
     },
-    "coverImage": {
+    "rectangularImage": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
@@ -58,7 +65,17 @@
       "required": false,
       "pluginOptions": {}
     },
-    "teaserImage": {
+    "squareImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "coverImage": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
@@ -78,18 +95,9 @@
       "required": true,
       "pluginOptions": {}
     },
-    "publicationSource": {
-      "type": "string",
-      "default": "Onderzoek en Statistiek"
-    },
     "theme": {
       "via": "publications",
       "collection": "theme"
-    },
-    "related": {
-      "type": "component",
-      "repeatable": false,
-      "component": "shared.related"
     }
   }
 }

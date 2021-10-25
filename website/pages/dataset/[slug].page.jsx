@@ -1,10 +1,13 @@
 import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
-import Moment from 'react-moment'
 import { Heading, Spinner } from '@amsterdam/asc-ui'
 
-import Seo from '../../components/Seo'
-import { fetchAPI, getStrapiMedia } from '../../lib/utils'
+import Seo from '../../components/Seo/Seo'
+import Container from '../../components/Container/Container'
+import {
+  fetchAPI, getStrapiMedia, apolloClient, formatDate,
+} from '../../lib/utils'
+import QUERY from './dataset.query.gql'
 import * as Styled from './dataset.style'
 
 const Dataset = ({
@@ -24,22 +27,23 @@ const Dataset = ({
     return <div><Spinner /></div>
   }
 
-  const seo = {
-    metaTitle: title,
-    metaDescription: description,
-  }
-
-  const resourceLinks = resources.map(({ id, title: resourceTitle, file }) => (
+  const resourceLinks = resources.map(({
+    id, title: resourceTitle, type, file, url,
+  }) => (
     <Styled.Value key={id}>
-      <a href={getStrapiMedia(file)}>
-        {`${file.ext.substring(1)}: ${resourceTitle}`}
+      <a href={file ? getStrapiMedia(file) : url}>
+        {`${type}: ${resourceTitle}`}
       </a>
     </Styled.Value>
   ))
 
   return (
-    <>
-      <Seo seo={seo} />
+    <Container>
+      <Seo
+        title={`Dataset: ${title}`}
+        description={description}
+        article
+      />
       <Heading>
         {`Dataset ${title}`}
       </Heading>
@@ -50,13 +54,13 @@ const Dataset = ({
         <Styled.Row>
           <Styled.Key>Publicatiedatum</Styled.Key>
           <Styled.Value>
-            <Moment locale="nl" format="D MMMM YYYY">{published}</Moment>
+            {formatDate(published)}
           </Styled.Value>
         </Styled.Row>
         <Styled.Row>
           <Styled.Key>Wijzigingsdatum</Styled.Key>
           <Styled.Value>
-            <Moment locale="nl" format="D MMMM YYYY">{updated}</Moment>
+            {formatDate(updated)}
           </Styled.Value>
         </Styled.Row>
         <Styled.Row>
@@ -76,7 +80,7 @@ const Dataset = ({
           {resourceLinks}
         </Styled.Row>
       </Styled.MetaData>
-    </>
+    </Container>
   )
 }
 
@@ -94,12 +98,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const datasets = await fetchAPI(
-    `/datasets?slug=${params.slug}`,
+  const { data } = await apolloClient.query(
+    {
+      query: QUERY,
+      variables: { slug: params.slug },
+    },
   )
+    .catch() // TODO: log this error in sentry
 
   return {
-    props: { ...datasets[0] },
+    props: data.datasets[0],
     revalidate: 1,
   }
 }

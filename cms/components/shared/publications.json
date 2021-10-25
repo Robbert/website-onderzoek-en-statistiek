@@ -7,7 +7,7 @@
   "options": {},
   "attributes": {
     "publications": {
-      "collection": "publication"
+      "model": "publication"
     }
   }
 }

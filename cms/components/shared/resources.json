@@ -17,12 +17,13 @@
     "type": {
       "type": "enumeration",
       "enum": [
-        "data",
-        "doc",
-        "vis"
+        "databestand",
+        "api",
+        "documentatie",
+        "visualisatie"
       ],
       "required": true,
-      "default": "data"
+      "default": "databestand"
     },
     "file": {
       "model": "file",

@@ -1,21 +1,31 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Spinner } from '@amsterdam/asc-ui'
+import styled from 'styled-components'
 
-import { fetchAPI } from '../../lib/utils'
-import Seo from '../../components/Seo'
+import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
+import Seo from '../../components/Seo/Seo'
+import Container from '../../components/Container/Container'
+import IFrame from '../../components/IFrame/IFrame'
+import QUERY from './interactive.query.gql'
 
-const Interactive = ({ interactive, assets }) => {
+const RenderContainer = styled.div`
+  width: 100%;
+`
+
+const Interactive = ({
+  title, shortTitle, teaser, implementation, contentLink, teaserImage, assets,
+}) => {
   const router = useRouter()
+
+  useEffect(() => {
+    if (implementation === 'link') {
+      router.push(contentLink)
+    }
+  }, [implementation])
 
   if (router.isFallback) {
     return <div><Spinner /></div>
-  }
-
-  const seo = {
-    metaTitle: interactive.title,
-    metaDescription: interactive.teaser,
-    article: true,
   }
 
   useEffect(() => {
@@ -24,10 +34,10 @@ const Interactive = ({ interactive, assets }) => {
       if (asset.endsWith('css')) {
         element = document.createElement('link')
         element.rel = 'stylesheet'
-        element.href = `${interactive.contentLink}/${asset}`
+        element.href = `${contentLink}/${asset}`
       } else if (asset.endsWith('js')) {
         element = document.createElement('script')
-        element.src = `${interactive.contentLink}/${asset}`
+        element.src = `${contentLink}/${asset}`
         element.async = true
       }
       document.head.appendChild(element)
@@ -44,11 +54,17 @@ const Interactive = ({ interactive, assets }) => {
   }, [])
 
   return (
-    <>
-      <Seo seo={seo} />
-      <h1>{interactive.title}</h1>
-      <div id="micro-frontend" />
-    </>
+    <Container>
+      <Seo
+        title={shortTitle || title}
+        description={teaser}
+        image={getStrapiMedia(teaserImage)}
+        article
+      />
+      { implementation === 'insert'
+        ? <RenderContainer id="micro-frontend" />
+        : <IFrame src={contentLink} title={title} />}
+    </Container>
   )
 }
 
@@ -68,25 +84,30 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const interactives = await fetchAPI(
-    `/interactives?slug=${params.slug}`,
+  const { data } = await apolloClient.query(
+    {
+      query: QUERY,
+      variables: { slug: params.slug },
+    },
   )
+    .catch() // TODO: log this error in sentry
 
-  const assets = await fetch(`${interactives[0].contentLink}/asset-manifest.json`)
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-      throw new Error(`no asset-manifest found for ${interactives[0].slug}`)
-    })
-    .catch((error) => {
+  const { contentLink, implementation } = data.interactives[0]
+
+  const assets = implementation === 'insert'
+    ? await fetch(`${contentLink}/asset-manifest.json`)
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        }
+        return []
       // eslint-disable-next-line no-console
-      console.log(error)
-    })
+      }).catch((e) => console.log(e))
+    : {}
 
   return {
     props: {
-      interactive: interactives[0],
+      ...data.interactives[0],
       assets: assets?.entrypoints ? assets.entrypoints : [],
     },
     revalidate: 1,

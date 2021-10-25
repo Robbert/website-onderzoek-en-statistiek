@@ -2,10 +2,12 @@ module.exports = {
   env: {
     browser: true,
     es2020: true,
+    jest: true,
   },
   extends: [
     'plugin:react/recommended',
     'airbnb',
+    'plugin:@next/next/recommended',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -14,9 +16,11 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-  ],
+  settings: {
+    next: {
+      rootDir: 'website',
+    },
+  },
   rules: {
     semi: ['error', 'never'],
     'react/jsx-props-no-spreading': 'off',
@@ -32,5 +36,6 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
+    indent: ['error', 2, { ignoredNodes: ['TemplateLiteral > *'] }],
   },
 }

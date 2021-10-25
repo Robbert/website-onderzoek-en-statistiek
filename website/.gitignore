@@ -64,10 +64,10 @@ coverage
 # Strapi
 ############################
 
-.env
 license.txt
 exports
 *.cache
 build
 
 .next
+searchContent.json

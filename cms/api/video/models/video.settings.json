@@ -31,15 +31,32 @@
       "type": "text",
       "required": false
     },
+    "transcript": {
+      "type": "richtext"
+    },
     "intro": {
       "type": "text",
       "required": false
     },
     "body": {
-      "type": "richtext",
-      "required": false
+      "type": "dynamiczone",
+      "components": [
+        "shared.text",
+        "shared.visualisation",
+        "shared.link-list"
+      ]
     },
-    "teaserImage": {
+    "rectangularImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "squareImage": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
@@ -75,20 +92,15 @@
     },
     "externalVideoSource": {
       "type": "string",
-      "regex":  "^$|https://"
+      "regex": "^$|https://"
     },
     "externalEmbedSource": {
       "type": "string",
-      "regex":  "^$|https://"
+      "regex": "^$|https://"
     },
     "theme": {
       "via": "videos",
       "collection": "theme"
-    },
-    "related": {
-      "type": "component",
-      "repeatable": false,
-      "component": "shared.related"
     }
   }
 }

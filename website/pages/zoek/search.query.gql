@@ -1,0 +1,6 @@
+query getThemeListData {
+  themes {
+    slug
+    title
+  }
+}

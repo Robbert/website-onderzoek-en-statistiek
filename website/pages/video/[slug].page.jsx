@@ -1,10 +1,17 @@
-import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
-import { Heading, Spinner } from '@amsterdam/asc-ui'
+import {
+  CustomHTMLBlock, Spinner, List, ListItem,
+} from '@amsterdam/asc-ui'
+import ReactMarkdown from 'react-markdown'
 
-import Seo from '../../components/Seo'
-import Related from '../../components/Related'
-import { fetchAPI, getStrapiMedia } from '../../lib/utils'
+import Seo from '../../components/Seo/Seo'
+import Heading from '../../components/Heading/Heading'
+import InlineImage from '../../components/InlineImage/InlineImage'
+import Link from '../../components/Link/Link'
+import {
+  fetchAPI, getStrapiMedia, apolloClient, formatDate, flattenFeatureList,
+} from '../../lib/utils'
+import QUERY from './video.query.gql'
 import * as Styled from './video.style'
 
 const LocalVideo = ({ videoSource, subtitleSource, enableSubtitleByDefault }) => {
@@ -20,13 +27,13 @@ const LocalVideo = ({ videoSource, subtitleSource, enableSubtitleByDefault }) =>
     >
       <source src={videoSourceStrapi} type={videoSource.mime} />
       {subtitleSource && (
-      <track
-        default={!!enableSubtitleByDefault}
-        src={subtitleSourceStrapi}
-        kind="subtitles"
-        srcLang="nl"
-        label="Dutch"
-      />
+        <track
+          default={!!enableSubtitleByDefault}
+          src={subtitleSourceStrapi}
+          kind="subtitles"
+          srcLang="nl"
+          label="Dutch"
+        />
       )}
     </Styled.Video>
   )
@@ -54,43 +61,96 @@ const ExternalEmbed = ({ source }) => (
 
 const Video = ({
   title,
-  intro,
+  shortTitle,
   teaser,
+  teaserImage,
+  publicationDate,
+  transcript,
+  intro,
+  body,
   videoFile,
   subtitleFile,
   subtitleDefault,
   externalVideoSource,
   externalEmbedSource,
-  related,
+  linkList,
 }) => {
   const router = useRouter()
   if (router.isFallback) {
     return <div><Spinner /></div>
   }
 
-  const seo = {
-    metaTitle: title,
-    metaDescription: teaser,
+  const renderers = {
+    image: (props) => <InlineImage {...props} />,
+    paragraph: ({ children }) => {
+      if (children[0]?.type?.name === 'image'
+        || (children[0]?.type === 'a' && children[0]?.props?.children[0]?.type?.name === 'image')) {
+        return children[0]
+      }
+      return <p>{children}</p>
+    },
   }
+
+  const flatLinkList = flattenFeatureList(linkList)
 
   return (
     <>
-      <Seo seo={seo} />
-      <Heading gutterBottom={40}>
-        {`Video ${title}`}
-      </Heading>
-      <ReactMarkdown source={intro} escapeHtml={false} />
-      {videoFile?.url
-      && (
-      <LocalVideo
-        videoSource={videoFile}
-        subtitleSource={subtitleFile}
-        enableSubtitleByDefault={subtitleDefault}
+      <Seo
+        title={shortTitle || title}
+        description={teaser}
+        image={getStrapiMedia(teaserImage)}
+        video
       />
-      )}
-      {externalVideoSource && <ExternalVideo source={externalVideoSource} />}
-      {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
-      <Related data={related} />
+      <Styled.Container>
+        <Styled.MainContent>
+          <Heading gutterBottom={16}>
+            {`Video ${title}`}
+          </Heading>
+          <span>{formatDate(publicationDate)}</span>
+          {transcript && (
+            <CustomHTMLBlock>
+              <ReactMarkdown
+                source={transcript}
+                escapeHtml={false}
+                renderers={renderers}
+              />
+            </CustomHTMLBlock>
+          )}
+          <Styled.Intro strong>{intro}</Styled.Intro>
+          {body && (
+            <CustomHTMLBlock>
+              <ReactMarkdown
+                source={body}
+                escapeHtml={false}
+                renderers={renderers}
+              />
+            </CustomHTMLBlock>
+          )}
+          {videoFile?.url && (
+            <LocalVideo
+              videoSource={videoFile}
+              subtitleSource={subtitleFile}
+              enableSubtitleByDefault={subtitleDefault}
+            />
+          )}
+          {externalVideoSource && <ExternalVideo source={externalVideoSource} />}
+          {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
+          {flatLinkList && flatLinkList.length > 0 && (
+            <>
+              <Heading styleAs="h5" gutterBottom={20}>Zie ook</Heading>
+              <List>
+                {flatLinkList.map(({ path, title: linkTitle }) => (
+                  <ListItem key={path}>
+                    <Link href={path} inList strong>
+                      {linkTitle}
+                    </Link>
+                  </ListItem>
+                ))}
+              </List>
+            </>
+          )}
+        </Styled.MainContent>
+      </Styled.Container>
     </>
   )
 }
@@ -109,10 +169,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const videos = await fetchAPI(`/videos?slug=${params.slug}`)
+  const { data } = await apolloClient.query(
+    {
+      query: QUERY,
+      variables: { slug: params.slug },
+    },
+  )
+    .catch() // TODO: log this error in sentry
 
   return {
-    props: { ...videos[0] },
+    props: data.videos[0],
     revalidate: 1,
   }
 }

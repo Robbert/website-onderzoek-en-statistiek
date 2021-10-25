@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_external_links",
+  "info": {
+    "name": "externalLinks",
+    "icon": "link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string",
+      "required": true,
+      "regex":  "^$|https://"
+    }
+  }
+}

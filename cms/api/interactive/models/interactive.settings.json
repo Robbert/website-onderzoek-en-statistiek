@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "interactives",
   "info": {
-    "name": "interactive"
+    "name": "interactive",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -31,7 +32,17 @@
       "type": "text",
       "required": false
     },
-    "teaserImage": {
+    "rectangularImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "squareImage": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
@@ -43,6 +54,16 @@
     },
     "contentLink": {
       "type": "string"
+    },
+    "implementation": {
+      "type": "enumeration",
+      "enum": [
+        "insert",
+        "frame",
+        "link"
+      ],
+      "default": "insert",
+      "required": true
     },
     "theme": {
       "collection": "theme",

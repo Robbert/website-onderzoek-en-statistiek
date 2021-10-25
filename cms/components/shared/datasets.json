@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_shared_datasets",
+  "info": {
+    "name": "datasets",
+    "icon": "barcode"
+  },
+  "options": {},
+  "attributes": {
+    "datasets": {
+      "model": "dataset"
+    }
+  }
+}

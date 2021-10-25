@@ -1,35 +1,34 @@
 import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import Moment from 'react-moment'
 import { Spinner } from '@amsterdam/asc-ui'
 
-import Seo from '../../components/Seo'
-import Related from '../../components/Related'
-import InlineImage from '../../components/InlineImage'
-import { fetchAPI, getStrapiMedia } from '../../lib/utils'
+import Seo from '../../components/Seo/Seo'
+import Related from '../../components/Related/Related'
+import InlineImage from '../../components/InlineImage/InlineImage'
+import {
+  fetchAPI, getStrapiMedia, PLACEHOLDER_IMAGE, apolloClient, flattenFeatureList, formatDate,
+} from '../../lib/utils'
+import QUERY from './article.query.gql'
 import * as Styled from './article.style'
 
 const Article = ({
   title,
+  shortTitle,
   teaser,
   teaserImage,
   coverImage,
   publicationDate,
+  intro,
   body,
+  linkList,
   related,
+  theme,
 }) => {
   const router = useRouter()
 
   if (router.isFallback) {
     return <div><Spinner /></div>
-  }
-
-  const seo = {
-    metaTitle: title,
-    metaDescription: teaser,
-    shareImage: teaserImage,
-    article: true,
   }
 
   const renderers = {
@@ -45,24 +44,53 @@ const Article = ({
 
   return (
     <>
-      <Seo seo={seo} />
-      <Image
-        src={getStrapiMedia(coverImage)}
-        width="1280"
-        height="590"
-        layout="responsive"
-        placeholder="blur"
+      <Seo
+        title={shortTitle || title}
+        description={teaser}
+        image={getStrapiMedia(teaserImage)}
+        article
       />
-      <Styled.Title>{title}</Styled.Title>
-      <Moment locale="nl" format="D MMMM YYYY">{publicationDate}</Moment>
-      <Styled.Body>
-        <ReactMarkdown
-          source={body}
-          escapeHtml={false}
-          renderers={renderers}
-        />
-        <Related data={related} />
-      </Styled.Body>
+      {coverImage && (
+        <Styled.ImageWrapper>
+          <Image
+            src={
+              coverImage
+                ? getStrapiMedia(coverImage)
+                : PLACEHOLDER_IMAGE
+            }
+            alt=""
+            layout="fill"
+            placeholder="blur"
+            objectFit="cover"
+            blurDataURL={PLACEHOLDER_IMAGE}
+            priority
+          />
+        </Styled.ImageWrapper>
+      )}
+      <Styled.Container>
+        <Styled.MainContent>
+          <Styled.Title>{title}</Styled.Title>
+          <span>{formatDate(publicationDate)}</span>
+          <Styled.Intro>{intro}</Styled.Intro>
+          <Styled.Body>
+            <ReactMarkdown
+              source={body}
+              escapeHtml={false}
+              renderers={renderers}
+            />
+          </Styled.Body>
+        </Styled.MainContent>
+        <Styled.SideBar>
+          { related
+          && (
+            <Related
+              linkList={flattenFeatureList(linkList)}
+              related={flattenFeatureList(related)}
+              themes={theme}
+            />
+          )}
+        </Styled.SideBar>
+      </Styled.Container>
     </>
   )
 }
@@ -81,12 +109,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const articles = await fetchAPI(
-    `/articles?slug=${params.slug}`,
+  const { data } = await apolloClient.query(
+    {
+      query: QUERY,
+      variables: { slug: params.slug },
+    },
   )
+    .catch() // TODO: log this error in sentry
 
   return {
-    props: { ...articles[0] },
+    props: data.articles[0],
     revalidate: 1,
   }
 }

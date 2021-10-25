@@ -27,6 +27,11 @@ services:
       DATABASE_PORT: 5432
       DATABASE_USERNAME: $DATABASE_USERNAME
       DATABASE_PASSWORD: $DATABASE_PASSWORD
+      STRAPI_ENVIRONMENT: acceptance
+      KEYCLOAK_NAME: $KEYCLOAK_NAME
+      KEYCLOAK_PASS_ACC: $KEYCLOAK_PASS_ACC
+      KEYCLOAK_REALM_ACC: datapunt-ad-acc
+      WEBSITE_DOMAIN: https://acc.onderzoek.amsterdam.nl
     networks:
       - os-network
     ports:
@@ -44,6 +49,8 @@ services:
       - os-network
     ports:
       - 3000:3000
+    volumes:
+      - static_files:/app/public
     depends_on:
       - database
       - cms
@@ -51,6 +58,7 @@ services:
 volumes:
   cms_files:
   cms_data:
+  static_files:
 
 networks:
   os-network:

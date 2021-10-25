@@ -29,25 +29,21 @@
     "intro": {
       "type": "richtext"
     },
-    "coverImage": {
+    "rectangularImage": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
-        "images",
-        "files",
-        "videos"
+        "images"
       ],
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
     },
-    "teaserImage": {
+    "squareImage": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
-        "images",
-        "files",
-        "videos"
+        "images"
       ],
       "plugin": "upload",
       "required": false,
@@ -57,18 +53,43 @@
       "via": "collections",
       "collection": "theme"
     },
-    "features": {
+    "featured": {
       "type": "dynamiczone",
       "components": [
         "shared.articles",
         "shared.publications",
-        "shared.videos"
+        "shared.videos",
+        "shared.interactives",
+        "shared.datasets"
       ]
     },
-    "lists": {
-      "type": "component",
-      "repeatable": true,
-      "component": "shared.list"
+    "collectionItems": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.interactives",
+        "shared.datasets"
+      ]
+    },
+    "linkList": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.interactives",
+        "shared.collections",
+        "shared.datasets",
+        "shared.links"
+      ]
+    },
+    "email": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
     }
   }
 }

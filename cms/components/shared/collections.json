@@ -7,7 +7,7 @@
   "options": {},
   "attributes": {
     "collections": {
-      "collection": "collection"
+      "model": "collection"
     }
   }
 }

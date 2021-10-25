@@ -1,0 +1,152 @@
+# Write your query or mutation here
+query getHomepageData {
+  homepage {
+    largeFirstFeature
+    featured {
+      ... on ComponentSharedArticles {
+        articles{
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+          coverImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+          coverImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives{
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedCollections {
+        collections {
+          title
+          shortTitle
+          teaser
+          slug
+          teaserImage {
+            url
+          }
+        }
+      }
+    ... on ComponentSharedDatasets {
+      datasets {
+        title
+        teaser: description
+        slug
+        teaserImage {
+          url
+        }
+      }
+    }
+  }
+  featuredCollections {
+    ... on ComponentSharedCollections {
+      collections {
+        title
+        shortTitle
+        teaser
+        slug
+      }
+    }
+  }
+  agenda {
+    ... on ComponentSharedArticles {
+        articles{
+          title
+          shortTitle
+          slug
+        }
+      }
+    }
+  shortcuts {
+      ... on ComponentSharedArticles {
+        articles{
+          title
+          shortTitle
+          slug
+        }
+      }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          shortTitle
+          slug
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          shortTitle
+          slug
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives{
+          title
+          shortTitle
+          slug
+        }
+      }
+      ... on ComponentSharedCollections {
+        collections {
+          title
+          shortTitle
+          slug
+        }
+      }
+      ... on ComponentSharedDatasets {
+        datasets {
+          title
+          slug
+        }
+      }
+    }
+  relatedSites {
+      title
+      path
+    }
+  }
+  themes {
+    title
+    slug
+    teaserImage {
+      url
+    }
+  }
+}

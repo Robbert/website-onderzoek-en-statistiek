@@ -10,24 +10,25 @@ FROM node:alpine AS builder
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
-# ENV NEXT_PUBLIC_STRAPI_API_URL https://cms.onderzoek-en-statistiek.nl
-ARG NEXT_PUBLIC_STRAPI_API_URL 
-ENV NEXT_PUBLIC_STRAPI_API_URL $NEXT_PUBLIC_STRAPI_API_URL
+
+# Get deploy environment from gitlab-ci.yml and set as env variable
+ARG NEXT_PUBLIC_DEPLOY_ENV
+ENV NEXT_PUBLIC_DEPLOY_ENV $NEXT_PUBLIC_DEPLOY_ENV
+
 RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
 
 # Production image, copy all the files and run next
 FROM node:alpine AS runner
 WORKDIR /app
 
-ARG NODE_ENV 
-ENV NODE_ENV $NODE_ENV
+ENV NODE_ENV production
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
 # You only need to copy next.config.js if you are NOT using the default configuration
 COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json

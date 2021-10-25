@@ -7,7 +7,7 @@
   "options": {},
   "attributes": {
     "videos": {
-      "collection": "video"
+      "model": "video"
     }
   }
 }
