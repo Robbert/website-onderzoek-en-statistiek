@@ -22,7 +22,7 @@ const WrappedImage = ({ image, large }) => (
 )
 
 const Card = ({
-  href, image, type, title, teaser, large, clickableImage,
+  href, image, type, title, teaser, large, headingLevel, clickableImage,
 }) => (
   <>
     {!clickableImage && <WrappedImage image={image} large={large} />}
@@ -37,7 +37,7 @@ const Card = ({
         </Styled.Type>
         <Heading
           styleAs={large ? 'h2' : 'h4'}
-          as="h2"
+          as={headingLevel}
           small={!large}
           gutterBottom={8}
         >

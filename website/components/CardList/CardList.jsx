@@ -1,7 +1,7 @@
 import * as Styled from './CardList.style'
 
-const CardList = ({ children }) => (
-  <Styled.List>
+const CardList = ({ children, ...otherProps }) => (
+  <Styled.List {...otherProps}>
     {children}
   </Styled.List>
 )

@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import styled, { css } from 'styled-components'
 import { themeColor, breakpoint } from '@amsterdam/asc-ui'
 
@@ -16,7 +15,7 @@ export const Link = styled.a`
 
   :hover,
   :focus {
-    h1 {
+    h1,h2,h3,h4,h5 {
       color: ${themeColor('primary')};
     }
 
@@ -24,19 +23,20 @@ export const Link = styled.a`
       transform: scale(1.07);
     }
   }
-
-  @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-bottom: 40px;
-  }
 `
 
 export const ImageWrapper = styled.div`
   position: relative;
   height: ${({ large }) => (large ? '534px' : '360px')};
 
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    height: 232px;
+  }
+
   ${({ large }) => large
   && css`
   @media screen and ${breakpoint('max-width', 'laptop')} {
+    height: 220px;
     margin-left: -12px;
     margin-right: -12px;
   }`

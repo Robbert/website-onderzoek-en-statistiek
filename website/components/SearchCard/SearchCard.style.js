@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import styled from 'styled-components'
-import { themeColor } from '@amsterdam/asc-ui'
+import { themeColor, breakpoint } from '@amsterdam/asc-ui'
 
 import Paragraph from '../Paragraph/Paragraph'
 
@@ -9,6 +9,7 @@ export const Link = styled.a`
   text-decoration: none;
   overflow: hidden;
   margin-bottom: 36px;
+  min-height: 108px;
 
   h3 {
     color: ${themeColor('primary')};
@@ -19,6 +20,11 @@ export const Link = styled.a`
     h3 {
       text-decoration: underline;
     }
+  }
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    min-height: auto;
+    margin-bottom: 24px;
   }
 `
 

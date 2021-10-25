@@ -26,7 +26,7 @@ const baseStyle = css`
   }
 `
 
-export const defaultButtonStyle = css`
+export const primaryButtonStyle = css`
   ${svgFill('white')}
 
   background-color: ${themeColor('primary')};
@@ -36,6 +36,22 @@ export const defaultButtonStyle = css`
   :focus,
   :hover {
     background-color: ${themeColor('primary', 'dark')};
+  }
+
+  ${baseStyle}
+`
+
+export const secondaryButtonStyle = css`
+  ${svgFill(themeColor('primary'))}
+
+  background-color: white;
+  color: ${themeColor('primary')};
+  padding: 12px 24px;
+  box-shadow: inset 0 0 0 2px ${themeColor('primary')};
+
+  :focus,
+  :hover {
+    box-shadow: inset 0 0 0 4px ${themeColor('primary')};
   }
 
   ${baseStyle}
@@ -78,12 +94,14 @@ export const Button = styled.button`
 
   ${({ variant }) => {
     switch (variant) {
+      case 'secondary':
+        return secondaryButtonStyle
       case 'textButton':
         return textButtonStyle
       case 'blank':
         return blankButtonStyle
       default:
-        return defaultButtonStyle
+        return primaryButtonStyle
     }
   }}
 

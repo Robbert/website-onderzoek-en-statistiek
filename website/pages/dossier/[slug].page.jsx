@@ -86,6 +86,7 @@ const Collection = ({
                       type={__typename}
                       title={featureShortTitle || featureTitle}
                       teaser={featureTeaser}
+                      headingLevel="h2"
                       clickableImage
                     />
                   </Styled.FeatureGridItem>
