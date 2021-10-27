@@ -1,11 +1,10 @@
-import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
 import {
   Spinner, ListItem, List,
 } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
-import InlineImage from '../../components/InlineImage/InlineImage'
+import MarkdownToHtml from '../../components/MarkdownToHtml/MarkdownToHtml'
 import DownloadButton from '../../components/DownloadButton/DownloadButton'
 import Link from '../../components/Link/Link'
 import Heading from '../../components/Heading/Heading'
@@ -32,17 +31,6 @@ const Publication = ({
     return <div><Spinner /></div>
   }
 
-  const renderers = {
-    image: (props) => <InlineImage {...props} />,
-    paragraph: ({ children }) => {
-      if (children[0]?.type?.name === 'image'
-        || (children[0]?.type === 'a' && children[0]?.props?.children[0]?.type?.name === 'image')) {
-        return children[0]
-      }
-      return <p>{children}</p>
-    },
-  }
-
   const flatLinkList = flattenFeatureList(linkList)
 
   return (
@@ -66,13 +54,7 @@ const Publication = ({
           </Styled.MetaList>
           <Styled.Intro>{intro}</Styled.Intro>
           <Styled.Main>
-            { body && (
-              <ReactMarkdown
-                source={body}
-                escapeHtml={false}
-                renderers={renderers}
-              />
-            )}
+            { body && <MarkdownToHtml>{body}</MarkdownToHtml>}
           </Styled.Main>
         </div>
         <Styled.SideBar>

@@ -5,6 +5,7 @@ import {
 } from '@react-pdf/renderer'
 
 const styles = StyleSheet.create({
+  /* stylelint-disable */
   page: {
     paddingTop: 35,
     paddingBottom: 65,

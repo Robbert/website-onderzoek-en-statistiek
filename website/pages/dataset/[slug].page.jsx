@@ -1,9 +1,9 @@
-import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
 import { Heading, Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
 import Container from '../../components/Container/Container'
+import MarkdownToHtml from '../../components/MarkdownToHtml/MarkdownToHtml'
 import {
   fetchAPI, getStrapiMedia, apolloClient, formatDate,
 } from '../../lib/utils'
@@ -48,7 +48,7 @@ const Dataset = ({
         {`Dataset ${title}`}
       </Heading>
       <Styled.Intro>
-        <ReactMarkdown source={description} escapeHtml={false} />
+        <MarkdownToHtml>{description}</MarkdownToHtml>
       </Styled.Intro>
       <Styled.MetaData>
         <Styled.Row>

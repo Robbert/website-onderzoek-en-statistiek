@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import {
-  Accordion, CustomHTMLBlock, themeColor, themeSpacing,
+  Accordion, themeColor, themeSpacing,
 } from '@amsterdam/asc-ui'
 
-export const Intro = styled(CustomHTMLBlock)`
+export const Intro = styled.div`
   padding-top: ${themeSpacing(2)};
 `
 

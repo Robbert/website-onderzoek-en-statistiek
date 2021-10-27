@@ -1,10 +1,13 @@
 /* eslint-disable import/prefer-default-export */
-import { themeColor, breakpoint } from '@amsterdam/asc-ui'
 import styled, { css } from 'styled-components'
+import { themeColor, breakpoint } from '@amsterdam/asc-ui'
 
 import { fluidTypoStyle, typographyStyle } from '../../lib/typographyUtils'
 
-export const Paragraph = styled.p`
+export const List = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
   color: ${themeColor('tint', 'level6')};
   letter-spacing: 0.0125rem;
   font-weight: 500;
@@ -18,15 +21,8 @@ export const Paragraph = styled.p`
     font-weight: 900;
   }
 
-  ${({ intro }) => intro && css`
-    /* stylelint-disable indentation */
-    letter-spacing: 0.025rem;
-
-    @media screen and ${breakpoint('max-width', 'laptop')} {
-      font-weight: 900;
-      letter-spacing: 0.0125rem;
-    }
-  `}
+  ${({ variant }) => variant === 'unordered'
+  && css`counter-reset: item;`}
 
   ${fluidTypoStyle}
   ${typographyStyle}

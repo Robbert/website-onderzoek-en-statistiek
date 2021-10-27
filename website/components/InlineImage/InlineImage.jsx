@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
+import NextImage from 'next/image'
 
 import { prependStrapiURL, PLACEHOLDER_IMAGE } from '../../lib/utils'
+import * as Styled from './InlineImage.style'
 
 const InlineImage = ({ src, alt }) => {
   const [dimensions, setDimensions] = useState({ width: 300, height: 200 })
@@ -17,14 +18,16 @@ const InlineImage = ({ src, alt }) => {
   }, [])
 
   return (
-    <Image
-      src={prependStrapiURL(src)}
-      alt={alt}
-      width={dimensions.width}
-      height={dimensions.height}
-      placeholder="blur"
-      blurDataURL={PLACEHOLDER_IMAGE}
-    />
+    <Styled.ImageWrapper>
+      <NextImage
+        src={prependStrapiURL(src)}
+        alt={alt}
+        width={dimensions.width}
+        height={dimensions.height}
+        placeholder="blur"
+        blurDataURL={PLACEHOLDER_IMAGE}
+      />
+    </Styled.ImageWrapper>
   )
 }
 

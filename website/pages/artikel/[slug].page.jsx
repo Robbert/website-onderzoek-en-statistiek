@@ -1,11 +1,10 @@
-import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
+import MarkdownToHtml from '../../components/MarkdownToHtml/MarkdownToHtml'
 import Related from '../../components/Related/Related'
-import InlineImage from '../../components/InlineImage/InlineImage'
 import {
   fetchAPI, getStrapiMedia, PLACEHOLDER_IMAGE, apolloClient, flattenFeatureList, formatDate,
 } from '../../lib/utils'
@@ -29,17 +28,6 @@ const Article = ({
 
   if (router.isFallback) {
     return <div><Spinner /></div>
-  }
-
-  const renderers = {
-    image: (props) => <InlineImage {...props} />,
-    paragraph: ({ children }) => {
-      if (children[0]?.type?.name === 'image'
-        || (children[0]?.type === 'a' && children[0]?.props?.children[0]?.type?.name === 'image')) {
-        return children[0]
-      }
-      return <p>{children}</p>
-    },
   }
 
   return (
@@ -73,15 +61,11 @@ const Article = ({
           <span>{formatDate(publicationDate)}</span>
           <Styled.Intro>{intro}</Styled.Intro>
           <Styled.Body>
-            <ReactMarkdown
-              source={body}
-              escapeHtml={false}
-              renderers={renderers}
-            />
+            <MarkdownToHtml>{body}</MarkdownToHtml>
           </Styled.Body>
         </Styled.MainContent>
         <Styled.SideBar>
-          { related
+          {related
           && (
             <Related
               linkList={flattenFeatureList(linkList)}

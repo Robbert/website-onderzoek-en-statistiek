@@ -108,6 +108,42 @@ export const fluidTypoConfig = {
       maxLineHeight: 24,
     },
   },
+  blockquote: {
+    default: {
+      minFontSize: 24,
+      maxFontSize: 40,
+      minLineHeight: 32,
+      maxLineHeight: 48,
+    },
+  },
+  ul: {
+    default: {
+      minFontSize: 18,
+      maxFontSize: 24,
+      minLineHeight: 28,
+      maxLineHeight: 40,
+    },
+    small: {
+      minFontSize: 14,
+      maxFontSize: 18,
+      minLineHeight: 20,
+      maxLineHeight: 24,
+    },
+  },
+  ol: {
+    default: {
+      minFontSize: 18,
+      maxFontSize: 24,
+      minLineHeight: 28,
+      maxLineHeight: 40,
+    },
+    small: {
+      minFontSize: 14,
+      maxFontSize: 18,
+      minLineHeight: 20,
+      maxLineHeight: 24,
+    },
+  },
 }
 
 export const fluidTypoStyle = css`

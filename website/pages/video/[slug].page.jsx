@@ -1,12 +1,11 @@
 import { useRouter } from 'next/router'
 import {
-  CustomHTMLBlock, Spinner, List, ListItem,
+  Spinner, List, ListItem,
 } from '@amsterdam/asc-ui'
-import ReactMarkdown from 'react-markdown'
 
 import Seo from '../../components/Seo/Seo'
 import Heading from '../../components/Heading/Heading'
-import InlineImage from '../../components/InlineImage/InlineImage'
+import MarkdownToHtml from '../../components/MarkdownToHtml/MarkdownToHtml'
 import Link from '../../components/Link/Link'
 import {
   fetchAPI, getStrapiMedia, apolloClient, formatDate, flattenFeatureList,
@@ -80,17 +79,6 @@ const Video = ({
     return <div><Spinner /></div>
   }
 
-  const renderers = {
-    image: (props) => <InlineImage {...props} />,
-    paragraph: ({ children }) => {
-      if (children[0]?.type?.name === 'image'
-        || (children[0]?.type === 'a' && children[0]?.props?.children[0]?.type?.name === 'image')) {
-        return children[0]
-      }
-      return <p>{children}</p>
-    },
-  }
-
   const flatLinkList = flattenFeatureList(linkList)
 
   return (
@@ -107,25 +95,9 @@ const Video = ({
             {`Video ${title}`}
           </Heading>
           <span>{formatDate(publicationDate)}</span>
-          {transcript && (
-            <CustomHTMLBlock>
-              <ReactMarkdown
-                source={transcript}
-                escapeHtml={false}
-                renderers={renderers}
-              />
-            </CustomHTMLBlock>
-          )}
+          {transcript && <MarkdownToHtml>{transcript}</MarkdownToHtml>}
           <Styled.Intro strong>{intro}</Styled.Intro>
-          {body && (
-            <CustomHTMLBlock>
-              <ReactMarkdown
-                source={body}
-                escapeHtml={false}
-                renderers={renderers}
-              />
-            </CustomHTMLBlock>
-          )}
+          {body && <MarkdownToHtml>{body}</MarkdownToHtml>}
           {videoFile?.url && (
             <LocalVideo
               videoSource={videoFile}

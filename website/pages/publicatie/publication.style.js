@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import {
-  CustomHTMLBlock,
   themeColor,
   Paragraph,
   breakpoint,
@@ -58,7 +57,7 @@ export const Intro = styled(Paragraph)`
   font-weight: 700;
 `
 
-export const Main = styled(CustomHTMLBlock)`
+export const Main = styled.div`
   padding: 16px 0 0 0;
 `
 

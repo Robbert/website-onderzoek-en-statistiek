@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {
-  CustomHTMLBlock, Heading, Paragraph, breakpoint, themeColor,
+  Heading, Paragraph, breakpoint, themeColor,
 } from '@amsterdam/asc-ui'
 
 import ContainerComponent from '../../components/Container/Container'
@@ -47,6 +47,6 @@ export const Intro = styled(Paragraph)`
   font-weight: 700;
 `
 
-export const Body = styled(CustomHTMLBlock)`
+export const Body = styled.div`
   padding: 16px 0 0 0;
 `
