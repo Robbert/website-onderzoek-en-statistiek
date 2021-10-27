@@ -1,7 +1,7 @@
+/* eslint-disable react/no-array-index-key */
 import { useRouter } from 'next/router'
-import {
-  Spinner, ListItem, List,
-} from '@amsterdam/asc-ui'
+import Image from 'next/image'
+import { Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
 import MarkdownToHtml from '../../components/MarkdownToHtml/MarkdownToHtml'
@@ -9,7 +9,13 @@ import DownloadButton from '../../components/DownloadButton/DownloadButton'
 import Link from '../../components/Link/Link'
 import Heading from '../../components/Heading/Heading'
 import {
-  fetchAPI, getStrapiMedia, apolloClient, PLACEHOLDER_IMAGE, formatDate, flattenFeatureList,
+  fetchAPI,
+  getStrapiMedia,
+  apolloClient,
+  PLACEHOLDER_IMAGE,
+  formatDate,
+  normalizeBody,
+  prependStrapiURL,
 } from '../../lib/utils'
 import * as Styled from './publication.style'
 import QUERY from './publication.query.gql'
@@ -17,27 +23,25 @@ import QUERY from './publication.query.gql'
 const Publication = ({
   title,
   shortTitle,
-  teaserImage,
   publicationDate,
   author,
   intro,
   body,
   file,
   coverImage,
-  linkList,
+  squareImage,
+  rectangularImage,
 }) => {
   const router = useRouter()
   if (router.isFallback) {
     return <div><Spinner /></div>
   }
 
-  const flatLinkList = flattenFeatureList(linkList)
-
   return (
     <>
       <Seo
         title={shortTitle || title}
-        image={getStrapiMedia(teaserImage)}
+        image={getStrapiMedia(rectangularImage || squareImage || coverImage)}
         article
       />
       <Styled.Container>
@@ -54,7 +58,33 @@ const Publication = ({
           </Styled.MetaList>
           <Styled.Intro>{intro}</Styled.Intro>
           <Styled.Main>
-            { body && <MarkdownToHtml>{body}</MarkdownToHtml>}
+            {body && normalizeBody(body).map((item, i) => {
+              if (item.type === 'text') {
+                return (<MarkdownToHtml key={`bodyItem${i}`}>{item.text}</MarkdownToHtml>)
+              }
+              if (item.type === 'linklist') {
+                return (
+                  <ul key={`bodyItem${i}`}>
+                    {item.links.map((link) => (
+                      <li key={link.path}><Link href={link.path}>{link.title}</Link></li>
+                    ))}
+                  </ul>
+                )
+              }
+              if (item.type === 'visualisation') {
+                return (
+                  <Image
+                    key={`bodyItem${i}`}
+                    src={prependStrapiURL(item.image.url)}
+                    alt={item.description}
+                    width={16}
+                    height={9}
+                    layout="responsive"
+                  />
+                )
+              }
+              return null
+            })}
           </Styled.Main>
         </div>
         <Styled.SideBar>
@@ -69,20 +99,6 @@ const Publication = ({
             />
           </Styled.CoverImage>
           <DownloadButton file={file} image={coverImage} />
-          {flatLinkList && flatLinkList.length > 0 && (
-            <>
-              <Heading styleAs="h5" gutterBottom={20}>Zie ook</Heading>
-              <List>
-                { flatLinkList.map(({ path, title: linkTitle }) => (
-                  <ListItem key={path}>
-                    <Link href={path} inList strong>
-                      {linkTitle}
-                    </Link>
-                  </ListItem>
-                )) }
-              </List>
-            </>
-          )}
         </Styled.SideBar>
       </Styled.Container>
     </>

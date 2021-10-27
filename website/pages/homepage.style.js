@@ -32,6 +32,9 @@ export const SideBarGridItem = styled(GridItemComponent)`
 export const ListItem = styled(ListItemASC)`
   margin-bottom: 0;
 `
+export const FeatureListItem = styled.li`
+  display: contents;
+`
 
 export const Icon = styled(IconASC)`
   margin-right: 12px;

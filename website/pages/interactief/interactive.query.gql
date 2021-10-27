@@ -5,7 +5,10 @@ query getInteractiveData($slug: String) {
     shortTitle
     teaser
     contentLink
-    teaserImage {
+    squareImage {
+      url
+    }
+    rectangularImage {
       url
     }
     implementation

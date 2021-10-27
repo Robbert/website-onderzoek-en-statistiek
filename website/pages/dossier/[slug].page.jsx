@@ -4,7 +4,7 @@ import { ChevronRight } from '@amsterdam/asc-assets'
 
 import Seo from '../../components/Seo/Seo'
 import {
-  apolloClient, fetchAPI, getStrapiMedia, flattenFeatureList,
+  apolloClient, fetchAPI, getStrapiMedia, normalizeItemList,
 } from '../../lib/utils'
 import { Grid, GridItem } from '../../components/Grid/Grid.style'
 import Heading from '../../components/Heading/Heading'
@@ -21,7 +21,8 @@ const Collection = ({
   title,
   shortTitle,
   teaser,
-  teaserImage,
+  squareImage,
+  rectangularImage,
   intro,
   featured,
   collectionItems: collectionItemsCms,
@@ -35,18 +36,18 @@ const Collection = ({
     return <div><Spinner /></div>
   }
 
-  const collectionItems = flattenFeatureList(collectionItemsCms).map(
+  const collectionItems = normalizeItemList(collectionItemsCms).map(
     ({
       path,
       title: featureTitle,
       shortTitle: featureShortTitle,
       teaser: featureTeaser,
-      __typename,
+      type,
     }) => (
       <li key={path}>
         <SearchCard
           href={path}
-          type={__typename}
+          type={type}
           title={featureShortTitle || featureTitle}
           teaser={featureTeaser}
         />
@@ -59,7 +60,7 @@ const Collection = ({
       <Seo
         title={`Dossier: ${shortTitle || title}`}
         description={teaser}
-        image={getStrapiMedia(teaserImage)}
+        image={getStrapiMedia(rectangularImage || squareImage)}
       />
       <Grid>
         <GridItem colStart={{ small: 1, large: 3 }} colRange={{ small: 4, large: 9 }}>
@@ -69,21 +70,21 @@ const Collection = ({
 
         {featured.length > 0 && (
           <CardList>
-            {flattenFeatureList(featured).map(
+            {normalizeItemList(featured).map(
               ({
                 path,
                 title: featureTitle,
                 shortTitle: featureShortTitle,
                 teaser: featureTeaser,
-                teaserImage: featureTeaserImage,
-                __typename,
+                squareImage: featureTeaserImage,
+                type,
               }, index) => (
                 <Styled.FeatureListItem key={path}>
                   <Styled.FeatureGridItem colRange={{ small: 4, large: 6 }} index={index}>
                     <Card
                       href={path}
                       image={featureTeaserImage}
-                      type={__typename}
+                      type={type}
                       title={featureShortTitle || featureTitle}
                       teaser={featureTeaser}
                       headingLevel="h2"
@@ -127,8 +128,7 @@ const Collection = ({
           </>
         )}
 
-        {linkList.length > 0
-        && (
+        {linkList.length > 0 && (
           <GridItem
             colStart={{ small: 1, large: 1 }}
             colRange={{ small: 4, large: 4 }}
@@ -137,7 +137,7 @@ const Collection = ({
           >
             <Heading as="h2" styleAs="h5" gutterBottom={16}>Zie ook</Heading>
             <List>
-              {flattenFeatureList(linkList).map(({ path, title: linkTitle }) => (
+              {normalizeItemList(linkList).map(({ path, title: linkTitle }) => (
                 <li key={path}>
                   <Link href={path} variant="inList">
                     <Styled.Icon size={14}>

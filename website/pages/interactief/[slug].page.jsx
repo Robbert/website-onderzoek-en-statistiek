@@ -14,7 +14,7 @@ const RenderContainer = styled.div`
 `
 
 const Interactive = ({
-  title, shortTitle, teaser, implementation, contentLink, teaserImage, assets,
+  title, shortTitle, teaser, implementation, contentLink, squareImage, rectangularImage, assets,
 }) => {
   const router = useRouter()
 
@@ -58,7 +58,7 @@ const Interactive = ({
       <Seo
         title={shortTitle || title}
         description={teaser}
-        image={getStrapiMedia(teaserImage)}
+        image={getStrapiMedia(rectangularImage || squareImage)}
         article
       />
       { implementation === 'insert'

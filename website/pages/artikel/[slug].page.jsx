@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { Spinner } from '@amsterdam/asc-ui'
@@ -5,8 +6,16 @@ import { Spinner } from '@amsterdam/asc-ui'
 import Seo from '../../components/Seo/Seo'
 import MarkdownToHtml from '../../components/MarkdownToHtml/MarkdownToHtml'
 import Related from '../../components/Related/Related'
+import Link from '../../components/Link/Link'
 import {
-  fetchAPI, getStrapiMedia, PLACEHOLDER_IMAGE, apolloClient, flattenFeatureList, formatDate,
+  fetchAPI,
+  getStrapiMedia,
+  prependStrapiURL,
+  PLACEHOLDER_IMAGE,
+  apolloClient,
+  normalizeItemList,
+  normalizeBody,
+  formatDate,
 } from '../../lib/utils'
 import QUERY from './article.query.gql'
 import * as Styled from './article.style'
@@ -15,14 +24,12 @@ const Article = ({
   title,
   shortTitle,
   teaser,
-  teaserImage,
-  coverImage,
+  squareImage,
+  rectangularImage,
   publicationDate,
   intro,
   body,
-  linkList,
   related,
-  theme,
 }) => {
   const router = useRouter()
 
@@ -35,17 +42,13 @@ const Article = ({
       <Seo
         title={shortTitle || title}
         description={teaser}
-        image={getStrapiMedia(teaserImage)}
+        image={getStrapiMedia(rectangularImage || squareImage)}
         article
       />
-      {coverImage && (
+      {rectangularImage && (
         <Styled.ImageWrapper>
           <Image
-            src={
-              coverImage
-                ? getStrapiMedia(coverImage)
-                : PLACEHOLDER_IMAGE
-            }
+            src={getStrapiMedia(rectangularImage)}
             alt=""
             layout="fill"
             placeholder="blur"
@@ -61,16 +64,40 @@ const Article = ({
           <span>{formatDate(publicationDate)}</span>
           <Styled.Intro>{intro}</Styled.Intro>
           <Styled.Body>
-            <MarkdownToHtml>{body}</MarkdownToHtml>
+            {normalizeBody(body).map((item, i) => {
+              if (item.type === 'text') {
+                return (<MarkdownToHtml key={`bodyItem${i}`}>{item.text}</MarkdownToHtml>)
+              }
+              if (item.type === 'linklist') {
+                return (
+                  <ul key={`bodyItem${i}`}>
+                    {item.links.map((link) => (
+                      <li key={link.path}><Link href={link.path}>{link.title}</Link></li>
+                    ))}
+                  </ul>
+                )
+              }
+              if (item.type === 'visualisation') {
+                return (
+                  <Image
+                    key={`bodyItem${i}`}
+                    src={prependStrapiURL(item.image.url)}
+                    alt={item.description}
+                    width={16}
+                    height={9}
+                    layout="responsive"
+                  />
+                )
+              }
+              return null
+            })}
           </Styled.Body>
         </Styled.MainContent>
         <Styled.SideBar>
           {related
           && (
             <Related
-              linkList={flattenFeatureList(linkList)}
-              related={flattenFeatureList(related)}
-              themes={theme}
+              related={normalizeItemList(related)}
             />
           )}
         </Styled.SideBar>

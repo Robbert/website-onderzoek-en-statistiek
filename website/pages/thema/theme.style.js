@@ -14,7 +14,7 @@ export const Caption = styled(Paragraph)`
 `
 
 export const ColorBar = styled(GridItem)`
-  background-color: ${({ color }) => color};
+  background-color: ${({ barColor }) => barColor};
   height: 542px;
   margin: -400px -32px 24px -32px;
   z-index: 0;

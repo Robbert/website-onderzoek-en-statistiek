@@ -9,10 +9,10 @@ query getHomepageData {
           shortTitle
           teaser
           slug
-          teaserImage {
+          squareImage {
             url
           }
-          coverImage {
+          rectangularImage {
             url
           }
         }
@@ -23,10 +23,10 @@ query getHomepageData {
           shortTitle
           teaser
           slug
-          teaserImage {
+          squareImage {
             url
           }
-          coverImage {
+          rectangularImage {
             url
           }
         }
@@ -37,7 +37,10 @@ query getHomepageData {
           shortTitle
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -48,7 +51,10 @@ query getHomepageData {
           shortTitle
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -59,7 +65,10 @@ query getHomepageData {
           shortTitle
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -69,7 +78,7 @@ query getHomepageData {
         title
         teaser: description
         slug
-        teaserImage {
+        squareImage {
           url
         }
       }
@@ -145,8 +154,5 @@ query getHomepageData {
   themes {
     title
     slug
-    teaserImage {
-      url
-    }
   }
 }

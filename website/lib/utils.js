@@ -75,79 +75,59 @@ export const translateColor = (name) => {
   return themeColor('supplement', translations[name])
 }
 
-export function flattenFeatureList(list) {
-  return !list ? [] : list.map((section) => ([
-    ...section.articles?.map((entry) => (
-      {
-        ...entry,
-        type: 'article',
-        name: 'artikel',
-        path: `/artikel/${entry.slug}`,
-      }
-    )) || [],
-    ...section.publications?.map((entry) => (
-      {
-        ...entry,
-        type: 'publication',
-        name: 'publicatie',
-        path: `/publicatie/${entry.slug}`,
-      }
-    )) || [],
-    ...section.videos?.map((entry) => (
-      {
-        ...entry,
-        type: 'video',
-        name: 'video',
-        path: `/video/${entry.slug}`,
-      }
-    )) || [],
-    ...section.collections?.map((entry) => (
-      {
-        ...entry,
-        type: 'collection',
-        name: 'dossier',
-        path: `/dossier/${entry.slug}`,
-      }
-    )) || [],
-    ...section.interactives?.map((entry) => (
-      {
-        ...entry,
-        type: 'interactive',
-        name: 'interactief',
-        path: `/interactief/${entry.slug}`,
-      }
-    )) || [],
-    ...section.datasets?.map((entry) => (
-      {
-        ...entry,
-        type: 'dataset',
-        name: 'dataset',
-        path: `/dataset/${entry.slug}`,
-      }
-    )) || [],
-    ...section.__typename === 'ComponentSharedLinks'
-      ? [{
-        ...section,
-        type: 'externalLink',
-        name: 'externalLink',
-      }] : [],
-  ]
-  )).flat()
-}
-
-export function flattenFeatureObject(featureObject) {
-  return !featureObject ? [] : Object.values(featureObject)
-    .flat()
-    .filter((el) => typeof (el) === 'object')
-    .map((entry) => (
-      {
-        ...entry,
-        type: entry.__typename.toLowerCase(),
-        name: CONTENT_TYPES[entry.__typename.toLowerCase()].name,
-        path: `/${CONTENT_TYPES[entry.__typename.toLowerCase()].name}/${entry.slug}`,
-      }
+export const normalizeItemList = (list) => (
+  !list ? [] : list
+    .map((section) => (Object.values(section)[0]))
+    .filter((item) => item)
+    .map((item) => (
+      item?.__typename && item.__typename !== 'ComponentSharedExternalLinks'
+        ? {
+          type: item.__typename.toLowerCase(),
+          name: CONTENT_TYPES[item.__typename.toLowerCase()].name,
+          path: `/${CONTENT_TYPES[item.__typename.toLowerCase()].name}/${item.slug}`,
+          ...item,
+        }
+        : {
+          type: 'externalLink',
+          name: 'link',
+          path: item[0].path,
+          title: item[0].title,
+        }
     ))
-}
+)
+
+export const normalizeBody = (body) => (
+  !body ? [] : body
+    .map((item) => (
+      item.__typename ? {
+        type: item.__typename.replace('ComponentShared', '').toLowerCase(),
+        ...item,
+      } : null
+    ))
+    .map((item) => {
+      if (item.type === 'linklist') {
+        return ({
+          type: 'linklist',
+          links: Object.values(item)
+            .filter((list) => Array.isArray(list) && list.length > 0)
+            .flat()
+            .map((link) => (link.__typename !== 'ComponentSharedExternalLinks'
+              ? {
+                type: link.__typename.toLowerCase(),
+                name: CONTENT_TYPES[link.__typename.toLowerCase()].name,
+                path: `/${CONTENT_TYPES[link.__typename.toLowerCase()].name}/${link.slug}`,
+                ...link,
+              }
+              : {
+                type: 'externalLink',
+                name: 'link',
+                ...link,
+              })),
+        })
+      }
+      return item
+    })
+)
 
 export function formatBytes(bytes, decimals = 0) {
   if (bytes === 0) return '0 Bytes'

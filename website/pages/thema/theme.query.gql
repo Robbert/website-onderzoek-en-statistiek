@@ -6,10 +6,7 @@ query getThemeData($slug: String) {
     color
     teaser
     intro
-    teaserImage {
-      url
-    }
-    coverImage {
+    rectangularImage {
       url
     }
     visualisation {
@@ -23,46 +20,22 @@ query getThemeData($slug: String) {
     topStory {
       ... on ComponentSharedArticles {
         articles{
-          title
-          shortTitle
-          teaser
           slug
-          teaserImage {
-            url
-          }
         }
       }
       ... on ComponentSharedPublications {
         publications {
-          title
-          shortTitle
-          teaser
           slug
-          teaserImage {
-            url
-          }
         }
       }
       ... on ComponentSharedVideos {
         videos {
-          title
-          shortTitle
-          teaser
           slug
-          teaserImage {
-            url
-          }
         }
       }
       ... on ComponentSharedInteractives {
         interactives{
-          title
-          shortTitle
-          teaser
           slug
-          teaserImage {
-            url
-          }
         }
       }
     }
@@ -73,7 +46,10 @@ query getThemeData($slug: String) {
           shortTitle
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -84,7 +60,10 @@ query getThemeData($slug: String) {
           shortTitle
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -95,7 +74,10 @@ query getThemeData($slug: String) {
           shortTitle
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -106,7 +88,10 @@ query getThemeData($slug: String) {
           shortTitle
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -117,7 +102,10 @@ query getThemeData($slug: String) {
           shortTitle
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -127,7 +115,7 @@ query getThemeData($slug: String) {
           title
           teaser: description
           slug
-          teaserImage {
+          squareImage {
             url
           }
         }

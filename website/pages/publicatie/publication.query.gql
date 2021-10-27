@@ -4,7 +4,6 @@ query getPublicationData($slug: String) {
     title
     shortTitle
     intro
-    body
     publicationDate
     file {
       name
@@ -14,69 +13,53 @@ query getPublicationData($slug: String) {
     coverImage {
       url
     }
-    teaserImage {
+    squareImage {
       url
     }
-    linkList {
-      ... on ComponentSharedArticles {
+    rectangularImage {
+      url
+    }
+    body {
+      ... on ComponentSharedText{
+        text
+      }
+      ... on ComponentSharedVisualisation {
+        title
+        description
+        source
+        image {
+          url
+        }
+      }
+      ... on ComponentSharedLinkList {
+        links {
+          title
+          path
+        }
         articles {
           title
-          teaser
           slug
-          teaserImage {
-            url
-          }
         }
-      }
-      ... on ComponentSharedPublications {
-        publications {
-          title
-          teaser
-          slug
-          teaserImage {
-            url
-          }
-        }
-      }
-      ... on ComponentSharedVideos {
-        videos {
-          title
-          teaser
-          slug
-          teaserImage {
-            url
-          }
-        }
-      }
-      ... on ComponentSharedInteractives {
-        interactives {
-          title
-          teaser
-          slug
-          teaserImage {
-            url
-          }
-        }
-      }
-      ... on ComponentSharedCollections {
-        collections {
-          title
-          teaser
-          slug
-          teaserImage {
-            url
-          }
-        }
-      }
-      ... on ComponentSharedDatasets {
-        datasets {
+        publications{
           title
           slug
         }
-      }
-      ... on ComponentSharedLinks {
-        title
-        path
+        videos{
+          title
+          slug
+        }
+        interactives{
+          title
+          slug
+        }
+        collections{
+          title
+          slug
+        }
+        datasets{
+          title
+          slug
+        }
       }
     }
   }

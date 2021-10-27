@@ -4,7 +4,10 @@ query getCollectionData($slug: String) {
     shortTitle
     teaser
     intro
-    teaserImage {
+    squareImage {
+      url
+    }
+    rectangularImage {
       url
     }
     featured {
@@ -13,7 +16,10 @@ query getCollectionData($slug: String) {
           title
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -23,7 +29,10 @@ query getCollectionData($slug: String) {
           title
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -33,7 +42,10 @@ query getCollectionData($slug: String) {
           title
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -43,7 +55,10 @@ query getCollectionData($slug: String) {
           title
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -52,6 +67,9 @@ query getCollectionData($slug: String) {
         datasets {
           title
           slug
+          squareImage {
+            url
+          }
         }
       }
     }
@@ -61,7 +79,10 @@ query getCollectionData($slug: String) {
           title
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -71,7 +92,10 @@ query getCollectionData($slug: String) {
           title
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -81,7 +105,10 @@ query getCollectionData($slug: String) {
           title
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -91,7 +118,10 @@ query getCollectionData($slug: String) {
           title
           teaser
           slug
-          teaserImage {
+          squareImage {
+            url
+          }
+          rectangularImage {
             url
           }
         }
@@ -100,6 +130,9 @@ query getCollectionData($slug: String) {
         datasets {
           title
           slug
+          squareImage {
+            url
+          }
         }
       }
     }
@@ -107,51 +140,31 @@ query getCollectionData($slug: String) {
       ... on ComponentSharedArticles {
         articles {
           title
-          teaser
           slug
-          teaserImage {
-            url
-          }
         }
       }
       ... on ComponentSharedPublications {
         publications {
           title
-          teaser
           slug
-          teaserImage {
-            url
-          }
         }
       }
       ... on ComponentSharedVideos {
         videos {
           title
-          teaser
           slug
-          teaserImage {
-            url
-          }
         }
       }
       ... on ComponentSharedInteractives {
         interactives {
           title
-          teaser
           slug
-          teaserImage {
-            url
-          }
         }
       }
       ... on ComponentSharedCollections {
         collections {
           title
-          teaser
           slug
-          teaserImage {
-            url
-          }
         }
       }
       ... on ComponentSharedDatasets {
@@ -161,8 +174,10 @@ query getCollectionData($slug: String) {
         }
       }
       ... on ComponentSharedLinks {
-        title
-        path
+        links {
+          title
+          path
+        }
       }
     }
     email

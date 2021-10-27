@@ -11,7 +11,7 @@ import LinkList from '../../components/LinkList/LinkList'
 import Link from '../../components/Link/Link'
 import ThemeSearch from '../../components/ThemeSearch/ThemeSearch'
 import {
-  fetchAPI, getStrapiMedia, apolloClient, translateColor, PLACEHOLDER_IMAGE, flattenFeatureList,
+  fetchAPI, getStrapiMedia, apolloClient, translateColor, PLACEHOLDER_IMAGE, normalizeItemList,
 } from '../../lib/utils'
 import QUERY from './theme.query.gql'
 import * as Styled from './theme.style'
@@ -65,7 +65,7 @@ const Theme = ({
           </Styled.Caption>
           <Paragraph darkBackground>{intro}</Paragraph>
           { topStory && topStory.length > 0
-            && <Link href={flattenFeatureList(topStory)[0].path}>Lees verder</Link>}
+            && <Link href={normalizeItemList(topStory)[0].path}>Lees verder</Link>}
         </Styled.HeroSection>
 
         <Styled.ColorBar
@@ -76,7 +76,7 @@ const Theme = ({
         <GridItem colStart={1} colRange={{ small: 4, large: 12 }}>
           <CardList
             columns={3}
-            items={flattenFeatureList(featured)}
+            items={normalizeItemList(featured)}
           />
         </GridItem>
 

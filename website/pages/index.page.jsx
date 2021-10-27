@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { List } from '@amsterdam/asc-ui'
 import { ExternalLink } from '@amsterdam/asc-assets'
 
-import { apolloClient, flattenFeatureList } from '../lib/utils'
+import { apolloClient, normalizeItemList } from '../lib/utils'
 import Seo from '../components/Seo/Seo'
 import { Grid, GridItem } from '../components/Grid/Grid.style'
 import Heading from '../components/Heading/Heading'
@@ -24,7 +24,7 @@ const Home = ({ themes, homepage }) => {
     largeFirstFeature, featured, agenda, shortcuts, relatedSites, featuredCollections,
   } = homepage
 
-  const flatFeatures = flattenFeatureList(featured)
+  const flatFeatures = normalizeItemList(featured)
 
   return (
     <>
@@ -76,7 +76,7 @@ const Home = ({ themes, homepage }) => {
               <Heading as="h2" styleAs="h5" gutterBottom={20}>Agenda</Heading>
               <LinkList
                 gutterBottom={40}
-                links={flattenFeatureList(agenda)}
+                links={normalizeItemList(agenda)}
               />
             </>
           )}
@@ -86,7 +86,7 @@ const Home = ({ themes, homepage }) => {
               <Heading as="h2" styleAs="h5" gutterBottom={20}>Snel naar</Heading>
               <LinkList
                 gutterBottom={40}
-                links={flattenFeatureList(shortcuts)}
+                links={normalizeItemList(shortcuts)}
               />
             </>
           )}
@@ -110,7 +110,7 @@ const Home = ({ themes, homepage }) => {
           )}
         </Styled.SideBarGridItem>
 
-        {largeFirstFeature
+        {flatFeatures.length > 0 && largeFirstFeature
           && (
             <Styled.HighLightGridItem
               colRange={{ small: 4, large: 8 }}
@@ -118,9 +118,8 @@ const Home = ({ themes, homepage }) => {
             >
               <Card
                 href={flatFeatures[0].path}
-                image={flatFeatures[0].coverImage}
-                // eslint-disable-next-line no-underscore-dangle
-                type={flatFeatures[0].__typename}
+                image={flatFeatures[0].rectangularImage}
+                type={flatFeatures[0].type}
                 title={flatFeatures[0].shortTitle || flatFeatures[0].title}
                 teaser={flatFeatures[0].teaser}
                 headingLevel="h2"
@@ -147,55 +146,57 @@ const Home = ({ themes, homepage }) => {
         <Styled.HighLightCardList show={selected === 'highlights'}>
           {flatFeatures.slice(largeFirstFeature ? 1 : 0).map(
             ({
-              path, title, shortTitle, teaser, teaserImage, __typename,
+              path, title, shortTitle, teaser, squareImage, type,
             }, index) => (
-              <li css="display: contents;" key={path}>
+              <Styled.FeatureListItem key={path}>
                 <Styled.GridItem colRange={{ small: 4, large: 4 }} index={index}>
                   <Card
                     href={path}
-                    image={teaserImage}
-                    type={__typename}
+                    image={squareImage}
+                    type={type}
                     title={shortTitle || title}
                     teaser={teaser}
                     headingLevel="h3"
                     clickableImage
                   />
                 </Styled.GridItem>
-              </li>
+              </Styled.FeatureListItem>
             ),
           )}
         </Styled.HighLightCardList>
       </Grid>
 
-      <Styled.CollectionGrid show={selected === 'highlights'}>
-        <GridItem colRange={{ small: 4, large: 12 }}>
-          <Heading gutterBottom={{ small: 24, large: 60 }} as="h2">Dossiers</Heading>
-        </GridItem>
-        <CardList>
-          {flattenFeatureList(featuredCollections).map(
-            ({
-              path,
-              title: featureTitle,
-              shortTitle: featureShortTitle,
-              teaser: featureTeaser,
-            }) => (
-              <li key={path} css="display: contents;">
-                <GridItem colRange={{ small: 4, large: 4 }}>
-                  <SearchCard
-                    href={path}
-                    title={featureShortTitle || featureTitle}
-                    teaser={featureTeaser}
-                    small
-                  />
-                </GridItem>
-              </li>
-            ),
-          )}
-        </CardList>
-        <GridItem colRange={{ small: 4, large: 12 }}>
-          <Link variant="standalone" href="/zoek?categorie=dossier" gutterBottom={40}>Bekijk alle dossiers</Link>
-        </GridItem>
-      </Styled.CollectionGrid>
+      {featuredCollections.length > 0 && (
+        <Styled.CollectionGrid show={selected === 'highlights'}>
+          <GridItem colRange={{ small: 4, large: 12 }}>
+            <Heading gutterBottom={{ small: 24, large: 60 }} as="h2">Dossiers</Heading>
+          </GridItem>
+          <CardList>
+            {normalizeItemList(featuredCollections).map(
+              ({
+                path,
+                title: featureTitle,
+                shortTitle: featureShortTitle,
+                teaser: featureTeaser,
+              }) => (
+                <Styled.FeatureListItem key={path}>
+                  <GridItem colRange={{ small: 4, large: 4 }}>
+                    <SearchCard
+                      href={path}
+                      title={featureShortTitle || featureTitle}
+                      teaser={featureTeaser}
+                      small
+                    />
+                  </GridItem>
+                </Styled.FeatureListItem>
+              ),
+            )}
+          </CardList>
+          <GridItem colRange={{ small: 4, large: 12 }}>
+            <Link variant="standalone" href="/zoek?categorie=dossier" gutterBottom={40}>Bekijk alle dossiers</Link>
+          </GridItem>
+        </Styled.CollectionGrid>
+      )}
     </>
   )
 }

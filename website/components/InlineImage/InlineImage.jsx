@@ -13,7 +13,7 @@ const InlineImage = ({ src, alt }) => {
       .then((response) => response.json())
       .then((result) => result[0])
       .then(({ width, height }) => setDimensions({ width, height }))
-      .catch() // TODO: log image errors in Sentry
+      .catch((e) => e) // TODO: log image errors in Sentry
     return () => abortController.abort()
   }, [])
 
