@@ -6,6 +6,9 @@ query getThemeData($slug: String) {
     color
     teaser
     intro
+    squareImage {
+      url
+    }
     rectangularImage {
       url
     }
@@ -49,9 +52,6 @@ query getThemeData($slug: String) {
           squareImage {
             url
           }
-          rectangularImage {
-            url
-          }
         }
       }
       ... on ComponentSharedPublications {
@@ -61,9 +61,6 @@ query getThemeData($slug: String) {
           teaser
           slug
           squareImage {
-            url
-          }
-          rectangularImage {
             url
           }
         }
@@ -77,9 +74,6 @@ query getThemeData($slug: String) {
           squareImage {
             url
           }
-          rectangularImage {
-            url
-          }
         }
       }
       ... on ComponentSharedInteractives {
@@ -91,9 +85,6 @@ query getThemeData($slug: String) {
           squareImage {
             url
           }
-          rectangularImage {
-            url
-          }
         }
       }
       ... on ComponentSharedCollections {
@@ -103,9 +94,6 @@ query getThemeData($slug: String) {
           teaser
           slug
           squareImage {
-            url
-          }
-          rectangularImage {
             url
           }
         }
@@ -124,6 +112,7 @@ query getThemeData($slug: String) {
     collections {
       title
       slug
+      updated_at
     }
     combiPicture {
       smallerImage {
@@ -133,5 +122,7 @@ query getThemeData($slug: String) {
         url
       }
     }
+    email
+    phoneNumber
   }
 }

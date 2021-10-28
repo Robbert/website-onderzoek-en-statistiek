@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { Icon } from '@amsterdam/asc-ui'
 import { Search, Close } from '@amsterdam/asc-assets'
 
+import Button from '../Button/Button'
 import * as Styled from './SearchBar.style'
 
 const SearchBar = ({ onChange, value, id }) => {
@@ -37,17 +38,16 @@ const SearchBar = ({ onChange, value, id }) => {
         ref={searchInput}
       />
       <Styled.IconWrapper>
-        { value
+        {value
           ? (
-
-            <Styled.Button onClick={handleOnClear} aria-label="Wis zoekterm">
+            <Button onClick={handleOnClear} aria-label="Wis zoekterm" variant="blank">
               <Icon size={32}>
                 <Close />
               </Icon>
-            </Styled.Button>
+            </Button>
           )
           : (
-            <Icon size={32}>
+            <Icon size={56} padding={12}>
               <Search />
             </Icon>
           )}

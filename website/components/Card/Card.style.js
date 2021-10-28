@@ -23,6 +23,10 @@ export const Link = styled.a`
       transform: scale(1.07);
     }
   }
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    margin-bottom: 44px;
+  }
 `
 
 export const ImageWrapper = styled.div`

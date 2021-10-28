@@ -31,7 +31,7 @@ const Card = ({
         {clickableImage && <WrappedImage image={image} large={large} />}
         <Styled.Type
           small
-          gutterBottom={large ? 12 : 0}
+          gutterBottom={large ? 12 : 4}
         >
           {CONTENT_TYPES[type.toLowerCase()].name}
         </Styled.Type>

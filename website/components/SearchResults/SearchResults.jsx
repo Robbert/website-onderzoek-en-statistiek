@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react'
 import { List, ListItem } from '@amsterdam/asc-ui'
 
 import Pagination from '../Pagination/Pagination'
-import Paragraph from '../Paragraph/Paragraph'
+import SearchCard from '../SearchCard/SearchCard'
 import { formatDate } from '../../lib/utils'
 import CONTENT_TYPES from '../../constants/contentTypes'
-import * as Styled from './SearchResults.style'
 
 const SearchResults = ({ results }) => {
   const [page, setPage] = useState(1)
@@ -22,20 +21,13 @@ const SearchResults = ({ results }) => {
             slug, title, teaser, type, publicationDate,
           }) => (
             <ListItem key={`${type}-${slug}`}>
-              <Styled.TypeLabel small gutterBottom={4}>
-                {CONTENT_TYPES[type].name}
-              </Styled.TypeLabel>
-              <Styled.Link
+              <SearchCard
+                type={type}
                 href={`/${CONTENT_TYPES[type].name}/${slug}`}
-              >
-                {title}
-              </Styled.Link>
-              <Paragraph gutterBottom={4}>
-                {teaser}
-              </Paragraph>
-              <Paragraph small gutterBottom={64}>
-                {formatDate(publicationDate)}
-              </Paragraph>
+                title={title}
+                teaser={teaser}
+                date={formatDate(publicationDate)}
+              />
             </ListItem>
           ))}
       </List>

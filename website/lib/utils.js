@@ -63,8 +63,7 @@ export const translateContentType = (contentType) => Object.values(CONTENT_TYPES
 
 export const translateColor = (name) => {
   const translations = {
-    donkerblauw: 'darkblue',
-    donkergroen: 'darkgreen',
+    groen: 'darkgreen',
     lichtblauw: 'lightblue',
     lichtgroen: 'lightgreen',
     oranje: 'orange',

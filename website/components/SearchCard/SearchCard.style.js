@@ -39,3 +39,7 @@ export const Teaser = styled(Paragraph)`
   -webkit-box-orient: vertical;
   overflow: hidden;
 `
+
+export const Date = styled(Paragraph)`
+  margin-top: 8px;
+`

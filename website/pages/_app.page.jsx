@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Fuse from 'fuse.js'
 import { createGlobalStyle } from 'styled-components'
 import {
-  GlobalStyle, ThemeProvider, themeColor, ascDefaultTheme,
+  GlobalStyle, ThemeProvider, ascDefaultTheme,
 } from '@amsterdam/asc-ui'
 
 import Layout from '../components/Layout/Layout'
@@ -12,7 +12,7 @@ import '../public/fonts/fonts.css'
 
 const BodyStyle = createGlobalStyle`
   body {
-    background-color: ${themeColor('tint', 'level3')};
+    background-color: white;
   }
 `
 

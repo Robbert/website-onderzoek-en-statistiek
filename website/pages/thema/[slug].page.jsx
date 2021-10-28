@@ -1,14 +1,15 @@
-import Image from 'next/image'
+import NextImage from 'next/image'
 import { useRouter } from 'next/router'
 import { Spinner } from '@amsterdam/asc-ui'
+import { ChevronRight } from '@amsterdam/asc-assets'
 
 import Seo from '../../components/Seo/Seo'
 import { Grid, GridItem } from '../../components/Grid/Grid.style'
 import Heading from '../../components/Heading/Heading'
 import Paragraph from '../../components/Paragraph/Paragraph'
-import CardList from '../../components/CardList/CardList'
-import LinkList from '../../components/LinkList/LinkList'
 import Link from '../../components/Link/Link'
+import CardList from '../../components/CardList/CardList'
+import Card from '../../components/Card/Card'
 import ThemeSearch from '../../components/ThemeSearch/ThemeSearch'
 import {
   fetchAPI, getStrapiMedia, apolloClient, translateColor, PLACEHOLDER_IMAGE, normalizeItemList,
@@ -22,13 +23,16 @@ const Theme = ({
   shortTitle,
   color,
   teaser,
-  teaserImage,
+  squareImage,
+  rectangularImage,
   intro,
   visualisation,
   topStory,
   featured,
   collections,
   combiPicture,
+  email,
+  phoneNumber,
 }) => {
   const router = useRouter()
   if (router.isFallback) {
@@ -38,82 +42,146 @@ const Theme = ({
   return (
     <>
       <Seo
-        title={shortTitle || title}
+        title={`Thema ${shortTitle || title}`}
         description={teaser}
-        image={getStrapiMedia(teaserImage)}
+        image={getStrapiMedia(rectangularImage || squareImage)}
       />
+
       <Grid>
-
-        <GridItem colRange={{ small: 4, large: 12 }}>
-          <Heading gutterBottom={24}>{title}</Heading>
+        <GridItem colRange={{ small: 4, large: 5 }}>
+          <Heading gutterBottom={{ small: 24, large: 36 }} small>{title}</Heading>
+          <Paragraph gutterBottom={24}>{intro}</Paragraph>
+          {normalizeItemList(topStory).map(({ path }) => (
+            <Link
+              key={path}
+              href={path}
+              variant="standalone"
+              gutterBottom={36}
+            >
+              Lees meer
+            </Link>
+          ))}
         </GridItem>
+      </Grid>
 
-        <Styled.HeroSection colStart={{ small: 1, large: 5 }} colRange={{ small: 4, large: 7 }}>
-          { visualisation
-          && (
-            <Image
-              src={getStrapiMedia(visualisation.image)}
-              alt=""
-              width={3}
-              height={2}
-              layout="responsive"
-              priority
-            />
-          ) }
-          <Styled.Caption gutterBottom={24} darkBackground small>
-            {visualisation && `${visualisation.title} Bron: ${visualisation.source}`}
-          </Styled.Caption>
-          <Paragraph darkBackground>{intro}</Paragraph>
-          { topStory && topStory.length > 0
-            && <Link href={normalizeItemList(topStory)[0].path}>Lees verder</Link>}
-        </Styled.HeroSection>
+      {visualisation && (
+        <Styled.HeroGrid verticalPadding={0} $color={translateColor(color || 'lichtblauw')}>
+          <GridItem colStart={{ small: 1, large: 6 }} colRange={{ small: 4, large: 7 }}>
+            <Styled.ChartContainer>
+              <NextImage
+                src={getStrapiMedia(visualisation.image)}
+                alt=""
+                width={3}
+                height={2}
+                layout="responsive"
+                priority
+              />
+              <Styled.TitleCaptionContainer backgroundColor={color}>
+                <Styled.ChartTitle forwardedAs="h2" styleAs="h4">
+                  {visualisation.title}
+                </Styled.ChartTitle>
+                <Styled.ChartCaption small>
+                  {`Bron: ${visualisation.source}`}
+                </Styled.ChartCaption>
+              </Styled.TitleCaptionContainer>
+            </Styled.ChartContainer>
+          </GridItem>
+        </Styled.HeroGrid>
+      )}
 
-        <Styled.ColorBar
-          colRange={{ small: 4, large: 12 }}
-          color={translateColor(color || 'lichtblauw')}
-        />
+      {featured.length > 0 && (
+        <Grid>
+          <GridItem colRange={{ small: 4, large: 12 }}>
+            <Heading as="h2" styleAs="h3" gutterBottom={{ small: 48, large: 68 }}>Uitgelicht in dit thema</Heading>
+          </GridItem>
+          <CardList>
+            {normalizeItemList(featured).map(
+              ({
+                path,
+                title: featureTitle,
+                shortTitle: featureShortTitle,
+                teaser: featureTeaser,
+                squareImage: featureSquareImage,
+                type,
+              }) => (
+                <Styled.FeatureListItem key={path}>
+                  <GridItem colRange={{ small: 4, large: 4 }}>
+                    <Card
+                      href={path}
+                      image={featureSquareImage}
+                      type={type}
+                      title={featureShortTitle || featureTitle}
+                      teaser={featureTeaser}
+                      headingLevel="h3"
+                      clickableImage
+                    />
+                  </GridItem>
+                </Styled.FeatureListItem>
+              ),
+            )}
+          </CardList>
+        </Grid>
+      )}
 
-        <GridItem colStart={1} colRange={{ small: 4, large: 12 }}>
-          <CardList
-            columns={3}
-            items={normalizeItemList(featured)}
-          />
-        </GridItem>
+      {collections.length > 0 && (
+        <Styled.CollectionGrid verticalPadding={0}>
+          <GridItem colRange={{ small: 4, large: 5 }}>
+            <Heading as="h2" gutterBottom={{ small: 32, large: 64 }}>Dossiers binnen dit thema</Heading>
+          </GridItem>
 
-        <GridItem colRange={{ small: 4, large: 6 }}>
-          <Heading as="h2" gutterBottom={24}>{`Dossiers over ${title}`}</Heading>
-          <LinkList
-            gutterBottom={40}
-            links={collections.map(({ title: collectionTitle, slug: collectionSlug }) => ({ title: collectionTitle, path: `/dossier/${collectionSlug}` }))}
-          />
-        </GridItem>
-        <GridItem colRange={{ small: 4, large: 6 }}>
-          <Image
-            src={
-              combiPicture?.biggerImage
-                ? getStrapiMedia(combiPicture.biggerImage)
-                : PLACEHOLDER_IMAGE
-            }
-            alt=""
-            width={1}
-            height={1}
-            layout="responsive"
-            priority
-          />
-          <Image
-            src={
-              combiPicture?.smallerImage
-                ? getStrapiMedia(combiPicture.smallerImage)
-                : PLACEHOLDER_IMAGE
-            }
-            alt=""
-            width={1}
-            height={1}
-            layout="responsive"
-            priority
-          />
-        </GridItem>
+          <GridItem
+            colRange={{ small: 4, large: 6 }}
+            colStart={{ small: 1, large: 7 }}
+            rowRange={{ small: 1, large: 3 }}
+          >
+            <Styled.LargeImageWrapper>
+              <NextImage
+                src={
+                  combiPicture?.biggerImage
+                    ? getStrapiMedia(combiPicture.biggerImage)
+                    : PLACEHOLDER_IMAGE
+                }
+                alt=""
+                layout="fill"
+                objectFit="cover"
+              />
+              <Styled.SmallImageWrapper>
+                <NextImage
+                  src={
+                    combiPicture?.smallerImage
+                      ? getStrapiMedia(combiPicture.smallerImage)
+                      : PLACEHOLDER_IMAGE
+                  }
+                  alt=""
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </Styled.SmallImageWrapper>
+            </Styled.LargeImageWrapper>
+          </GridItem>
 
+          <GridItem colRange={{ small: 4, large: 5 }}>
+            <Styled.CollectionList twoColumns={collections.length > 5}>
+              {collections
+                .sort((a, b) => Date.parse(b.updated_at) - Date.parse(a.updated_at))
+                .slice(0, 10)
+                .map(({ title: linkTitle, slug: linkSlug }) => (
+                  <li key={linkSlug}>
+                    <Link href={`/dossier/${linkSlug}`} variant="inList">
+                      <Styled.Icon size={14}>
+                        <ChevronRight />
+                      </Styled.Icon>
+                      {linkTitle}
+                    </Link>
+                  </li>
+                ))}
+            </Styled.CollectionList>
+            {collections.length > 0 && <Link href={`/zoek?thema=${slug}&categorie=dossier`} variant="standalone">Alle dossiers met dit thema</Link>}
+          </GridItem>
+        </Styled.CollectionGrid>
+      )}
+
+      <Grid verticalPadding={0}>
         <GridItem colStart={{ small: 1, large: 3 }} colRange={{ small: 4, large: 8 }}>
           <ThemeSearch
             themeTitle={title}
@@ -121,6 +189,30 @@ const Theme = ({
           />
         </GridItem>
 
+        {(email || phoneNumber)
+        && (
+          <GridItem
+            colRange={4}
+            gutterBottom={{ small: 4, large: 56 }}
+          >
+            <Heading
+              gutterBottom={{ small: 12, large: 32 }}
+              as="h2"
+              styleAs="h3"
+            >
+              Heeft u een vraag over dit thema?
+            </Heading>
+            <Paragraph small>
+              Neem contact met ons op.
+              U kunt ons bereiken via
+              {' '}
+              {email && <Link href={`mailto:${email}`} variant="inline">e-mail</Link>}
+              {email && phoneNumber && ' of '}
+              {phoneNumber && <Link href={`tel:${phoneNumber}`} variant="inline">{phoneNumber}</Link>}
+              .
+            </Paragraph>
+          </GridItem>
+        )}
       </Grid>
     </>
   )

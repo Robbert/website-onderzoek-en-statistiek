@@ -5,7 +5,7 @@ import CONTENT_TYPES from '../../constants/contentTypes'
 import * as Styled from './SearchCard.style'
 
 const Card = ({
-  href, type, title, teaser, small,
+  href, type, title, teaser, small, date,
 }) => (
   <>
     <NextLink href={href} passHref>
@@ -26,6 +26,7 @@ const Card = ({
           {title}
         </Heading>
         <Styled.Teaser small={small}>{teaser}</Styled.Teaser>
+        {date && <Styled.Date small>{date}</Styled.Date>}
       </Styled.Link>
     </NextLink>
   </>

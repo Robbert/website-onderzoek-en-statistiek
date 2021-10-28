@@ -27,6 +27,11 @@ module.exports = {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
+    'jsx-a11y/label-has-associated-control': [2, {
+      required: {
+        some: ['nesting', 'id'],
+      },
+    }],
     'import/order': [
       'error',
       {
