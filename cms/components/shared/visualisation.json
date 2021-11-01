@@ -9,8 +9,8 @@
     "title": {
       "type": "string"
     },
-    "description": {
-      "type": "text"
+    "text": {
+      "type": "richtext"
     },
     "source": {
       "type": "string"
@@ -24,6 +24,31 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "variant": {
+      "type": "enumeration",
+      "enum": [
+        "gecentreerd",
+        "rechts",
+        "links",
+        "kleurenbalk"
+      ],
+      "default": "gecentreerd",
+      "required": false
+    },
+    "color": {
+      "type": "enumeration",
+      "enum": [
+        "geel",
+        "groen",
+        "lichtblauw",
+        "lichtgroen",
+        "oranje",
+        "paars",
+        "roze"
+      ],
+      "default": "lichtblauw",
+      "required": false
     }
   }
 }

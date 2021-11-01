@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_shared_text_with_links",
+  "info": {
+    "name": "TextWithLinks",
+    "icon": "stream"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "richtext"
+    },
+    "articles": {
+      "collection": "article"
+    },
+    "publications": {
+      "collection": "publication"
+    },
+    "videos": {
+      "collection": "video"
+    },
+    "interactives": {
+      "collection": "interactive"
+    },
+    "collections": {
+      "collection": "collection"
+    },
+    "datasets": {
+      "collection": "dataset"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.external-links"
+    }
+  }
+}

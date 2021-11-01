@@ -24,20 +24,6 @@
       "targetField": "title",
       "required": true
     },
-    "color": {
-      "type": "enumeration",
-      "enum": [
-        "geel",
-        "groen",
-        "lichtblauw",
-        "lichtgroen",
-        "oranje",
-        "paars",
-        "roze"
-      ],
-      "default": "lichtblauw",
-      "required": false
-    },
     "teaser": {
       "type": "text",
       "required": false

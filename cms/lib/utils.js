@@ -75,38 +75,35 @@ const parseContentFromDrupal = async (contentType, item) => {
     item.subtitleFile = await convertFilenameToId(item.subtitleFile, item.slug);
   }
 
+  const body = {
+    __component: 'shared.text-with-links',
+  };
+
   if (item.bodyText) {
-    item.body.push({
-      __component: 'shared.text',
-      text: await parseBodyText(item.bodyText),
-    });
+    body.text = await parseBodyText(item.bodyText);
   }
 
   if (item.links) {
-    const linkList = {
-      __component: 'shared.link-list',
-    };
-
     // none of the content types can link to articles because they are imported last
     // publications can not link to other publications while they are imported
     if (item.links.articles.length > 0) {
-      linkList.articles = await convertSlugsToIds(item.links.articles, 'article', item.slug);
+      body.articles = await convertSlugsToIds(item.links.articles, 'article', item.slug);
     }
     if (item.links.publications.length > 0) {
-      linkList.publications = await convertSlugsToIds(item.links.publications, 'publication', item.slug);
+      body.publications = await convertSlugsToIds(item.links.publications, 'publication', item.slug);
     }
     if (item.links.videos.length > 0) {
-      linkList.videos = await convertSlugsToIds(item.links.videos, 'video', item.slug);
+      body.videos = await convertSlugsToIds(item.links.videos, 'video', item.slug);
     }
     if (item.links.interactives.length > 0) {
-      linkList.interactives = await convertSlugsToIds(item.links.videos, 'interactive', item.slug);
+      body.interactives = await convertSlugsToIds(item.links.videos, 'interactive', item.slug);
     }
     if (item.links.links.length > 0) {
-      linkList.links = item.links.links;
+      body.links = item.links.links;
     }
-
-    item.body.push(linkList);
   }
+
+  item.body = [body];
 
   delete item.bodyText;
   delete item.links;

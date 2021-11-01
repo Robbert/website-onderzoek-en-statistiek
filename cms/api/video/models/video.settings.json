@@ -42,8 +42,8 @@
       "type": "dynamiczone",
       "components": [
         "shared.text",
-        "shared.visualisation",
-        "shared.link-list"
+        "shared.text-with-links",
+        "shared.visualisation"
       ]
     },
     "rectangularImage": {
