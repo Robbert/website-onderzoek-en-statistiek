@@ -12,6 +12,10 @@ query getPublicationData($slug: String) {
     }
     coverImage {
       url
+      alternativeText
+      caption
+      width
+      height
     }
     squareImage {
       url
@@ -21,21 +25,12 @@ query getPublicationData($slug: String) {
     }
     body {
       ... on ComponentSharedText{
+        id
         text
       }
-      ... on ComponentSharedVisualisation {
-        title
-        description
-        source
-        image {
-          url
-        }
-      }
-      ... on ComponentSharedLinkList {
-        links {
-          title
-          path
-        }
+      ... on ComponentSharedTextWithLinks{
+        id
+        text
         articles {
           title
           slug
@@ -60,7 +55,30 @@ query getPublicationData($slug: String) {
           title
           slug
         }
+        links {
+          title
+          path
+        } 
       }
+      ... on ComponentSharedVisualisation {
+        id
+        variant
+        color
+        title
+        text
+        source
+        image {
+          url
+          alternativeText
+          caption
+          width
+          height
+        }
+      }
+    }
+    theme {
+      title
+      slug
     }
   }
 }

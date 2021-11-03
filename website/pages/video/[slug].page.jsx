@@ -1,14 +1,13 @@
 /* eslint-disable react/no-array-index-key */
 import { useRouter } from 'next/router'
-import Image from 'next/image'
 import { Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
 import Heading from '../../components/Heading/Heading'
+import BodyContent from '../../components/BodyContent/BodyContent'
 import MarkdownToHtml from '../../components/MarkdownToHtml/MarkdownToHtml'
-import Link from '../../components/Link/Link'
 import {
-  fetchAPI, getStrapiMedia, apolloClient, formatDate, normalizeBody, prependStrapiURL,
+  fetchAPI, getStrapiMedia, apolloClient, formatDate,
 } from '../../lib/utils'
 import QUERY from './video.query.gql'
 import * as Styled from './video.style'
@@ -95,33 +94,6 @@ const Video = ({
           <span>{formatDate(publicationDate)}</span>
           {transcript && <MarkdownToHtml>{transcript}</MarkdownToHtml>}
           <Styled.Intro strong>{intro}</Styled.Intro>
-          {body && normalizeBody(body).map((item, i) => {
-            if (item.type === 'text') {
-              return (<MarkdownToHtml key={`bodyItem${i}`}>{item.text}</MarkdownToHtml>)
-            }
-            if (item.type === 'linklist') {
-              return (
-                <ul key={`bodyItem${i}`}>
-                  {item.links.map((link) => (
-                    <li key={link.path}><Link href={link.path}>{link.title}</Link></li>
-                  ))}
-                </ul>
-              )
-            }
-            if (item.type === 'visualisation') {
-              return (
-                <Image
-                  key={`bodyItem${i}`}
-                  src={prependStrapiURL(item.image.url)}
-                  alt={item.description}
-                  width={16}
-                  height={9}
-                  layout="responsive"
-                />
-              )
-            }
-            return null
-          })}
           {videoFile?.url && (
             <LocalVideo
               videoSource={videoFile}
@@ -131,6 +103,7 @@ const Video = ({
           )}
           {externalVideoSource && <ExternalVideo source={externalVideoSource} />}
           {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
+          {body && <BodyContent content={body} />}
         </Styled.MainContent>
       </Styled.Container>
     </>

@@ -3,7 +3,6 @@ query getThemeData($slug: String) {
     title
     shortTitle
     slug
-    color
     teaser
     intro
     squareImage {
@@ -14,8 +13,9 @@ query getThemeData($slug: String) {
     }
     visualisation {
       title
-      description
+      text
       source
+      color
       image {
         url
       }

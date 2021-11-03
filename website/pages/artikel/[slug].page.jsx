@@ -1,20 +1,21 @@
-/* eslint-disable react/no-array-index-key */
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
-import MarkdownToHtml from '../../components/MarkdownToHtml/MarkdownToHtml'
-import Related from '../../components/Related/Related'
-import Link from '../../components/Link/Link'
+import { Grid, GridItem } from '../../components/Grid/Grid.style'
+import Heading from '../../components/Heading/Heading'
+import Paragraph from '../../components/Paragraph/Paragraph'
+import BodyContent from '../../components/BodyContent/BodyContent'
+import ThemeList from '../../components/ThemeList/ThemeList'
+import CardList from '../../components/CardList/CardList'
+import Card from '../../components/Card/Card'
 import {
   fetchAPI,
   getStrapiMedia,
-  prependStrapiURL,
   PLACEHOLDER_IMAGE,
   apolloClient,
   normalizeItemList,
-  normalizeBody,
   formatDate,
 } from '../../lib/utils'
 import QUERY from './article.query.gql'
@@ -29,6 +30,7 @@ const Article = ({
   publicationDate,
   intro,
   body,
+  theme,
   related,
 }) => {
   const router = useRouter()
@@ -45,63 +47,83 @@ const Article = ({
         image={getStrapiMedia(rectangularImage || squareImage)}
         article
       />
-      {rectangularImage && (
-        <Styled.ImageWrapper>
-          <Image
-            src={getStrapiMedia(rectangularImage)}
-            alt=""
-            layout="fill"
-            placeholder="blur"
-            objectFit="cover"
-            blurDataURL={PLACEHOLDER_IMAGE}
-            priority
-          />
-        </Styled.ImageWrapper>
-      )}
-      <Styled.Container>
-        <Styled.MainContent>
-          <Styled.Title>{title}</Styled.Title>
-          <span>{formatDate(publicationDate)}</span>
-          <Styled.Intro>{intro}</Styled.Intro>
-          <Styled.Body>
-            {normalizeBody(body).map((item, i) => {
-              if (item.type === 'text') {
-                return (<MarkdownToHtml key={`bodyItem${i}`}>{item.text}</MarkdownToHtml>)
-              }
-              if (item.type === 'linklist') {
-                return (
-                  <ul key={`bodyItem${i}`}>
-                    {item.links.map((link) => (
-                      <li key={link.path}><Link href={link.path}>{link.title}</Link></li>
-                    ))}
-                  </ul>
-                )
-              }
-              if (item.type === 'visualisation') {
-                return (
-                  <Image
-                    key={`bodyItem${i}`}
-                    src={prependStrapiURL(item.image.url)}
-                    alt={item.description}
-                    width={16}
-                    height={9}
-                    layout="responsive"
-                  />
-                )
-              }
-              return null
-            })}
-          </Styled.Body>
-        </Styled.MainContent>
-        <Styled.SideBar>
-          {related
-          && (
-            <Related
-              related={normalizeItemList(related)}
-            />
+
+      <Grid>
+
+        <GridItem
+          colStart={{ small: 1, large: 2 }}
+          colRange={{ small: 4, large: 10 }}
+        >
+          <Heading gutterBottom={16}>{title}</Heading>
+          <Paragraph small gutterBottom={40}>{formatDate(publicationDate)}</Paragraph>
+          <Paragraph intro gutterBottom={80}>{intro}</Paragraph>
+
+          {rectangularImage && (
+            <Styled.ImageWrapper>
+              <Image
+                src={getStrapiMedia(rectangularImage)}
+                alt={rectangularImage.alternativeText}
+                width={rectangularImage.width}
+                height={rectangularImage.height}
+                layout="responsive"
+                placeholder="blur"
+                objectFit="cover"
+                blurDataURL={PLACEHOLDER_IMAGE}
+                priority
+              />
+
+              {rectangularImage.caption && (
+                <Paragraph small>
+                  {rectangularImage.caption}
+                </Paragraph>
+              )}
+            </Styled.ImageWrapper>
           )}
-        </Styled.SideBar>
-      </Styled.Container>
+        </GridItem>
+
+        <BodyContent content={body} />
+
+        <GridItem
+          colStart={{ small: 1, large: 3 }}
+          colRange={{ small: 4, large: 8 }}
+          gutterBottom={{ small: 72, large: 120 }}
+        >
+          <ThemeList type="artikel" themes={theme} />
+        </GridItem>
+
+        {related.length > 0 && (
+          <>
+            <GridItem colRange={{ small: 4, large: 12 }}>
+              <Heading as="h2" styleAs="h4" gutterBottom={40}>Ook interessant</Heading>
+            </GridItem>
+            <CardList>
+              {normalizeItemList(related).map(
+                ({
+                  path,
+                  title: relatedTitle,
+                  shortTitle: relatedShortTitle,
+                  squareImage: relatedSquareImage,
+                  type,
+                }) => (
+                  <Styled.RelatedListItem key={path}>
+                    <GridItem colRange={4}>
+                      <Card
+                        href={path}
+                        image={relatedSquareImage}
+                        type={type}
+                        title={relatedShortTitle || relatedTitle}
+                        headingLevel="h3"
+                        clickableImage
+                      />
+                    </GridItem>
+                  </Styled.RelatedListItem>
+                ),
+              )}
+            </CardList>
+          </>
+        )}
+
+      </Grid>
     </>
   )
 }

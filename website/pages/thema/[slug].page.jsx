@@ -21,7 +21,6 @@ const Theme = ({
   title,
   slug,
   shortTitle,
-  color,
   teaser,
   squareImage,
   rectangularImage,
@@ -65,7 +64,7 @@ const Theme = ({
       </Grid>
 
       {visualisation && (
-        <Styled.HeroGrid verticalPadding={0} $color={translateColor(color || 'lichtblauw')}>
+        <Styled.HeroGrid verticalPadding={0} $color={translateColor(visualisation.color || 'lichtblauw')}>
           <GridItem colStart={{ small: 1, large: 6 }} colRange={{ small: 4, large: 7 }}>
             <Styled.ChartContainer>
               <NextImage
@@ -76,13 +75,15 @@ const Theme = ({
                 layout="responsive"
                 priority
               />
-              <Styled.TitleCaptionContainer backgroundColor={color}>
+              <Styled.TitleCaptionContainer backgroundColor={visualisation.color}>
                 <Styled.ChartTitle forwardedAs="h2" styleAs="h4">
                   {visualisation.title}
                 </Styled.ChartTitle>
-                <Styled.ChartCaption small>
-                  {`Bron: ${visualisation.source}`}
-                </Styled.ChartCaption>
+                {visualisation.source && (
+                  <Styled.ChartCaption small>
+                    {`Bron: ${visualisation.source}`}
+                  </Styled.ChartCaption>
+                ) }
               </Styled.TitleCaptionContainer>
             </Styled.ChartContainer>
           </GridItem>

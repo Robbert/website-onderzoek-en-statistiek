@@ -104,9 +104,11 @@ export const normalizeBody = (body) => (
       } : null
     ))
     .map((item) => {
-      if (item.type === 'linklist') {
+      if (item.type === 'textwithlinks') {
         return ({
-          type: 'linklist',
+          type: item.type,
+          text: item.text,
+          id: item.id,
           links: Object.values(item)
             .filter((list) => Array.isArray(list) && list.length > 0)
             .flat()

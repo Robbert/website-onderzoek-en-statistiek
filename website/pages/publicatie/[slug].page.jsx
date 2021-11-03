@@ -1,21 +1,20 @@
-/* eslint-disable react/no-array-index-key */
+import NextImage from 'next/image'
 import { useRouter } from 'next/router'
-import Image from 'next/image'
 import { Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
-import MarkdownToHtml from '../../components/MarkdownToHtml/MarkdownToHtml'
-import DownloadButton from '../../components/DownloadButton/DownloadButton'
-import Link from '../../components/Link/Link'
+import { Grid, GridItem } from '../../components/Grid/Grid.style'
 import Heading from '../../components/Heading/Heading'
+import Paragraph from '../../components/Paragraph/Paragraph'
+import BodyContent from '../../components/BodyContent/BodyContent'
+import ThemeList from '../../components/ThemeList/ThemeList'
+import DownloadButton from '../../components/DownloadButton/DownloadButton'
 import {
   fetchAPI,
   getStrapiMedia,
   apolloClient,
   PLACEHOLDER_IMAGE,
   formatDate,
-  normalizeBody,
-  prependStrapiURL,
 } from '../../lib/utils'
 import * as Styled from './publication.style'
 import QUERY from './publication.query.gql'
@@ -31,6 +30,7 @@ const Publication = ({
   coverImage,
   squareImage,
   rectangularImage,
+  theme,
 }) => {
   const router = useRouter()
   if (router.isFallback) {
@@ -44,10 +44,15 @@ const Publication = ({
         image={getStrapiMedia(rectangularImage || squareImage || coverImage)}
         article
       />
-      <Styled.Container>
-        <div>
-          <Heading styleAs="h3" gutterBottom={16}>{title}</Heading>
-          <Styled.MetaList>
+
+      <Grid>
+        <GridItem
+          colStart={{ small: 1, large: 2 }}
+          colRange={{ small: 4, large: 6 }}
+          rowStart={1}
+        >
+          <Heading gutterBottom={16} styleAs="h2">{title}</Heading>
+          <Styled.MetaList small gutterBottom={40}>
             <Styled.MetaListItem>Publicatie</Styled.MetaListItem>
             {author && <Styled.MetaListItem>{author}</Styled.MetaListItem>}
             {publicationDate && (
@@ -56,51 +61,48 @@ const Publication = ({
               </Styled.MetaListItem>
             )}
           </Styled.MetaList>
-          <Styled.Intro>{intro}</Styled.Intro>
-          <Styled.Main>
-            {body && normalizeBody(body).map((item, i) => {
-              if (item.type === 'text') {
-                return (<MarkdownToHtml key={`bodyItem${i}`}>{item.text}</MarkdownToHtml>)
-              }
-              if (item.type === 'linklist') {
-                return (
-                  <ul key={`bodyItem${i}`}>
-                    {item.links.map((link) => (
-                      <li key={link.path}><Link href={link.path}>{link.title}</Link></li>
-                    ))}
-                  </ul>
-                )
-              }
-              if (item.type === 'visualisation') {
-                return (
-                  <Image
-                    key={`bodyItem${i}`}
-                    src={prependStrapiURL(item.image.url)}
-                    alt={item.description}
-                    width={16}
-                    height={9}
-                    layout="responsive"
-                  />
-                )
-              }
-              return null
-            })}
-          </Styled.Main>
-        </div>
-        <Styled.SideBar>
+
+        </GridItem>
+
+        <GridItem
+          colStart={{ small: 1, large: 9 }}
+          colRange={{ small: 4, large: 3 }}
+          rowStart={{ small: 2, large: 1 }}
+          rowRange={{ small: 1, large: 2 }}
+          gutterBottom={56}
+        >
           <Styled.CoverImage>
-            <img
-              src={
-                coverImage
-                  ? getStrapiMedia(coverImage)
-                  : PLACEHOLDER_IMAGE
-              }
-              alt=""
+            <NextImage
+              src={getStrapiMedia(coverImage)}
+              alt={coverImage.alternativeText}
+              width={coverImage.width}
+              height={coverImage.height}
+              layout="responsive"
+              placeholder="blur"
+              objectFit="cover"
+              blurDataURL={PLACEHOLDER_IMAGE}
+              priority
             />
           </Styled.CoverImage>
           <DownloadButton file={file} image={coverImage} />
-        </Styled.SideBar>
-      </Styled.Container>
+        </GridItem>
+
+        <GridItem
+          colStart={{ small: 1, large: 2 }}
+          colRange={{ small: 4, large: 6 }}
+        >
+          <Paragraph intro gutterBottom={80}>{intro}</Paragraph>
+        </GridItem>
+
+        {body && <BodyContent content={body} />}
+
+        <GridItem
+          colStart={{ small: 1, large: 3 }}
+          colRange={{ small: 4, large: 6 }}
+        >
+          <ThemeList type="publicatie" themes={theme} />
+        </GridItem>
+      </Grid>
     </>
   )
 }

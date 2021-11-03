@@ -8,26 +8,21 @@ query getArticleData($slug: String) {
     }
     rectangularImage {
       url
+      alternativeText
+      caption
+      width
+      height
     }
     publicationDate
     intro
     body {
       ... on ComponentSharedText{
+        id
         text
       }
-      ... on ComponentSharedVisualisation {
-        title
-        description
-        source
-        image {
-          url
-        }
-      }
-      ... on ComponentSharedLinkList {
-        links {
-          title
-          path
-        } 
+      ... on ComponentSharedTextWithLinks{
+        id
+        text
         articles {
           title
           slug
@@ -51,6 +46,25 @@ query getArticleData($slug: String) {
         datasets{
           title
           slug
+        }
+        links {
+          title
+          path
+        } 
+      }
+      ... on ComponentSharedVisualisation {
+        id
+        variant
+        color
+        title
+        text
+        source
+        image {
+          url
+          alternativeText
+          caption
+          width
+          height
         }
       }
     }
@@ -96,6 +110,19 @@ query getArticleData($slug: String) {
       }
       ... on ComponentSharedInteractives {
         interactives {
+          title
+          teaser
+          slug
+          squareImage {
+            url
+          }
+          rectangularImage {
+            url
+          }
+        }
+      }
+      ... on ComponentSharedCollections {
+        collections {
           title
           teaser
           slug

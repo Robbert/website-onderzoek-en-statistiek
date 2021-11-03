@@ -12,23 +12,14 @@ query getVideoData($slug: String) {
     publicationDate
     transcript
     intro
-    body {
+        body {
       ... on ComponentSharedText{
+        id
         text
       }
-      ... on ComponentSharedVisualisation {
-        title
-        description
-        source
-        image {
-          url
-        }
-      }
-      ... on ComponentSharedLinkList {
-        links {
-          title
-          path
-        }
+      ... on ComponentSharedTextWithLinks{
+        id
+        text
         articles {
           title
           slug
@@ -52,6 +43,25 @@ query getVideoData($slug: String) {
         datasets{
           title
           slug
+        }
+        links {
+          title
+          path
+        } 
+      }
+      ... on ComponentSharedVisualisation {
+        id
+        variant
+        color
+        title
+        text
+        source
+        image {
+          url
+          alternativeText
+          caption
+          width
+          height
         }
       }
     }
