@@ -203,7 +203,7 @@ const transformResources = (resources) => resources.map((resource) => ({
 
 const transformDataset = (dataset) => ({
   'dct:title': dataset.title,
-  'dct:description': dataset.description,
+  'dct:description': dataset.body.reduce((allText, bodyItem) => allText + bodyItem.text, ''),
   'ams:status': 'beschikbaar',
   'dcat:distribution': transformResources(dataset.resources),
   'dcat:theme': dataset.theme ? dataset.theme.map((theme) => themesMap[theme.title]) : [],

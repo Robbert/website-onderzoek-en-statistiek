@@ -23,8 +23,12 @@
       "type": "string",
       "required": true
     },
-    "description": {
-      "type": "richtext",
+    "body": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.text",
+        "shared.text-with-links"
+      ],
       "required": true
     },
     "rectangularImage": {
@@ -162,18 +166,6 @@
       "type": "component",
       "repeatable": true,
       "component": "shared.resources"
-    },
-    "linkList": {
-      "type": "dynamiczone",
-      "components": [
-        "shared.articles",
-        "shared.publications",
-        "shared.videos",
-        "shared.interactives",
-        "shared.collections",
-        "shared.datasets",
-        "shared.links"
-      ]
     }
   }
 }

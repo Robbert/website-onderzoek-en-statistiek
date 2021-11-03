@@ -15,6 +15,10 @@
     "source": {
       "type": "string"
     },
+    "altText": {
+      "type": "string",
+      "required": true
+    },
     "image": {
       "model": "file",
       "via": "related",
