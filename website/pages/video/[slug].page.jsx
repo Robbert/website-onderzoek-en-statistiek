@@ -1,10 +1,14 @@
-/* eslint-disable react/no-array-index-key */
 import { useRouter } from 'next/router'
 import { Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
+import { Grid, GridItem } from '../../components/Grid/Grid.style'
 import Heading from '../../components/Heading/Heading'
+import Paragraph from '../../components/Paragraph/Paragraph'
+import DownloadButton from '../../components/DownloadButton/DownloadButton'
+import Details from '../../components/Details/Details'
 import BodyContent from '../../components/BodyContent/BodyContent'
+import ThemeList from '../../components/ThemeList/ThemeList'
 import MarkdownToHtml from '../../components/MarkdownToHtml/MarkdownToHtml'
 import {
   fetchAPI, getStrapiMedia, apolloClient, formatDate,
@@ -69,9 +73,11 @@ const Video = ({
   body,
   videoFile,
   subtitleFile,
+  wideVideo,
   subtitleDefault,
   externalVideoSource,
   externalEmbedSource,
+  theme,
 }) => {
   const router = useRouter()
   if (router.isFallback) {
@@ -86,26 +92,62 @@ const Video = ({
         image={getStrapiMedia(rectangularImage || squareImage)}
         video
       />
-      <Styled.Container>
-        <Styled.MainContent>
-          <Heading gutterBottom={16}>
-            {`Video ${title}`}
-          </Heading>
-          <span>{formatDate(publicationDate)}</span>
-          {transcript && <MarkdownToHtml>{transcript}</MarkdownToHtml>}
-          <Styled.Intro strong>{intro}</Styled.Intro>
-          {videoFile?.url && (
+      <Grid>
+        <GridItem colStart={{ small: 1, large: 2 }} colRange={{ small: 4, large: 10 }}>
+          <Heading gutterBottom={16}>{title}</Heading>
+          <Paragraph
+            small
+            gutterBottom={{ small: 60, large: 80 }}
+          >
+            {formatDate(publicationDate)}
+          </Paragraph>
+        </GridItem>
+
+        <Styled.VideoGridItem
+          colStart={{ small: 1, large: wideVideo ? 1 : 3 }}
+          colRange={{ small: 4, large: wideVideo ? 12 : 8 }}
+          wide={wideVideo}
+        >
+          {videoFile?.url ? (
             <LocalVideo
               videoSource={videoFile}
               subtitleSource={subtitleFile}
               enableSubtitleByDefault={subtitleDefault}
             />
-          )}
-          {externalVideoSource && <ExternalVideo source={externalVideoSource} />}
+          )
+            : externalVideoSource && <ExternalVideo source={externalVideoSource} />}
+        </Styled.VideoGridItem>
+
+        <GridItem colStart={{ small: 1, large: 3 }} colRange={{ small: 4, large: 8 }}>
+          <Styled.ButtonContainer>
+            {videoFile?.url && (
+              <DownloadButton
+                url={getStrapiMedia(videoFile)}
+                variant="textButton"
+              >
+                Download
+              </DownloadButton>
+            )}
+            {transcript && (
+              <Details title="Uitgeschreven tekst">
+                <MarkdownToHtml>{transcript}</MarkdownToHtml>
+              </Details>
+            )}
+          </Styled.ButtonContainer>
           {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
-          {body && <BodyContent content={body} />}
-        </Styled.MainContent>
-      </Styled.Container>
+          <Paragraph intro gutterBottom={{ small: 36, large: 80 }}>{intro}</Paragraph>
+        </GridItem>
+
+        {body && <BodyContent content={body} />}
+
+        <GridItem
+          colStart={{ small: 1, large: 3 }}
+          colRange={{ small: 4, large: 8 }}
+          gutterBottom={{ small: 72, large: 120 }}
+        >
+          <ThemeList type="video" themes={theme} />
+        </GridItem>
+      </Grid>
     </>
   )
 }

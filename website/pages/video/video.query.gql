@@ -12,42 +12,42 @@ query getVideoData($slug: String) {
     publicationDate
     transcript
     intro
-        body {
-      ... on ComponentSharedText{
+    body {
+      ... on ComponentSharedText {
         id
         text
       }
-      ... on ComponentSharedTextWithLinks{
+      ... on ComponentSharedTextWithLinks {
         id
         text
         articles {
           title
           slug
         }
-        publications{
+        publications {
           title
           slug
         }
-        videos{
+        videos {
           title
           slug
         }
-        interactives{
+        interactives {
           title
           slug
         }
-        collections{
+        collections {
           title
           slug
         }
-        datasets{
+        datasets {
           title
           slug
         }
         links {
           title
           path
-        } 
+        }
       }
       ... on ComponentSharedVisualisation {
         id
@@ -71,8 +71,13 @@ query getVideoData($slug: String) {
     subtitleFile {
       url
     }
+    wideVideo
     subtitleDefault
     externalVideoSource
     externalEmbedSource
+    theme {
+      title
+      slug
+    }
   }
 }

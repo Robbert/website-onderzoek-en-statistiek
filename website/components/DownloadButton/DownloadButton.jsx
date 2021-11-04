@@ -1,22 +1,25 @@
 import { Spinner } from '@amsterdam/asc-ui'
 import { Download } from '@amsterdam/asc-assets'
 
-import { getStrapiMedia, formatBytes } from '../../lib/utils'
+import Button from '../Button/Button'
 import useDownload from '../../lib/useDownload'
 import * as Styled from './DownloadButton.style'
 
-const DownloadButton = ({ file }) => {
+const DownloadButton = ({
+  url, children, ...otherProps
+}) => {
   const [, downloadLoading, downloadFile] = useDownload()
 
   return (
-    <Styled.Button
-      variant="primary"
-      iconSize={20}
-      iconLeft={downloadLoading ? <Spinner /> : <Download />}
-      onClick={() => { downloadFile(getStrapiMedia(file)) }}
+    <Button
+      onClick={() => { downloadFile(url) }}
+      {...otherProps}
     >
-      {`Download pdf (${formatBytes(file.size * 1000)})`}
-    </Styled.Button>
+      <Styled.Icon size={20}>
+        {downloadLoading ? <Spinner /> : <Download />}
+      </Styled.Icon>
+      {children}
+    </Button>
   )
 }
 

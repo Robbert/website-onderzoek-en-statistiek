@@ -15,6 +15,7 @@ import {
   apolloClient,
   PLACEHOLDER_IMAGE,
   formatDate,
+  formatBytes,
 } from '../../lib/utils'
 import * as Styled from './publication.style'
 import QUERY from './publication.query.gql'
@@ -71,20 +72,28 @@ const Publication = ({
           rowRange={{ small: 1, large: 2 }}
           gutterBottom={56}
         >
-          <Styled.CoverImage>
-            <NextImage
-              src={getStrapiMedia(coverImage)}
-              alt={coverImage.alternativeText}
-              width={coverImage.width}
-              height={coverImage.height}
-              layout="responsive"
-              placeholder="blur"
-              objectFit="cover"
-              blurDataURL={PLACEHOLDER_IMAGE}
-              priority
-            />
-          </Styled.CoverImage>
-          <DownloadButton file={file} image={coverImage} />
+          {coverImage && (
+            <Styled.CoverImage>
+              <NextImage
+                src={getStrapiMedia(coverImage)}
+                alt={coverImage.alternativeText}
+                width={coverImage.width}
+                height={coverImage.height}
+                layout="responsive"
+                placeholder="blur"
+                objectFit="cover"
+                blurDataURL={PLACEHOLDER_IMAGE}
+                priority
+              />
+            </Styled.CoverImage>
+          )}
+          <DownloadButton
+            url={getStrapiMedia(file)}
+            variant="primary"
+            gutterBottom={36}
+          >
+            {`Download PDF (${formatBytes(file.size * 1000)})`}
+          </DownloadButton>
         </GridItem>
 
         <GridItem
