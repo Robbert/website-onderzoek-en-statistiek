@@ -23,6 +23,10 @@
       "type": "string",
       "required": true
     },
+    "teaser": {
+      "type": "text",
+      "required": true
+    },
     "body": {
       "type": "dynamiczone",
       "components": [

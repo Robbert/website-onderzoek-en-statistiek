@@ -86,6 +86,10 @@
       "required": false,
       "pluginOptions": {}
     },
+    "wideVideo": {
+      "type": "boolean",
+      "default": false
+    },
     "subtitleDefault": {
       "type": "boolean",
       "default": false
