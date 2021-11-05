@@ -76,7 +76,7 @@ query getHomepageData {
     ... on ComponentSharedDatasets {
       datasets {
         title
-        teaser: description
+        teaser
         slug
         squareImage {
           url

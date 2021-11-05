@@ -47,7 +47,6 @@ export async function getSearchContent() {
       type: 'dataset',
       shortTitle: '',
       publicationDate: item.updated_at,
-      teaser: item.legalFoundation,
       intro: item.description,
       body: '',
     })))

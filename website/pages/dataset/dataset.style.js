@@ -1,35 +1,68 @@
-import styled from 'styled-components'
-import {
-  Accordion, themeColor, themeSpacing,
-} from '@amsterdam/asc-ui'
+import styled, { css } from 'styled-components'
+import { breakpoint, themeColor } from '@amsterdam/asc-ui'
 
-export const Intro = styled.div`
-  padding-top: ${themeSpacing(2)};
+import DownloadButtonComponent from '../../components/DownloadButton/DownloadButton'
+import { fluidTypoStyle, typographyStyle } from '../../lib/typographyUtils'
+
+export const DefinitionList = styled.dl`
+  margin-top: 40px;
+  font-weight: 500;
+  color: ${themeColor('tint', 'level6')};
+  ${fluidTypoStyle}
+  ${typographyStyle}
 `
 
-export const MetaData = styled.dl`
-  font-size: 16px;
-  border-top: 1px solid ${themeColor('tint', 'level4')};
-`
 export const Row = styled.div`
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  padding: ${themeSpacing(3, 0, 1, 0)};
-  border-bottom: 1px solid ${themeColor('tint', 'level4')};
-`
-export const Key = styled.dt`
-  width: calc(100% / 3);
-`
-export const Value = styled.dd`
-  margin-left: auto;
-  width: calc(100% * 2 / 3);
-  padding: ${themeSpacing(0, 0, 2, 0)};
-`
+  align-items: start;
+  padding-top: 10px;
+  padding-bottom: 9px;
+  padding-left: 16px;
+  padding-right: 16px;
+  ${({ underline }) => underline && css`
+    border-bottom: 1px solid ${themeColor('tint', 'level4')};
+  `}
 
-export const Harmonica = styled(Accordion)`
-  margin-top: ${themeSpacing(3)};
-
-  + div {
-    width: 100%;
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    display: block;
+    border-bottom: none;
+    padding-top: 24px;
+    padding-bottom: 0;
+    padding-left: 0;
   }
 `
+
+export const Term = styled.dt`
+  flex-basis: 30%;
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    margin-bottom: 8px;
+    font-weight: 800;
+  }
+`
+
+export const Details = styled.dd`
+  margin: 0;
+  flex-basis: 70%;
+`
+
+export const Resource = styled.div`
+  display: flex;
+  margin-bottom: 9px;
+  margin-right: 16px;
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    display: block;
+  }
+`
+
+export const ResourceTitle = styled.div`
+  flex-basis: 58%;
+`
+export const DownloadButton = styled(DownloadButtonComponent)`
+  padding-top: 0;
+  margin-left: 4px;
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    padding-top: 10px;
+    padding-left: 0;
+  }
+  `

@@ -10,15 +10,21 @@ import Link from '../Link/Link'
 import { normalizeBody } from '../../lib/utils'
 import * as Styled from './BodyContent.style'
 
-const BodyContent = ({ content }) => (
+const BodyContent = ({
+  content,
+  colStartText = { small: 1, large: 3 },
+  colRangeText = { small: 4, large: 8 },
+  colStartTextWithLink = { small: 1, large: 3 },
+  colRangeTextWithLink = { small: 4, large: 6 },
+}) => (
   <>
     {normalizeBody(content).map((item) => {
       if (item.type === 'text') {
         return (
           <GridItem
             key={item.id}
-            colStart={{ small: 1, large: 3 }}
-            colRange={{ small: 4, large: 8 }}
+            colStart={colStartText}
+            colRange={colRangeText}
           >
             <MarkdownToHtml>{item.text}</MarkdownToHtml>
           </GridItem>
@@ -27,7 +33,10 @@ const BodyContent = ({ content }) => (
       if (item.type === 'textwithlinks') {
         return (
           <Fragment key={item.id}>
-            <GridItem colStart={{ small: 1, large: 3 }} colRange={{ small: 4, large: 6 }}>
+            <GridItem
+              colStart={colStartTextWithLink}
+              colRange={colRangeTextWithLink}
+            >
               <MarkdownToHtml>{item.text}</MarkdownToHtml>
             </GridItem>
             <GridItem
