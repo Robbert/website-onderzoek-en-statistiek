@@ -3,7 +3,7 @@ import {
   useState, useEffect, useCallback, useContext,
 } from 'react'
 import { useRouter } from 'next/router'
-import { debounce } from 'lodash'
+import { debounce } from 'lodash.debounce'
 import { Heading, Label, Checkbox } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'

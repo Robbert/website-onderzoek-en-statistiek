@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { debounce } from 'lodash'
+import { debounce } from 'lodash.debounce'
 
 import { SearchContext, getSearchResults } from '../../lib/searchUtils'
 import SearchBar from '../SearchBar/SearchBar'
