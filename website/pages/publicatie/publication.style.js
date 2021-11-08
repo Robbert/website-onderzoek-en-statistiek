@@ -4,7 +4,8 @@ import { breakpoint } from '@amsterdam/asc-ui'
 import List from '../../components/List/List'
 
 export const MetaList = styled(List)`
-  margin-bottom: 40px
+  margin-bottom: 40px;
+
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-bottom: 60px
   }
