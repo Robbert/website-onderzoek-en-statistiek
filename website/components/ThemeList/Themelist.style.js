@@ -5,10 +5,12 @@ import ParagraphComponent from '../Paragraph/Paragraph'
 import ListComponent from '../List/List'
 
 export const Paragraph = styled(ParagraphComponent)`
-  margin-top: 84px;
+  margin-top: 80px;
+  margin-bottom: 120px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-top: 48px;
+    margin-top: 40px;
+    margin-bottom: 72px;
   }
 `
 

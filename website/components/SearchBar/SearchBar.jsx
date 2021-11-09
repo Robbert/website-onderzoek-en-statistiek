@@ -41,9 +41,9 @@ const SearchBar = ({ onChange, value, id }) => {
         {value
           ? (
             <Button onClick={handleOnClear} aria-label="Wis zoekterm" variant="blank">
-              <Icon size={32}>
+              <Styled.IconContainer>
                 <Close />
-              </Icon>
+              </Styled.IconContainer>
             </Button>
           )
           : (

@@ -46,7 +46,7 @@ export const ButtonContainer = styled.div`
   margin-bottom: 80px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-bottom: 48px;
+    margin-bottom: 56px;
   }
 `
 

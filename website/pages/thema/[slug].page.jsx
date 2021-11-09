@@ -47,45 +47,47 @@ const Theme = ({
       />
 
       <Grid>
-        <GridItem colRange={{ small: 4, large: 5 }}>
-          <Heading gutterBottom={{ small: 24, large: 36 }} small>{title}</Heading>
-          <Paragraph gutterBottom={24}>{intro}</Paragraph>
+        <GridItem colRange={{ small: 4, large: 10 }}>
+          <Heading gutterBottom={{ small: 24, large: 40 }}>{title}</Heading>
+        </GridItem>
+        <Styled.IntroGridItem colRange={{ small: 4, large: 5 }}>
+          <Paragraph gutterBottom={24} small>{intro}</Paragraph>
           {normalizeItemList(topStory).map(({ path }) => (
             <Link
               key={path}
               href={path}
               variant="standalone"
-              gutterBottom={36}
+              gutterBottom={{ small: 20, large: 40 }}
             >
               Lees meer
             </Link>
           ))}
-        </GridItem>
+        </Styled.IntroGridItem>
       </Grid>
 
       {visualisation && (
         <Styled.HeroGrid verticalPadding={0} $color={translateColor(visualisation.color || 'lichtblauw')}>
           <GridItem colStart={{ small: 1, large: 6 }} colRange={{ small: 4, large: 7 }}>
-            <Styled.ChartContainer>
-              <NextImage
-                src={getStrapiMedia(visualisation.image)}
-                alt=""
-                width={3}
-                height={2}
-                layout="responsive"
-                priority
-              />
-              <Styled.TitleCaptionContainer backgroundColor={visualisation.color}>
-                <Styled.ChartTitle forwardedAs="h2" styleAs="h4">
+            <Styled.ChartSection>
+              <Styled.ChartContainer>
+                <Heading forwardedAs="h2" styleAs="h5" gutterBottom={24}>
                   {visualisation.title}
-                </Styled.ChartTitle>
-                {visualisation.source && (
-                  <Styled.ChartCaption small>
-                    {`Bron: ${visualisation.source}`}
-                  </Styled.ChartCaption>
-                ) }
-              </Styled.TitleCaptionContainer>
-            </Styled.ChartContainer>
+                </Heading>
+                <NextImage
+                  src={getStrapiMedia(visualisation.image)}
+                  alt={visualisation.altText}
+                  width={visualisation.image.width}
+                  height={visualisation.image.height}
+                  layout="responsive"
+                  priority
+                />
+              </Styled.ChartContainer>
+              {visualisation.source && (
+                <Styled.ChartCaption small backgroundColor={visualisation.color}>
+                  {`Bron: ${visualisation.source}`}
+                </Styled.ChartCaption>
+              )}
+            </Styled.ChartSection>
           </GridItem>
         </Styled.HeroGrid>
       )}
@@ -93,7 +95,7 @@ const Theme = ({
       {featured.length > 0 && (
         <Grid>
           <GridItem colRange={{ small: 4, large: 12 }}>
-            <Heading as="h2" styleAs="h3" gutterBottom={{ small: 48, large: 68 }}>Uitgelicht in dit thema</Heading>
+            <Heading as="h2" styleAs="h3" gutterBottom={{ small: 40, large: 24 }}>Uitgelicht in dit thema</Heading>
           </GridItem>
           <CardList>
             {normalizeItemList(featured).map(
@@ -127,7 +129,7 @@ const Theme = ({
       {collections.length > 0 && (
         <Styled.CollectionGrid verticalPadding={0}>
           <GridItem colRange={{ small: 4, large: 5 }}>
-            <Heading as="h2" gutterBottom={{ small: 32, large: 64 }}>Dossiers binnen dit thema</Heading>
+            <Heading as="h2" gutterBottom={{ small: 40, large: 80 }}>Dossiers binnen dit thema</Heading>
           </GridItem>
 
           <GridItem
@@ -162,7 +164,7 @@ const Theme = ({
           </GridItem>
 
           <GridItem colRange={{ small: 4, large: 5 }}>
-            <Styled.CollectionList twoColumns={collections.length > 5}>
+            <Styled.CollectionList twoColumns={collections.length > 5} gutterBottom={40}>
               {collections
                 .sort((a, b) => Date.parse(b.updated_at) - Date.parse(a.updated_at))
                 .slice(0, 10)
@@ -194,10 +196,10 @@ const Theme = ({
         && (
           <GridItem
             colRange={4}
-            gutterBottom={{ small: 4, large: 56 }}
+            gutterBottom={{ small: 32, large: 80 }}
           >
             <Heading
-              gutterBottom={{ small: 12, large: 32 }}
+              gutterBottom={{ small: 8, large: 40 }}
               as="h2"
               styleAs="h3"
             >

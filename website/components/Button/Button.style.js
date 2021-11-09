@@ -79,7 +79,7 @@ export const blankButtonStyle = css`
   background-color: white;
 
   &:hover {
-    background-color: ${themeColor('tint', 'level3')};
+    ${svgFill(themeColor('primary'))}
   }
 
   ${baseStyle}

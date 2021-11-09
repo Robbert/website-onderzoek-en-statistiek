@@ -2,8 +2,8 @@
 import styled, { css } from 'styled-components'
 import { breakpoint, ListItem as ListItemASC, Icon as IconASC } from '@amsterdam/asc-ui'
 
-import { GridItem as GridItemComponent, Grid } from '../components/Grid/Grid.style'
-import CardList from '../components/CardList/CardList'
+import { Grid, GridItem as GridItemComponent } from '../components/Grid/Grid.style'
+import Heading from '../components/Heading/Heading'
 
 export const GridItem = styled(GridItemComponent)`
   @media screen and ${breakpoint('min-width', 'laptop')} {
@@ -23,9 +23,15 @@ export const SideBarGridItem = styled(GridItemComponent)`
   margin-top: 112px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-top: 0;
+    display: none;
+  }
+`
 
-    ${({ show }) => !show && css`display: none;`}
+export const HighlightHeading = styled(Heading)`
+  margin-top: 96px;
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    margin-top: 16px;
   }
 `
 
@@ -40,30 +46,8 @@ export const Icon = styled(IconASC)`
   margin-right: 12px;
 `
 
-export const ToggleContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 44px;
-
+export const MobileOnlyGrid = styled(Grid)`
   @media screen and ${breakpoint('min-width', 'laptop')} {
     display: none;
   }
-`
-
-const toggleStyle = css`
-  @media screen and ${breakpoint('max-width', 'laptop')} {
-    ${({ show }) => !show && css`display: none;`}
-  }
-`
-
-export const HighLightGridItem = styled(GridItem)`
-  ${toggleStyle}
-`
-
-export const HighLightCardList = styled(CardList)`
-  ${toggleStyle}
-`
-
-export const CollectionGrid = styled(Grid)`
-  ${toggleStyle}
 `

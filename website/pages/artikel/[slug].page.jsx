@@ -55,8 +55,10 @@ const Article = ({
           colRange={{ small: 4, large: 10 }}
         >
           <Heading gutterBottom={16}>{title}</Heading>
-          <Paragraph small gutterBottom={40}>{formatDate(publicationDate)}</Paragraph>
-          <Paragraph intro gutterBottom={80}>{intro}</Paragraph>
+          <Paragraph small gutterBottom={{ small: 24, large: 40 }}>
+            {formatDate(publicationDate)}
+          </Paragraph>
+          <Paragraph intro gutterBottom={{ small: 40, large: 80 }}>{intro}</Paragraph>
 
           {rectangularImage && (
             <Styled.ImageWrapper>
@@ -86,7 +88,6 @@ const Article = ({
         <GridItem
           colStart={{ small: 1, large: 3 }}
           colRange={{ small: 4, large: 8 }}
-          gutterBottom={{ small: 72, large: 120 }}
         >
           <ThemeList type="artikel" themes={theme} />
         </GridItem>

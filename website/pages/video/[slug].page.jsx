@@ -97,7 +97,7 @@ const Video = ({
           <Heading gutterBottom={16}>{title}</Heading>
           <Paragraph
             small
-            gutterBottom={{ small: 60, large: 80 }}
+            gutterBottom={{ small: 56, large: 80 }}
           >
             {formatDate(publicationDate)}
           </Paragraph>
@@ -135,7 +135,7 @@ const Video = ({
             )}
           </Styled.ButtonContainer>
           {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
-          <Paragraph intro gutterBottom={{ small: 36, large: 80 }}>{intro}</Paragraph>
+          <Paragraph intro gutterBottom={{ small: 40, large: 80 }}>{intro}</Paragraph>
         </GridItem>
 
         {body && <BodyContent content={body} />}

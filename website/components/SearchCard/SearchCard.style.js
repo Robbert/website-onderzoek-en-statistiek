@@ -8,7 +8,7 @@ export const Link = styled.a`
   display: block;
   text-decoration: none;
   overflow: hidden;
-  margin-bottom: 36px;
+  margin-bottom: 40px;
   min-height: 108px;
 
   h3 {
@@ -24,7 +24,6 @@ export const Link = styled.a`
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     min-height: auto;
-    margin-bottom: 24px;
   }
 `
 

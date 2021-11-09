@@ -14,7 +14,7 @@ import * as Styled from './Footer.style'
 const Footer = () => (
   <FooterComponent>
     <Styled.Grid>
-      <GridItem colRange={{ small: 3, large: 4 }}>
+      <GridItem colRange={{ small: 3, large: 3 }}>
         <Heading styleAs="h5" gutterBottom={28} darkBackground>Contact</Heading>
         <Paragraph
           small
@@ -53,7 +53,7 @@ const Footer = () => (
           </li>
         </List>
       </GridItem>
-      <GridItem colRange={{ small: 3, large: 4 }}>
+      <GridItem colRange={{ small: 3, large: 3 }} colStart={{ small: 1, large: 5 }}>
         <Heading styleAs="h5" gutterBottom={28} darkBackground>Panels en enquêtes</Heading>
         <Paragraph gutterBottom={16} small darkBackground>
           Bent u uitgenodigd om mee te doen aan onderzoek
@@ -75,10 +75,10 @@ const Footer = () => (
           </li>
         </List>
       </GridItem>
-      <GridItem colRange={{ small: 3, large: 4 }}>
+      <GridItem colRange={{ small: 3, large: 4 }} colStart={{ small: 1, large: 9 }}>
         <Heading
           styleAs="h5"
-          gutterBottom={28}
+          gutterBottom={20}
           darkBackground
         >
           Onderzoek en Statistiek

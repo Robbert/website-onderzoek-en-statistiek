@@ -1,25 +1,29 @@
 /* eslint-disable indent */
 /* stylelint-disable */
 import styled, { css } from 'styled-components'
-import { Icon as IconASC, breakpoint } from '@amsterdam/asc-ui'
+import { Icon as IconASC, breakpoint, themeColor } from '@amsterdam/asc-ui'
 
-import { Grid } from '../../components/Grid/Grid.style'
-import Heading from '../../components/Heading/Heading'
+import { Grid, GridItem } from '../../components/Grid/Grid.style'
 import Paragraph from '../../components/Paragraph/Paragraph'
+import List from '../../components/List/List'
+
+export const IntroGridItem = styled(GridItem)`
+  min-height: 240px;
+`
 
 export const HeroGrid = styled(Grid)`
-  margin-bottom: 70px;
+  margin-bottom: 100px;
   background-color: ${({ $color }) => $color};
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-bottom: 44px;
+    margin-bottom: 52px;
     background: linear-gradient(white 45%, ${({ $color }) => $color} 45%);
   }
 `
 
-export const ChartContainer = styled.div`
-  margin-top: -280px;
-  padding-bottom: 112px;
+export const ChartSection = styled.div`
+  margin-top: -260px;
+  padding-bottom: 80px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-top: 0;
@@ -27,12 +31,19 @@ export const ChartContainer = styled.div`
   }
 `
 
-export const TitleCaptionContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-top: 8px;
+export const ChartContainer = styled.div`
+  border: 1px solid ${themeColor('tint', 'level3')};
+  padding: 40px 56px;
+  background-color: white;
 
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    padding: 24px 16px;
+  }
+`
+
+export const ChartCaption = styled(Paragraph)`
+  text-align: right;
+  margin-top: 8px;
   color: ${({ backgroundColor }) => ((
     backgroundColor === 'groen'
     || backgroundColor === 'paars'
@@ -40,33 +51,21 @@ export const TitleCaptionContainer = styled.div`
   ) ? 'white' : 'black')};
 `
 
-export const ChartTitle = styled(Heading)`
-  color: inherit;
-`
-
-export const ChartCaption = styled(Paragraph)`
-  color: inherit;
-`
-
 export const FeatureListItem = styled.li`
   display: contents;
 `
 
 export const CollectionGrid = styled(Grid)`
-  margin-top: 32px;
-  margin-bottom: 112px;
+  margin-top: 100px;
+  margin-bottom: 120px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-top: 0;
+    margin-bottom: 72px;
   }
 `
 
-export const CollectionList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  margin-bottom: 32px;
-
+export const CollectionList = styled(List)`
   ${({ twoColumns }) => twoColumns && css`columns: 2;`}
 `
 
@@ -81,8 +80,8 @@ export const LargeImageWrapper = styled.div`
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     height: 66vw;
-    margin-bottom: 32px;
-    margin-left: 12px;
+    margin-bottom: 40px;
+    margin-left: 16px;
   }
 `
 

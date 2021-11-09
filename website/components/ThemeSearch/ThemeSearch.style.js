@@ -5,18 +5,18 @@ import styled from 'styled-components'
 import ButtonComponent from '../Button/Button'
 
 export const Container = styled.div`
-  margin-bottom: 112px;
+  margin-bottom: 120px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-bottom: 64px;
+    margin-bottom: 72px;
   }
 `
 
 export const ButtonGroup = styled.div`
-  margin-bottom: 116px;
+  margin-bottom: 80px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-bottom: 32px;
+    margin-bottom: 40px;
   }
 `
 

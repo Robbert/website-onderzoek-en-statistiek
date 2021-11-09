@@ -22,7 +22,7 @@ export const standaloneLinkStyle = css`
   text-decoration: none;
   font-weight: 500;
   color: ${themeColor('primary')};
-  padding-bottom: 2px;
+  padding-bottom: 4px;
   transition: box-shadow 0.1s ease-in-out, color 0.1s ease-in-out;
   box-shadow: inset 0 -2px ${themeColor('primary')};
 
@@ -56,10 +56,12 @@ export const linkListStyle = css`
   ${svgFill(themeColor('primary'))}
 
   font-size: ${calculateFluidStyle(16, 18)};
-  line-height: 40px;
+  line-height: ${calculateFluidStyle(24, 26)};
   font-weight: 500;
   color: ${themeColor('primary')};
   text-decoration: none;
+  padding-top: 12px;
+  padding-bottom: 12px;
 
   :focus,
   :hover {

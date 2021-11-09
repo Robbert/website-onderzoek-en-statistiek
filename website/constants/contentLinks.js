@@ -1,40 +1,4 @@
 const HEADER_LINKS = {
-  menuItems: [
-    {
-      label: 'Zoeken',
-      slug: '/zoek',
-    },
-    {
-      label: 'Contact',
-      slug: '/',
-    },
-  ],
-  categories: [
-    {
-      label: 'Artikelen',
-      slug: '/zoek?categorie=artikel',
-    },
-    {
-      label: 'Publicaties',
-      slug: '/zoek?categorie=publicatie',
-    },
-    {
-      label: 'Video',
-      slug: '/zoek?categorie=video',
-    },
-    {
-      label: 'Interactief',
-      slug: '/zoek?categorie=interactief',
-    },
-    {
-      label: 'Dossiers',
-      slug: '/zoek?categorie=dossier',
-    },
-    {
-      label: 'Datasets',
-      slug: '/zoek?categorie=dataset',
-    },
-  ],
   themes: [
     {
       label: 'Werk en sociale zekerheid',

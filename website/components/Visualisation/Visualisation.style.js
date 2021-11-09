@@ -6,10 +6,10 @@ import { Grid as GridComponent, gridItemStyle } from '../Grid/Grid.style'
 import Paragraph from '../Paragraph/Paragraph'
 
 export const Grid = styled(GridComponent)`
-  margin-bottom: ${({ variant }) => ((variant === 'kleurenbalk' ? '120px' : '48px'))};
+  margin-bottom: ${({ variant }) => ((variant === 'kleurenbalk' ? '120px' : '40px'))};
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-bottom: 44px;
+    margin-bottom: 40px;
   }
 `
 

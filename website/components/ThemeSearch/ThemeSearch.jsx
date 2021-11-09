@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { debounce } from 'lodash.debounce'
+import debounce from 'lodash.debounce'
 
 import { SearchContext, getSearchResults } from '../../lib/searchUtils'
 import SearchBar from '../SearchBar/SearchBar'
@@ -31,7 +31,7 @@ const ThemeSearch = ({ themeTitle, slug }) => {
 
   return (
     <Styled.Container>
-      <Heading gutterBottom={28} as="h2">
+      <Heading gutterBottom={16} as="h2">
         {`Meer over ${themeTitle}`}
       </Heading>
       <SearchBar

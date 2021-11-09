@@ -1,3 +1,4 @@
+import App from 'next/app'
 import { useState, useEffect } from 'react'
 import Fuse from 'fuse.js'
 import { createGlobalStyle } from 'styled-components'
@@ -6,6 +7,9 @@ import {
 } from '@amsterdam/asc-ui'
 
 import Layout from '../components/Layout/Layout'
+import { apolloClient } from '../lib/utils'
+import ShortcutContext from '../lib/ShortcutContext'
+import QUERY from './app.query.gql'
 import { fuseOptions, SearchContext } from '../lib/searchUtils'
 
 import '../public/fonts/fonts.css'
@@ -16,6 +20,8 @@ const BodyStyle = createGlobalStyle`
   }
 `
 
+const withTypeBreakpoint = (size) => (type) => `(${type}: ${size + (type === 'max-width' ? -1 : 0)}px)`
+
 const MyApp = ({ Component, pageProps }) => {
   const [searchIndex, setSearchIndex] = useState(null)
 
@@ -24,6 +30,10 @@ const MyApp = ({ Component, pageProps }) => {
     typography: {
       ...ascDefaultTheme.typography,
       fontFamily: 'Avenir Next W01, Helvetica Neue, Helvetica, Arial, sans-serif',
+    },
+    breakpoints: {
+      ...ascDefaultTheme.breakpoints,
+      laptop: withTypeBreakpoint(840),
     },
   }
 
@@ -52,12 +62,22 @@ const MyApp = ({ Component, pageProps }) => {
       <GlobalStyle />
       <BodyStyle />
       <SearchContext.Provider value={searchIndex}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ShortcutContext.Provider value={pageProps?.data?.homepage?.shortcuts}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ShortcutContext.Provider>
       </SearchContext.Provider>
     </ThemeProvider>
   )
+}
+
+MyApp.getInitialProps = async (appContext) => {
+  const appProps = await App.getInitialProps(appContext)
+
+  const { data } = await apolloClient.query({ query: QUERY })
+
+  return { ...appProps, pageProps: { data } }
 }
 
 export default MyApp

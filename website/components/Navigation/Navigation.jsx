@@ -4,7 +4,6 @@ import { useActionOnEscape } from '@amsterdam/asc-ui'
 
 import FlyOutButton from '../FlyOutButton/FlyOutButton'
 import MegaMenu from '../MegaMenu/MegaMenu'
-import HEADER_LINKS from '../../constants/contentLinks'
 import useFocusWithArrows from '../../lib/useFocusWithArrows'
 import * as Styled from './Navigation.style'
 
@@ -50,17 +49,15 @@ const Navigation = ({ isOpen, setIsOpen }) => {
           }
         }}
       >
-        {HEADER_LINKS.menuItems.map(({ label, slug }) => (
-          <Styled.Item key={slug}>
-            <Styled.Link
-              href={slug}
-              aria-current={router.asPath === slug && 'page'}
-              variant="inList"
-            >
-              {label}
-            </Styled.Link>
-          </Styled.Item>
-        ))}
+        <Styled.Item>
+          <Styled.Link
+            href="/zoek"
+            aria-current={router.asPath === '/zoek' && 'page'}
+            variant="inList"
+          >
+            Zoeken
+          </Styled.Link>
+        </Styled.Item>
         <Styled.FlyOutItem>
           <FlyOutButton
             isOpen={isOpen}

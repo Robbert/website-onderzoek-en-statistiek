@@ -36,3 +36,8 @@ export const IconWrapper = styled.div`
   position: absolute;
   right: 16px;
 `
+
+export const IconContainer = styled.span`
+  width: ${calculateFluidStyle(18, 32)};
+  height: ${calculateFluidStyle(18, 32)};
+`

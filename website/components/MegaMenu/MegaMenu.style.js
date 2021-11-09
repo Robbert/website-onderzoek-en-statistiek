@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import { breakpoint } from '@amsterdam/asc-ui'
 
+import Link from '../Link/Link'
+
 export const MegaMenu = styled.ul`
   position: absolute;
   display: ${({ isOpen }) => (isOpen ? 'grid' : 'none')};
@@ -40,4 +42,8 @@ export const ItemMobile = styled(Item)`
   @media screen and ${breakpoint('min-width', 'laptop')} {
     display: none;
   }
+`
+
+export const LightLink = styled(Link)`
+  font-weight: 500;
 `

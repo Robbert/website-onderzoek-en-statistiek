@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { Spinner, List } from '@amsterdam/asc-ui'
+import { Spinner } from '@amsterdam/asc-ui'
 import { ChevronRight } from '@amsterdam/asc-assets'
 
 import Seo from '../../components/Seo/Seo'
@@ -11,9 +11,11 @@ import Heading from '../../components/Heading/Heading'
 import Paragraph from '../../components/Paragraph/Paragraph'
 import CardList from '../../components/CardList/CardList'
 import Card from '../../components/Card/Card'
+import List from '../../components/List/List'
 import SearchCard from '../../components/SearchCard/SearchCard'
 import Disclosure from '../../components/Disclosure/Disclosure'
 import Link from '../../components/Link/Link'
+import ThemeList from '../../components/ThemeList/ThemeList'
 import QUERY from './collection.query.gql'
 import * as Styled from './dossier.style'
 
@@ -29,6 +31,7 @@ const Collection = ({
   linkList,
   email,
   phoneNumber,
+  theme,
 }) => {
   const router = useRouter()
 
@@ -64,8 +67,8 @@ const Collection = ({
       />
       <Grid>
         <GridItem colStart={{ small: 1, large: 3 }} colRange={{ small: 4, large: 9 }}>
-          <Heading gutterBottom={{ small: 24, large: 16 }}>{title}</Heading>
-          <Paragraph intro gutterBottom={{ small: 48, large: 112 }}>{intro}</Paragraph>
+          <Heading gutterBottom={24}>{title}</Heading>
+          <Paragraph intro gutterBottom={{ small: 72, large: 120 }}>{intro}</Paragraph>
         </GridItem>
 
         {featured.length > 0 && (
@@ -105,13 +108,13 @@ const Collection = ({
               colRange={{ small: 4, large: 8 }}
               rowStart={{ small: 4, large: 3 }}
             >
-              <Heading as="h2" gutterBottom={{ small: 32, large: 60 }}>{`Alles in ${title}`}</Heading>
+              <Heading as="h2" gutterBottom={40}>{`Alles in ${title}`}</Heading>
             </Styled.CollectionGridItem>
             <GridItem
               colStart={{ small: 1, large: 5 }}
               colRange={{ small: 4, large: 8 }}
               rowStart={{ small: 5, large: 4 }}
-              gutterBottom={{ small: 72, large: 116 }}
+              gutterBottom={{ small: 72, large: 120 }}
             >
               <CardList>
                 {collectionItems.slice(0, 5)}
@@ -133,9 +136,9 @@ const Collection = ({
             colStart={{ small: 1, large: 1 }}
             colRange={{ small: 4, large: 4 }}
             rowStart={{ small: 6, large: 4 }}
-            gutterBottom={{ small: 24, large: 116 }}
+            gutterBottom={{ small: 72, large: 120 }}
           >
-            <Heading as="h2" styleAs="h5" gutterBottom={16}>Zie ook</Heading>
+            <Heading as="h2" styleAs="h5" gutterBottom={12}>Zie ook</Heading>
             <List>
               {normalizeItemList(linkList).map(({ path, title: linkTitle }) => (
                 <li key={path}>
@@ -156,9 +159,9 @@ const Collection = ({
           <GridItem
             colRange={4}
             rowStart={{ small: 7, large: 5 }}
-            gutterBottom={{ small: 4, large: 56 }}
+            gutterBottom={{ small: 32, large: 40 }}
           >
-            <Heading gutterBottom={{ small: 12, large: 32 }} as="h2" styleAs="h3">Heeft u een vraag over dit dossier?</Heading>
+            <Heading gutterBottom={{ small: 12, large: 40 }} as="h2" styleAs="h3">Heeft u een vraag over dit dossier?</Heading>
             <Paragraph small>
               Neem contact met ons op.
               U kunt ons bereiken via
@@ -170,6 +173,13 @@ const Collection = ({
             </Paragraph>
           </GridItem>
         )}
+
+        <GridItem
+          colStart={{ small: 1, large: 1 }}
+          colRange={{ small: 4, large: 8 }}
+        >
+          <ThemeList type="artikel" themes={theme} />
+        </GridItem>
       </Grid>
     </>
   )

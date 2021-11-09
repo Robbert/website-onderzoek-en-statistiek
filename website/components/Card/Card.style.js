@@ -7,7 +7,7 @@ export const Link = styled.a`
   display: block;
   text-decoration: none;
   overflow: hidden;
-  margin-bottom: 60px;
+  margin-bottom: 24px;
 
   img {
     transition: transform 0.3s ease-in-out;
@@ -25,7 +25,7 @@ export const Link = styled.a`
   }
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-bottom: 44px;
+    margin-bottom: 40px;
   }
 `
 
@@ -50,6 +50,10 @@ export const ImageWrapper = styled.div`
 export const Type = styled(Paragraph)`
   text-transform: capitalize;
   margin-top: 20px;
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    margin-top: 8px;
+  }
 `
 
 export const Teaser = styled(Paragraph)`

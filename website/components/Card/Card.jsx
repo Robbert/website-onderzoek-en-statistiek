@@ -31,14 +31,13 @@ const Card = ({
         {clickableImage && <WrappedImage image={image} large={large} />}
         <Styled.Type
           small
-          gutterBottom={large ? 12 : 4}
+          gutterBottom={large ? 8 : 4}
         >
           {CONTENT_TYPES[type.toLowerCase()].name}
         </Styled.Type>
         <Heading
-          styleAs={large ? 'h2' : 'h4'}
+          styleAs={large ? 'h2' : 'h5'}
           as={headingLevel}
-          small={!large}
           gutterBottom={8}
         >
           {title}

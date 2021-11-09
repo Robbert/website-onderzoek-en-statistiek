@@ -29,8 +29,10 @@ export const FeatureGridItem = styled(GridItemComponent)`
 `
 
 export const CollectionGridItem = styled(GridItemComponent)`
+  margin-top: 56px;
+
   @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-top: 128px;
+    margin-top: 32px;
   }
 `
 

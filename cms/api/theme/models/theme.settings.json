@@ -29,7 +29,7 @@
       "required": false
     },
     "intro": {
-      "type": "richtext",
+      "type": "text",
       "required": false
     },
     "rectangularImage": {

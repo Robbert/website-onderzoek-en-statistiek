@@ -1,13 +1,10 @@
-import { useState } from 'react'
-import { List } from '@amsterdam/asc-ui'
-import { ExternalLink } from '@amsterdam/asc-assets'
+import { ChevronRight, ExternalLink } from '@amsterdam/asc-assets'
 
 import { apolloClient, normalizeItemList } from '../lib/utils'
 import Seo from '../components/Seo/Seo'
 import { Grid, GridItem } from '../components/Grid/Grid.style'
 import Heading from '../components/Heading/Heading'
-import Button from '../components/Button/Button'
-import LinkList from '../components/LinkList/LinkList'
+import List from '../components/List/List'
 import QUERY from './homepage.query.gql'
 import CardList from '../components/CardList/CardList'
 import Card from '../components/Card/Card'
@@ -16,8 +13,6 @@ import Link from '../components/Link/Link'
 import * as Styled from './homepage.style'
 
 const Home = ({ themes, homepage }) => {
-  const [selected, setSelected] = useState('highlights')
-
   if (!themes) return <div>Refresh page</div>
 
   const {
@@ -26,6 +21,42 @@ const Home = ({ themes, homepage }) => {
 
   const flatFeatures = normalizeItemList(featured)
 
+  const agendaList = agenda.length > 0 && (
+    <>
+      <Heading as="h2" styleAs="h5" gutterBottom={12}>Agenda</Heading>
+      <List gutterBottom={56}>
+        {normalizeItemList(agenda).map(({ path, title }) => (
+          <Styled.ListItem key={path}>
+            <Link href={path} variant="inList">
+              <Styled.Icon size={14}>
+                <ChevronRight />
+              </Styled.Icon>
+              {title}
+            </Link>
+          </Styled.ListItem>
+        ))}
+      </List>
+    </>
+  )
+
+  const relatedSiteList = relatedSites.length > 0 && (
+    <>
+      <Heading as="h2" styleAs="h5" gutterBottom={12}>Meer feiten en cijfers</Heading>
+      <List>
+        {relatedSites.map(({ path, title }) => (
+          <Styled.ListItem key={path}>
+            <Link href={path} variant="inList" external>
+              <Styled.Icon size={16}>
+                <ExternalLink />
+              </Styled.Icon>
+              {title}
+            </Link>
+          </Styled.ListItem>
+        ))}
+      </List>
+    </>
+  )
+
   return (
     <>
       <Seo />
@@ -33,73 +64,36 @@ const Home = ({ themes, homepage }) => {
         <GridItem colRange={{ small: 4, large: 12 }}>
           <Heading gutterBottom={{ small: 32, large: 64 }}>Onderzoek en Statistiek</Heading>
         </GridItem>
-        <GridItem colRange={{ small: 4, large: 12 }}>
-          <Styled.ToggleContainer>
-            <Button
-              value="highlights"
-              selected={selected}
-              onClick={(e) => setSelected(e.target.value)}
-              variant={selected === 'highlights' ? '' : 'secondary'}
-              small
-            >
-              Uitgelicht
-            </Button>
-            <Button
-              value="shortcuts"
-              selected={selected}
-              onClick={(e) => setSelected(e.target.value)}
-              variant={selected === 'shortcuts' ? '' : 'secondary'}
-              small
-            >
-              Snel naar
-            </Button>
-          </Styled.ToggleContainer>
-        </GridItem>
         <Styled.SideBarGridItem
-          colRange={{ small: 4, large: 4 }}
+          colRange={{ small: 4, large: 3 }}
           rowRange={6}
-          show={selected === 'shortcuts'}
         >
-          <Heading as="h2" styleAs="h5" gutterBottom={{ small: 12, large: 20 }}>Thema&apos;s</Heading>
-          <LinkList
-            gutterBottom={36}
-            links={
-              themes
-                .slice() // strict mode freezes arrays, so we need to make a copy to be able to sort
-                .sort((a, b) => a.title.localeCompare(b.title))
-                .map(({ title, slug }) => ({ title, path: `/thema/${slug}` }))
-            }
-          />
-          {agenda.length > 0
-          && (
+          <Heading as="h2" styleAs="h5" gutterBottom={12}>Thema&apos;s</Heading>
+          <List gutterBottom={56}>
+            {themes
+              .slice() // strict mode freezes arrays, so we need to make a copy to be able to sort
+              .sort((a, b) => a.title.localeCompare(b.title))
+              .map(({ title, slug }) => (
+                <Styled.ListItem key={slug}>
+                  <Link href={`/thema/${slug}`} variant="inList">
+                    <Styled.Icon size={14}>
+                      <ChevronRight />
+                    </Styled.Icon>
+                    {title}
+                  </Link>
+                </Styled.ListItem>
+              ))}
+          </List>
+          {agendaList}
+          {shortcuts.length > 0 && (
             <>
-              <Heading as="h2" styleAs="h5" gutterBottom={20}>Agenda</Heading>
-              <LinkList
-                gutterBottom={40}
-                links={normalizeItemList(agenda)}
-              />
-            </>
-          )}
-          {shortcuts.length > 0
-          && (
-            <>
-              <Heading as="h2" styleAs="h5" gutterBottom={20}>Snel naar</Heading>
-              <LinkList
-                gutterBottom={40}
-                links={normalizeItemList(shortcuts)}
-              />
-            </>
-          )}
-          {relatedSites.length > 0
-          && (
-            <>
-              <Heading as="h2" styleAs="h5" gutterBottom={20}>Meer feiten en cijfers</Heading>
-              <List>
-                {relatedSites.map(({ path, title }) => (
+              <Heading as="h2" styleAs="h5" gutterBottom={12}>Snel naar</Heading>
+              <List gutterBottom={56}>
+                {normalizeItemList(shortcuts).map(({ path, title }) => (
                   <Styled.ListItem key={path}>
-                    <Link href={path} variant="inList" external>
-                      <Styled.Icon size={16}>
-                        <ExternalLink />
+                    <Link href={path} variant="inList">
+                      <Styled.Icon size={14}>
+                        <ChevronRight />
                       </Styled.Icon>
                       {title}
                     </Link>
@@ -108,14 +102,12 @@ const Home = ({ themes, homepage }) => {
               </List>
             </>
           )}
+          {relatedSiteList}
         </Styled.SideBarGridItem>
 
         {flatFeatures.length > 0 && largeFirstFeature
           && (
-            <Styled.HighLightGridItem
-              colRange={{ small: 4, large: 8 }}
-              show={selected === 'highlights'}
-            >
+            <GridItem colRange={{ small: 4, large: 8 }} colStart={{ small: 1, large: 5 }}>
               <Card
                 href={flatFeatures[0].path}
                 image={flatFeatures[0].rectangularImage}
@@ -125,31 +117,31 @@ const Home = ({ themes, homepage }) => {
                 headingLevel="h2"
                 large
               />
-            </Styled.HighLightGridItem>
+            </GridItem>
           )}
 
-        {largeFirstFeature
-          && (
-            <Styled.HighLightGridItem
-              colRange={{ small: 4, large: 8 }}
-              show={selected === 'highlights'}
+        {largeFirstFeature && (
+          <GridItem colRange={{ small: 4, large: 8 }} colStart={{ small: 1, large: 5 }}>
+            <Styled.HighlightHeading
+              forwardedAs="h2"
+              styleAs="h3"
+              gutterBottom={{ small: 24, large: 32 }}
             >
-              <Heading
-                as="h2"
-                styleAs="h3"
-                gutterBottom={32}
-              >
-                Uitgelicht
-              </Heading>
-            </Styled.HighLightGridItem>
-          )}
-        <Styled.HighLightCardList show={selected === 'highlights'}>
+              Uitgelicht
+            </Styled.HighlightHeading>
+          </GridItem>
+        )}
+        <CardList>
           {flatFeatures.slice(largeFirstFeature ? 1 : 0).map(
             ({
               path, title, shortTitle, teaser, squareImage, type,
             }, index) => (
               <Styled.FeatureListItem key={path}>
-                <Styled.GridItem colRange={{ small: 4, large: 4 }} index={index}>
+                <Styled.GridItem
+                  colRange={{ small: 4, large: 4 }}
+                  index={index}
+                  colStart={{ small: 1, large: index % 2 === 0 ? 5 : 9 }}
+                >
                   <Card
                     href={path}
                     image={squareImage}
@@ -163,13 +155,13 @@ const Home = ({ themes, homepage }) => {
               </Styled.FeatureListItem>
             ),
           )}
-        </Styled.HighLightCardList>
+        </CardList>
       </Grid>
 
       {featuredCollections.length > 0 && (
-        <Styled.CollectionGrid show={selected === 'highlights'}>
+        <Grid>
           <GridItem colRange={{ small: 4, large: 12 }}>
-            <Heading gutterBottom={{ small: 24, large: 60 }} as="h2">Dossiers</Heading>
+            <Heading gutterBottom={40} as="h2">Dossiers</Heading>
           </GridItem>
           <CardList>
             {normalizeItemList(featuredCollections).map(
@@ -195,8 +187,13 @@ const Home = ({ themes, homepage }) => {
           <GridItem colRange={{ small: 4, large: 12 }}>
             <Link variant="standalone" href="/zoek?categorie=dossier" gutterBottom={40}>Bekijk alle dossiers</Link>
           </GridItem>
-        </Styled.CollectionGrid>
+        </Grid>
       )}
+
+      <Styled.MobileOnlyGrid verticalPadding={0}>
+        <GridItem colRange={4}>{agendaList}</GridItem>
+        <GridItem colRange={4}>{relatedSiteList}</GridItem>
+      </Styled.MobileOnlyGrid>
     </>
   )
 }
@@ -204,6 +201,7 @@ const Home = ({ themes, homepage }) => {
 export async function getStaticProps() {
   try {
     const { data } = await apolloClient.query({ query: QUERY })
+
     return {
       props: data,
       revalidate: 1,

@@ -1,13 +1,18 @@
 import styled from 'styled-components'
-import { breakpoint } from '@amsterdam/asc-ui'
+import { breakpoint, themeColor } from '@amsterdam/asc-ui'
 
+import { Grid as GridComponent } from '../../components/Grid/Grid.style'
 import List from '../../components/List/List'
+
+export const Grid = styled(GridComponent)`
+  grid-template-rows: auto 1fr;
+`
 
 export const MetaList = styled(List)`
   margin-bottom: 40px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-bottom: 60px
+    margin-bottom: 56px
   }
 `
 
@@ -23,6 +28,6 @@ export const MetaListItem = styled.li`
   }
 `
 export const CoverImage = styled.div`
-  border: 1px solid black;
+  border: 2px solid ${themeColor('tint', 'level3')};
   margin-bottom: 40px
 `

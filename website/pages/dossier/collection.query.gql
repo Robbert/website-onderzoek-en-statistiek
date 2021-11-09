@@ -182,5 +182,9 @@ query getCollectionData($slug: String) {
     }
     email
     phoneNumber
+    theme {
+      title
+      slug
+    }
   }
 }

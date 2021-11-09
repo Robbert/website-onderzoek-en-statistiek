@@ -16,7 +16,7 @@ services:
     volumes:
       - nginx_secrets:/etc/letsencrypt
       - static_files_acc:/usr/share/nginx/html/static/acc
-      # - static_files_prod:/usr/share/nginx/html/static/prod
+      - static_files_prod:/usr/share/nginx/html/static/prod
       - /etc/ssl:/etc/ssl:ro
 
 volumes:
@@ -24,9 +24,9 @@ volumes:
   static_files_acc:
     external:
       name: acceptance_static_files
-  # static_files_prod:
-  #   external:
-  #     name: production_static_files
+  static_files_prod:
+    external:
+      name: production_static_files
 
 networks:
   os-network:

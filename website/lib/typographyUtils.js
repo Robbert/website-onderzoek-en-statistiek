@@ -30,7 +30,7 @@ export const fluidTypoConfig = {
     small: {
       minFontSize: 30,
       maxFontSize: 60,
-      minLineHeight: 38,
+      minLineHeight: 34,
       maxLineHeight: 64,
     },
   },
@@ -57,19 +57,21 @@ export const fluidTypoConfig = {
       minLineHeight: 32,
       maxLineHeight: 40,
     },
-    small: {
-      minFontSize: 20,
-      maxFontSize: 28,
-      minLineHeight: 26,
-      maxLineHeight: 40,
-    },
   },
   h5: {
     default: {
       minFontSize: 18,
       maxFontSize: 24,
-      minLineHeight: 32,
+      minLineHeight: 26,
       maxLineHeight: 32,
+    },
+  },
+  h6: {
+    default: {
+      minFontSize: 16,
+      maxFontSize: 18,
+      minLineHeight: 22,
+      maxLineHeight: 24,
     },
   },
   p: {
@@ -81,22 +83,22 @@ export const fluidTypoConfig = {
     },
     intro: {
       minFontSize: 18,
-      maxFontSize: 32,
+      maxFontSize: 30,
       minLineHeight: 28,
       maxLineHeight: 40,
     },
     small: {
       minFontSize: 16,
       maxFontSize: 18,
-      minLineHeight: 20,
-      maxLineHeight: 24,
+      minLineHeight: 24,
+      maxLineHeight: 26,
     },
   },
   a: {
     default: {
       minFontSize: 18,
       maxFontSize: 24,
-      minLineHeight: 32,
+      minLineHeight: 26,
       maxLineHeight: 32,
     },
   },
@@ -130,10 +132,10 @@ export const fluidTypoConfig = {
       maxLineHeight: 40,
     },
     small: {
-      minFontSize: 14,
+      minFontSize: 16,
       maxFontSize: 18,
-      minLineHeight: 20,
-      maxLineHeight: 24,
+      minLineHeight: 24,
+      maxLineHeight: 26,
     },
   },
   ol: {
@@ -144,10 +146,10 @@ export const fluidTypoConfig = {
       maxLineHeight: 40,
     },
     small: {
-      minFontSize: 14,
+      minFontSize: 16,
       maxFontSize: 18,
-      minLineHeight: 20,
-      maxLineHeight: 24,
+      minLineHeight: 24,
+      maxLineHeight: 26,
     },
   },
   summary: {

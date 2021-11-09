@@ -18,7 +18,10 @@ query getThemeData($slug: String) {
       color
       image {
         url
+        width
+        height
       }
+      altText
     }
     topStory {
       ... on ComponentSharedArticles {

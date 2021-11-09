@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { breakpoint } from '@amsterdam/asc-ui'
 
 export const ImageWrapper = styled.div`
   position: relative;
@@ -6,6 +7,10 @@ export const ImageWrapper = styled.div`
 
   p {
     margin-top: 12px;
+  }
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    margin-bottom: 40px;
   }
 `
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { List, ListItem } from '@amsterdam/asc-ui'
 
+import List from '../List/List'
 import Pagination from '../Pagination/Pagination'
 import SearchCard from '../SearchCard/SearchCard'
 import { formatDate } from '../../lib/utils'
@@ -20,7 +20,7 @@ const SearchResults = ({ results }) => {
           .map(({
             slug, title, teaser, type, publicationDate,
           }) => (
-            <ListItem key={`${type}-${slug}`}>
+            <li key={`${type}-${slug}`}>
               <SearchCard
                 type={type}
                 href={`/${CONTENT_TYPES[type].name}/${slug}`}
@@ -28,7 +28,7 @@ const SearchResults = ({ results }) => {
                 teaser={teaser}
                 date={formatDate(publicationDate)}
               />
-            </ListItem>
+            </li>
           ))}
       </List>
       <Pagination

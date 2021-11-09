@@ -46,13 +46,12 @@ const Publication = ({
         article
       />
 
-      <Grid>
+      <Styled.Grid>
         <GridItem
           colStart={{ small: 1, large: 2 }}
           colRange={{ small: 4, large: 6 }}
-          rowStart={1}
         >
-          <Heading gutterBottom={16} styleAs="h2">{title}</Heading>
+          <Heading gutterBottom={16}>{title}</Heading>
           <Styled.MetaList small gutterBottom={40}>
             <Styled.MetaListItem>Publicatie</Styled.MetaListItem>
             {author && <Styled.MetaListItem>{author}</Styled.MetaListItem>}
@@ -70,7 +69,7 @@ const Publication = ({
           colRange={{ small: 4, large: 3 }}
           rowStart={{ small: 2, large: 1 }}
           rowRange={{ small: 1, large: 2 }}
-          gutterBottom={56}
+          gutterBottom={{ small: 56, large: 40 }}
         >
           {coverImage && (
             <Styled.CoverImage>
@@ -90,7 +89,6 @@ const Publication = ({
           <DownloadButton
             url={getStrapiMedia(file)}
             variant="primary"
-            gutterBottom={36}
           >
             {`Download PDF (${formatBytes(file.size * 1000)})`}
           </DownloadButton>
@@ -100,18 +98,18 @@ const Publication = ({
           colStart={{ small: 1, large: 2 }}
           colRange={{ small: 4, large: 6 }}
         >
-          <Paragraph intro gutterBottom={80}>{intro}</Paragraph>
+          <Paragraph intro gutterBottom={40}>{intro}</Paragraph>
         </GridItem>
 
         {body && <BodyContent content={body} />}
 
         <GridItem
-          colStart={{ small: 1, large: 3 }}
+          colStart={{ small: 1, large: 2 }}
           colRange={{ small: 4, large: 6 }}
         >
           <ThemeList type="publicatie" themes={theme} />
         </GridItem>
-      </Grid>
+      </Styled.Grid>
     </>
   )
 }
