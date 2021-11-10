@@ -45,7 +45,7 @@ const MyApp = ({ Component, pageProps }) => {
     if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'acceptance') {
       uri = 'https://acc.onderzoek.amsterdam.nl/static/acc'
     } else if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'production') {
-      uri = 'https://onderzoek.amsterdam.nl/static/prod'
+      uri = `${window.location.origin}/static/prod'`
     }
 
     fetch(`${uri}/searchContent.json`, { signal: abortController.signal, mode: 'cors' })
