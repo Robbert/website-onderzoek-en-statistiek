@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
-import { Grid, GridItem } from '../../components/Grid/Grid.style'
+import { GridItem } from '../../components/Grid/Grid.style'
 import Heading from '../../components/Heading/Heading'
 import Paragraph from '../../components/Paragraph/Paragraph'
 import BodyContent from '../../components/BodyContent/BodyContent'

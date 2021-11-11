@@ -79,7 +79,7 @@ const Collection = ({
                 title: featureTitle,
                 shortTitle: featureShortTitle,
                 teaser: featureTeaser,
-                squareImage: featureTeaserImage,
+                rectangularImage: featureTeaserImage,
                 type,
               }, index) => (
                 <Styled.FeatureListItem key={path}>

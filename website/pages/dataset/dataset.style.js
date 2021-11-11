@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components'
-import { breakpoint, themeColor } from '@amsterdam/asc-ui'
+import { breakpoint, themeColor, Icon as IconASC } from '@amsterdam/asc-ui'
 
 import DownloadButtonComponent from '../../components/DownloadButton/DownloadButton'
+import LinkComponent from '../../components/Link/Link'
 import { fluidTypoStyle, typographyStyle } from '../../lib/typographyUtils'
 
 export const DefinitionList = styled.dl`
@@ -58,6 +59,7 @@ export const Resource = styled.div`
 export const ResourceTitle = styled.div`
   flex-basis: 58%;
 `
+
 export const DownloadButton = styled(DownloadButtonComponent)`
   padding-top: 0;
   margin-left: 4px;
@@ -66,3 +68,12 @@ export const DownloadButton = styled(DownloadButtonComponent)`
     padding-left: 0;
   }
   `
+
+export const Link = styled(LinkComponent)`
+  margin-left: 4px;
+  padding-left: 24px;
+`
+
+export const Icon = styled(IconASC)`
+  margin-right: 12px;
+`

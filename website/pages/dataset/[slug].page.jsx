@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { Spinner } from '@amsterdam/asc-ui'
+import { ExternalLink } from '@amsterdam/asc-assets'
 
 import Seo from '../../components/Seo/Seo'
 import { Grid, GridItem } from '../../components/Grid/Grid.style'
@@ -94,17 +95,26 @@ const Dataset = ({
               <Styled.Term>Tabellen</Styled.Term>
               <Styled.Details>
                 {resources.map(({
-                  id, title: resourceTitle, file, url,
+                  id, title: resourceTitle, file, url, type,
                 }) => (
                   <Styled.Resource key={id}>
                     <Styled.ResourceTitle>{resourceTitle}</Styled.ResourceTitle>
-                    <Styled.DownloadButton
-                      url={url}
-                      variant="textButton"
-                      small
-                    >
-                      {`Download ${file && file.ext.slice(1).toUpperCase()} ${file?.size && `(${formatBytes(file.size * 1000)})`}`}
-                    </Styled.DownloadButton>
+                    { file
+                      ? (
+                        <Styled.DownloadButton
+                          url={getStrapiMedia(file)}
+                          variant="textButton"
+                          small
+                        >
+                          {`Download ${file && file.ext.slice(1).toUpperCase()} ${file?.size && `(${formatBytes(file.size * 1000)})`}`}
+                        </Styled.DownloadButton>
+                      )
+                      : (
+                        <Styled.Link href={url} variant="inList" external>
+                          <Styled.Icon size={20}><ExternalLink /></Styled.Icon>
+                          {`Naar de ${type}`}
+                        </Styled.Link>
+                      )}
                   </Styled.Resource>
                 ))}
               </Styled.Details>
