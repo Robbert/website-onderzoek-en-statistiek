@@ -2,14 +2,11 @@ import styled from 'styled-components'
 import {
   Heading,
   breakpoint,
-  themeColor,
-  FilterBox as FilterBoxASC,
-  Spinner as SpinnerASC,
   Select as SelectASC,
-  Button as ButtonASC,
 } from '@amsterdam/asc-ui'
 
 import ContainerComponent from '../../components/Container/Container'
+import RadioComponent from '../../components/Radio/Radio'
 
 export const Container = styled(ContainerComponent)`
   display: grid;
@@ -30,40 +27,10 @@ export const SideBar = styled.div`
   }
 `
 
-export const FilterBox = styled(FilterBoxASC)`
-  margin-bottom: 20px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`
-
-export const Spinner = styled(SpinnerASC)`
-  margin-top: 40px;
-`
-
-export const FilterButton = styled(ButtonASC)`
-  color: ${themeColor('tint', 'level7')};
-  border-left: 4px solid transparent;
-  font-weight: ${(props) => (props.active ? 700 : 400)};
-  text-decoration: none;
-  font-size: 16px;
-  width: 100%;
-  margin-top: 0 !important;
-  border-style: solid;
-  border-width: 1px 1px 1px 4px;
-  border-color: ${({ active }) => (active ? themeColor('primary') : 'transparent')};
-
-  &:hover {
-    color: ${({ active }) => (active ? themeColor('tint', 'level7') : themeColor('secondary'))};
-  }
-`
-
-export const FilterButtonLabel = styled.span`
-  &::first-letter {
+export const Radio = styled(RadioComponent)`
+  span:first-letter {
     text-transform: capitalize;
   }
-
-  padding: 12px;
 `
 
 export const PageTitle = styled(Heading)`

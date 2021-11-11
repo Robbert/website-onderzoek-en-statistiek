@@ -4,11 +4,14 @@ import {
 } from 'react'
 import { useRouter } from 'next/router'
 import debounce from 'lodash.debounce'
-import { Heading, Label, Checkbox } from '@amsterdam/asc-ui'
+import { Label } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import SearchResults from '../../components/SearchResults/SearchResults'
+import Heading from '../../components/Heading/Heading'
+import Fieldset from '../../components/Fieldset/Fieldset'
+import Checkbox from '../../components/Checkbox/Checkbox'
 import { translateContentType, apolloClient } from '../../lib/utils'
 import CONTENT_TYPES from '../../constants/contentTypes'
 import QUERY from './search.query.gql'
@@ -108,44 +111,51 @@ const Search = ({ themes }) => {
           <SearchResults results={results} />
         </div>
         <Styled.SideBar>
-          <Heading forwardedAs="h2">Filters</Heading>
-          <Styled.FilterBox label="Thema's">
-            {
-              themes.map(({ title, slug }) => (
-                <Label key={slug} align="flex-start" htmlFor={slug} label={`${title} ${facetCount && formatFacetNumber(facetCount[slug])}`}>
-                  <Checkbox
-                    id={slug}
-                    variant="primary"
-                    onChange={() => handleThemeChange(slug)}
-                    checked={themeFilter.includes(slug)}
-                  />
-                </Label>
-              ))
+          <Heading as="h2" gutterBottom={24}>Filters</Heading>
+          <Fieldset
+            legend={
+              <Heading as="h3" gutterBottom={24}>Thema‘s</Heading>
             }
-          </Styled.FilterBox>
-          <Styled.FilterBox label="Categorieën">
-            <Styled.FilterButton
-              active={category === ''}
-              variant="textButton"
-              onClick={() => setCategory('')}
+          >
+            {themes.map(({ title, slug }) => (
+              <Checkbox
+                key={slug}
+                id={slug}
+                onChange={() => handleThemeChange(slug)}
+                checked={themeFilter.includes(slug)}
+              >
+                {`${title} ${facetCount && formatFacetNumber(facetCount[slug])}`}
+              </Checkbox>
+            ))}
+          </Fieldset>
+          <Fieldset
+            legend={
+              <Heading as="h3" gutterBottom={24}>Categorieën</Heading>
+            }
+          >
+            <Styled.Radio
+              name="categories"
+              id="alles"
+              onChange={() => setCategory('')}
+              checked={category === ''}
             >
-              <Styled.FilterButtonLabel>Alle categorieën</Styled.FilterButtonLabel>
-            </Styled.FilterButton>
-            {
-              Object.values(CONTENT_TYPES).filter((cat) => cat.type !== 'theme').map(({ type, plural }) => (
-                <Styled.FilterButton
+              Alle categorieën
+            </Styled.Radio>
+            {Object
+              .values(CONTENT_TYPES)
+              .filter((cat) => cat.type !== 'theme')
+              .map(({ type, plural }) => (
+                <Styled.Radio
                   key={type}
-                  variant="textButton"
-                  active={category === type}
-                  onClick={() => setUrlParameters('categorie', type)}
+                  name="categories"
+                  id={type}
+                  onChange={() => setUrlParameters('categorie', type)}
+                  checked={category === type}
                 >
-                  <Styled.FilterButtonLabel>
-                    {`${plural} ${facetCount && formatFacetNumber(facetCount[type])}`}
-                  </Styled.FilterButtonLabel>
-                </Styled.FilterButton>
-              ))
-            }
-          </Styled.FilterBox>
+                  {`${plural} ${facetCount && formatFacetNumber(facetCount[type])}`}
+                </Styled.Radio>
+              ))}
+          </Fieldset>
         </Styled.SideBar>
       </Styled.Container>
     </>
