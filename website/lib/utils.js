@@ -76,7 +76,7 @@ export const translateColor = (name) => {
 
 export const normalizeItemList = (list) => (
   !list ? [] : list
-    .map((section) => (Object.values(section)[0]))
+    .map((section) => (Object.values(section)[0])).flat()
     .filter((item) => item)
     .map((item) => (
       item?.__typename && item.__typename !== 'ComponentSharedExternalLinks'
@@ -89,8 +89,8 @@ export const normalizeItemList = (list) => (
         : {
           type: 'externalLink',
           name: 'link',
-          path: item[0].path,
-          title: item[0].title,
+          path: item.path,
+          title: item.title,
         }
     ))
 )

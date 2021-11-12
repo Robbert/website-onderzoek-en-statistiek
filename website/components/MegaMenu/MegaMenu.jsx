@@ -55,13 +55,13 @@ const MegaMenu = ({ isOpen, currentPath }) => {
       <Styled.Item>
         <Heading as="h2" styleAs="h4" gutterBottom={28}>Snel naar</Heading>
         <Styled.List>
-          {normalizeItemList(shortcuts).map(({ path, title }) => (
+          {normalizeItemList(shortcuts).map(({ path, title, shortTitle }) => (
             <Styled.Item key={path}>
               <Styled.LightLink
                 href={path}
                 aria-current={currentPath === path && 'page'}
               >
-                {title}
+                {shortTitle || title}
               </Styled.LightLink>
             </Styled.Item>
           ))}

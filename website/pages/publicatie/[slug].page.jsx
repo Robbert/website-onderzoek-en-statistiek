@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
-import { GridItem } from '../../components/Grid/Grid.style'
+import { Grid, GridItem } from '../../components/Grid/Grid.style'
 import Heading from '../../components/Heading/Heading'
 import Paragraph from '../../components/Paragraph/Paragraph'
 import BodyContent from '../../components/BodyContent/BodyContent'
@@ -46,10 +46,10 @@ const Publication = ({
         article
       />
 
-      <Styled.Grid>
+      <Grid>
         <GridItem
           colStart={{ small: 1, large: 2 }}
-          colRange={{ small: 4, large: 6 }}
+          colRange={{ small: 4, large: 10 }}
         >
           <Heading gutterBottom={16}>{title}</Heading>
           <Styled.MetaList small gutterBottom={40}>
@@ -67,8 +67,7 @@ const Publication = ({
         <GridItem
           colStart={{ small: 1, large: 9 }}
           colRange={{ small: 4, large: 3 }}
-          rowStart={{ small: 2, large: 1 }}
-          rowRange={{ small: 1, large: 2 }}
+          rowStart={2}
           gutterBottom={{ small: 56, large: 40 }}
         >
           {coverImage && (
@@ -86,12 +85,14 @@ const Publication = ({
               />
             </Styled.CoverImage>
           )}
-          <DownloadButton
-            url={getStrapiMedia(file)}
-            variant="primary"
-          >
-            {`Download PDF (${formatBytes(file.size * 1000)})`}
-          </DownloadButton>
+          <Styled.ButtonWrapper>
+            <DownloadButton
+              url={getStrapiMedia(file)}
+              variant="primary"
+            >
+              {`Download PDF (${formatBytes(file.size * 1000)})`}
+            </DownloadButton>
+          </Styled.ButtonWrapper>
         </GridItem>
 
         <GridItem
@@ -101,7 +102,9 @@ const Publication = ({
           <Paragraph intro gutterBottom={40}>{intro}</Paragraph>
         </GridItem>
 
-        {body && <BodyContent content={body} />}
+        {body && (
+          <BodyContent content={body} />
+        )}
 
         <GridItem
           colStart={{ small: 1, large: 2 }}
@@ -109,7 +112,7 @@ const Publication = ({
         >
           <ThemeList type="publicatie" themes={theme} />
         </GridItem>
-      </Styled.Grid>
+      </Grid>
     </>
   )
 }
