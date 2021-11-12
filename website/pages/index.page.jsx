@@ -25,13 +25,13 @@ const Home = ({ themes, homepage }) => {
     <>
       <Heading as="h2" styleAs="h5" gutterBottom={12}>Agenda</Heading>
       <List gutterBottom={56}>
-        {normalizeItemList(agenda).map(({ path, title }) => (
+        {normalizeItemList(agenda).map(({ path, title, shortTitle }) => (
           <Styled.ListItem key={path}>
             <Link href={path} variant="inList">
               <Styled.Icon size={14}>
                 <ChevronRight />
               </Styled.Icon>
-              {title}
+              {shortTitle || title}
             </Link>
           </Styled.ListItem>
         ))}
@@ -89,13 +89,13 @@ const Home = ({ themes, homepage }) => {
             <>
               <Heading as="h2" styleAs="h5" gutterBottom={12}>Snel naar</Heading>
               <List gutterBottom={56}>
-                {normalizeItemList(shortcuts).map(({ path, title }) => (
+                {normalizeItemList(shortcuts).map(({ path, title, shortTitle }) => (
                   <Styled.ListItem key={path}>
                     <Link href={path} variant="inList">
                       <Styled.Icon size={14}>
                         <ChevronRight />
                       </Styled.Icon>
-                      {title}
+                      {shortTitle || title}
                     </Link>
                   </Styled.ListItem>
                 ))}

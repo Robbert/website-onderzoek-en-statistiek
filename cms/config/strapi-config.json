@@ -158,13 +158,13 @@
       }
     },
     "layouts": {
-      "list": ["id", "biggerImage", "smallerImage"],
+      "list": ["id", "smallerImage", "biggerImage"],
       "edit": [
         [{
-          "name": "biggerImage",
+          "name": "smallerImage",
           "size": 6
         }, {
-          "name": "smallerImage",
+          "name": "biggerImage",
           "size": 6
         }]
       ],
@@ -1166,8 +1166,8 @@
           "size": 6
         }],
         [{
-          "name": "text",
-          "size": 12
+          "name": "image",
+          "size": 6
         }],
         [{
           "name": "source",
@@ -1177,15 +1177,15 @@
           "size": 6
         }],
         [{
-          "name": "image",
-          "size": 6
-        }, {
           "name": "variant",
+          "size": 6
+        },{
+          "name": "color",
           "size": 6
         }],
         [{
-          "name": "color",
-          "size": 6
+          "name": "text",
+          "size": 12
         }]
       ],
       "editRelations": []
@@ -1697,10 +1697,10 @@
           "size": 6
         }],
         [{
-          "name": "intro",
+          "name": "teaser",
           "size": 6
         }, {
-          "name": "teaser",
+          "name": "intro",
           "size": 6
         }],
         [{

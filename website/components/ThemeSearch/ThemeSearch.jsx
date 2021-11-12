@@ -69,6 +69,7 @@ const ThemeSearch = ({ themeTitle, slug }) => {
 
       <SearchResults
         results={results.slice(0, numberOfResults)}
+        cardHeadingLevel="h3"
       />
 
       {results.length === 0 && <Paragraph>Niets gevonden</Paragraph>}

@@ -39,24 +39,27 @@ const Collection = ({
     return <div><Spinner /></div>
   }
 
-  const collectionItems = normalizeItemList(collectionItemsCms).map(
-    ({
-      path,
-      title: featureTitle,
-      shortTitle: featureShortTitle,
-      teaser: featureTeaser,
-      type,
-    }) => (
-      <li key={path}>
-        <SearchCard
-          href={path}
-          type={type}
-          title={featureShortTitle || featureTitle}
-          teaser={featureTeaser}
-        />
-      </li>
-    ),
-  )
+  const collectionItems = normalizeItemList(collectionItemsCms)
+    .slice()
+    .sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate))
+    .map(
+      ({
+        path,
+        title: featureTitle,
+        shortTitle: featureShortTitle,
+        teaser: featureTeaser,
+        type,
+      }) => (
+        <li key={path}>
+          <SearchCard
+            href={path}
+            type={type}
+            title={featureShortTitle || featureTitle}
+            teaser={featureTeaser}
+          />
+        </li>
+      ),
+    )
 
   return (
     <>

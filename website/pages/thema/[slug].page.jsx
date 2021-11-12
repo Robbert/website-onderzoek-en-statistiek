@@ -179,7 +179,7 @@ const Theme = ({
                   </li>
                 ))}
             </Styled.CollectionList>
-            {collections.length > 0 && <Link href={`/zoek?thema=${slug}&categorie=dossier`} variant="standalone">Alle dossiers met dit thema</Link>}
+            {collections.length > 10 && <Link href={`/zoek?thema=${slug}&categorie=dossier`} variant="standalone">Alle dossiers met dit thema</Link>}
           </GridItem>
         </Styled.CollectionGrid>
       )}

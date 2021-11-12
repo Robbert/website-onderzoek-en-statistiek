@@ -5,11 +5,11 @@ import CONTENT_TYPES from '../../constants/contentTypes'
 import * as Styled from './SearchCard.style'
 
 const Card = ({
-  href, type, title, teaser, small, date,
+  href, type, title, teaser, small, date, gutterBottom = 40, headingLevel,
 }) => (
   <>
     <NextLink href={href} passHref>
-      <Styled.Link>
+      <Styled.Link gutterBottom={gutterBottom}>
         {type && (
           <Styled.Type
             small
@@ -19,7 +19,7 @@ const Card = ({
           </Styled.Type>
         )}
         <Heading
-          as="h3"
+          as={headingLevel}
           styleAs="h5"
           gutterBottom={8}
         >

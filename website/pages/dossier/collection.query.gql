@@ -85,6 +85,7 @@ query getCollectionData($slug: String) {
           rectangularImage {
             url
           }
+          publicationDate
         }
       }
       ... on ComponentSharedPublications {
@@ -98,6 +99,7 @@ query getCollectionData($slug: String) {
           rectangularImage {
             url
           }
+          publicationDate
         }
       }
       ... on ComponentSharedVideos {
@@ -111,6 +113,7 @@ query getCollectionData($slug: String) {
           rectangularImage {
             url
           }
+          publicationDate
         }
       }
       ... on ComponentSharedInteractives {
@@ -124,6 +127,7 @@ query getCollectionData($slug: String) {
           rectangularImage {
             url
           }
+          publicationDate
         }
       }
       ... on ComponentSharedDatasets {
@@ -133,6 +137,7 @@ query getCollectionData($slug: String) {
           squareImage {
             url
           }
+          publicationDate: published_at
         }
       }
     }

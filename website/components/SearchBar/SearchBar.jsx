@@ -5,7 +5,9 @@ import { Search, Close } from '@amsterdam/asc-assets'
 import Button from '../Button/Button'
 import * as Styled from './SearchBar.style'
 
-const SearchBar = ({ onChange, value, id }) => {
+const SearchBar = ({
+  onChange, value, id, ...otherProps
+}) => {
   const searchInput = useRef(null)
   const handleOnChange = (e) => {
     if (onChange) {
@@ -27,7 +29,7 @@ const SearchBar = ({ onChange, value, id }) => {
   }
 
   return (
-    <Styled.Wrapper>
+    <Styled.Wrapper {...otherProps}>
       <Styled.SearchBar
         id={id}
         type="text"

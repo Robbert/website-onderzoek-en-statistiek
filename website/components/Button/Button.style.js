@@ -64,8 +64,7 @@ export const textButtonStyle = css`
   color: ${themeColor('primary')};
   background-color: transparent;
 
-  :hover,
-  :focus {
+  :hover {
     text-decoration: underline;
   }
 
