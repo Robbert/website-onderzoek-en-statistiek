@@ -6,9 +6,9 @@ import SearchCard from '../SearchCard/SearchCard'
 import { formatDate } from '../../lib/utils'
 import CONTENT_TYPES from '../../constants/contentTypes'
 
-const SearchResults = ({ results }) => {
+const SearchResults = ({ results, cardGutterBottom, cardHeadingLevel }) => {
   const [page, setPage] = useState(1)
-  const pageSize = 20
+  const pageSize = 10
 
   useEffect(() => { setPage(1) }, [results])
 
@@ -27,6 +27,8 @@ const SearchResults = ({ results }) => {
                 title={title}
                 teaser={teaser}
                 date={formatDate(publicationDate)}
+                gutterBottom={cardGutterBottom}
+                headingLevel={cardHeadingLevel}
               />
             </li>
           ))}
@@ -35,7 +37,10 @@ const SearchResults = ({ results }) => {
         page={page}
         pageSize={pageSize}
         collectionSize={results.length}
-        onPageChange={(pageNumber) => setPage(pageNumber)}
+        onPageChange={(pageNumber) => {
+          window.scrollTo(0, 0)
+          return setPage(pageNumber)
+        }}
       />
     </>
   )

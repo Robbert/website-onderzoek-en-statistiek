@@ -1,30 +1,37 @@
 import styled from 'styled-components'
-import {
-  Heading,
-  breakpoint,
-  Select as SelectASC,
-} from '@amsterdam/asc-ui'
+import { Select as SelectASC, Icon as IconASC } from '@amsterdam/asc-ui'
 
-import ContainerComponent from '../../components/Container/Container'
+import SearchBarComponent from '../../components/SearchBar/SearchBar'
+import ButtonComponent from '../../components/Button/Button'
+import FieldsetComponent from '../../components/Fieldset/Fieldset'
 import RadioComponent from '../../components/Radio/Radio'
 
-export const Container = styled(ContainerComponent)`
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  column-gap: 36px;
+export const SearchBar = styled(SearchBarComponent)``
 
-  @media screen and ${breakpoint('max-width', 'laptop')} {
-    grid-template-columns: 1fr;
+export const FilterTagContainer = styled.div`
+  padding-top: 40px;
+  padding-bottom: 24px;
+`
+
+export const SearchResultsContainer = styled.div`
+  margin-top: 16px;
+`
+
+export const Button = styled(ButtonComponent)`
+  margin-right: 16px;
+  margin-bottom: 16px;
+
+  span:first-letter {
+    text-transform: capitalize;
   }
 `
 
-export const SideBar = styled.div`
-  padding: 24px;
-  margin-top: 44px;
+export const Icon = styled(IconASC)`
+  margin-right: 16px;
+`
 
-  @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-top: 0;
-  }
+export const Fieldset = styled(FieldsetComponent)`
+  margin-top: 80px;
 `
 
 export const Radio = styled(RadioComponent)`
@@ -33,16 +40,12 @@ export const Radio = styled(RadioComponent)`
   }
 `
 
-export const PageTitle = styled(Heading)`
-  margin-top: 24px;
-`
-
 export const SortBar = styled.div`
   display: flex;
   margin-bottom: 24px;
 `
 
 export const Select = styled(SelectASC)`
-  width: 200px;
-  margin-left: auto;
+  width: 220px;
+  font-size: 18px;
 `

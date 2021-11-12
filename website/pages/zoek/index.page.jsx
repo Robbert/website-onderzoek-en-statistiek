@@ -5,12 +5,13 @@ import {
 import { useRouter } from 'next/router'
 import debounce from 'lodash.debounce'
 import { Label } from '@amsterdam/asc-ui'
+import { Close } from '@amsterdam/asc-assets'
 
 import Seo from '../../components/Seo/Seo'
-import SearchBar from '../../components/SearchBar/SearchBar'
+import { Grid, GridItem } from '../../components/Grid/Grid.style'
+import Paragraph from '../../components/Paragraph/Paragraph'
 import SearchResults from '../../components/SearchResults/SearchResults'
 import Heading from '../../components/Heading/Heading'
-import Fieldset from '../../components/Fieldset/Fieldset'
 import Checkbox from '../../components/Checkbox/Checkbox'
 import { translateContentType, apolloClient } from '../../lib/utils'
 import CONTENT_TYPES from '../../constants/contentTypes'
@@ -36,7 +37,7 @@ const Search = ({ themes }) => {
     delete query[paramName]
 
     if (paramName === 'thema' && paramValue.length > 0) query.thema = paramValue.join(' ')
-    if (paramName === 'categorie') query.categorie = CONTENT_TYPES[paramValue].name
+    if (paramName === 'categorie' && paramValue) query.categorie = CONTENT_TYPES[paramValue].name
     if (paramName === 'sorteer' && paramName !== 'af') query.sorteer = paramValue
     if (paramName === 'tekst' && paramValue !== '') query.tekst = paramValue
 
@@ -52,6 +53,8 @@ const Search = ({ themes }) => {
     const newThemeFilter = themeFilter.includes(slug)
       ? themeFilter.filter((item) => item !== slug)
       : [...themeFilter, slug]
+
+    window.scrollTo(0, 0)
     setUrlParameters('thema', newThemeFilter)
   }
 
@@ -87,34 +90,74 @@ const Search = ({ themes }) => {
   return (
     <>
       <Seo />
-      <Styled.Container>
-        <div>
-          <SearchBar
+      <Grid>
+        <GridItem
+          colRange={{ small: 4, large: 7 }}
+          colStart={{ small: 1, large: 5 }}
+        >
+          <Paragraph gutterBottom={8}>
+            {`${results.length} ${results.length === 1 ? 'resultaat' : 'resultaten'}`}
+          </Paragraph>
+          <Heading gutterBottom={16} styleAs="h2">Zoeken</Heading>
+          <Styled.SearchBar
             id="searchfield"
             type="text"
             value={searchQuery}
             onChange={(q) => setUrlParameters('tekst', q)}
           />
-          <Styled.PageTitle forwardedAs="h2">
-            Resultaten (
-            {results.length}
-            )
-          </Styled.PageTitle>
-          <Styled.SortBar>
-            <Label htmlFor="selectSort" label="Sorteren" srOnly />
-            <Styled.Select id="selectSort" value={sortOrder} onChange={(e) => setUrlParameters('sorteer', e.target.value)}>
-              <option value="af">Aflopend datum</option>
-              <option value="op">Oplopend datum</option>
-              <option value="score">Relevantie</option>
-            </Styled.Select>
-          </Styled.SortBar>
-          <SearchResults results={results} />
-        </div>
-        <Styled.SideBar>
-          <Heading as="h2" gutterBottom={24}>Filters</Heading>
-          <Fieldset
+        </GridItem>
+        <GridItem
+          colRange={{ small: 4, large: 8 }}
+          colStart={{ small: 1, large: 5 }}
+        >
+          <Styled.FilterTagContainer>
+            {Object.values(CONTENT_TYPES)
+              .filter((cat) => cat.type === category)
+              .map(({ type, plural }) => (
+                <Styled.Button
+                  key={type}
+                  type="button"
+                  small
+                  onClick={() => setUrlParameters('categorie', null)}
+                >
+                  <Styled.Icon size={20}>
+                    <Close />
+                  </Styled.Icon>
+                  <span>{plural}</span>
+                </Styled.Button>
+              ))}
+            {themes
+              .filter((item) => themeFilter.includes(item.slug))
+              .map(({ title, slug }) => (
+                <Styled.Button
+                  key={slug}
+                  type="button"
+                  variant="secondary"
+                  small
+                  onClick={() => handleThemeChange(slug)}
+                >
+                  <Styled.Icon size={20}>
+                    <Close />
+                  </Styled.Icon>
+                  {title}
+                </Styled.Button>
+              ))}
+          </Styled.FilterTagContainer>
+          <Styled.SearchResultsContainer>
+            <SearchResults
+              results={results}
+              cardGutterBottom={80}
+              cardHeadingLevel="h2"
+            />
+          </Styled.SearchResultsContainer>
+        </GridItem>
+        <GridItem
+          colRange={{ small: 4, large: 3 }}
+          rowStart={{ small: 3, large: 2 }}
+        >
+          <Styled.Fieldset
             legend={
-              <Heading as="h3" gutterBottom={24}>Thema‘s</Heading>
+              <Heading as="h2" styleAs="h5" gutterBottom={24}>Thema‘s</Heading>
             }
           >
             {themes.map(({ title, slug }) => (
@@ -127,16 +170,19 @@ const Search = ({ themes }) => {
                 {`${title} ${facetCount && formatFacetNumber(facetCount[slug])}`}
               </Checkbox>
             ))}
-          </Fieldset>
-          <Fieldset
+          </Styled.Fieldset>
+          <Styled.Fieldset
             legend={
-              <Heading as="h3" gutterBottom={24}>Categorieën</Heading>
+              <Heading as="h2" styleAs="h5" gutterBottom={24}>Categorieën</Heading>
             }
           >
             <Styled.Radio
               name="categories"
               id="alles"
-              onChange={() => setCategory('')}
+              onChange={() => {
+                window.scrollTo(0, 0)
+                return setUrlParameters('categorie', null)
+              }}
               checked={category === ''}
             >
               Alle categorieën
@@ -149,15 +195,37 @@ const Search = ({ themes }) => {
                   key={type}
                   name="categories"
                   id={type}
-                  onChange={() => setUrlParameters('categorie', type)}
+                  onChange={() => {
+                    window.scrollTo(0, 0)
+                    return setUrlParameters('categorie', type)
+                  }}
                   checked={category === type}
                 >
                   {`${plural} ${facetCount && formatFacetNumber(facetCount[type])}`}
                 </Styled.Radio>
               ))}
-          </Fieldset>
-        </Styled.SideBar>
-      </Styled.Container>
+          </Styled.Fieldset>
+          <Styled.Fieldset
+            legend={
+              <Heading as="h2" styleAs="h5" gutterBottom={24}>Sorteren</Heading>
+            }
+          >
+            <Label htmlFor="selectSort" label="Sorteren" srOnly />
+            <Styled.Select
+              id="selectSort"
+              value={sortOrder}
+              onChange={(e) => {
+                window.scrollTo(0, 0)
+                return setUrlParameters('sorteer', e.target.value)
+              }}
+            >
+              <option value="af">Aflopend datum</option>
+              <option value="op">Oplopend datum</option>
+              <option value="score">Relevantie</option>
+            </Styled.Select>
+          </Styled.Fieldset>
+        </GridItem>
+      </Grid>
     </>
   )
 }

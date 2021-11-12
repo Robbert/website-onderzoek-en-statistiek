@@ -1,6 +1,7 @@
 // Based on https://github.com/Amsterdam/amsterdam-styled-components/tree/main/packages/asc-ui/src/components/Pagination
 
 import { useMemo, useState, useEffect } from 'react'
+import { Icon } from '@amsterdam/asc-ui'
 import { ChevronLeft, ChevronRight } from '@amsterdam/asc-assets'
 
 import * as Styled from './Pagination.style'
@@ -96,22 +97,23 @@ const Pagination = ({
   return (
     <nav aria-label="paginering" role="navigation" {...otherProps}>
       <Styled.List>
-        <Styled.ListItem>
+        <li>
           <Styled.Button
             type="button"
             aria-label="Vorige pagina"
             data-testid="previousButton"
             onClick={onPrevious}
-            iconSize={12}
-            iconLeft={<ChevronLeft />}
             variant="textButton"
             disabled={currentPage === 1}
           >
+            <Styled.Icon size={12}>
+              <ChevronLeft />
+            </Styled.Icon>
             vorige
           </Styled.Button>
-        </Styled.ListItem>
+        </li>
         {range.map((pageNumberOrSpacer) => (typeof pageNumberOrSpacer === 'number' ? (
-          <Styled.ListItem key={`pag-${pageNumberOrSpacer}`}>
+          <li key={`pag-${pageNumberOrSpacer}`}>
             <Styled.PageNumberButton
               aria-label={
                 pageNumberOrSpacer === currentPage
@@ -120,33 +122,35 @@ const Pagination = ({
               }
               aria-current={pageNumberOrSpacer === currentPage}
               data-testid={`pageButton-${pageNumberOrSpacer}`}
-              onClick={() => onChangePage(pageNumberOrSpacer)}
+              onClick={() => pageNumberOrSpacer !== currentPage && onChangePage(pageNumberOrSpacer)}
               isCurrent={pageNumberOrSpacer === currentPage}
               tabIndex={pageNumberOrSpacer === currentPage ? -1 : 0}
               type="button"
+              variant="textButton"
             >
               {pageNumberOrSpacer}
             </Styled.PageNumberButton>
-          </Styled.ListItem>
+          </li>
         ) : (
-          <Styled.ListItem key={pageNumberOrSpacer} data-testid={pageNumberOrSpacer}>
+          <Styled.Spacer key={pageNumberOrSpacer} data-testid={pageNumberOrSpacer}>
             {'\u2026'}
-          </Styled.ListItem>
+          </Styled.Spacer>
         )))}
-        <Styled.ListItem>
+        <li>
           <Styled.Button
             type="button"
             aria-label="Volgende pagina"
             data-testid="nextButton"
             onClick={onNext}
-            iconSize={12}
-            iconRight={<ChevronRight />}
             variant="textButton"
             disabled={currentPage === totalPages}
           >
             volgende
+            <Styled.Icon right size={12}>
+              <ChevronRight />
+            </Styled.Icon>
           </Styled.Button>
-        </Styled.ListItem>
+        </li>
       </Styled.List>
     </nav>
   )

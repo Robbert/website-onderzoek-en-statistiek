@@ -1,5 +1,4 @@
-/* eslint-disable import/prefer-default-export */
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { themeColor, breakpoint } from '@amsterdam/asc-ui'
 
 import Paragraph from '../Paragraph/Paragraph'
@@ -8,16 +7,21 @@ export const Link = styled.a`
   display: block;
   text-decoration: none;
   overflow: hidden;
-  margin-bottom: 40px;
-  min-height: 108px;
+  margin-bottom: ${({ gutterBottom }) => gutterBottom?.large || gutterBottom || 0}px;
 
-  h3 {
+  ${({ gutterBottom }) => gutterBottom?.small && css`
+    @media screen and ${breakpoint('max-width', 'laptop')} {
+      margin-bottom: ${gutterBottom.small}px;
+    }
+  `}
+
+  h1,h2,h3,h4,h5,h6 {
     color: ${themeColor('primary')};
   }
 
   :hover,
   :focus {
-    h3 {
+    h1,h2,h3,h4,h5,h6 {
       text-decoration: underline;
     }
   }
