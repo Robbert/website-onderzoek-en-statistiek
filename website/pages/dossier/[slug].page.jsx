@@ -4,7 +4,7 @@ import { ChevronRight } from '@amsterdam/asc-assets'
 
 import Seo from '../../components/Seo/Seo'
 import {
-  apolloClient, fetchAPI, getStrapiMedia, normalizeItemList,
+  apolloClient, fetchAPI, getStrapiMedia, normalizeItemList, formatDate,
 } from '../../lib/utils'
 import { Grid, GridItem } from '../../components/Grid/Grid.style'
 import Heading from '../../components/Heading/Heading'
@@ -49,6 +49,7 @@ const Collection = ({
         shortTitle: featureShortTitle,
         teaser: featureTeaser,
         type,
+        publicationDate,
       }) => (
         <li key={path}>
           <SearchCard
@@ -56,6 +57,7 @@ const Collection = ({
             type={type}
             title={featureShortTitle || featureTitle}
             teaser={featureTeaser}
+            date={formatDate(publicationDate)}
           />
         </li>
       ),
