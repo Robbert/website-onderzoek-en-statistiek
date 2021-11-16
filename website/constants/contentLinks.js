@@ -1,8 +1,8 @@
 const HEADER_LINKS = {
   themes: [
     {
-      label: 'Werk en sociale zekerheid',
-      slug: '/thema/werk-en-sociale-zekerheid',
+      label: 'Werk en inkomen',
+      slug: '/thema/werk-en-inkomen',
     },
     {
       label: 'Cultuur en recreatie',

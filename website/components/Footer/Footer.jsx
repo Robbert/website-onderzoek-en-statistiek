@@ -21,7 +21,7 @@ const Footer = () => (
           darkBackground
           gutterBottom={16}
         >
-          Heeft u een vraag en kunt u het antwoord niet vinden op deze website?
+          Heeft u een vraag en kunt u het antwoord niet vinden op deze site?
           Neem dan contact met ons op.
         </Paragraph>
         <List>
@@ -57,7 +57,7 @@ const Footer = () => (
         <Heading styleAs="h5" gutterBottom={28} darkBackground>Panels en enquêtes</Heading>
         <Paragraph gutterBottom={16} small darkBackground>
           Bent u uitgenodigd om mee te doen aan onderzoek
-          of wilt u lid worden van ons panel?
+          of heeft u vragen over het panel of stadspaspanel?
         </Paragraph>
         <List>
           <li>
@@ -71,6 +71,32 @@ const Footer = () => (
                 <ChevronRight />
               </Styled.Icon>
               Meedoen aan onderzoek
+            </Link>
+          </li>
+          <li>
+            <Link
+              darkBackground
+              href="https://panel.amsterdam.nl"
+              variant="inList"
+              external
+            >
+              <Styled.Icon size={14}>
+                <ChevronRight />
+              </Styled.Icon>
+              Panel Amsterdam
+            </Link>
+          </li>
+          <li>
+            <Link
+              darkBackground
+              href="https://panel.amsterdam.nl/stadspas/home.html"
+              variant="inList"
+              external
+            >
+              <Styled.Icon size={14}>
+                <ChevronRight />
+              </Styled.Icon>
+              Stadspanel Amsterdam
             </Link>
           </li>
         </List>

@@ -76,8 +76,17 @@ const Search = ({ themes }) => {
       setResults(updatedResults)
     }, 300)
 
+    const throttleTrackSearch = debounce(() => {
+      window._paq.push(['trackSiteSearch', searchQuery, category])
+    }, 500)
+
     throttledUpdate()
-    return () => throttledUpdate.cancel()
+    throttleTrackSearch()
+
+    return () => {
+      throttledUpdate.cancel()
+      throttleTrackSearch.cancel()
+    }
   }, [searchIndex, searchQuery, sortOrder, themeFilter, category])
 
   return (
