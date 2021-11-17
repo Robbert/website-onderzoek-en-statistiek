@@ -59,7 +59,7 @@ export const apolloClient = new ApolloClient({
 })
 
 export const translateContentType = (contentType) => Object.values(CONTENT_TYPES)
-  .find(({ name }) => name === contentType).type
+  .find(({ name }) => name === contentType)?.type
 
 export const translateColor = (name) => {
   const translations = {

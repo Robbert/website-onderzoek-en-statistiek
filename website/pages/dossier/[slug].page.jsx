@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router'
-import { Spinner } from '@amsterdam/asc-ui'
 import { ChevronRight } from '@amsterdam/asc-assets'
 
 import Seo from '../../components/Seo/Seo'
@@ -33,12 +31,6 @@ const Collection = ({
   phoneNumber,
   theme,
 }) => {
-  const router = useRouter()
-
-  if (router.isFallback) {
-    return <div><Spinner /></div>
-  }
-
   const collectionItems = normalizeItemList(collectionItemsCms)
     .slice()
     .sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate))
@@ -199,7 +191,7 @@ export async function getStaticPaths() {
         slug,
       },
     })),
-    fallback: true,
+    fallback: false,
   }
 }
 

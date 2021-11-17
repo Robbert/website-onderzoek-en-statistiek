@@ -1,6 +1,3 @@
-import { useRouter } from 'next/router'
-import { Spinner } from '@amsterdam/asc-ui'
-
 import Seo from '../../components/Seo/Seo'
 import { Grid, GridItem } from '../../components/Grid/Grid.style'
 import Heading from '../../components/Heading/Heading'
@@ -78,79 +75,72 @@ const Video = ({
   externalVideoSource,
   externalEmbedSource,
   theme,
-}) => {
-  const router = useRouter()
-  if (router.isFallback) {
-    return <div><Spinner /></div>
-  }
-
-  return (
-    <>
-      <Seo
-        title={shortTitle || title}
-        description={teaser}
-        image={getStrapiMedia(rectangularImage || squareImage)}
-        video
-      />
-      <Grid>
-        <GridItem colStart={{ small: 1, large: 2 }} colRange={{ small: 4, large: 10 }}>
-          <Heading gutterBottom={16}>{title}</Heading>
-          <Paragraph
-            small
-            gutterBottom={{ small: 56, large: 80 }}
-          >
-            {formatDate(publicationDate)}
-          </Paragraph>
-        </GridItem>
-
-        <Styled.VideoGridItem
-          colStart={{ small: 1, large: wideVideo ? 1 : 3 }}
-          colRange={{ small: 4, large: wideVideo ? 12 : 8 }}
-          wide={wideVideo}
+}) => (
+  <>
+    <Seo
+      title={shortTitle || title}
+      description={teaser}
+      image={getStrapiMedia(rectangularImage || squareImage)}
+      video
+    />
+    <Grid>
+      <GridItem colStart={{ small: 1, large: 2 }} colRange={{ small: 4, large: 10 }}>
+        <Heading gutterBottom={16}>{title}</Heading>
+        <Paragraph
+          small
+          gutterBottom={{ small: 56, large: 80 }}
         >
-          {videoFile?.url ? (
-            <LocalVideo
-              videoSource={videoFile}
-              subtitleSource={subtitleFile}
-              enableSubtitleByDefault={subtitleDefault}
-            />
-          )
-            : externalVideoSource && <ExternalVideo source={externalVideoSource} />}
-        </Styled.VideoGridItem>
+          {formatDate(publicationDate)}
+        </Paragraph>
+      </GridItem>
 
-        <GridItem colStart={{ small: 1, large: 3 }} colRange={{ small: 4, large: 8 }}>
-          <Styled.ButtonContainer>
-            {videoFile?.url && (
-              <DownloadButton
-                url={getStrapiMedia(videoFile)}
-                variant="textButton"
-              >
-                Download
-              </DownloadButton>
-            )}
-            {transcript && (
-              <Details title="Uitgeschreven tekst">
-                <MarkdownToHtml>{transcript}</MarkdownToHtml>
-              </Details>
-            )}
-          </Styled.ButtonContainer>
-          {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
-          <Paragraph intro gutterBottom={{ small: 40, large: 80 }}>{intro}</Paragraph>
-        </GridItem>
+      <Styled.VideoGridItem
+        colStart={{ small: 1, large: wideVideo ? 1 : 3 }}
+        colRange={{ small: 4, large: wideVideo ? 12 : 8 }}
+        wide={wideVideo}
+      >
+        {videoFile?.url ? (
+          <LocalVideo
+            videoSource={videoFile}
+            subtitleSource={subtitleFile}
+            enableSubtitleByDefault={subtitleDefault}
+          />
+        )
+          : externalVideoSource && <ExternalVideo source={externalVideoSource} />}
+      </Styled.VideoGridItem>
 
-        {body && <BodyContent content={body} />}
+      <GridItem colStart={{ small: 1, large: 3 }} colRange={{ small: 4, large: 8 }}>
+        <Styled.ButtonContainer>
+          {videoFile?.url && (
+            <DownloadButton
+              url={getStrapiMedia(videoFile)}
+              variant="textButton"
+            >
+              Download
+            </DownloadButton>
+          )}
+          {transcript && (
+            <Details title="Uitgeschreven tekst">
+              <MarkdownToHtml>{transcript}</MarkdownToHtml>
+            </Details>
+          )}
+        </Styled.ButtonContainer>
+        {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
+        <Paragraph intro gutterBottom={{ small: 40, large: 80 }}>{intro}</Paragraph>
+      </GridItem>
 
-        <GridItem
-          colStart={{ small: 1, large: 3 }}
-          colRange={{ small: 4, large: 8 }}
-          gutterBottom={{ small: 72, large: 120 }}
-        >
-          <ThemeList type="video" themes={theme} />
-        </GridItem>
-      </Grid>
-    </>
-  )
-}
+      {body && <BodyContent content={body} />}
+
+      <GridItem
+        colStart={{ small: 1, large: 3 }}
+        colRange={{ small: 4, large: 8 }}
+        gutterBottom={{ small: 72, large: 120 }}
+      >
+        <ThemeList type="video" themes={theme} />
+      </GridItem>
+    </Grid>
+  </>
+)
 
 export async function getStaticPaths() {
   const videos = await fetchAPI('/videos?_limit=-1')
@@ -161,7 +151,7 @@ export async function getStaticPaths() {
         slug,
       },
     })),
-    fallback: true,
+    fallback: false,
   }
 }
 

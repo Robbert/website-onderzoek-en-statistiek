@@ -1,6 +1,4 @@
-import { useRouter } from 'next/router'
 import Image from 'next/image'
-import { Spinner } from '@amsterdam/asc-ui'
 
 import Seo from '../../components/Seo/Seo'
 import { Grid, GridItem } from '../../components/Grid/Grid.style'
@@ -32,102 +30,94 @@ const Article = ({
   body,
   theme,
   related,
-}) => {
-  const router = useRouter()
+}) => (
+  <>
+    <Seo
+      title={shortTitle || title}
+      description={teaser}
+      image={getStrapiMedia(rectangularImage || squareImage)}
+      article
+    />
 
-  if (router.isFallback) {
-    return <div><Spinner /></div>
-  }
+    <Grid>
 
-  return (
-    <>
-      <Seo
-        title={shortTitle || title}
-        description={teaser}
-        image={getStrapiMedia(rectangularImage || squareImage)}
-        article
-      />
+      <GridItem
+        colStart={{ small: 1, large: 2 }}
+        colRange={{ small: 4, large: 10 }}
+      >
+        <Heading gutterBottom={16}>{title}</Heading>
+        <Paragraph small gutterBottom={{ small: 24, large: 40 }}>
+          {formatDate(publicationDate)}
+        </Paragraph>
+        <Paragraph intro gutterBottom={{ small: 40, large: 80 }}>{intro}</Paragraph>
 
-      <Grid>
+        {rectangularImage && (
+          <Styled.ImageWrapper>
+            <Image
+              src={getStrapiMedia(rectangularImage)}
+              alt={rectangularImage.alternativeText}
+              width={rectangularImage.width}
+              height={rectangularImage.height}
+              layout="responsive"
+              placeholder="blur"
+              objectFit="cover"
+              blurDataURL={PLACEHOLDER_IMAGE}
+              priority
+            />
 
-        <GridItem
-          colStart={{ small: 1, large: 2 }}
-          colRange={{ small: 4, large: 10 }}
-        >
-          <Heading gutterBottom={16}>{title}</Heading>
-          <Paragraph small gutterBottom={{ small: 24, large: 40 }}>
-            {formatDate(publicationDate)}
-          </Paragraph>
-          <Paragraph intro gutterBottom={{ small: 40, large: 80 }}>{intro}</Paragraph>
-
-          {rectangularImage && (
-            <Styled.ImageWrapper>
-              <Image
-                src={getStrapiMedia(rectangularImage)}
-                alt={rectangularImage.alternativeText}
-                width={rectangularImage.width}
-                height={rectangularImage.height}
-                layout="responsive"
-                placeholder="blur"
-                objectFit="cover"
-                blurDataURL={PLACEHOLDER_IMAGE}
-                priority
-              />
-
-              {rectangularImage.caption && (
-                <Paragraph small>
-                  {rectangularImage.caption}
-                </Paragraph>
-              )}
-            </Styled.ImageWrapper>
-          )}
-        </GridItem>
-
-        <BodyContent content={body} />
-
-        <GridItem
-          colStart={{ small: 1, large: 3 }}
-          colRange={{ small: 4, large: 8 }}
-        >
-          <ThemeList type="artikel" themes={theme} />
-        </GridItem>
-
-        {related.length > 0 && (
-          <>
-            <GridItem colRange={{ small: 4, large: 12 }}>
-              <Heading as="h2" styleAs="h4" gutterBottom={40}>Ook interessant</Heading>
-            </GridItem>
-            <CardList>
-              {normalizeItemList(related).map(
-                ({
-                  path,
-                  title: relatedTitle,
-                  shortTitle: relatedShortTitle,
-                  squareImage: relatedSquareImage,
-                  type,
-                }) => (
-                  <Styled.RelatedListItem key={path}>
-                    <GridItem colRange={4}>
-                      <Card
-                        href={path}
-                        image={relatedSquareImage}
-                        type={type}
-                        title={relatedShortTitle || relatedTitle}
-                        headingLevel="h3"
-                        clickableImage
-                      />
-                    </GridItem>
-                  </Styled.RelatedListItem>
-                ),
-              )}
-            </CardList>
-          </>
+            {rectangularImage.caption && (
+              <Paragraph small>
+                {rectangularImage.caption}
+              </Paragraph>
+            )}
+          </Styled.ImageWrapper>
         )}
+      </GridItem>
 
-      </Grid>
-    </>
-  )
-}
+      <BodyContent content={body} />
+
+      <GridItem
+        colStart={{ small: 1, large: 3 }}
+        colRange={{ small: 4, large: 8 }}
+      >
+        <ThemeList type="artikel" themes={theme} />
+      </GridItem>
+
+      {related.length > 0 && (
+        <>
+          <GridItem colRange={{ small: 4, large: 12 }}>
+            <Heading as="h2" styleAs="h4" gutterBottom={40}>Ook interessant</Heading>
+          </GridItem>
+          <CardList>
+            {normalizeItemList(related).map(
+              ({
+                path,
+                title: relatedTitle,
+                shortTitle: relatedShortTitle,
+                squareImage: relatedSquareImage,
+                type,
+              }) => (
+                <Styled.RelatedListItem key={path}>
+                  <GridItem colRange={4}>
+                    <Card
+                      href={path}
+                      image={relatedSquareImage}
+                      type={type}
+                      title={relatedShortTitle || relatedTitle}
+                      headingLevel="h3"
+                      clickableImage
+                    />
+                  </GridItem>
+                </Styled.RelatedListItem>
+              ),
+            )}
+          </CardList>
+        </>
+      )}
+
+    </Grid>
+  </>
+)
 
 export async function getStaticPaths() {
   const articles = await fetchAPI('/articles?_limit=-1')
@@ -138,7 +128,7 @@ export async function getStaticPaths() {
         slug,
       },
     })),
-    fallback: true,
+    fallback: false,
   }
 }
 

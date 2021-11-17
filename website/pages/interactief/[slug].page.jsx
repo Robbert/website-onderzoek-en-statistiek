@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { Spinner } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
 import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
@@ -23,10 +22,6 @@ const Interactive = ({
       router.push(contentLink)
     }
   }, [implementation])
-
-  if (router.isFallback) {
-    return <div><Spinner /></div>
-  }
 
   useEffect(() => {
     const elements = assets.map((asset) => {
@@ -79,7 +74,7 @@ export async function getStaticPaths() {
         },
       }
     )),
-    fallback: true,
+    fallback: false,
   }
 }
 

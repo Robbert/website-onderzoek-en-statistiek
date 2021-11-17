@@ -65,7 +65,7 @@ const Search = ({ themes }) => {
     } = router.query
     setSearchQuery(q ? decodeURI(q) : '')
     setSortOrder(sort || 'af')
-    setCategory(cat ? translateContentType(cat) : '')
+    setCategory(translateContentType(cat) || '')
     setThemeFilter(theme ? theme.split(' ') : [])
   }, [router.query])
 
