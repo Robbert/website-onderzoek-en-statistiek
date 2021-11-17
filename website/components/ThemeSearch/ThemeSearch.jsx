@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { useState, useEffect, useContext } from 'react'
 import debounce from 'lodash.debounce'
 
@@ -25,8 +26,17 @@ const ThemeSearch = ({ themeTitle, slug }) => {
       setResults(updatedResults)
     }, 300)
 
+    const throttleTrackSearch = debounce(() => {
+      window._paq.push(['trackSiteSearch', searchQuery, category])
+    }, 500)
+
     throttledUpdate()
-    return () => throttledUpdate.cancel()
+    throttleTrackSearch()
+
+    return () => {
+      throttledUpdate.cancel()
+      throttleTrackSearch.cancel()
+    }
   }, [slug, searchIndex, searchQuery, category])
 
   return (

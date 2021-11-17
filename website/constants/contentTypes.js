@@ -1,4 +1,9 @@
 const CONTENT_TYPES = {
+  collection: {
+    type: 'collection',
+    name: 'dossier',
+    plural: 'dossiers',
+  },
   article: {
     type: 'article',
     name: 'artikel',
@@ -23,11 +28,6 @@ const CONTENT_TYPES = {
     type: 'theme',
     name: 'thema',
     plural: 'themas',
-  },
-  collection: {
-    type: 'collection',
-    name: 'dossier',
-    plural: 'dossiers',
   },
   dataset: {
     type: 'dataset',

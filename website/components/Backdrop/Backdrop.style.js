@@ -20,8 +20,8 @@ export const Backdrop = styled.div`
 
   /*
    * this z-index is set so the backdrop is always shown on top of other content
-   * 500 is a bit high, but this is because Leaflet (a map library we currently often use)
+   * The default is 500, which is a bit high, but this is because Leaflet (a map library we currently often use)
    * sets a z-index of 400.
    */
-  z-index: 500;
+  z-index: ${({ zIndex }) => (zIndex)};
 `
