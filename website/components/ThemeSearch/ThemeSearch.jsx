@@ -8,6 +8,7 @@ import SearchResults from '../SearchResults/SearchResults'
 import Heading from '../Heading/Heading'
 import Paragraph from '../Paragraph/Paragraph'
 import Link from '../Link/Link'
+import { trackSearchQuery } from '../../lib/analyticsUtils'
 import CONTENT_TYPES from '../../constants/contentTypes'
 import * as Styled from './ThemeSearch.style'
 
@@ -25,19 +26,14 @@ const ThemeSearch = ({ themeTitle, slug }) => {
       const updatedResults = getSearchResults(searchIndex, searchQuery, 'af', [slug], category)
       setResults(updatedResults)
     }, 300)
-
-    const throttleTrackSearch = debounce(() => {
-      window._paq.push(['trackSiteSearch', searchQuery, category])
-    }, 500)
-
     throttledUpdate()
-    throttleTrackSearch()
-
-    return () => {
-      throttledUpdate.cancel()
-      throttleTrackSearch.cancel()
-    }
+    return () => throttledUpdate.cancel()
   }, [slug, searchIndex, searchQuery, category])
+
+  useEffect(() => {
+    const tracker = trackSearchQuery(searchQuery, category)
+    return () => tracker.cancel()
+  }, [searchQuery, category])
 
   return (
     <Styled.Container>

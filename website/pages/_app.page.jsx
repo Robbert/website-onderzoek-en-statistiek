@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import App from 'next/app'
-import Script from 'next/script'
 import { useRouter } from 'next/router'
+import Script from 'next/script'
 import { useState, useEffect } from 'react'
 import Fuse from 'fuse.js'
 import { createGlobalStyle } from 'styled-components'
@@ -11,6 +11,7 @@ import {
 
 import Layout from '../components/Layout/Layout'
 import { apolloClient, prependStaticContentUrl } from '../lib/utils'
+import { startTracking } from '../lib/analyticsUtils'
 import ShortcutContext from '../lib/ShortcutContext'
 import QUERY from './app.query.gql'
 import { fuseOptions, SearchContext } from '../lib/searchUtils'
@@ -27,7 +28,6 @@ const withTypeBreakpoint = (size) => (type) => `(${type}: ${size + (type === 'ma
 
 const MyApp = ({ Component, pageProps }) => {
   const [searchIndex, setSearchIndex] = useState(null)
-
   const router = useRouter()
 
   const newTheme = {
@@ -54,25 +54,8 @@ const MyApp = ({ Component, pageProps }) => {
     return () => abortController.abort()
   }, [])
 
-  // based on https://github.com/SocialGouv/matomo-next/blob/master/src/index.ts
   useEffect(() => {
-    const abortController = new AbortController()
-    router.events.on('routeChangeComplete', (path) => {
-      window._paq = window._paq !== null ? window._paq : []
-      const [pathname] = path.split('?')
-      let previousPath = ''
-      setTimeout(() => {
-        if (previousPath) {
-          window._paq.push(['setReferrerUrl', `${previousPath}`])
-        }
-        window._paq.push(['setCustomUrl', pathname])
-        window._paq.push(['setDocumentTitle', document.title])
-        window._paq.push(['deleteCustomVariables', 'page'])
-        window._paq.push(['trackPageView'])
-        previousPath = pathname
-      }, 0)
-    })
-    return () => abortController.abort()
+    startTracking(router)
   }, [])
 
   return (

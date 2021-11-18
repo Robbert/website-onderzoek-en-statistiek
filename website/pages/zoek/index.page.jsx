@@ -13,6 +13,7 @@ import Paragraph from '../../components/Paragraph/Paragraph'
 import SearchResults from '../../components/SearchResults/SearchResults'
 import SearchFilterSection from '../../components/SearchFilterSection/SearchFilterSection'
 import { translateContentType, apolloClient } from '../../lib/utils'
+import { trackSearchQuery } from '../../lib/analyticsUtils'
 import CONTENT_TYPES from '../../constants/contentTypes'
 import QUERY from './search.query.gql'
 import { SearchContext, getSearchResults } from '../../lib/searchUtils'
@@ -75,19 +76,14 @@ const Search = ({ themes }) => {
         sortOrder, themeFilter, category)
       setResults(updatedResults)
     }, 300)
-
-    const throttleTrackSearch = debounce(() => {
-      window._paq.push(['trackSiteSearch', searchQuery, category])
-    }, 500)
-
     throttledUpdate()
-    throttleTrackSearch()
-
-    return () => {
-      throttledUpdate.cancel()
-      throttleTrackSearch.cancel()
-    }
+    return () => throttledUpdate.cancel()
   }, [searchIndex, searchQuery, sortOrder, themeFilter, category])
+
+  useEffect(() => {
+    const tracker = trackSearchQuery(searchQuery, category)
+    return () => tracker.cancel()
+  }, [searchQuery, category])
 
   return (
     <>
