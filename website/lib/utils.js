@@ -18,6 +18,16 @@ export function prependStrapiURL(path = '') {
   return `${root}${path}`
 }
 
+export const prependStaticContentUrl = (path = '') => {
+  let root = 'http://localhost:3000'
+  if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'acceptance') {
+    root = 'https://acc.onderzoek.amsterdam.nl/static/acc'
+  } else if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'production') {
+    root = '/static/prod'
+  }
+  return `${root}${path}`
+}
+
 export function prependRootURL(path = '') {
   let root = 'http://localhost:3000'
 

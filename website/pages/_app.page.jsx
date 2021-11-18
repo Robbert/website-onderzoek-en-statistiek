@@ -10,7 +10,7 @@ import {
 } from '@amsterdam/asc-ui'
 
 import Layout from '../components/Layout/Layout'
-import { apolloClient } from '../lib/utils'
+import { apolloClient, prependStaticContentUrl } from '../lib/utils'
 import ShortcutContext from '../lib/ShortcutContext'
 import QUERY from './app.query.gql'
 import { fuseOptions, SearchContext } from '../lib/searchUtils'
@@ -45,15 +45,7 @@ const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
     const abortController = new AbortController()
 
-    let uri = 'http://localhost:3000'
-
-    if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'acceptance') {
-      uri = 'https://acc.onderzoek.amsterdam.nl/static/acc'
-    } else if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'production') {
-      uri = `${window.location.origin}/static/prod`
-    }
-
-    fetch(`${uri}/searchContent.json`, { signal: abortController.signal, mode: 'cors' })
+    fetch(prependStaticContentUrl('/searchContent.json'), { signal: abortController.signal, mode: 'cors' })
       .then((response) => response.json())
       .then((searchContent) => {
         setSearchIndex(new Fuse(searchContent, fuseOptions))
@@ -92,7 +84,7 @@ const MyApp = ({ Component, pageProps }) => {
           <Layout>
             <Script
               id="piwik-pro-code"
-              src="/piwik.js"
+              src={prependStaticContentUrl('/piwik.js')}
             />
             <Component {...pageProps} />
           </Layout>
