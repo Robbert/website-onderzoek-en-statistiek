@@ -4,7 +4,7 @@ const ListItem = ({
   children, ...otherProps
 }) => (
   <Styled.ListItem {...otherProps}>
-    {children}
+    <span>{children}</span>
   </Styled.ListItem>
 )
 

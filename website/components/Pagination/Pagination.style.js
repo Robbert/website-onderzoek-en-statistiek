@@ -10,7 +10,7 @@ export const List = styled.ul`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   list-style: none;
   padding: 0;
 `
@@ -29,6 +29,14 @@ export const PageNumberButton = styled(ButtonComponent)`
 `
 
 export const Button = styled(ButtonComponent)`
+  ${({ first }) => first && css`
+    padding-left: 0;
+  `}
+
+  ${({ last }) => last && css`
+    padding-right: 0;
+  `}
+
   &:disabled {
     display: none;
   }

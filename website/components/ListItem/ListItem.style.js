@@ -4,7 +4,8 @@ import styled, { css } from 'styled-components'
 import { themeColor } from '@amsterdam/asc-ui'
 
 const unorderedBulletStyle = css`
-  display: flex;
+  display: grid;
+  grid-template-columns: min-content auto;
   align-items: baseline;
 
   &::before {
@@ -13,12 +14,12 @@ const unorderedBulletStyle = css`
     height: 8px;
     background-color: ${themeColor('tint', 'level6')};
     margin-right: 24px;
-    flex-shrink: 0;
   }
 `
 
 const orderedBulletStyle = css`
-  display: flex;
+  display: grid;
+  grid-template-columns: min-content auto;
   align-items: baseline;
   counter-increment: item;
 
@@ -26,7 +27,6 @@ const orderedBulletStyle = css`
     content: counter(item) '.';
     color: ${themeColor('tint', 'level6')};
     margin-right: 12px;
-    flex-shrink: 0;
   }
 `
 

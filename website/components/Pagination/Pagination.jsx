@@ -1,7 +1,6 @@
 // Based on https://github.com/Amsterdam/amsterdam-styled-components/tree/main/packages/asc-ui/src/components/Pagination
 
 import { useMemo, useState, useEffect } from 'react'
-import { Icon } from '@amsterdam/asc-ui'
 import { ChevronLeft, ChevronRight } from '@amsterdam/asc-assets'
 
 import * as Styled from './Pagination.style'
@@ -105,6 +104,7 @@ const Pagination = ({
             onClick={onPrevious}
             variant="textButton"
             disabled={currentPage === 1}
+            first
           >
             <Styled.Icon size={12}>
               <ChevronLeft />
@@ -144,6 +144,7 @@ const Pagination = ({
             onClick={onNext}
             variant="textButton"
             disabled={currentPage === totalPages}
+            last
           >
             volgende
             <Styled.Icon right size={12}>

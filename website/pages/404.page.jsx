@@ -4,6 +4,8 @@ import Seo from '../components/Seo/Seo'
 import { Grid, GridItem } from '../components/Grid/Grid.style'
 import Heading from '../components/Heading/Heading'
 import Paragraph from '../components/Paragraph/Paragraph'
+import List from '../components/List/List'
+import ListItem from '../components/ListItem/ListItem'
 import Link from '../components/Link/Link'
 import CONTENT_TYPES from '../constants/contentTypes'
 
@@ -43,14 +45,30 @@ const Custom404 = () => {
     <>
       <Seo title="Pagina niet gevonden" />
       <Grid>
-        <GridItem colRange={{ small: 4, large: 7 }} colStart={{ small: 1, large: 3 }}>
-          <Heading gutterBottom={40}>Pagina niet gevonden</Heading>
-          <Paragraph gutterBottom={24}>
-            Helaas, deze pagina bestaat niet.
+        <GridItem colRange={{ small: 4, large: 8 }} colStart={{ small: 1, large: 3 }}>
+          <Heading gutterBottom={{ small: 56, large: 40 }}>Helaas</Heading>
+          <Paragraph gutterBottom={40}>
+            Deze pagina bestaat niet (meer). Controleer het adres of:
           </Paragraph>
-          <Link href={searchLinkObject.path}>
-            {`Zoek naar ${searchLinkObject.type ? `${searchLinkObject.type} met de tekst` : ''} '${searchLinkObject.text}'`}
-          </Link>
+          <List variant="unordered" gutterBottom={40} small>
+            <ListItem>
+              Zoek naar
+              {' '}
+              <Link href={searchLinkObject.path} variant="inline">
+                {`${searchLinkObject.type ? `${searchLinkObject.type} met de tekst` : ''} '${searchLinkObject.text}'`}
+              </Link>
+            </ListItem>
+            <ListItem>
+              Ga naar de
+              {' '}
+              <Link href="/" variant="inline">voorpagina</Link>
+            </ListItem>
+            <ListItem>
+              Stuur een
+              {' '}
+              <Link href="mailto:redactie.ois@amsterdam.nl" variant="inline">bericht aan de redactie</Link>
+            </ListItem>
+          </List>
         </GridItem>
       </Grid>
     </>

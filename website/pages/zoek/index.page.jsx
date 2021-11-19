@@ -11,6 +11,7 @@ import { Grid, GridItem } from '../../components/Grid/Grid.style'
 import Heading from '../../components/Heading/Heading'
 import Paragraph from '../../components/Paragraph/Paragraph'
 import SearchResults from '../../components/SearchResults/SearchResults'
+import Pagination from '../../components/Pagination/Pagination'
 import SearchFilterSection from '../../components/SearchFilterSection/SearchFilterSection'
 import { translateContentType, apolloClient } from '../../lib/utils'
 import { trackSearchQuery } from '../../lib/analyticsUtils'
@@ -26,6 +27,7 @@ const Search = ({ themes }) => {
   const [category, setCategory] = useState('')
   const [themeFilter, setThemeFilter] = useState([])
   const [results, setResults] = useState([])
+  const [page, setPage] = useState(1)
 
   const router = useRouter()
 
@@ -84,6 +86,8 @@ const Search = ({ themes }) => {
     const tracker = trackSearchQuery(searchQuery, category)
     return () => tracker.cancel()
   }, [searchQuery, category])
+
+  useEffect(() => { setPage(1) }, [results])
 
   return (
     <>
@@ -144,10 +148,21 @@ const Search = ({ themes }) => {
           <Styled.SearchResultsContainer>
             <SearchResults
               results={results}
+              page={page}
               cardGutterBottom={{ small: 40, large: 80 }}
               cardHeadingLevel="h2"
             />
           </Styled.SearchResultsContainer>
+        </GridItem>
+        <GridItem colRange={{ small: 4, large: 12 }}>
+          <Pagination
+            page={page}
+            collectionSize={results.length}
+            onPageChange={(pageNumber) => {
+              window.scrollTo(0, 0)
+              return setPage(pageNumber)
+            }}
+          />
         </GridItem>
         <SearchFilterSection
           results={results}

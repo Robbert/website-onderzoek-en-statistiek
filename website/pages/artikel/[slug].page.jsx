@@ -49,7 +49,7 @@ const Article = ({
         <Paragraph small gutterBottom={{ small: 24, large: 40 }}>
           {formatDate(publicationDate)}
         </Paragraph>
-        <Paragraph intro gutterBottom={{ small: 40, large: 80 }}>{intro}</Paragraph>
+        <Paragraph intro gutterBottom={{ small: 56, large: 80 }}>{intro}</Paragraph>
 
         {rectangularImage && (
           <Styled.ImageWrapper>
