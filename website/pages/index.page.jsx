@@ -75,7 +75,11 @@ const Home = ({ themes, homepage }) => {
               .sort((a, b) => a.title.localeCompare(b.title))
               .map(({ title, slug }) => (
                 <Styled.ListItem key={slug}>
-                  <Link href={`/thema/${slug}`} variant="inList">
+                  <Link
+                    href={`/thema/${slug}`}
+                    variant="inList"
+                    className="analytics-homepage-theme-link"
+                  >
                     <Styled.Icon size={14}>
                       <ChevronRight />
                     </Styled.Icon>
@@ -91,7 +95,11 @@ const Home = ({ themes, homepage }) => {
               <List gutterBottom={56}>
                 {normalizeItemList(shortcuts).map(({ path, title, shortTitle }) => (
                   <Styled.ListItem key={path}>
-                    <Link href={path} variant="inList">
+                    <Link
+                      href={path}
+                      variant="inList"
+                      className="analytics-homepage-shortcut-link"
+                    >
                       <Styled.Icon size={14}>
                         <ChevronRight />
                       </Styled.Icon>

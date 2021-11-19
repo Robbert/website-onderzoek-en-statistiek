@@ -95,6 +95,7 @@ const Dataset = ({
                       <Styled.DownloadButton
                         url={getStrapiMedia(file)}
                         variant="textButton"
+                        type={type}
                         small
                       >
                         {`Download ${file && file.ext.slice(1).toUpperCase()} ${file?.size && `(${formatBytes(file.size * 1000)})`}`}

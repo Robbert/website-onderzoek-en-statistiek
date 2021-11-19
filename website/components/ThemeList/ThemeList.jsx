@@ -9,7 +9,13 @@ const ThemeList = ({ type, themes }) => (
         {
           themes.map(({ title, slug }) => (
             <Styled.ListItem key={slug}>
-              <Link variant="inline" href={`/thema/${slug}`}>{title}</Link>
+              <Link
+                variant="inline"
+                href={`/thema/${slug}`}
+                className="analytics-contentpage-theme-link"
+              >
+                {title}
+              </Link>
             </Styled.ListItem>
           ))
         }

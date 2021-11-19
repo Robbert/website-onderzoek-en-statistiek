@@ -115,6 +115,7 @@ const Video = ({
             <DownloadButton
               url={getStrapiMedia(videoFile)}
               variant="textButton"
+              type="video"
             >
               Download
             </DownloadButton>

@@ -28,6 +28,7 @@ const MegaMenu = ({ isOpen, currentPath }) => {
             <Styled.LightLink
               href="/zoek"
               aria-current={currentPath === '/zoek' && 'page'}
+              className="analytics-menu-search-link"
             >
               Zoeken
             </Styled.LightLink>
@@ -45,6 +46,7 @@ const MegaMenu = ({ isOpen, currentPath }) => {
                 <Link
                   href={slug}
                   aria-current={currentPath === slug && 'page'}
+                  className="analytics-menu-theme-link"
                 >
                   {label}
                 </Link>
@@ -60,6 +62,7 @@ const MegaMenu = ({ isOpen, currentPath }) => {
               <Styled.LightLink
                 href={path}
                 aria-current={currentPath === path && 'page'}
+                className="analytics-menu-shortcut-link"
               >
                 {shortTitle || title}
               </Styled.LightLink>

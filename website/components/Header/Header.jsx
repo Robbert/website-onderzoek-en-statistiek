@@ -13,7 +13,7 @@ const Header = ({ title, homeLink }) => {
     <>
       <Styled.Container as="header" sticky>
         <Styled.Heading>
-          <Styled.Link href={homeLink} className="SiteLogo">
+          <Styled.Link href={homeLink} className="analytics-sitelogo">
             <Styled.LargeLogo src="/logo-gemeente-amsterdam-large.svg" alt="Onderzoek en Statistiek Gemeente Amsterdam" />
             <Styled.SmallLogo src="/logo-gemeente-amsterdam-small.svg" alt="Onderzoek en Statistiek Gemeente Amsterdam" />
             {title && router.pathname !== '/' && <Styled.Text>{title}</Styled.Text>}
