@@ -5,7 +5,7 @@ import { Grid, GridItem } from '../../components/Grid/Grid.style'
 import Heading from '../../components/Heading/Heading'
 import Paragraph from '../../components/Paragraph/Paragraph'
 import BodyContent from '../../components/BodyContent/BodyContent'
-import ThemeList from '../../components/ThemeList/ThemeList'
+import ContentFooter from '../../components/ContentFooter/ContentFooter'
 import DownloadButton from '../../components/DownloadButton/DownloadButton'
 import {
   fetchAPI,
@@ -102,7 +102,7 @@ const Publication = ({
         colStart={{ small: 1, large: 2 }}
         colRange={{ small: 4, large: 6 }}
       >
-        <ThemeList type="publicatie" themes={theme} />
+        <ContentFooter type="publicatie" themes={theme} />
       </GridItem>
     </Grid>
   </>

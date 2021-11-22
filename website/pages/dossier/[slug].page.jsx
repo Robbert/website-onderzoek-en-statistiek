@@ -13,7 +13,7 @@ import List from '../../components/List/List'
 import SearchCard from '../../components/SearchCard/SearchCard'
 import Disclosure from '../../components/Disclosure/Disclosure'
 import Link from '../../components/Link/Link'
-import ThemeList from '../../components/ThemeList/ThemeList'
+import ContentFooter from '../../components/ContentFooter/ContentFooter'
 import QUERY from './collection.query.gql'
 import * as Styled from './dossier.style'
 
@@ -111,7 +111,7 @@ const Collection = ({
               colStart={{ small: 1, large: 5 }}
               colRange={{ small: 4, large: 8 }}
               rowStart={{ small: 5, large: 4 }}
-              gutterBottom={{ small: 72, large: 120 }}
+              gutterBottom={{ small: 32, large: 40 }}
             >
               <CardList>
                 {collectionItems.slice(0, 5)}
@@ -133,7 +133,7 @@ const Collection = ({
             colStart={{ small: 1, large: 1 }}
             colRange={{ small: 4, large: 4 }}
             rowStart={{ small: 6, large: 4 }}
-            gutterBottom={{ small: 72, large: 120 }}
+            gutterBottom={{ small: 32, large: 40 }}
           >
             <Heading as="h2" styleAs="h5" gutterBottom={12}>Zie ook</Heading>
             <List>
@@ -151,11 +151,19 @@ const Collection = ({
           </GridItem>
         )}
 
+        <GridItem
+          colStart={{ small: 1, large: 5 }}
+          colRange={{ small: 4, large: 8 }}
+          rowStart={{ small: 7, large: 5 }}
+        >
+          <ContentFooter type="dossier" themes={theme} />
+        </GridItem>
+
         {(email || phoneNumber)
         && (
           <GridItem
             colRange={4}
-            rowStart={{ small: 7, large: 5 }}
+            rowStart={{ small: 8, large: 6 }}
             gutterBottom={{ small: 32, large: 40 }}
           >
             <Heading gutterBottom={{ small: 12, large: 40 }} as="h2" styleAs="h3">Heeft u een vraag over dit dossier?</Heading>
@@ -170,13 +178,6 @@ const Collection = ({
             </Paragraph>
           </GridItem>
         )}
-
-        <GridItem
-          colStart={{ small: 1, large: 1 }}
-          colRange={{ small: 4, large: 8 }}
-        >
-          <ThemeList type="artikel" themes={theme} />
-        </GridItem>
       </Grid>
     </>
   )

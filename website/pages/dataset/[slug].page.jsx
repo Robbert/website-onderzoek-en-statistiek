@@ -5,7 +5,7 @@ import { Grid, GridItem } from '../../components/Grid/Grid.style'
 import Heading from '../../components/Heading/Heading'
 import Link from '../../components/Link/Link'
 import BodyContent from '../../components/BodyContent/BodyContent'
-import ThemeList from '../../components/ThemeList/ThemeList'
+import ContentFooter from '../../components/ContentFooter/ContentFooter'
 import {
   fetchAPI,
   getStrapiMedia,
@@ -117,9 +117,8 @@ const Dataset = ({
       <GridItem
         colStart={{ small: 1, large: 2 }}
         colRange={{ small: 4, large: 10 }}
-        gutterBottom={{ small: 2, large: 120 }}
       >
-        <ThemeList type="dataset" themes={theme} />
+        <ContentFooter type="dataset" themes={theme} />
       </GridItem>
     </Grid>
 

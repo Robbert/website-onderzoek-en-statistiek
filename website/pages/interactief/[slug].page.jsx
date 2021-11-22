@@ -6,6 +6,8 @@ import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
 import Seo from '../../components/Seo/Seo'
 import Container from '../../components/Container/Container'
 import IFrame from '../../components/IFrame/IFrame'
+import { Grid, GridItem } from '../../components/Grid/Grid.style'
+import ContentFooter from '../../components/ContentFooter/ContentFooter'
 import QUERY from './interactive.query.gql'
 
 const RenderContainer = styled.div`
@@ -13,7 +15,15 @@ const RenderContainer = styled.div`
 `
 
 const Interactive = ({
-  title, shortTitle, teaser, implementation, contentLink, squareImage, rectangularImage, assets,
+  title,
+  shortTitle,
+  teaser,
+  implementation,
+  contentLink,
+  squareImage,
+  rectangularImage,
+  assets,
+  theme,
 }) => {
   const router = useRouter()
 
@@ -56,9 +66,14 @@ const Interactive = ({
         image={getStrapiMedia(rectangularImage || squareImage)}
         article
       />
-      { implementation === 'insert'
+      {implementation === 'insert'
         ? <RenderContainer id="micro-frontend" />
         : <IFrame src={contentLink} title={title} />}
+      <Grid verticalPadding={0}>
+        <GridItem colRange={{ small: 4, large: 8 }}>
+          <ContentFooter type="interactieve publicatie" themes={theme} />
+        </GridItem>
+      </Grid>
     </Container>
   )
 }

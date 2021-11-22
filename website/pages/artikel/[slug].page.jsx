@@ -5,9 +5,9 @@ import { Grid, GridItem } from '../../components/Grid/Grid.style'
 import Heading from '../../components/Heading/Heading'
 import Paragraph from '../../components/Paragraph/Paragraph'
 import BodyContent from '../../components/BodyContent/BodyContent'
-import ThemeList from '../../components/ThemeList/ThemeList'
 import CardList from '../../components/CardList/CardList'
 import Card from '../../components/Card/Card'
+import ContentFooter from '../../components/ContentFooter/ContentFooter'
 import {
   fetchAPI,
   getStrapiMedia,
@@ -80,7 +80,7 @@ const Article = ({
         colStart={{ small: 1, large: 3 }}
         colRange={{ small: 4, large: 8 }}
       >
-        <ThemeList type="artikel" themes={theme} />
+        <ContentFooter type="artikel" themes={theme} />
       </GridItem>
 
       {related.length > 0 && (

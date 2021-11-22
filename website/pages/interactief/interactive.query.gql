@@ -13,5 +13,9 @@ query getInteractiveData($slug: String) {
     }
     implementation
     contentLink
+    theme {
+      title
+      slug
+    }
   }
 }

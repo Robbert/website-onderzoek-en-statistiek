@@ -5,7 +5,7 @@ import Paragraph from '../../components/Paragraph/Paragraph'
 import DownloadButton from '../../components/DownloadButton/DownloadButton'
 import Details from '../../components/Details/Details'
 import BodyContent from '../../components/BodyContent/BodyContent'
-import ThemeList from '../../components/ThemeList/ThemeList'
+import ContentFooter from '../../components/ContentFooter/ContentFooter'
 import MarkdownToHtml from '../../components/MarkdownToHtml/MarkdownToHtml'
 import {
   fetchAPI, getStrapiMedia, apolloClient, formatDate,
@@ -135,9 +135,8 @@ const Video = ({
       <GridItem
         colStart={{ small: 1, large: 3 }}
         colRange={{ small: 4, large: 8 }}
-        gutterBottom={{ small: 72, large: 120 }}
       >
-        <ThemeList type="video" themes={theme} />
+        <ContentFooter type="video" themes={theme} />
       </GridItem>
     </Grid>
   </>
