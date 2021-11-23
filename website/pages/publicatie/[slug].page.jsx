@@ -1,5 +1,7 @@
 import NextImage from 'next/image'
+import { useRouter } from 'next/router'
 
+import FallbackPage from '../../components/FallbackPage/FallbackPage'
 import Seo from '../../components/Seo/Seo'
 import { Grid, GridItem } from '../../components/Grid/Grid.style'
 import Heading from '../../components/Heading/Heading'
@@ -30,83 +32,90 @@ const Publication = ({
   squareImage,
   rectangularImage,
   theme,
-}) => (
-  <>
-    <Seo
-      title={shortTitle || title}
-      image={getStrapiMedia(rectangularImage || squareImage || coverImage)}
-      article
-    />
+}) => {
+  const router = useRouter()
+  if (router.isFallback) {
+    return <FallbackPage />
+  }
 
-    <Grid>
-      <GridItem
-        colStart={{ small: 1, large: 2 }}
-        colRange={{ small: 4, large: 10 }}
-      >
-        <Heading gutterBottom={16}>{title}</Heading>
-        <Styled.MetaList small gutterBottom={40}>
-          <Styled.MetaListItem>Publicatie</Styled.MetaListItem>
-          {author && <Styled.MetaListItem>{author}</Styled.MetaListItem>}
-          {publicationDate && (
-            <Styled.MetaListItem>
-              {formatDate(publicationDate)}
-            </Styled.MetaListItem>
+  return (
+    <>
+      <Seo
+        title={shortTitle || title}
+        image={getStrapiMedia(rectangularImage || squareImage || coverImage)}
+        article
+      />
+
+      <Grid>
+        <GridItem
+          colStart={{ small: 1, large: 2 }}
+          colRange={{ small: 4, large: 10 }}
+        >
+          <Heading gutterBottom={16}>{title}</Heading>
+          <Styled.MetaList small gutterBottom={40}>
+            <Styled.MetaListItem>Publicatie</Styled.MetaListItem>
+            {author && <Styled.MetaListItem>{author}</Styled.MetaListItem>}
+            {publicationDate && (
+              <Styled.MetaListItem>
+                {formatDate(publicationDate)}
+              </Styled.MetaListItem>
+            )}
+          </Styled.MetaList>
+
+        </GridItem>
+
+        <GridItem
+          colStart={{ small: 1, large: 9 }}
+          colRange={{ small: 4, large: 3 }}
+          rowStart={2}
+          gutterBottom={{ small: 56, large: 40 }}
+        >
+          {coverImage && (
+            <Styled.CoverImage>
+              <NextImage
+                src={getStrapiMedia(coverImage)}
+                alt={coverImage.alternativeText}
+                width={coverImage.width}
+                height={coverImage.height}
+                layout="responsive"
+                placeholder="blur"
+                objectFit="cover"
+                blurDataURL={PLACEHOLDER_IMAGE}
+                priority
+              />
+            </Styled.CoverImage>
           )}
-        </Styled.MetaList>
+          <Styled.ButtonWrapper>
+            <DownloadButton
+              url={getStrapiMedia(file)}
+              variant="primary"
+            >
+              {`Download PDF (${formatBytes(file.size * 1000)})`}
+            </DownloadButton>
+          </Styled.ButtonWrapper>
+        </GridItem>
 
-      </GridItem>
+        <GridItem
+          colStart={{ small: 1, large: 2 }}
+          colRange={{ small: 4, large: 6 }}
+        >
+          <Paragraph intro gutterBottom={40}>{intro}</Paragraph>
+        </GridItem>
 
-      <GridItem
-        colStart={{ small: 1, large: 9 }}
-        colRange={{ small: 4, large: 3 }}
-        rowStart={2}
-        gutterBottom={{ small: 56, large: 40 }}
-      >
-        {coverImage && (
-          <Styled.CoverImage>
-            <NextImage
-              src={getStrapiMedia(coverImage)}
-              alt={coverImage.alternativeText}
-              width={coverImage.width}
-              height={coverImage.height}
-              layout="responsive"
-              placeholder="blur"
-              objectFit="cover"
-              blurDataURL={PLACEHOLDER_IMAGE}
-              priority
-            />
-          </Styled.CoverImage>
+        {body && (
+          <BodyContent content={body} />
         )}
-        <Styled.ButtonWrapper>
-          <DownloadButton
-            url={getStrapiMedia(file)}
-            variant="primary"
-          >
-            {`Download PDF (${formatBytes(file.size * 1000)})`}
-          </DownloadButton>
-        </Styled.ButtonWrapper>
-      </GridItem>
 
-      <GridItem
-        colStart={{ small: 1, large: 2 }}
-        colRange={{ small: 4, large: 6 }}
-      >
-        <Paragraph intro gutterBottom={40}>{intro}</Paragraph>
-      </GridItem>
-
-      {body && (
-        <BodyContent content={body} />
-      )}
-
-      <GridItem
-        colStart={{ small: 1, large: 2 }}
-        colRange={{ small: 4, large: 6 }}
-      >
-        <ContentFooter type="publicatie" themes={theme} />
-      </GridItem>
-    </Grid>
-  </>
-)
+        <GridItem
+          colStart={{ small: 1, large: 2 }}
+          colRange={{ small: 4, large: 6 }}
+        >
+          <ContentFooter type="publicatie" themes={theme} />
+        </GridItem>
+      </Grid>
+    </>
+  )
+}
 
 export async function getStaticPaths() {
   const publications = await fetchAPI('/publications?_limit=-1')
@@ -117,7 +126,7 @@ export async function getStaticPaths() {
         slug,
       },
     })),
-    fallback: false,
+    fallback: true,
   }
 }
 
@@ -129,6 +138,12 @@ export async function getStaticProps({ params }) {
     },
   )
     .catch() // TODO: log this error in sentry
+
+  if (!data.publications[0]) {
+    return {
+      notFound: true,
+    }
+  }
 
   return {
     props: data.publications[0],

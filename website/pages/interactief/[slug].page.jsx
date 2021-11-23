@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
+import FallbackPage from '../../components/FallbackPage/FallbackPage'
 import { fetchAPI, getStrapiMedia, apolloClient } from '../../lib/utils'
 import Seo from '../../components/Seo/Seo'
 import Container from '../../components/Container/Container'
@@ -26,6 +27,9 @@ const Interactive = ({
   theme,
 }) => {
   const router = useRouter()
+  if (router.isFallback) {
+    return <FallbackPage />
+  }
 
   useEffect(() => {
     if (implementation === 'link') {
@@ -89,7 +93,7 @@ export async function getStaticPaths() {
         },
       }
     )),
-    fallback: false,
+    fallback: true,
   }
 }
 
@@ -101,6 +105,12 @@ export async function getStaticProps({ params }) {
     },
   )
     .catch() // TODO: log this error in sentry
+
+  if (!data.interactives[0]) {
+    return {
+      notFound: true,
+    }
+  }
 
   const { contentLink, implementation } = data.interactives[0]
 

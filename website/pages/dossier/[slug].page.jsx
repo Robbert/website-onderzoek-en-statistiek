@@ -1,5 +1,7 @@
 import { ChevronRight } from '@amsterdam/asc-assets'
+import { useRouter } from 'next/router'
 
+import FallbackPage from '../../components/FallbackPage/FallbackPage'
 import Seo from '../../components/Seo/Seo'
 import {
   apolloClient, fetchAPI, getStrapiMedia, normalizeItemList, formatDate,
@@ -31,6 +33,11 @@ const Collection = ({
   phoneNumber,
   theme,
 }) => {
+  const router = useRouter()
+  if (router.isFallback) {
+    return <FallbackPage />
+  }
+
   const collectionItems = normalizeItemList(collectionItemsCms)
     .slice()
     .sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate))
@@ -192,7 +199,7 @@ export async function getStaticPaths() {
         slug,
       },
     })),
-    fallback: false,
+    fallback: true,
   }
 }
 
@@ -204,6 +211,12 @@ export async function getStaticProps({ params }) {
     },
   )
     .catch() // TODO: log this error in sentry
+
+  if (!data.collections[0]) {
+    return {
+      notFound: true,
+    }
+  }
 
   return {
     props: data.collections[0],
