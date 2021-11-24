@@ -6,7 +6,7 @@ import { getStrapiMedia, PLACEHOLDER_IMAGE, translateColor } from '../../lib/uti
 import * as Styled from './Visualisation.style'
 
 const Visualisation = ({
-  title, text, source, image, variant, color,
+  title, text, source, image, variant, color, altText,
 }) => (
 
   // TODO: add layout for variants with text left or right from image
@@ -45,7 +45,7 @@ const Visualisation = ({
     >
       <NextImage
         src={getStrapiMedia(image)}
-        alt={image.alternativeText}
+        alt={altText}
         width={image.width}
         height={image.height}
         layout="responsive"

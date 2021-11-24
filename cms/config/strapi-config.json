@@ -3755,7 +3755,7 @@
           "label": "AlternativeText",
           "description": "",
           "placeholder": "",
-          "visible": true,
+          "visible": false,
           "editable": true
         },
         "list": {

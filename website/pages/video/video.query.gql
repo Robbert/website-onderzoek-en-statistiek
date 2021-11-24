@@ -56,9 +56,9 @@ query getVideoData($slug: String) {
         title
         text
         source
+        altText
         image {
           url
-          alternativeText
           caption
           width
           height

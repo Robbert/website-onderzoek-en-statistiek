@@ -16,12 +16,12 @@ query getThemeData($slug: String) {
       text
       source
       color
+      altText
       image {
         url
         width
         height
       }
-      altText
     }
     topStory {
       ... on ComponentSharedArticles {

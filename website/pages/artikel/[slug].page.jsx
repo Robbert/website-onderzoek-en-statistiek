@@ -63,7 +63,7 @@ const Article = ({
             <Styled.ImageWrapper>
               <Image
                 src={getStrapiMedia(rectangularImage)}
-                alt={rectangularImage.alternativeText}
+                alt=""
                 width={rectangularImage.width}
                 height={rectangularImage.height}
                 layout="responsive"

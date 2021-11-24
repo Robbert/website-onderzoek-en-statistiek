@@ -74,7 +74,7 @@ const Publication = ({
             <Styled.CoverImage>
               <NextImage
                 src={getStrapiMedia(coverImage)}
-                alt={coverImage.alternativeText}
+                alt=""
                 width={coverImage.width}
                 height={coverImage.height}
                 layout="responsive"
