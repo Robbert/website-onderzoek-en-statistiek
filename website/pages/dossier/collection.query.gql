@@ -18,9 +18,13 @@ query getCollectionData($slug: String) {
           slug
           squareImage {
             url
+            width
+            height
           }
           rectangularImage {
             url
+            width
+            height
           }
         }
       }
@@ -31,9 +35,13 @@ query getCollectionData($slug: String) {
           slug
           squareImage {
             url
+            width
+            height
           }
           rectangularImage {
             url
+            width
+            height
           }
         }
       }
@@ -44,9 +52,13 @@ query getCollectionData($slug: String) {
           slug
           squareImage {
             url
+            width
+            height
           }
           rectangularImage {
             url
+            width
+            height
           }
         }
       }
@@ -57,9 +69,13 @@ query getCollectionData($slug: String) {
           slug
           squareImage {
             url
+            width
+            height
           }
           rectangularImage {
             url
+            width
+            height
           }
         }
       }
@@ -69,6 +85,13 @@ query getCollectionData($slug: String) {
           slug
           squareImage {
             url
+            width
+            height
+          }
+          rectangularImage {
+            url
+            width
+            height
           }
         }
       }
@@ -79,12 +102,6 @@ query getCollectionData($slug: String) {
           title
           teaser
           slug
-          squareImage {
-            url
-          }
-          rectangularImage {
-            url
-          }
           publicationDate
         }
       }
@@ -93,12 +110,6 @@ query getCollectionData($slug: String) {
           title
           teaser
           slug
-          squareImage {
-            url
-          }
-          rectangularImage {
-            url
-          }
           publicationDate
         }
       }
@@ -107,12 +118,6 @@ query getCollectionData($slug: String) {
           title
           teaser
           slug
-          squareImage {
-            url
-          }
-          rectangularImage {
-            url
-          }
           publicationDate
         }
       }
@@ -121,12 +126,6 @@ query getCollectionData($slug: String) {
           title
           teaser
           slug
-          squareImage {
-            url
-          }
-          rectangularImage {
-            url
-          }
           publicationDate
         }
       }
@@ -134,9 +133,6 @@ query getCollectionData($slug: String) {
         datasets {
           title
           slug
-          squareImage {
-            url
-          }
           publicationDate: published_at
         }
       }

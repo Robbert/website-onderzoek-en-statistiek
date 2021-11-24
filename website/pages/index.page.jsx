@@ -139,31 +139,34 @@ const Home = ({ themes, homepage }) => {
             </Styled.HighlightHeading>
           </GridItem>
         )}
-        <CardList>
-          {flatFeatures.slice(largeFirstFeature ? 1 : 0).map(
-            ({
-              path, title, shortTitle, teaser, squareImage, type,
-            }, index) => (
-              <Styled.FeatureListItem key={path}>
-                <Styled.GridItem
-                  colRange={{ small: 4, large: 4 }}
-                  index={index}
-                  colStart={{ small: 1, large: index % 2 === 0 ? 5 : 9 }}
+        <GridItem
+          colRange={{ small: 4, large: 8 }}
+          colStart={{ small: 1, large: 5 }}
+        >
+          <Styled.FeatureList>
+            {flatFeatures.slice(largeFirstFeature ? 1 : 0).map(
+              ({
+                path, title, shortTitle, teaser, squareImage, rectangularImage, type,
+              }) => (
+                <Styled.FeatureListItem
+                  key={path}
+                  listLength={flatFeatures.slice(largeFirstFeature ? 1 : 0).length}
                 >
                   <Card
                     href={path}
                     image={squareImage}
+                    mobileImage={rectangularImage}
                     type={type}
                     title={shortTitle || title}
                     teaser={teaser}
                     headingLevel="h3"
                     clickableImage
                   />
-                </Styled.GridItem>
-              </Styled.FeatureListItem>
-            ),
-          )}
-        </CardList>
+                </Styled.FeatureListItem>
+              ),
+            )}
+          </Styled.FeatureList>
+        </GridItem>
       </Grid>
 
       {featuredCollections.length > 0 && (
@@ -179,7 +182,7 @@ const Home = ({ themes, homepage }) => {
                 shortTitle: featureShortTitle,
                 teaser: featureTeaser,
               }) => (
-                <Styled.FeatureListItem key={path}>
+                <Styled.CollectionListItem key={path}>
                   <GridItem colRange={{ small: 4, large: 4 }}>
                     <SearchCard
                       href={path}
@@ -188,7 +191,7 @@ const Home = ({ themes, homepage }) => {
                       small
                     />
                   </GridItem>
-                </Styled.FeatureListItem>
+                </Styled.CollectionListItem>
               ),
             )}
           </CardList>

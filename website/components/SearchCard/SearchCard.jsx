@@ -4,7 +4,7 @@ import Heading from '../Heading/Heading'
 import CONTENT_TYPES from '../../constants/contentTypes'
 import * as Styled from './SearchCard.style'
 
-const Card = ({
+const SearchCard = ({
   href, type, title, teaser, small, date, gutterBottom = 40, headingLevel,
 }) => (
   <>
@@ -32,4 +32,4 @@ const Card = ({
   </>
 )
 
-export default Card
+export default SearchCard

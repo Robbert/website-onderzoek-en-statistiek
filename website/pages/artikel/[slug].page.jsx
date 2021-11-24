@@ -103,6 +103,7 @@ const Article = ({
                   title: relatedTitle,
                   shortTitle: relatedShortTitle,
                   squareImage: relatedSquareImage,
+                  rectangularImage: relatedRectangularImage,
                   type,
                 }) => (
                   <Styled.RelatedListItem key={path}>
@@ -110,6 +111,7 @@ const Article = ({
                       <Card
                         href={path}
                         image={relatedSquareImage}
+                        mobileImage={relatedRectangularImage}
                         type={type}
                         title={relatedShortTitle || relatedTitle}
                         headingLevel="h3"

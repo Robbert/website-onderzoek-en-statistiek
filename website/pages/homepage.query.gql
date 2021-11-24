@@ -1,19 +1,22 @@
-# Write your query or mutation here
 query getHomepageData {
   homepage {
     largeFirstFeature
     featured {
       ... on ComponentSharedArticles {
-        articles{
+        articles {
           title
           shortTitle
           teaser
           slug
           squareImage {
             url
+            width
+            height
           }
           rectangularImage {
             url
+            width
+            height
           }
         }
       }
@@ -25,9 +28,13 @@ query getHomepageData {
           slug
           squareImage {
             url
+            width
+            height
           }
           rectangularImage {
             url
+            width
+            height
           }
         }
       }
@@ -39,23 +46,31 @@ query getHomepageData {
           slug
           squareImage {
             url
+            width
+            height
           }
           rectangularImage {
             url
+            width
+            height
           }
         }
       }
       ... on ComponentSharedInteractives {
-        interactives{
+        interactives {
           title
           shortTitle
           teaser
           slug
           squareImage {
             url
+            width
+            height
           }
           rectangularImage {
             url
+            width
+            height
           }
         }
       }
@@ -67,45 +82,56 @@ query getHomepageData {
           slug
           squareImage {
             url
+            width
+            height
           }
           rectangularImage {
             url
+            width
+            height
           }
         }
       }
-    ... on ComponentSharedDatasets {
-      datasets {
-        title
-        teaser
-        slug
-        squareImage {
-          url
+      ... on ComponentSharedDatasets {
+        datasets {
+          title
+          teaser
+          slug
+          squareImage {
+            url
+            width
+            height
+          }
+          rectangularImage {
+            url
+            width
+            height
+          }
         }
       }
     }
-  }
-  featuredCollections {
-    ... on ComponentSharedCollections {
-      collections {
-        title
-        shortTitle
-        teaser
-        slug
+    featuredCollections {
+      ... on ComponentSharedCollections {
+        collections {
+          title
+          shortTitle
+          teaser
+          slug
+        }
       }
     }
-  }
-  agenda {
-    ... on ComponentSharedArticles {
-        articles{
+    agenda {
+      ... on ComponentSharedArticles {
+        articles {
           title
           shortTitle
           slug
         }
       }
     }
-  shortcuts {
+    shortcuts {
       ... on ComponentSharedArticles {
-        articles{
+        articles {
           title
           shortTitle
           slug
@@ -126,7 +152,7 @@ query getHomepageData {
         }
       }
       ... on ComponentSharedInteractives {
-        interactives{
+        interactives {
           title
           shortTitle
           slug
@@ -146,7 +172,7 @@ query getHomepageData {
         }
       }
     }
-  relatedSites {
+    relatedSites {
       title
       path
     }

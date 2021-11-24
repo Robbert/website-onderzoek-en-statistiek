@@ -5,6 +5,7 @@ import Paragraph from '../Paragraph/Paragraph'
 
 export const Link = styled.a`
   display: block;
+  width: 100%;
   text-decoration: none;
   overflow: hidden;
   margin-bottom: 24px;
@@ -30,21 +31,16 @@ export const Link = styled.a`
 `
 
 export const ImageWrapper = styled.div`
+  display: block;
   position: relative;
-  height: ${({ large }) => (large ? '534px' : '360px')};
-
-  @media screen and ${breakpoint('max-width', 'laptop')} {
-    height: 232px;
-  }
 
   ${({ large }) => large
-  && css`
-  @media screen and ${breakpoint('max-width', 'laptop')} {
-    height: 220px;
-    margin-left: -12px;
-    margin-right: -12px;
-  }`
-}
+    && css`
+    @media screen and ${breakpoint('max-width', 'laptop')} {
+      margin-left: -12px;
+      margin-right: -12px;
+    }`
+  }
 `
 
 export const Type = styled(Paragraph)`

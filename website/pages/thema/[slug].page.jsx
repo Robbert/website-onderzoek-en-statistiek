@@ -105,6 +105,7 @@ const Theme = ({
                 shortTitle: featureShortTitle,
                 teaser: featureTeaser,
                 squareImage: featureSquareImage,
+                rectangularImage: featureRectangularImage,
                 type,
               }) => (
                 <Styled.FeatureListItem key={path}>
@@ -112,6 +113,7 @@ const Theme = ({
                     <Card
                       href={path}
                       image={featureSquareImage}
+                      mobileImage={featureRectangularImage}
                       type={type}
                       title={featureShortTitle || featureTitle}
                       teaser={featureTeaser}

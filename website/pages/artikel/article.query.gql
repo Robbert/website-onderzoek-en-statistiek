@@ -16,41 +16,41 @@ query getArticleData($slug: String) {
     publicationDate
     intro
     body {
-      ... on ComponentSharedText{
+      ... on ComponentSharedText {
         id
         text
       }
-      ... on ComponentSharedTextWithLinks{
+      ... on ComponentSharedTextWithLinks {
         id
         text
         articles {
           title
           slug
         }
-        publications{
+        publications {
           title
           slug
         }
-        videos{
+        videos {
           title
           slug
         }
-        interactives{
+        interactives {
           title
           slug
         }
-        collections{
+        collections {
           title
           slug
         }
-        datasets{
+        datasets {
           title
           slug
         }
         links {
           title
           path
-        } 
+        }
       }
       ... on ComponentSharedVisualisation {
         id
@@ -76,9 +76,13 @@ query getArticleData($slug: String) {
           slug
           squareImage {
             url
+            width
+            height
           }
           rectangularImage {
             url
+            width
+            height
           }
         }
       }
@@ -89,9 +93,13 @@ query getArticleData($slug: String) {
           slug
           squareImage {
             url
+            width
+            height
           }
           rectangularImage {
             url
+            width
+            height
           }
         }
       }
@@ -102,9 +110,13 @@ query getArticleData($slug: String) {
           slug
           squareImage {
             url
+            width
+            height
           }
           rectangularImage {
             url
+            width
+            height
           }
         }
       }
@@ -115,9 +127,13 @@ query getArticleData($slug: String) {
           slug
           squareImage {
             url
+            width
+            height
           }
           rectangularImage {
             url
+            width
+            height
           }
         }
       }
@@ -128,9 +144,13 @@ query getArticleData($slug: String) {
           slug
           squareImage {
             url
+            width
+            height
           }
           rectangularImage {
             url
+            width
+            height
           }
         }
       }

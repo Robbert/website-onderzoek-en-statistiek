@@ -62,6 +62,8 @@ const Collection = ({
       ),
     )
 
+  const normalizedFeatures = normalizeItemList(featured.slice(0, 4))
+
   return (
     <>
       <Seo
@@ -76,18 +78,21 @@ const Collection = ({
         </GridItem>
 
         {featured.length > 0 && (
-          <CardList>
-            {normalizeItemList(featured).map(
-              ({
-                path,
-                title: featureTitle,
-                shortTitle: featureShortTitle,
-                teaser: featureTeaser,
-                rectangularImage: featureTeaserImage,
-                type,
-              }, index) => (
-                <Styled.FeatureListItem key={path}>
-                  <Styled.FeatureGridItem colRange={{ small: 4, large: 6 }} index={index}>
+          <GridItem colRange={{ small: 4, large: 12 }}>
+            <Styled.CardList>
+              {normalizedFeatures.map(
+                ({
+                  path,
+                  title: featureTitle,
+                  shortTitle: featureShortTitle,
+                  teaser: featureTeaser,
+                  rectangularImage: featureTeaserImage,
+                  type,
+                }) => (
+                  <Styled.FeatureListItem
+                    key={path}
+                    listLength={normalizedFeatures.length}
+                  >
                     <Card
                       href={path}
                       image={featureTeaserImage}
@@ -96,12 +101,13 @@ const Collection = ({
                       teaser={featureTeaser}
                       headingLevel="h2"
                       clickableImage
+                      alwaysRectangularImage
                     />
-                  </Styled.FeatureGridItem>
-                </Styled.FeatureListItem>
-              ),
-            )}
-          </CardList>
+                  </Styled.FeatureListItem>
+                ),
+              )}
+            </Styled.CardList>
+          </GridItem>
         )}
 
         {collectionItems.length > 0
@@ -125,7 +131,7 @@ const Collection = ({
               </CardList>
               {collectionItems.length > 5
               && (
-                <Disclosure id="other_collection_items">
+                <Disclosure id="other_collection_items" url={router.asPath}>
                   <CardList>
                     {collectionItems.slice(5)}
                   </CardList>

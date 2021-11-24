@@ -70,7 +70,7 @@ const SearchFilterSection = ({
   return (
     <>
       <Styled.FilterPanel
-        colRange={{ small: 4, large: 3 }}
+        colRange={4}
         rowStart={{ small: 3, large: 2 }}
         isOpen={mobilePanelOpen}
         ref={mobilePanelRef}
