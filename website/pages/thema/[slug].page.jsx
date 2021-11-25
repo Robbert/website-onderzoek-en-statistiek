@@ -246,6 +246,7 @@ export async function getStaticProps({ params }) {
   if (!data.themes[0]) {
     return {
       notFound: true,
+      revalidate: 1,
     }
   }
 

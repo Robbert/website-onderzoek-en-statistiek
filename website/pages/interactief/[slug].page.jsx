@@ -109,6 +109,7 @@ export async function getStaticProps({ params }) {
   if (!data.interactives[0]) {
     return {
       notFound: true,
+      revalidate: 1,
     }
   }
 

@@ -221,6 +221,7 @@ export async function getStaticProps({ params }) {
   if (!data.collections[0]) {
     return {
       notFound: true,
+      revalidate: 1,
     }
   }
 
