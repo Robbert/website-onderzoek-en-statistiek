@@ -11,8 +11,8 @@ import Paragraph from '../Paragraph/Paragraph'
 import Link from '../Link/Link'
 import * as Styled from './Footer.style'
 
-const Footer = () => (
-  <FooterComponent>
+const Footer = (props) => (
+  <FooterComponent {...props}>
     <Styled.Grid>
       <GridItem colRange={{ small: 3, large: 3 }}>
         <Heading styleAs="h5" gutterBottom={28} darkBackground>Contact</Heading>
