@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 
 import Navigation from '../Navigation/Navigation'
@@ -6,8 +6,24 @@ import Backdrop from '../Backdrop/Backdrop'
 import * as Styled from './Header.style'
 
 const Header = ({ title, homeLink }) => {
-  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
+  const [titleOnScreen, setTitleOnScreen] = useState()
+  const router = useRouter()
+  const observer = useRef()
+
+  useEffect(() => {
+    observer.current = new IntersectionObserver(
+      ([el]) => setTitleOnScreen(el.isIntersecting),
+      { rootMargin: '-100px' },
+    )
+    return () => observer.current.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const homePageTitle = document.getElementById('homePageTitle')
+    if (!homePageTitle) return
+    observer.current.observe(homePageTitle)
+  }, [router.asPath])
 
   return (
     <>
@@ -16,7 +32,7 @@ const Header = ({ title, homeLink }) => {
           <Styled.Link href={homeLink} className="analytics-sitelogo">
             <Styled.LargeLogo src="/logo-gemeente-amsterdam-large.svg" alt="Onderzoek en Statistiek Gemeente Amsterdam" />
             <Styled.SmallLogo src="/logo-gemeente-amsterdam-small.svg" alt="Onderzoek en Statistiek Gemeente Amsterdam" />
-            {title && router.pathname !== '/' && <Styled.Text>{title}</Styled.Text>}
+            {title && !titleOnScreen && <Styled.Text>{title}</Styled.Text>}
           </Styled.Link>
         </Styled.Heading>
         <Navigation

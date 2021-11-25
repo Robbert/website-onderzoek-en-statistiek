@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { breakpoint } from '@amsterdam/asc-ui'
 
 import ContainerComponent from '../Container/Container'
@@ -60,6 +60,16 @@ export const SmallLogo = styled(Logo)`
   }
 `
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`
+
 export const Text = styled.span`
   color: black;
+  animation: ${fadeIn} 0.2s ease-in-out;
 `

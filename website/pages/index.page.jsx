@@ -62,7 +62,12 @@ const Home = ({ themes, homepage }) => {
       <Seo />
       <Grid>
         <GridItem colRange={{ small: 4, large: 12 }}>
-          <Heading gutterBottom={{ small: 32, large: 64 }}>Onderzoek en Statistiek</Heading>
+          <Heading
+            id="homePageTitle"
+            gutterBottom={{ small: 32, large: 64 }}
+          >
+            Onderzoek en Statistiek
+          </Heading>
         </GridItem>
         <Styled.SideBarGridItem
           colRange={{ small: 4, large: 3 }}
