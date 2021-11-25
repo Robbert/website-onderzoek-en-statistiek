@@ -75,4 +75,11 @@ const Custom404 = () => {
   )
 }
 
+export async function getStaticProps() {
+  return {
+    props: {},
+    revalidate: 1,
+  }
+}
+
 export default Custom404
