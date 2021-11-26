@@ -47,8 +47,7 @@ export async function getSearchContent() {
       type: 'dataset',
       shortTitle: '',
       publicationDate: item.updated_at,
-      intro: item.description,
-      body: '',
+      intro: item.body.reduce((allText, bodyItem) => allText + bodyItem.text, ''),
     })))
   const collections = await fetchAPI('/collections?_limit=-1')
     .then((result) => result.map((item) => ({

@@ -168,6 +168,14 @@ export const fluidTypoConfig = {
       maxLineHeight: 26,
     },
   },
+  table: {
+    default: {
+      minFontSize: 16,
+      maxFontSize: 18,
+      minLineHeight: 24,
+      maxLineHeight: 26,
+    },
+  },
 }
 
 export const fluidTypoStyle = css`

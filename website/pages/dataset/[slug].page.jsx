@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import { ExternalLink } from '@amsterdam/asc-assets'
 
 import FallbackPage from '../../components/FallbackPage/FallbackPage'
 import Seo from '../../components/Seo/Seo'
@@ -66,7 +65,56 @@ const Dataset = ({
         <GridItem
           colStart={{ small: 1, large: 2 }}
           colRange={{ small: 4, large: 10 }}
+          gutterBottom={{ small: 40, large: 80 }}
         >
+          <Styled.Heading forwardedAs="h2" gutterBottom={{ small: 20, large: 40 }}>Bronnen</Styled.Heading>
+          <Styled.Table as="table">
+            <thead>
+              <tr>
+                <th>Omschrijving</th>
+                <th>Categorie</th>
+                <td />
+              </tr>
+            </thead>
+            <tbody>
+              {resources
+                .slice()
+                .sort((a) => (a.file ? -1 : 1))
+                .map(({
+                  id, title: resourceTitle, file, url, type,
+                }) => (
+                  <tr key={id}>
+                    <td>
+                      {file
+                        ? resourceTitle
+                        : <Link href={url} variant="inline">{resourceTitle}</Link>}
+                    </td>
+                    <td>{type}</td>
+                    { file
+                      ? (
+                        <td>
+                          <Styled.DownloadButton
+                            url={getStrapiMedia(file)}
+                            variant="textButton"
+                            type={type}
+                            small
+                          >
+                            {`Download ${file && file.ext.slice(1).toUpperCase()} ${file?.size && `(${formatBytes(file.size * 1000)})`}`}
+                          </Styled.DownloadButton>
+                        </td>
+                      ) : <td />}
+                  </tr>
+                ))}
+            </tbody>
+          </Styled.Table>
+        </GridItem>
+
+        <GridItem
+          colStart={{ small: 1, large: 2 }}
+          colRange={{ small: 4, large: 10 }}
+          gutterBottom={{ small: 40, large: 80 }}
+        >
+          <Heading as="h2" gutterBottom={{ small: 20, large: 40 }}>Beschrijving</Heading>
           <Styled.DefinitionList as="dl">
             <Styled.Row underline>
               <Styled.Term>Publicatiedatum</Styled.Term>
@@ -88,35 +136,6 @@ const Dataset = ({
               <Styled.Term>Contactpersoon</Styled.Term>
               <Styled.Details>
                 <Link href={`mailto:${contactMail}`} variant="inline">{contactName}</Link>
-              </Styled.Details>
-            </Styled.Row>
-            <Styled.Row>
-              <Styled.Term>Tabellen</Styled.Term>
-              <Styled.Details>
-                {resources.map(({
-                  id, title: resourceTitle, file, url, type,
-                }) => (
-                  <Styled.Resource key={id}>
-                    <Styled.ResourceTitle>{resourceTitle}</Styled.ResourceTitle>
-                    { file
-                      ? (
-                        <Styled.DownloadButton
-                          url={getStrapiMedia(file)}
-                          variant="textButton"
-                          type={type}
-                          small
-                        >
-                          {`Download ${file && file.ext.slice(1).toUpperCase()} ${file?.size && `(${formatBytes(file.size * 1000)})`}`}
-                        </Styled.DownloadButton>
-                      )
-                      : (
-                        <Styled.Link href={url} variant="inList" external>
-                          <Styled.Icon size={20}><ExternalLink /></Styled.Icon>
-                          {`Naar de ${type}`}
-                        </Styled.Link>
-                      )}
-                  </Styled.Resource>
-                ))}
               </Styled.Details>
             </Styled.Row>
           </Styled.DefinitionList>
