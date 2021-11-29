@@ -46,4 +46,5 @@ export const ItemMobile = styled(Item)`
 
 export const LightLink = styled(Link)`
   font-weight: 500;
+  text-transform: capitalize;
 `

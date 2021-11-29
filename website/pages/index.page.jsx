@@ -73,7 +73,7 @@ const Home = ({ themes, homepage }) => {
           colRange={{ small: 4, large: 3 }}
           rowRange={6}
         >
-          <Heading as="h2" styleAs="h5" gutterBottom={12}>Thema&apos;s</Heading>
+          <Heading as="h2" styleAs="h5" gutterBottom={12}>Thema‘s</Heading>
           <List gutterBottom={56}>
             {themes
               .slice() // strict mode freezes arrays, so we need to make a copy to be able to sort

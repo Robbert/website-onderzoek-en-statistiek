@@ -27,7 +27,7 @@ const CONTENT_TYPES = {
   theme: {
     type: 'theme',
     name: 'thema',
-    plural: 'themas',
+    plural: 'thema‘s',
   },
   dataset: {
     type: 'dataset',

@@ -70,6 +70,8 @@ export const Label = styled.label`
 
 export const Checkbox = styled.input`
   appearance: none;
+  /* to hide native input field in iOS */
+  display: contents;
 
   /*
     Focus is first set on the label next to a focussed checkbox button, and then

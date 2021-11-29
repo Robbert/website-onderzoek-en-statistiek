@@ -45,8 +45,7 @@ export const ChartCaption = styled(Paragraph)`
   text-align: right;
   margin-top: 8px;
   color: ${({ backgroundColor }) => ((
-    backgroundColor === 'groen'
-    || backgroundColor === 'paars'
+    backgroundColor === 'paars'
     || backgroundColor === 'roze'
   ) ? 'white' : 'black')};
 `

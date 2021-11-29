@@ -76,6 +76,16 @@ module.exports = withBundleAnalyzer({
         destination: '/zoek',
         permanent: true,
       },
+      {
+        source: '/artikel/over-onderzoek-informatie-en-statistiek',
+        destination: '/artikel/over-onderzoek-en-statistiek',
+        permanent: true,
+      },
+      {
+        source: '/interactief/kerncijfers-gebieden',
+        destination: '/interactief/dashboard-kerncijfers',
+        permanent: true,
+      },
     ]
   },
 })

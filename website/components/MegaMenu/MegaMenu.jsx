@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import Heading from '../Heading/Heading'
 import Link from '../Link/Link'
 import HEADER_LINKS from '../../constants/contentLinks'
+import CONTENT_TYPES from '../../constants/contentTypes'
 import ShortcutContext from '../../lib/ShortcutContext'
 import { normalizeItemList } from '../../lib/utils'
 import * as Styled from './MegaMenu.style'
@@ -69,6 +70,22 @@ const MegaMenu = ({ isOpen, currentPath }) => {
             </Styled.Item>
           ))}
         </Styled.List>
+
+        <Styled.List>
+          {Object.values(CONTENT_TYPES)
+            .map(({ name, plural }) => (
+              <Styled.Item key={name}>
+                <Styled.LightLink
+                  href={`/zoek?categorie=${name}`}
+                  aria-current={currentPath === `/zoek?categorie=${name}` && 'page'}
+                  className="analytics-menu-content-type-link"
+                >
+                  {plural}
+                </Styled.LightLink>
+              </Styled.Item>
+            ))}
+        </Styled.List>
+
       </Styled.Item>
     </Styled.MegaMenu>
   )

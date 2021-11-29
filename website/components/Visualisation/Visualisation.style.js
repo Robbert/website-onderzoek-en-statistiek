@@ -17,8 +17,7 @@ const fontColor = css`
   color:
     ${({ backgroundColor, variant }) => ((
       variant === 'kleurenbalk' && (
-      backgroundColor === 'groen'
-      || backgroundColor === 'paars'
+      backgroundColor === 'paars'
       || backgroundColor === 'roze'
     )) ? 'white' : 'black')};
 `
