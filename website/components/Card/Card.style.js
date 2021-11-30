@@ -3,6 +3,19 @@ import { themeColor, breakpoint } from '@amsterdam/asc-ui'
 
 import Paragraph from '../Paragraph/Paragraph'
 
+export const IconContainer = styled.div`
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  height: 48px;
+  width: 48px;
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    left: calc(50% - 24px);
+    bottom: calc(50% - 24px);
+  }
+`
+
 export const Link = styled.a`
   display: block;
   width: 100%;
@@ -22,6 +35,10 @@ export const Link = styled.a`
 
     img {
       transform: scale(1.07);
+    }
+
+    ${IconContainer} img {
+      transform: none;
     }
   }
 
