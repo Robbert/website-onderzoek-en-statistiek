@@ -5,7 +5,7 @@ import { prependStrapiURL, PLACEHOLDER_IMAGE } from '../../lib/utils'
 import * as Styled from './InlineImage.style'
 
 const InlineImage = ({ src, alt }) => {
-  const [dimensions, setDimensions] = useState({ width: 300, height: 200 })
+  const [dimensions, setDimensions] = useState({ width: 675, height: 400 })
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -26,6 +26,7 @@ const InlineImage = ({ src, alt }) => {
         height={dimensions.height}
         placeholder="blur"
         blurDataURL={PLACEHOLDER_IMAGE}
+        layout="responsive"
       />
     </Styled.ImageWrapper>
   )
