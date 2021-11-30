@@ -86,6 +86,11 @@ module.exports = withBundleAnalyzer({
         destination: '/interactief/dashboard-kerncijfers',
         permanent: true,
       },
+      {
+        source: '/interactief/hoe-veilig-is-mijn-buurt',
+        destination: '/interactief/dashboard-veiligheid',
+        permanent: true,
+      },
     ]
   },
 })
