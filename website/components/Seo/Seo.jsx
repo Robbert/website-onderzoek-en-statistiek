@@ -1,15 +1,13 @@
 import Head from 'next/head'
 
-import { prependRootURL } from '../../lib/utils'
-
 const Seo = ({
   title = 'Onderzoek en Statistiek',
-  description = 'Website Onderzoek en Statistiek',
+  description = 'Onderzoek en Statistiek (O&S) verzamelt statistische informatie over Amsterdam en voert onderzoek uit, van korte opinieonderzoeken over actuele onderwerpen tot uitgebreide monitors.',
   image,
   article,
   video,
 }) => {
-  const imagePath = image || prependRootURL('/default_image.png')
+  const imagePath = image || 'https://onderzoek.amsterdam.nl/static/prod/default_image.jpg'
   const fullTitle = `${title} | Website Onderzoek en Statistiek`
 
   return (

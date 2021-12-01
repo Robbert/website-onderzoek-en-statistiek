@@ -32,9 +32,9 @@ export function prependRootURL(path = '') {
   let root = 'http://localhost:3000'
 
   if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'acceptance') {
-    root = 'https://acc.onderzoek-en-statistiek.nl'
+    root = 'https://acc.onderzoek.amsterdam.nl'
   } else if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'production') {
-    root = 'https://onderzoek-en-statistiek.nl'
+    root = 'https://onderzoek.amsterdam.nl'
   }
 
   return `${root}${path}`
