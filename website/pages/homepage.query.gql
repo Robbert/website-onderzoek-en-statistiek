@@ -129,34 +129,34 @@ query getHomepageData {
         }
       }
       # uncomment in next deploy
-      # ... on ComponentSharedPublications {
-      #   publications {
-      #     title
-      #     shortTitle
-      #     slug
-      #   }
-      # }
-      # ... on ComponentSharedVideos {
-      #   videos {
-      #     title
-      #     shortTitle
-      #     slug
-      #   }
-      # }
-      # ... on ComponentSharedInteractives {
-      #   interactives {
-      #     title
-      #     shortTitle
-      #     slug
-      #   }
-      # }
-      # ... on ComponentSharedCollections {
-      #   collections {
-      #     title
-      #     shortTitle
-      #     slug
-      #   }
-      # }
+      ... on ComponentSharedPublications {
+        publications {
+          title
+          shortTitle
+          slug
+        }
+      }
+      ... on ComponentSharedVideos {
+        videos {
+          title
+          shortTitle
+          slug
+        }
+      }
+      ... on ComponentSharedInteractives {
+        interactives {
+          title
+          shortTitle
+          slug
+        }
+      }
+      ... on ComponentSharedCollections {
+        collections {
+          title
+          shortTitle
+          slug
+        }
+      }
     }
     shortcuts {
       ... on ComponentSharedArticles {
