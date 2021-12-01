@@ -8,6 +8,9 @@ query getVideoData($slug: String) {
     }
     rectangularImage {
       url
+      caption
+      width
+      height
     }
     publicationDate
     transcript

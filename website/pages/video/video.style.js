@@ -3,6 +3,19 @@ import { Icon as IconASC, breakpoint } from '@amsterdam/asc-ui'
 
 import { GridItem } from '../../components/Grid/Grid.style'
 
+export const ImageWrapper = styled.div`
+  position: relative;
+  margin-bottom: 80px;
+
+  p {
+    margin-top: 12px;
+  }
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    margin-bottom: 56px;
+  }
+`
+
 export const VideoGridItem = styled(GridItem)`
   ${({ wide }) => wide && css`
     margin-left: -32px;

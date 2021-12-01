@@ -32,9 +32,14 @@
       "component": "shared.collections"
     },
     "agenda": {
-      "type": "component",
-      "repeatable": true,
-      "component": "shared.articles"
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.interactives",
+        "shared.collections"
+      ]
     },
     "shortcuts": {
       "type": "dynamiczone",

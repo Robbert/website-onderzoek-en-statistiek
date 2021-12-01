@@ -68,7 +68,6 @@ const Article = ({
                 height={rectangularImage.height}
                 layout="responsive"
                 placeholder="blur"
-                objectFit="cover"
                 blurDataURL={PLACEHOLDER_IMAGE}
                 priority
               />

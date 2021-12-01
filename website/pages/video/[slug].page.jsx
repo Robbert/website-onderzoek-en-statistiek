@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 import FallbackPage from '../../components/FallbackPage/FallbackPage'
 import Seo from '../../components/Seo/Seo'
@@ -11,7 +12,7 @@ import BodyContent from '../../components/BodyContent/BodyContent'
 import ContentFooter from '../../components/ContentFooter/ContentFooter'
 import MarkdownToHtml from '../../components/MarkdownToHtml/MarkdownToHtml'
 import {
-  fetchAPI, getStrapiMedia, apolloClient, formatDate,
+  fetchAPI, getStrapiMedia, apolloClient, formatDate, PLACEHOLDER_IMAGE,
 } from '../../lib/utils'
 import QUERY from './video.query.gql'
 import * as Styled from './video.style'
@@ -137,6 +138,26 @@ const Video = ({
           </Styled.ButtonContainer>
           {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
           <Paragraph intro gutterBottom={{ small: 40, large: 80 }}>{intro}</Paragraph>
+          {!videoFile?.url && !externalVideoSource && rectangularImage && (
+            <Styled.ImageWrapper>
+              <Image
+                src={getStrapiMedia(rectangularImage)}
+                alt=""
+                width={rectangularImage.width}
+                height={rectangularImage.height}
+                layout="responsive"
+                placeholder="blur"
+                blurDataURL={PLACEHOLDER_IMAGE}
+                priority
+              />
+
+              {rectangularImage.caption && (
+                <Paragraph small>
+                  {rectangularImage.caption}
+                </Paragraph>
+              )}
+            </Styled.ImageWrapper>
+          )}
         </GridItem>
 
         {body && <BodyContent content={body} />}
