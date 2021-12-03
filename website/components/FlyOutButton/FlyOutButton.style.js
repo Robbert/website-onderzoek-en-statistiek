@@ -1,31 +1,8 @@
-import { Button as ButtonASC, themeColor, breakpoint } from '@amsterdam/asc-ui'
+import { themeColor, breakpoint } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
-export const Button = styled(ButtonASC)`
-  background-color: transparent;
-  line-height: 24px;
-  height: 100%;
-  color: ${themeColor('tint', 'level6')};
-  align-items: center;
-  font-weight: ${({ isOpen }) => (isOpen ? 700 : 500)};
-  padding-left: 20px;
-  padding-right: 28px;
-  border: none;
-  font-size: 18px;
-  min-height: 24px;
-
-  :hover {
-    outline: none;
-    background-color: transparent;
-    text-decoration: underline;
-  }
-`
-
-export const Label = styled.span`
-  @media screen and ${breakpoint('max-width', 'laptop')} {
-    display: none;
-  }
-`
+import ButtonComponent from '../Button/Button'
+import { calculateFluidStyle } from '../../lib/typographyUtils'
 
 export const HamburgerIcon = styled.span`
   transition-timing-function: ${({ isOpen }) => (isOpen ? 'cubic-bezier(0.215, 0.61, 0.355, 1)' : 'cubic-bezier(0.55, 0.055, 0.675, 0.19)')};
@@ -41,6 +18,11 @@ export const HamburgerIcon = styled.span`
   top: 50%;
   right: 0;
 
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    width: 24px;
+    height: 3px;
+  }
+
   ::before {
     top: ${({ isOpen }) => (isOpen ? 0 : '-5px')};
     display: block;
@@ -52,6 +34,12 @@ export const HamburgerIcon = styled.span`
     border-radius: 4px;
     background-color: inherit;
     transition: ${({ isOpen }) => (isOpen ? 'top 75ms ease, opacity 75ms ease 0.12s' : 'top 75ms ease 0.12s, opacity 75ms ease')};
+
+    @media screen and ${breakpoint('max-width', 'laptop')} {
+      top: ${({ isOpen }) => (isOpen ? 0 : '-7px')};
+      width: 24px;
+      height: 3px;
+    }
   }
 
   ::after {
@@ -65,5 +53,69 @@ export const HamburgerIcon = styled.span`
     background-color: inherit;
     transition: ${({ isOpen }) => (isOpen ? 'bottom 75ms ease, transform 75ms cubic-bezier(0.215, 0.61, 0.355, 1) 0.12s' : 'bottom 75ms ease 0.12s, transform 75ms cubic-bezier(0.55, 0.055, 0.675, 0.19)')};
     transform: ${({ isOpen }) => (isOpen ? 'rotate(-90deg)' : 'none')};
+
+    @media screen and ${breakpoint('max-width', 'laptop')} {
+      bottom: ${({ isOpen }) => (isOpen ? 0 : '-7px')};
+      width: 24px;
+      height: 3px;
+    }
+  }
+`
+
+export const Button = styled(ButtonComponent)`
+  position: relative;
+  min-height: 44px;
+  min-width: 44px;
+  line-height: ${calculateFluidStyle(24, 26)};
+  background-color: transparent;
+  color: ${themeColor('tint', 'level6')};
+  font-weight: ${({ isOpen }) => (isOpen ? 800 : 500)};
+
+  /*
+    Display: grid together with setting the buttons :after and Label to
+    start on column 1 and row 1 is used to avoid a layout shift when you open
+    the menu and the 'Menu' text becomes bold.
+  */
+  display: grid;
+  grid-template-columns: 1fr;
+
+  :hover {
+    color: ${themeColor('primary')};
+    background-color: transparent;
+
+    ${HamburgerIcon} {
+      background-color: ${themeColor('primary')};
+    }
+  }
+
+  :focus {
+    background-color: transparent;
+  }
+
+  :after {
+    content: "Menu";
+    grid-row-start: 1;
+    grid-column-start: 1;
+    visibility: hidden;
+    user-select: none;
+    pointer-events: none;
+    font-weight: 800;
+
+    @media speech {
+      display: none;
+    }
+
+    @media screen and ${breakpoint('max-width', 'laptop')} {
+      display: none;
+    }
+  }
+`
+
+export const Label = styled.span`
+  grid-row-start: 1;
+  grid-column-start: 1;
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    display: none;
   }
 `

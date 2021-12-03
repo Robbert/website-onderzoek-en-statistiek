@@ -3,6 +3,7 @@ query getPublicationData($slug: String) {
     author
     title
     shortTitle
+    teaser
     intro
     publicationDate
     file {

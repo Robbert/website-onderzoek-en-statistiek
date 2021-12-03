@@ -7,9 +7,14 @@ export const Link = styled.a`
   display: block;
   text-decoration: none;
   overflow: hidden;
-  margin-bottom: ${({ gutterBottom }) => gutterBottom?.large || gutterBottom || 0}px;
 
-  ${({ gutterBottom }) => gutterBottom?.small && css`
+  ${({ gutterBottom }) => (gutterBottom || typeof gutterBottom === 'number') && (
+  css`
+    margin-bottom: ${typeof gutterBottom?.large === 'number' ? `${gutterBottom.large}px` : `${gutterBottom}px`};
+  `)}
+
+  /* stylelint-disable */
+  ${({ gutterBottom }) => typeof gutterBottom?.small === 'number' && css`
     @media screen and ${breakpoint('max-width', 'laptop')} {
       margin-bottom: ${gutterBottom.small}px;
     }

@@ -6,6 +6,12 @@ import CardListComponent from '../components/CardList/CardList'
 import { Grid, GridItem as GridItemComponent } from '../components/Grid/Grid.style'
 import Heading from '../components/Heading/Heading'
 
+export const TitleGridItem = styled(GridItemComponent)`
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    display: none;
+  }
+`
+
 export const SideBarGridItem = styled(GridItemComponent)`
   margin-top: 112px;
 

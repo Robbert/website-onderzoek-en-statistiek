@@ -1,6 +1,8 @@
 import { useContext } from 'react'
 
+import { GridItem } from '../Grid/Grid.style'
 import Heading from '../Heading/Heading'
+import List from '../List/List'
 import Link from '../Link/Link'
 import HEADER_LINKS from '../../constants/contentLinks'
 import CONTENT_TYPES from '../../constants/contentTypes'
@@ -22,23 +24,19 @@ const MegaMenu = ({ isOpen, currentPath }) => {
     */
       tabIndex={-1}
     >
-      <Styled.ItemMobile>
-        <Heading as="h2" styleAs="h4" gutterBottom={28}>Menu</Heading>
-        <Styled.List>
-          <Styled.Item>
-            <Styled.LightLink
-              href="/zoek"
-              aria-current={currentPath === '/zoek' && 'page'}
-              className="analytics-menu-search-link"
-            >
-              Zoeken
-            </Styled.LightLink>
-          </Styled.Item>
-        </Styled.List>
-      </Styled.ItemMobile>
-      <Styled.Item>
-        <Heading as="h2" styleAs="h4" gutterBottom={28}>Thema‘s</Heading>
-        <Styled.List>
+      <Styled.MobileGridItem colRange={{ small: 4, large: 12 }} gutterBottom={40}>
+        <Styled.LightLink
+          href="/zoek"
+          aria-current={currentPath === '/zoek' && 'page'}
+          className="analytics-menu-search-link"
+        >
+          Zoeken
+        </Styled.LightLink>
+      </Styled.MobileGridItem>
+
+      <GridItem colRange={4}>
+        <Heading as="h2" styleAs="h4" gutterBottom={16}>Thema‘s</Heading>
+        <List gutterBottom={40}>
           {HEADER_LINKS.themes
             .slice()
             .sort((a, b) => a.label.localeCompare(b.label))
@@ -53,25 +51,12 @@ const MegaMenu = ({ isOpen, currentPath }) => {
                 </Link>
               </Styled.Item>
             ))}
-        </Styled.List>
-      </Styled.Item>
-      <Styled.Item>
-        <Heading as="h2" styleAs="h4" gutterBottom={28}>Snel naar</Heading>
-        <Styled.List>
-          {normalizeItemList(shortcuts).map(({ path, title, shortTitle }) => (
-            <Styled.Item key={path}>
-              <Styled.LightLink
-                href={path}
-                aria-current={currentPath === path && 'page'}
-                className="analytics-menu-shortcut-link"
-              >
-                {shortTitle || title}
-              </Styled.LightLink>
-            </Styled.Item>
-          ))}
-        </Styled.List>
+        </List>
+      </GridItem>
 
-        <Styled.List>
+      <GridItem colRange={4}>
+        <Heading as="h2" styleAs="h4" gutterBottom={16}>Categorieën</Heading>
+        <List gutterBottom={40}>
           {Object.values(CONTENT_TYPES)
             .map(({ name, plural }) => (
               <Styled.Item key={name}>
@@ -84,9 +69,34 @@ const MegaMenu = ({ isOpen, currentPath }) => {
                 </Styled.LightLink>
               </Styled.Item>
             ))}
-        </Styled.List>
+        </List>
+      </GridItem>
 
-      </Styled.Item>
+      <GridItem colRange={4}>
+        <Heading as="h2" styleAs="h4" gutterBottom={16}>Snel naar</Heading>
+        <List gutterBottom={40}>
+          {normalizeItemList(shortcuts).map(({ path, title, shortTitle }) => (
+            <Styled.Item key={path}>
+              <Styled.LightLink
+                href={path}
+                aria-current={currentPath === path && 'page'}
+                className="analytics-menu-shortcut-link"
+              >
+                {shortTitle || title}
+              </Styled.LightLink>
+            </Styled.Item>
+          ))}
+          <Styled.Item>
+            <Styled.LightLink
+              href="/artikel/over-onderzoek-en-statistiek"
+              aria-current={currentPath === '/artikel/over-onderzoek-en-statistiek' && 'page'}
+              className="analytics-menu-shortcut-link"
+            >
+              Over Onderzoek en Statistiek
+            </Styled.LightLink>
+          </Styled.Item>
+        </List>
+      </GridItem>
     </Styled.MegaMenu>
   )
 }

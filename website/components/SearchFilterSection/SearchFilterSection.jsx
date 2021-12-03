@@ -5,6 +5,7 @@ import {
 import { Close } from '@amsterdam/asc-assets'
 
 import Heading from '../Heading/Heading'
+import Radio from '../Radio/Radio'
 import Checkbox from '../Checkbox/Checkbox'
 import Backdrop from '../Backdrop/Backdrop'
 import Button from '../Button/Button'
@@ -113,19 +114,19 @@ const SearchFilterSection = ({
             <Heading as="h2" styleAs="h5" gutterBottom={24}>Categorieën</Heading>
           }
         >
-          <Styled.Radio
+          <Radio
             name="categories"
             id="alles"
             onChange={() => setUrlParameters('categorie', null)}
             checked={category === ''}
           >
             Alle categorieën
-          </Styled.Radio>
+          </Radio>
           {Object
             .values(CONTENT_TYPES)
             .filter((cat) => cat.type !== 'theme')
             .map(({ type, plural }) => (
-              <Styled.Radio
+              <Radio
                 key={type}
                 name="categories"
                 id={type}
@@ -133,7 +134,7 @@ const SearchFilterSection = ({
                 checked={category === type}
               >
                 {`${plural} ${facetCount ? formatFacetNumber(facetCount[type]) : ''}`}
-              </Styled.Radio>
+              </Radio>
             ))}
         </Styled.Fieldset>
         <Styled.Fieldset

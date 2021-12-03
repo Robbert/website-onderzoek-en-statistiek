@@ -23,6 +23,7 @@ import QUERY from './publication.query.gql'
 const Publication = ({
   title,
   shortTitle,
+  teaser,
   publicationDate,
   author,
   intro,
@@ -42,6 +43,7 @@ const Publication = ({
     <>
       <Seo
         title={shortTitle || title}
+        description={teaser}
         image={getStrapiMedia(rectangularImage || squareImage || coverImage)}
         article
       />

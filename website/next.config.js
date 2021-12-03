@@ -91,6 +91,11 @@ module.exports = withBundleAnalyzer({
         destination: '/interactief/dashboard-veiligheid',
         permanent: true,
       },
+      {
+        source: '/interactief/armoede-in-amsterdam',
+        destination: '/interactief/dashboard-armoede',
+        permanent: true,
+      },
     ]
   },
 })

@@ -22,10 +22,14 @@ export const Link = styled(LinkComponent)`
   height: 100%;
   color: ${themeColor('tint', 'level6')};
   align-items: center;
-  padding-left: 20px;
-  padding-right: 20px;
-`
+  padding: 12px 24px;
 
-export const FlyOutItem = styled.li`
-  position: relative;
+  :hover {
+    color: ${themeColor('primary')};
+    text-decoration: none;
+  }
+
+  :focus {
+    text-decoration: none;
+  }
 `

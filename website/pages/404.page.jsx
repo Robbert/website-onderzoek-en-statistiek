@@ -24,7 +24,7 @@ const searchLinkLogic = (path) => {
 
   if (contentType) {
     return {
-      type: contentType.plural !== 'interactief' ? contentType.plural : 'interactieve publicaties',
+      type: contentType.plural !== 'Interactief' ? contentType.plural.toLowerCase() : 'interactieve publicaties',
       text: segments.slice(1).join(' '),
       path: `/zoek?categorie=${segments[0]}&tekst=${segments.slice(1).join('+')}`,
     }

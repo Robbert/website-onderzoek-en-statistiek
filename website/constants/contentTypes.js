@@ -2,37 +2,37 @@ const CONTENT_TYPES = {
   collection: {
     type: 'collection',
     name: 'dossier',
-    plural: 'dossiers',
+    plural: 'Dossiers',
   },
   article: {
     type: 'article',
     name: 'artikel',
-    plural: 'artikelen',
+    plural: 'Artikelen',
   },
   publication: {
     type: 'publication',
     name: 'publicatie',
-    plural: 'publicaties',
+    plural: 'Publicaties',
   },
   video: {
     type: 'video',
     name: 'video',
-    plural: 'videos',
+    plural: 'Videos',
   },
   interactive: {
     type: 'interactive',
     name: 'interactief',
-    plural: 'interactief',
+    plural: 'Interactief',
   },
   theme: {
     type: 'theme',
     name: 'thema',
-    plural: 'thema‘s',
+    plural: 'Thema‘s',
   },
   dataset: {
     type: 'dataset',
     name: 'dataset',
-    plural: 'datasets',
+    plural: 'Datasets',
   },
 }
 

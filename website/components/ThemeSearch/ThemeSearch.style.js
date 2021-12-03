@@ -21,7 +21,6 @@ export const ButtonGroup = styled.div`
 `
 
 export const Button = styled(ButtonComponent)`
-  text-transform: capitalize;
   padding: 12px;
 
   &[aria-pressed='true'] {

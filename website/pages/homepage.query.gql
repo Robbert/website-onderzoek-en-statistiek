@@ -128,7 +128,6 @@ query getHomepageData {
           slug
         }
       }
-      # uncomment in next deploy
       ... on ComponentSharedPublications {
         publications {
           title

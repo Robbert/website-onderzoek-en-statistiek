@@ -15,10 +15,13 @@ export const Grid = styled(Container)`
 `
 
 export const gridItemStyle = css`
-  margin-bottom: ${({ gutterBottom }) => gutterBottom?.large || gutterBottom || 0}px;
+  ${({ gutterBottom }) => (gutterBottom || typeof gutterBottom === 'number') && (
+  css`
+    margin-bottom: ${typeof gutterBottom?.large === 'number' ? `${gutterBottom.large}px` : `${gutterBottom}px`};
+  `)}
 
   /* stylelint-disable */
-  ${({ gutterBottom }) => gutterBottom?.small && css`
+  ${({ gutterBottom }) => typeof gutterBottom?.small === 'number' && css`
     @media screen and ${breakpoint('max-width', 'laptop')} {
       margin-bottom: ${gutterBottom.small}px;
     }

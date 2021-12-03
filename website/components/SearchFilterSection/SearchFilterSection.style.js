@@ -3,7 +3,6 @@ import { Select as SelectASC, breakpoint } from '@amsterdam/asc-ui'
 
 import { GridItem } from '../Grid/Grid.style'
 import FieldsetComponent from '../Fieldset/Fieldset'
-import RadioComponent from '../Radio/Radio'
 import ButtonComponent from '../Button/Button'
 
 export const FilterPanel = styled(GridItem)`
@@ -70,12 +69,6 @@ export const MobilePanelToggle = styled(ButtonComponent)`
     position: sticky;
     bottom: 16px;
     left: 100%;
-  }
-`
-
-export const Radio = styled(RadioComponent)`
-  span:first-letter {
-    text-transform: capitalize;
   }
 `
 

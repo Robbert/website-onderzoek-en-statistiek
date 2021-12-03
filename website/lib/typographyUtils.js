@@ -210,9 +210,12 @@ export const fluidTypoStyle = css`
 
 export const typographyStyle = css`
   margin-top: 0;
-  margin-bottom: ${({ gutterBottom }) => gutterBottom?.large || gutterBottom || 0}px;
+  margin-bottom: ${({ gutterBottom }) => (
+    `${typeof gutterBottom?.large === 'number' ? gutterBottom.large : (gutterBottom || 0)}px`
+  )};
 
-  ${({ gutterBottom }) => gutterBottom?.small && css`
+  /* stylelint-disable */
+  ${({ gutterBottom }) => typeof gutterBottom?.small === 'number' && css`
     @media screen and ${breakpoint('max-width', 'laptop')} {
       margin-bottom: ${gutterBottom.small}px;
     }

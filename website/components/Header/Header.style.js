@@ -1,14 +1,13 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import { breakpoint } from '@amsterdam/asc-ui'
 
-import ContainerComponent from '../Container/Container'
+import { Grid, GridItem } from '../Grid/Grid.style'
+import HeadingComponent from '../Heading/Heading'
 import LinkComponent from '../Link/Link'
 
-export const Container = styled(ContainerComponent)`
+export const Container = styled(Grid)`
   position: ${({ sticky }) => (sticky ? 'sticky' : 'relative')};
   top: 0;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   background-color: white;
 
@@ -18,43 +17,65 @@ export const Container = styled(ContainerComponent)`
    * use set a high z-index.
    */
   z-index: 501;
-`
-
-export const Heading = styled.h1`
-  margin: 0;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
-    font-size: 18px;
+    display: flex;
+    column-gap: normal;
   }
 `
 
+export const Heading = styled(HeadingComponent)`
+  /*
+    With css subgrids not yet implemented, this hacky code
+    creates an 8 column wide subgrid of the main grid.
+  */
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  column-gap: 3%;
+`
+
 export const Link = styled(LinkComponent)`
-  text-decoration: none;
   display: flex;
   align-items: center;
+  line-height: 1;
+  grid-column: ${({ withTitle }) => (withTitle ? 'auto / span 8' : 'auto / span 2')};
+
+  ${({ withTitle }) => withTitle
+  && css`
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    column-gap: 3%;
+  `}
+
+  text-decoration: none;
   font-size: inherit;
 
   :hover {
     text-decoration: none;
   }
-`
-
-const Logo = styled.img`
-  height: 42px;
-  margin-right: 100px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-right: 24px;
+    display: flex;
+    column-gap: normal;
   }
 `
 
-export const LargeLogo = styled(Logo)`
+export const LargeLogo = styled.img`
+  width: 134px;
+  max-width: 100%;
+  height: auto;
+  grid-column: auto / span 2;
+
   @media screen and ${breakpoint('max-width', 'laptop')} {
     display: none;
   }
 `
 
-export const SmallLogo = styled(Logo)`
+export const SmallLogo = styled.img`
+  height: 42px;
+  margin-right: 18px;
+  display: flex;
+
   @media screen and ${breakpoint('min-width', 'laptop')} {
     display: none;
   }
@@ -70,6 +91,11 @@ const fadeIn = keyframes`
 `
 
 export const Text = styled.span`
+  grid-column: auto / span 6;
   color: black;
   animation: ${fadeIn} 0.2s ease-in-out;
+`
+
+export const NavGridItem = styled(GridItem)`
+  margin-left: auto;
 `

@@ -28,10 +28,6 @@ export const Button = styled(ButtonComponent)`
   margin-right: 16px;
   margin-bottom: 16px;
 
-  span:first-letter {
-    text-transform: capitalize;
-  }
-
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-right: 8px;
     margin-bottom: 8px;

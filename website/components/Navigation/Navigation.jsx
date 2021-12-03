@@ -58,18 +58,20 @@ const Navigation = ({ isOpen, setIsOpen }) => {
             Zoeken
           </Styled.Link>
         </Styled.Item>
-        <Styled.FlyOutItem>
+        <li>
           <FlyOutButton
+            type="button"
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             aria-expanded={isOpen}
             aria-controls="menu"
             ref={flyOutButtonRef}
+            small
           >
             Menu
           </FlyOutButton>
           <MegaMenu isOpen={isOpen} currentPath={router.asPath} />
-        </Styled.FlyOutItem>
+        </li>
       </Styled.List>
     </nav>
   )
