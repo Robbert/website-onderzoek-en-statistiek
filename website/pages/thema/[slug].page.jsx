@@ -46,21 +46,21 @@ const Theme = ({
         image={getStrapiMedia(rectangularImage || squareImage)}
       />
 
-      <Grid>
+      <Grid verticalPadding={0}>
         <GridItem colRange={{ small: 4, large: 10 }}>
           <Heading gutterBottom={{ small: 24, large: 40 }}>{title}</Heading>
         </GridItem>
         <Styled.IntroGridItem colRange={{ small: 4, large: 5 }}>
           <Paragraph gutterBottom={24} small>{intro}</Paragraph>
           {normalizeItemList(topStory).map(({ path }) => (
-            <Link
+            <Styled.Link
               key={path}
               href={path}
               variant="standalone"
-              gutterBottom={{ small: 20, large: 40 }}
+              gutterBottom={{ small: 24, large: 40 }}
             >
               Lees meer
-            </Link>
+            </Styled.Link>
           ))}
         </Styled.IntroGridItem>
       </Grid>

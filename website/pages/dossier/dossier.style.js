@@ -45,7 +45,7 @@ export const FeatureListItem = styled.li`
 `
 
 export const CollectionGridItem = styled(GridItemComponent)`
-  margin-top: 56px;
+  margin-top: 80px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-top: 32px;

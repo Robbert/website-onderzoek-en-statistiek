@@ -21,7 +21,7 @@ export const SideBarGridItem = styled(GridItemComponent)`
 `
 
 export const HighlightHeading = styled(Heading)`
-  margin-top: 96px;
+  margin-top: 80px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-top: 16px;

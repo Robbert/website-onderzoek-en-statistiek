@@ -4,11 +4,24 @@ import styled, { css } from 'styled-components'
 import { Icon as IconASC, breakpoint, themeColor } from '@amsterdam/asc-ui'
 
 import { Grid, GridItem } from '../../components/Grid/Grid.style'
+import LinkComponent from '../../components/Link/Link'
 import Paragraph from '../../components/Paragraph/Paragraph'
 import List from '../../components/List/List'
+import { calculateFluidStyle } from '../../lib/typographyUtils'
 
 export const IntroGridItem = styled(GridItem)`
   min-height: 240px;
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    min-height: 0;
+    margin-bottom: 32px;
+  }
+`
+
+export const Link = styled(LinkComponent)`
+  font-size: ${calculateFluidStyle(16, 18)};
+  line-height: ${calculateFluidStyle(24, 26)};
+  padding-bottom: 2px;
 `
 
 export const HeroGrid = styled(Grid)`
@@ -17,7 +30,7 @@ export const HeroGrid = styled(Grid)`
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-bottom: 52px;
-    background: linear-gradient(white 45%, ${({ $color }) => $color} 45%);
+    background: linear-gradient(white calc(50% - 36px), ${({ $color }) => $color} calc(50% - 36px));
   }
 `
 
@@ -27,7 +40,7 @@ export const ChartSection = styled.div`
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-top: 0;
-    padding-bottom: 24px;
+    padding-bottom: 72px;
   }
 `
 
@@ -55,7 +68,7 @@ export const FeatureListItem = styled.li`
 `
 
 export const CollectionGrid = styled(Grid)`
-  margin-top: 100px;
+  margin-top: 60px;
   margin-bottom: 120px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {

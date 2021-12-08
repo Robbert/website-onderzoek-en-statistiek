@@ -25,13 +25,13 @@ const MegaMenu = ({ isOpen, currentPath }) => {
       tabIndex={-1}
     >
       <Styled.MobileGridItem colRange={{ small: 4, large: 12 }} gutterBottom={40}>
-        <Styled.LightLink
+        <Link
           href="/zoek"
           aria-current={currentPath === '/zoek' && 'page'}
           className="analytics-menu-search-link"
         >
           Zoeken
-        </Styled.LightLink>
+        </Link>
       </Styled.MobileGridItem>
 
       <GridItem colRange={4}>

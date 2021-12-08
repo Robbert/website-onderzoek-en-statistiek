@@ -32,6 +32,10 @@ export const ListItem = styled.li`
   margin-right: 40px;
 `
 
+export const FirstLink = styled(Link)`
+  padding-top: 8px;
+`
+
 export const BottomLink = styled(Link)`
   color: ${themeColor('tint', 'level6')};
 `

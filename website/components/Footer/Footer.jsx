@@ -111,7 +111,7 @@ const Footer = (props) => (
         </Heading>
         <List>
           <li>
-            <Link
+            <Styled.FirstLink
               darkBackground
               href="/artikel/over-onderzoek-en-statistiek"
               variant="inList"
@@ -120,7 +120,7 @@ const Footer = (props) => (
                 <ChevronRight />
               </Styled.Icon>
               Over Onderzoek en Statistiek
-            </Link>
+            </Styled.FirstLink>
           </li>
           <li>
             <Link

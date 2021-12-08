@@ -21,7 +21,7 @@ export const Link = styled.a`
   width: 100%;
   text-decoration: none;
   overflow: hidden;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
 
   img {
     transition: transform 0.3s ease-in-out;
@@ -40,10 +40,6 @@ export const Link = styled.a`
     ${IconContainer} img {
       transform: none;
     }
-  }
-
-  @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-bottom: 40px;
   }
 `
 
