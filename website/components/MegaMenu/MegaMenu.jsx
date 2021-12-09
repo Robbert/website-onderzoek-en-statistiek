@@ -58,6 +58,7 @@ const MegaMenu = ({ isOpen, currentPath }) => {
         <Heading as="h2" styleAs="h4" gutterBottom={16}>Categorieën</Heading>
         <List gutterBottom={40}>
           {Object.values(CONTENT_TYPES)
+            .filter((cat) => cat.type !== 'theme')
             .map(({ name, plural }) => (
               <Styled.Item key={name}>
                 <Styled.LightLink
