@@ -26,6 +26,7 @@
     },
     "teaser": {
       "type": "text",
+      "maxLength": 200,
       "required": true
     },
     "body": {

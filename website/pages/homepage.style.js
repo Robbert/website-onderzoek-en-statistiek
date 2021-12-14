@@ -63,7 +63,7 @@ export const FeatureListItem = styled.li`
       return 4
     }}
   ) {
-    padding-top: 120px;
+    padding-top: 80px;
 
     @media screen and ${breakpoint('max-width', 'laptop')} {
       padding-top: 0;

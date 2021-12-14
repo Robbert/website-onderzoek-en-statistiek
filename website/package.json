@@ -6,6 +6,7 @@
     "develop": "next dev",
     "dev": "next dev",
     "dev-with-acc": "cross-env NEXT_PUBLIC_DEPLOY_ENV=acceptance next dev",
+    "dev-with-prod": "cross-env NEXT_PUBLIC_DEPLOY_ENV=production next dev",
     "build-search": "curl http://localhost:3000/api/build-search",
     "build": "next build",
     "build-with-acc": "cross-env NEXT_PUBLIC_DEPLOY_ENV=acceptance next build",

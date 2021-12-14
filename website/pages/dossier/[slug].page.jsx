@@ -96,12 +96,12 @@ const Collection = ({
                     <Card
                       href={path}
                       image={featureTeaserImage}
+                      aspectRatio={16 / 9}
                       type={type}
                       title={featureShortTitle || featureTitle}
                       teaser={featureTeaser}
                       headingLevel="h2"
                       clickableImage
-                      alwaysRectangularImage
                     />
                   </Styled.FeatureListItem>
                 ),

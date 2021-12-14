@@ -1,36 +1,35 @@
-import { useState, useEffect } from 'react'
-import { useMatchMedia } from '@amsterdam/asc-ui'
 import NextLink from 'next/link'
 import NextImage from 'next/image'
+import { useMatchMedia } from '@amsterdam/asc-ui'
 
-import Heading from '../Heading/Heading'
 import { getStrapiMedia, PLACEHOLDER_IMAGE } from '../../lib/utils'
 import CONTENT_TYPES from '../../constants/contentTypes'
 import videoIcon from '../../public/icons/video.svg'
 import interactiveIcon from '../../public/icons/interactive.svg'
-import datasetIcon from '../../public/icons/dataset.svg'
 import * as Styled from './Card.style'
 
-const WrappedImage = ({
-  image, large, isMobile, alwaysRectangularImage, type,
+const Card = ({
+  href,
+  image,
+  type,
+  title,
+  teaser,
+  large,
+  headingLevel,
+  clickableImage,
+  aspectRatio = 4 / 3,
 }) => {
-  const defaultWidth = isMobile || alwaysRectangularImage ? 16 : 1
-  const defaultHeight = isMobile || alwaysRectangularImage ? 9 : 1
-
   let icon
-
   if (type === 'video') {
     icon = videoIcon
   }
   if (type === 'interactive') {
     icon = interactiveIcon
   }
-  if (type === 'dataset') {
-    icon = datasetIcon
-  }
+  const isMobile = useMatchMedia({ maxBreakpoint: 'laptop' })
 
-  return (
-    <Styled.ImageWrapper large={large}>
+  const cardImage = (
+    <Styled.ImageWrapper large={large} aspectRatio={isMobile[0] ? 16 / 9 : aspectRatio}>
       <NextImage
         src={
           image
@@ -38,9 +37,8 @@ const WrappedImage = ({
             : PLACEHOLDER_IMAGE
         }
         alt=""
-        width={image ? image.width : defaultWidth}
-        height={image ? image.height : defaultHeight}
-        layout="responsive"
+        layout="fill"
+        objectFit="cover"
       />
       {icon
       && (
@@ -55,61 +53,29 @@ const WrappedImage = ({
       )}
     </Styled.ImageWrapper>
   )
-}
-
-const Card = ({
-  href,
-  image,
-  mobileImage,
-  type,
-  title,
-  teaser,
-  large,
-  headingLevel,
-  clickableImage,
-  alwaysRectangularImage,
-}) => {
-  const isMobile = useMatchMedia({ maxBreakpoint: 'laptop' })
-  const [imageSrc, setImageSrc] = useState(image)
-
-  useEffect(() => {
-    if (mobileImage && isMobile[0]) {
-      setImageSrc(mobileImage)
-    } else {
-      setImageSrc(image)
-    }
-  }, [isMobile])
-
-  const ImageComponent = (
-    <WrappedImage
-      image={imageSrc}
-      large={large}
-      isMobile={isMobile[0]}
-      alwaysRectangularImage={alwaysRectangularImage}
-      type={type}
-    />
-  )
 
   return (
     <>
-      {!clickableImage && ImageComponent}
+      {!clickableImage && cardImage}
       <NextLink href={href} passHref>
         <Styled.Link>
-          {clickableImage && ImageComponent}
-          <Styled.Type
-            small
-            gutterBottom={large ? 8 : 4}
-          >
-            {CONTENT_TYPES[type.toLowerCase()].name}
-          </Styled.Type>
-          <Heading
-            styleAs={large ? 'h2' : 'h5'}
-            as={headingLevel}
-            gutterBottom={8}
-          >
-            {title}
-          </Heading>
-          <Styled.Teaser small={!large}>{teaser}</Styled.Teaser>
+          {clickableImage && cardImage}
+          <Styled.TextWrapper>
+            <Styled.Type
+              small
+              gutterBottom={large ? 8 : 4}
+            >
+              {CONTENT_TYPES[type.toLowerCase()].name}
+            </Styled.Type>
+            <Styled.Heading
+              forwardedAs={headingLevel}
+              styleAs={large ? 'h2' : 'h5'}
+              gutterBottom={8}
+            >
+              {title}
+            </Styled.Heading>
+            <Styled.Teaser small={!large}>{teaser}</Styled.Teaser>
+          </Styled.TextWrapper>
         </Styled.Link>
       </NextLink>
     </>

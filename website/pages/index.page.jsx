@@ -124,6 +124,7 @@ const Home = ({ themes, homepage }) => {
               <Card
                 href={flatFeatures[0].path}
                 image={flatFeatures[0].rectangularImage}
+                aspectRatio={16 / 9}
                 type={flatFeatures[0].type}
                 title={flatFeatures[0].shortTitle || flatFeatures[0].title}
                 teaser={flatFeatures[0].teaser}
@@ -151,7 +152,7 @@ const Home = ({ themes, homepage }) => {
           <Styled.FeatureList>
             {flatFeatures.slice(largeFirstFeature ? 1 : 0).map(
               ({
-                path, title, shortTitle, teaser, squareImage, rectangularImage, type,
+                path, title, shortTitle, teaser, rectangularImage, type,
               }) => (
                 <Styled.FeatureListItem
                   key={path}
@@ -159,8 +160,7 @@ const Home = ({ themes, homepage }) => {
                 >
                   <Card
                     href={path}
-                    image={squareImage}
-                    mobileImage={rectangularImage}
+                    image={rectangularImage}
                     type={type}
                     title={shortTitle || title}
                     teaser={teaser}

@@ -104,7 +104,6 @@ const Theme = ({
                 title: featureTitle,
                 shortTitle: featureShortTitle,
                 teaser: featureTeaser,
-                squareImage: featureSquareImage,
                 rectangularImage: featureRectangularImage,
                 type,
               }) => (
@@ -112,8 +111,7 @@ const Theme = ({
                   <GridItem colRange={{ small: 4, large: 4 }}>
                     <Card
                       href={path}
-                      image={featureSquareImage}
-                      mobileImage={featureRectangularImage}
+                      image={featureRectangularImage}
                       type={type}
                       title={featureShortTitle || featureTitle}
                       teaser={featureTeaser}

@@ -101,7 +101,6 @@ const Article = ({
                   path,
                   title: relatedTitle,
                   shortTitle: relatedShortTitle,
-                  squareImage: relatedSquareImage,
                   rectangularImage: relatedRectangularImage,
                   type,
                 }) => (
@@ -109,8 +108,7 @@ const Article = ({
                     <GridItem colRange={4}>
                       <Card
                         href={path}
-                        image={relatedSquareImage}
-                        mobileImage={relatedRectangularImage}
+                        image={relatedRectangularImage}
                         type={type}
                         title={relatedShortTitle || relatedTitle}
                         headingLevel="h3"

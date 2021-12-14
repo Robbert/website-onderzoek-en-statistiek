@@ -20,7 +20,8 @@
       "required": true
     },
     "shortTitle": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 60
     },
     "slug": {
       "type": "uid",
@@ -30,7 +31,8 @@
     },
     "teaser": {
       "type": "text",
-      "required": true
+      "required": true,
+      "maxLength": 200
     },
     "intro": {
       "type": "text",
