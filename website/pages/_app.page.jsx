@@ -29,6 +29,10 @@ const withTypeBreakpoint = (size) => (type) => `(${type}: ${size + (type === 'ma
 const MyApp = ({ Component, pageProps }) => {
   const [searchIndex, setSearchIndex] = useState(null)
   const router = useRouter()
+  const { asPath } = router
+  if (asPath !== asPath.toLowerCase()) {
+    router.push(asPath.toLowerCase())
+  }
 
   const newTheme = {
     ...ascDefaultTheme,

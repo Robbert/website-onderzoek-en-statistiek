@@ -52,17 +52,7 @@ export const FeatureListItem = styled.li`
   break-inside: avoid;
   width: 100%;
 
-  :nth-child(
-    ${({ listLength }) => {
-      if (listLength === 2) {
-        return 2
-      }
-      if (listLength === 3 || listLength === 4) {
-        return 3
-      }
-      return 4
-    }}
-  ) {
+  :nth-child(${({ listLength }) => Math.round(listLength / 2) + 1}) {
     padding-top: 80px;
 
     @media screen and ${breakpoint('max-width', 'laptop')} {
