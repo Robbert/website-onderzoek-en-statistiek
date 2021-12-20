@@ -6,11 +6,9 @@ import Seo from '../../components/Seo/Seo'
 import { Grid, GridItem } from '../../components/Grid/Grid.style'
 import Heading from '../../components/Heading/Heading'
 import Paragraph from '../../components/Paragraph/Paragraph'
-import DownloadButton from '../../components/DownloadButton/DownloadButton'
-import Details from '../../components/Details/Details'
+import VideoButtons from '../../components/VideoButtons/VideoButtons'
 import BodyContent from '../../components/BodyContent/BodyContent'
 import ContentFooter from '../../components/ContentFooter/ContentFooter'
-import MarkdownToHtml from '../../components/MarkdownToHtml/MarkdownToHtml'
 import {
   fetchAPI, getStrapiMedia, apolloClient, formatDate, PLACEHOLDER_IMAGE,
 } from '../../lib/utils'
@@ -120,22 +118,7 @@ const Video = ({
         </Styled.VideoGridItem>
 
         <GridItem colStart={{ small: 1, large: 3 }} colRange={{ small: 4, large: 8 }}>
-          <Styled.ButtonContainer>
-            {videoFile?.url && (
-              <DownloadButton
-                url={getStrapiMedia(videoFile)}
-                variant="textButton"
-                type="video"
-              >
-                Download
-              </DownloadButton>
-            )}
-            {transcript && (
-              <Details title="Uitgeschreven tekst">
-                <MarkdownToHtml>{transcript}</MarkdownToHtml>
-              </Details>
-            )}
-          </Styled.ButtonContainer>
+          <VideoButtons transcript={transcript} file={videoFile} />
           {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
           <Paragraph intro gutterBottom={{ small: 40, large: 80 }}>{intro}</Paragraph>
           {!videoFile?.url && !externalVideoSource && rectangularImage && (

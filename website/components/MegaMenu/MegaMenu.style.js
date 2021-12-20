@@ -11,7 +11,7 @@ export const MegaMenu = styled(Grid)`
   top: 100%;
   left: 0;
   padding-top: 80px;
-  padding-bottom: 120px;
+  padding-bottom: 80px;
   z-index: 2;
   overflow: auto;
   max-height: 100vh;
@@ -22,8 +22,8 @@ export const MegaMenu = styled(Grid)`
 `
 
 export const Item = styled.li`
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 
   :first-child {
     padding-top: 0;

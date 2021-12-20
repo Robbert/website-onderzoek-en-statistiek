@@ -34,12 +34,36 @@ const MegaMenu = ({ isOpen, currentPath }) => {
         </Link>
       </Styled.MobileGridItem>
 
-      <GridItem colRange={4}>
+      <GridItem colRange={{ small: 4, large: 8 }}>
         <Heading as="h2" styleAs="h4" gutterBottom={16}>Thema‘s</Heading>
+      </GridItem>
+
+      <GridItem colRange={4} rowStart={{ small: 'auto', large: 2 }}>
+        <List>
+          {HEADER_LINKS.themes
+            .slice()
+            .sort((a, b) => a.label.localeCompare(b.label))
+            .slice(0, 6)
+            .map(({ label, slug }) => (
+              <Styled.Item key={slug}>
+                <Link
+                  href={slug}
+                  aria-current={currentPath === slug && 'page'}
+                  className="analytics-menu-theme-link"
+                >
+                  {label}
+                </Link>
+              </Styled.Item>
+            ))}
+        </List>
+      </GridItem>
+
+      <GridItem colRange={4} rowStart={{ small: 'auto', large: 2 }}>
         <List gutterBottom={40}>
           {HEADER_LINKS.themes
             .slice()
             .sort((a, b) => a.label.localeCompare(b.label))
+            .slice(6)
             .map(({ label, slug }) => (
               <Styled.Item key={slug}>
                 <Link
@@ -56,6 +80,9 @@ const MegaMenu = ({ isOpen, currentPath }) => {
 
       <GridItem colRange={4}>
         <Heading as="h2" styleAs="h4" gutterBottom={16}>Categorieën</Heading>
+      </GridItem>
+
+      <GridItem colRange={4} rowStart={{ small: 'auto', large: 2 }}>
         <List gutterBottom={40}>
           {Object.values(CONTENT_TYPES)
             .filter((cat) => cat.type !== 'theme')
@@ -71,9 +98,6 @@ const MegaMenu = ({ isOpen, currentPath }) => {
               </Styled.Item>
             ))}
         </List>
-      </GridItem>
-
-      <GridItem colRange={4}>
         <Heading as="h2" styleAs="h4" gutterBottom={16}>Snel naar</Heading>
         <List gutterBottom={40}>
           {normalizeItemList(shortcuts).map(({ path, title, shortTitle }) => (

@@ -154,10 +154,10 @@ export const fluidTypoConfig = {
   },
   summary: {
     default: {
-      minFontSize: 18,
-      maxFontSize: 24,
-      minLineHeight: 28,
-      maxLineHeight: 40,
+      minFontSize: 16,
+      maxFontSize: 18,
+      minLineHeight: 22,
+      maxLineHeight: 24,
     },
   },
   dl: {

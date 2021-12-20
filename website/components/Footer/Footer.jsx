@@ -1,6 +1,5 @@
 import {
   Footer as FooterComponent,
-  List,
 } from '@amsterdam/asc-ui'
 import { Phone, Email, ChevronRight } from '@amsterdam/asc-assets'
 
@@ -13,7 +12,7 @@ import * as Styled from './Footer.style'
 
 const Footer = (props) => (
   <FooterComponent {...props}>
-    <Styled.Grid>
+    <Styled.Grid verticalPadding={40}>
       <GridItem colRange={{ small: 3, large: 3 }}>
         <Heading styleAs="h5" gutterBottom={28} darkBackground>Contact</Heading>
         <Paragraph
@@ -24,7 +23,7 @@ const Footer = (props) => (
           Heeft u een vraag en kunt u het antwoord niet vinden op deze site?
           Neem dan contact met ons op.
         </Paragraph>
-        <List>
+        <Styled.List>
           <li>
             <Link
               darkBackground
@@ -51,7 +50,7 @@ const Footer = (props) => (
               020 251 0333
             </Link>
           </li>
-        </List>
+        </Styled.List>
       </GridItem>
       <GridItem colRange={{ small: 3, large: 3 }} colStart={{ small: 1, large: 5 }}>
         <Heading styleAs="h5" gutterBottom={28} darkBackground>Panels en enquêtes</Heading>
@@ -59,7 +58,7 @@ const Footer = (props) => (
           Bent u uitgenodigd om mee te doen aan onderzoek
           of heeft u vragen over het panel of stadspaspanel?
         </Paragraph>
-        <List>
+        <Styled.List>
           <li>
             <Link
               darkBackground
@@ -99,7 +98,7 @@ const Footer = (props) => (
               Stadspanel Amsterdam
             </Link>
           </li>
-        </List>
+        </Styled.List>
       </GridItem>
       <GridItem colRange={{ small: 3, large: 4 }} colStart={{ small: 1, large: 9 }}>
         <Heading
@@ -109,7 +108,7 @@ const Footer = (props) => (
         >
           Onderzoek en Statistiek
         </Heading>
-        <List>
+        <Styled.List>
           <li>
             <Styled.FirstLink
               darkBackground
@@ -160,12 +159,12 @@ const Footer = (props) => (
               Vacatures
             </Link>
           </li>
-        </List>
+        </Styled.List>
       </GridItem>
     </Styled.Grid>
     <Container verticalPadding={0}>
-      <Styled.List>
-        <Styled.ListItem>
+      <Styled.BottomList>
+        <Styled.BottomListItem>
           <Styled.BottomLink
             href="https://www.amsterdam.nl/privacy/"
             external
@@ -173,13 +172,13 @@ const Footer = (props) => (
           >
             Privacy
           </Styled.BottomLink>
-        </Styled.ListItem>
-        <Styled.ListItem>
+        </Styled.BottomListItem>
+        <Styled.BottomListItem>
           <Styled.BottomLink href="/artikel/toegankelijkheidsverklaring" variant="inList">
             Toegankelijkheid
           </Styled.BottomLink>
-        </Styled.ListItem>
-      </Styled.List>
+        </Styled.BottomListItem>
+      </Styled.BottomList>
     </Container>
   </FooterComponent>
 )

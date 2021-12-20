@@ -6,7 +6,7 @@ export const ImageWrapper = styled.div`
   margin-bottom: 80px;
 
   p {
-    margin-top: 12px;
+    margin-top: 8px;
   }
 
   @media screen and ${breakpoint('max-width', 'laptop')} {

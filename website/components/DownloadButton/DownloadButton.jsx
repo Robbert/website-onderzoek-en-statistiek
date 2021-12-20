@@ -7,7 +7,7 @@ import { pushCustomEvent } from '../../lib/analyticsUtils'
 import * as Styled from './DownloadButton.style'
 
 const DownloadButton = ({
-  url, type = 'publication', children, ...otherProps
+  url, type = 'publication', iconSize = 20, children, ...otherProps
 }) => {
   const [, downloadLoading, downloadFile] = useDownload()
 
@@ -19,7 +19,7 @@ const DownloadButton = ({
       }}
       {...otherProps}
     >
-      <Styled.Icon size={20}>
+      <Styled.Icon size={iconSize}>
         {downloadLoading ? <Spinner /> : <Download />}
       </Styled.Icon>
       {children}

@@ -8,7 +8,7 @@ export const ImageWrapper = styled.div`
   margin-bottom: 80px;
 
   p {
-    margin-top: 12px;
+    margin-top: 8px;
   }
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
@@ -48,18 +48,6 @@ export const Video = styled.video`
       appearance: none;
       display: none !important;
     }
-  }
-`
-
-export const ButtonContainer = styled.div`
-  width: 100%;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-bottom: 80px;
-
-  @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-bottom: 56px;
   }
 `
 

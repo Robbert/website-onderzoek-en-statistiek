@@ -91,6 +91,7 @@ const Publication = ({
             <DownloadButton
               url={getStrapiMedia(file)}
               variant="primary"
+              small
             >
               {`Download PDF (${formatBytes(file.size * 1000)})`}
             </DownloadButton>
