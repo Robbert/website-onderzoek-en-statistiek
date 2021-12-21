@@ -13,20 +13,25 @@ const VideoButtons = ({ file, transcript }) => {
   return (
     <Styled.ButtonContainer>
       {file?.url && (
-        <Styled.DownloadButton
-          url={getStrapiMedia(file)}
-          variant="textButton"
-          type="video"
-          iconSize={24}
-          small
-        >
-          Download
-        </Styled.DownloadButton>
+        <Styled.DownloadButtonContainer>
+          <Styled.DownloadButton
+            url={getStrapiMedia(file)}
+            variant="textButton"
+            type="video"
+            iconSize={24}
+            small
+          >
+            Download
+          </Styled.DownloadButton>
+        </Styled.DownloadButtonContainer>
       )}
       {transcript && (
         <>
           <Styled.TranscriptButton
+            type="button"
             variant="textButton"
+            aria-controls="transcript"
+            aria-expanded={transcriptOpen}
             onClick={() => setTranscriptOpen(!transcriptOpen)}
             small
           >
@@ -35,7 +40,7 @@ const VideoButtons = ({ file, transcript }) => {
             </Styled.TranscriptIcon>
             Uitgeschreven tekst
           </Styled.TranscriptButton>
-          <Styled.TranscriptContainer open={transcriptOpen}>
+          <Styled.TranscriptContainer id="transcript" open={transcriptOpen}>
             <MarkdownToHtml>{transcript}</MarkdownToHtml>
           </Styled.TranscriptContainer>
         </>

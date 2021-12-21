@@ -18,12 +18,16 @@ export const ButtonContainer = styled.div`
 `
 
 export const DownloadButton = styled(DownloadButtonComponent)`
-  justify-content: end;
-  grid-row: 1;
   padding-left: 10px;
   padding-right: 10px;
+`
 
-  :last-child {
+export const DownloadButtonContainer = styled.div`
+  display: flex;
+  justify-content: end;
+  grid-row: 1;
+
+  :last-child button {
     padding-right: 0;
   }
 `

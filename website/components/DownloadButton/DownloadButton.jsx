@@ -13,6 +13,7 @@ const DownloadButton = ({
 
   return (
     <Button
+      type="button"
       onClick={() => {
         pushCustomEvent('Download', type, url.split('/').pop())
         downloadFile(url)
