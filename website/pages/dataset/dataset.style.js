@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components'
 import { breakpoint, themeColor } from '@amsterdam/asc-ui'
 
-import HeadingComponent from '../../components/Heading/Heading'
-import DownloadButtonComponent from '../../components/DownloadButton/DownloadButton'
-import { fluidTypoStyle, typographyStyle } from '../../lib/typographyUtils'
+import HeadingComponent from '~/components/Heading/Heading'
+import DownloadButtonComponent from '~/components/DownloadButton/DownloadButton'
+import { fluidTypoStyle, typographyStyle } from '~/lib/typographyUtils'
 
 export const Heading = styled(HeadingComponent)`
   margin-top: 40px;

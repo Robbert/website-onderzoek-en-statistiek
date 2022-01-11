@@ -1,21 +1,21 @@
 import { ChevronRight } from '@amsterdam/asc-assets'
 import { useRouter } from 'next/router'
 
-import FallbackPage from '../../components/FallbackPage/FallbackPage'
-import Seo from '../../components/Seo/Seo'
+import FallbackPage from '~/components/FallbackPage/FallbackPage'
+import Seo from '~/components/Seo/Seo'
 import {
   apolloClient, fetchAPI, getStrapiMedia, normalizeItemList, formatDate,
-} from '../../lib/utils'
-import { Grid, GridItem } from '../../components/Grid/Grid.style'
-import Heading from '../../components/Heading/Heading'
-import Paragraph from '../../components/Paragraph/Paragraph'
-import CardList from '../../components/CardList/CardList'
-import Card from '../../components/Card/Card'
-import List from '../../components/List/List'
-import SearchCard from '../../components/SearchCard/SearchCard'
-import Disclosure from '../../components/Disclosure/Disclosure'
-import Link from '../../components/Link/Link'
-import ContentFooter from '../../components/ContentFooter/ContentFooter'
+} from '~/lib/utils'
+import { Grid, GridItem } from '~/components/Grid/Grid.style'
+import Heading from '~/components/Heading/Heading'
+import Paragraph from '~/components/Paragraph/Paragraph'
+import CardList from '~/components/CardList/CardList'
+import Card from '~/components/Card/Card'
+import List from '~/components/List/List'
+import SearchCard from '~/components/SearchCard/SearchCard'
+import Disclosure from '~/components/Disclosure/Disclosure'
+import Link from '~/components/Link/Link'
+import ContentFooter from '~/components/ContentFooter/ContentFooter'
 import QUERY from './collection.query.gql'
 import * as Styled from './dossier.style'
 
@@ -68,7 +68,7 @@ const Collection = ({
     <>
       <Seo
         title={`Dossier: ${shortTitle || title}`}
-        description={teaser}
+        description={teaser || intro}
         image={getStrapiMedia(rectangularImage || squareImage)}
       />
       <Grid>

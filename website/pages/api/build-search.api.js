@@ -1,6 +1,6 @@
 import { writeFileSync } from 'fs'
 
-import { getSearchContent } from '../../lib/searchUtils'
+import { getSearchContent } from '~/lib/searchUtils'
 
 export default async function handler(req, res) {
   await getSearchContent()

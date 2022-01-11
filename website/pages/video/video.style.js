@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { Icon as IconASC, breakpoint } from '@amsterdam/asc-ui'
 
-import { GridItem } from '../../components/Grid/Grid.style'
+import { GridItem } from '~/components/Grid/Grid.style'
 
 export const ImageWrapper = styled.div`
   position: relative;

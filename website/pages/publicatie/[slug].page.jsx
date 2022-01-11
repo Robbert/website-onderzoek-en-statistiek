@@ -1,14 +1,14 @@
 import NextImage from 'next/image'
 import { useRouter } from 'next/router'
 
-import FallbackPage from '../../components/FallbackPage/FallbackPage'
-import Seo from '../../components/Seo/Seo'
-import { Grid, GridItem } from '../../components/Grid/Grid.style'
-import Heading from '../../components/Heading/Heading'
-import Paragraph from '../../components/Paragraph/Paragraph'
-import BodyContent from '../../components/BodyContent/BodyContent'
-import ContentFooter from '../../components/ContentFooter/ContentFooter'
-import DownloadButton from '../../components/DownloadButton/DownloadButton'
+import FallbackPage from '~/components/FallbackPage/FallbackPage'
+import Seo from '~/components/Seo/Seo'
+import { Grid, GridItem } from '~/components/Grid/Grid.style'
+import Heading from '~/components/Heading/Heading'
+import Paragraph from '~/components/Paragraph/Paragraph'
+import BodyContent from '~/components/BodyContent/BodyContent'
+import ContentFooter from '~/components/ContentFooter/ContentFooter'
+import DownloadButton from '~/components/DownloadButton/DownloadButton'
 import {
   fetchAPI,
   getStrapiMedia,
@@ -16,7 +16,7 @@ import {
   PLACEHOLDER_IMAGE,
   formatDate,
   formatBytes,
-} from '../../lib/utils'
+} from '~/lib/utils'
 import * as Styled from './publication.style'
 import QUERY from './publication.query.gql'
 
@@ -43,7 +43,7 @@ const Publication = ({
     <>
       <Seo
         title={shortTitle || title}
-        description={teaser}
+        description={teaser || intro}
         image={getStrapiMedia(rectangularImage || squareImage || coverImage)}
         article
       />

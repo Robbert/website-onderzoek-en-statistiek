@@ -17,11 +17,12 @@ cache:
     - node_modules/
     - .next/cache/
 
-
 # build server for acceptance and production
 build server:
   stage: build
   script:
+    - docker run -v $pwd/server/config:/etc/nginx/user_conf.d/ --name check-nginx-config -t -a stdout nginx:latest nginx -t | grep "test is successful" | wc -l
+    - docker rm check-nginx-config
     - docker build -t $TAG_SERVER_LATEST ./server
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_SERVER_LATEST

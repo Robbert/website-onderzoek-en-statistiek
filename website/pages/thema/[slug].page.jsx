@@ -2,18 +2,18 @@ import NextImage from 'next/image'
 import { ChevronRight } from '@amsterdam/asc-assets'
 import { useRouter } from 'next/router'
 
-import FallbackPage from '../../components/FallbackPage/FallbackPage'
-import Seo from '../../components/Seo/Seo'
-import { Grid, GridItem } from '../../components/Grid/Grid.style'
-import Heading from '../../components/Heading/Heading'
-import Paragraph from '../../components/Paragraph/Paragraph'
-import Link from '../../components/Link/Link'
-import CardList from '../../components/CardList/CardList'
-import Card from '../../components/Card/Card'
-import ThemeSearch from '../../components/ThemeSearch/ThemeSearch'
+import FallbackPage from '~/components/FallbackPage/FallbackPage'
+import Seo from '~/components/Seo/Seo'
+import { Grid, GridItem } from '~/components/Grid/Grid.style'
+import Heading from '~/components/Heading/Heading'
+import Paragraph from '~/components/Paragraph/Paragraph'
+import Link from '~/components/Link/Link'
+import CardList from '~/components/CardList/CardList'
+import Card from '~/components/Card/Card'
+import ThemeSearch from '~/components/ThemeSearch/ThemeSearch'
 import {
   fetchAPI, getStrapiMedia, apolloClient, translateColor, PLACEHOLDER_IMAGE, normalizeItemList,
-} from '../../lib/utils'
+} from '~/lib/utils'
 import QUERY from './theme.query.gql'
 import * as Styled from './theme.style'
 
@@ -42,7 +42,7 @@ const Theme = ({
     <>
       <Seo
         title={`Thema ${shortTitle || title}`}
-        description={teaser}
+        description={teaser || intro}
         image={getStrapiMedia(rectangularImage || squareImage)}
       />
 

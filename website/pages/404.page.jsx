@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router'
 
-import Seo from '../components/Seo/Seo'
-import { Grid, GridItem } from '../components/Grid/Grid.style'
-import Heading from '../components/Heading/Heading'
-import Paragraph from '../components/Paragraph/Paragraph'
-import List from '../components/List/List'
-import ListItem from '../components/ListItem/ListItem'
-import Link from '../components/Link/Link'
-import CONTENT_TYPES from '../constants/contentTypes'
+import Seo from '~/components/Seo/Seo'
+import { Grid, GridItem } from '~/components/Grid/Grid.style'
+import Heading from '~/components/Heading/Heading'
+import Paragraph from '~/components/Paragraph/Paragraph'
+import List from '~/components/List/List'
+import ListItem from '~/components/ListItem/ListItem'
+import Link from '~/components/Link/Link'
+import CONTENT_TYPES from '~/constants/contentTypes'
 
 const searchLinkLogic = (path) => {
   const segments = path.substring(1).split(/-|\//) // split path on forward slashes and minus signs

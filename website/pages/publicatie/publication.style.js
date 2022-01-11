@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { breakpoint, themeColor } from '@amsterdam/asc-ui'
 
-import List from '../../components/List/List'
+import List from '~/components/List/List'
 
 export const MetaList = styled(List)`
   margin-bottom: 40px;

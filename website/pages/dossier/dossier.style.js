@@ -2,8 +2,8 @@
 import styled from 'styled-components'
 import { breakpoint, Icon as IconASC } from '@amsterdam/asc-ui'
 
-import CardListComponent from '../../components/CardList/CardList'
-import { GridItem as GridItemComponent } from '../../components/Grid/Grid.style'
+import CardListComponent from '~/components/CardList/CardList'
+import { GridItem as GridItemComponent } from '~/components/Grid/Grid.style'
 
 export const CardList = styled(CardListComponent)`
   display: block;

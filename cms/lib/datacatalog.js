@@ -17,6 +17,7 @@ const themesMap = {
   'Duurzaamheid en milieu': 'theme:duurzaamheid-en-milieu',
   'Economie en toerisme': 'theme:economie-en-toerisme',
   'Onderwijs en wetenschap': 'theme:onderwijs-en-wetenschap',
+  'Onderwijs en jeugd': 'theme:onderwijs-en-wetenschap',
   'Openbare orde en veiligheid': 'theme:openbare-orde-en-veiligheid',
   'Ruimte en topografie': 'theme:ruimte-en-topografie',
   Verkeer: 'theme:verkeer',

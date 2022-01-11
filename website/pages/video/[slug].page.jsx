@@ -1,17 +1,17 @@
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 
-import FallbackPage from '../../components/FallbackPage/FallbackPage'
-import Seo from '../../components/Seo/Seo'
-import { Grid, GridItem } from '../../components/Grid/Grid.style'
-import Heading from '../../components/Heading/Heading'
-import Paragraph from '../../components/Paragraph/Paragraph'
-import VideoButtons from '../../components/VideoButtons/VideoButtons'
-import BodyContent from '../../components/BodyContent/BodyContent'
-import ContentFooter from '../../components/ContentFooter/ContentFooter'
+import FallbackPage from '~/components/FallbackPage/FallbackPage'
+import Seo from '~/components/Seo/Seo'
+import { Grid, GridItem } from '~/components/Grid/Grid.style'
+import Heading from '~/components/Heading/Heading'
+import Paragraph from '~/components/Paragraph/Paragraph'
+import VideoButtons from '~/components/VideoButtons/VideoButtons'
+import BodyContent from '~/components/BodyContent/BodyContent'
+import ContentFooter from '~/components/ContentFooter/ContentFooter'
 import {
   fetchAPI, getStrapiMedia, apolloClient, formatDate, PLACEHOLDER_IMAGE,
-} from '../../lib/utils'
+} from '~/lib/utils'
 import QUERY from './video.query.gql'
 import * as Styled from './video.style'
 
@@ -87,7 +87,7 @@ const Video = ({
     <>
       <Seo
         title={shortTitle || title}
-        description={teaser}
+        description={teaser || intro}
         image={getStrapiMedia(rectangularImage || squareImage)}
         video
       />

@@ -9,14 +9,14 @@ import {
   GlobalStyle, ThemeProvider, ascDefaultTheme,
 } from '@amsterdam/asc-ui'
 
-import Layout from '../components/Layout/Layout'
-import { apolloClient, prependStaticContentUrl } from '../lib/utils'
-import { startTracking } from '../lib/analyticsUtils'
-import ShortcutContext from '../lib/ShortcutContext'
+import Layout from '~/components/Layout/Layout'
+import { apolloClient, prependStaticContentUrl } from '~/lib/utils'
+import { startTracking } from '~/lib/analyticsUtils'
+import ShortcutContext from '~/lib/ShortcutContext'
 import QUERY from './app.query.gql'
-import { fuseOptions, SearchContext } from '../lib/searchUtils'
+import { fuseOptions, SearchContext } from '~/lib/searchUtils'
 
-import '../public/fonts/fonts.css'
+import '~/public/fonts/fonts.css'
 
 const BodyStyle = createGlobalStyle`
   body {

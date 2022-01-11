@@ -1,19 +1,19 @@
 import { useRouter } from 'next/router'
 
-import FallbackPage from '../../components/FallbackPage/FallbackPage'
-import Seo from '../../components/Seo/Seo'
-import { Grid, GridItem } from '../../components/Grid/Grid.style'
-import Heading from '../../components/Heading/Heading'
-import Link from '../../components/Link/Link'
-import BodyContent from '../../components/BodyContent/BodyContent'
-import ContentFooter from '../../components/ContentFooter/ContentFooter'
+import FallbackPage from '~/components/FallbackPage/FallbackPage'
+import Seo from '~/components/Seo/Seo'
+import { Grid, GridItem } from '~/components/Grid/Grid.style'
+import Heading from '~/components/Heading/Heading'
+import Link from '~/components/Link/Link'
+import BodyContent from '~/components/BodyContent/BodyContent'
+import ContentFooter from '~/components/ContentFooter/ContentFooter'
 import {
   fetchAPI,
   getStrapiMedia,
   apolloClient,
   formatDate,
   formatBytes,
-} from '../../lib/utils'
+} from '~/lib/utils'
 import QUERY from './dataset.query.gql'
 import * as Styled from './dataset.style'
 
@@ -41,7 +41,7 @@ const Dataset = ({
     <>
       <Seo
         title={`Dataset: ${title}`}
-        description={teaser}
+        description={teaser || body.reduce((allText, bodyItem) => allText + bodyItem.text, '')}
         image={getStrapiMedia(rectangularImage || squareImage)}
         article
       />

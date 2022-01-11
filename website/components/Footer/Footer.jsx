@@ -95,7 +95,7 @@ const Footer = (props) => (
               <Styled.Icon size={14}>
                 <ChevronRight />
               </Styled.Icon>
-              Stadspanel Amsterdam
+              Stadspaspanel Amsterdam
             </Link>
           </li>
         </Styled.List>

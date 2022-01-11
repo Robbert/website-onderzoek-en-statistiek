@@ -16,9 +16,16 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
+  plugins: ['import', 'resolver-jsconfig'],
   settings: {
     next: {
       rootDir: 'website',
+    },
+    'import/resolver': {
+      jsconfig: {
+        config: 'jsconfig.json',
+        extensions: ['.js', '.jsx', 'gql'],
+      },
     },
   },
   rules: {

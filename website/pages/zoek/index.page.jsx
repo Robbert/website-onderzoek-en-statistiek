@@ -6,18 +6,18 @@ import { useRouter } from 'next/router'
 import debounce from 'lodash.debounce'
 import { Close } from '@amsterdam/asc-assets'
 
-import Seo from '../../components/Seo/Seo'
-import { Grid, GridItem } from '../../components/Grid/Grid.style'
-import Heading from '../../components/Heading/Heading'
-import Paragraph from '../../components/Paragraph/Paragraph'
-import SearchResults from '../../components/SearchResults/SearchResults'
-import Pagination from '../../components/Pagination/Pagination'
-import SearchFilterSection from '../../components/SearchFilterSection/SearchFilterSection'
-import { translateContentType, apolloClient } from '../../lib/utils'
-import { trackSearchQuery } from '../../lib/analyticsUtils'
-import CONTENT_TYPES from '../../constants/contentTypes'
+import Seo from '~/components/Seo/Seo'
+import { Grid, GridItem } from '~/components/Grid/Grid.style'
+import Heading from '~/components/Heading/Heading'
+import Paragraph from '~/components/Paragraph/Paragraph'
+import SearchResults from '~/components/SearchResults/SearchResults'
+import Pagination from '~/components/Pagination/Pagination'
+import SearchFilterSection from '~/components/SearchFilterSection/SearchFilterSection'
+import { translateContentType, apolloClient } from '~/lib/utils'
+import { trackSearchQuery } from '~/lib/analyticsUtils'
+import CONTENT_TYPES from '~/constants/contentTypes'
 import QUERY from './search.query.gql'
-import { SearchContext, getSearchResults } from '../../lib/searchUtils'
+import { SearchContext, getSearchResults } from '~/lib/searchUtils'
 import * as Styled from './search.style'
 
 const Search = ({ themes }) => {
@@ -91,7 +91,10 @@ const Search = ({ themes }) => {
 
   return (
     <>
-      <Seo />
+      <Seo
+        title="Zoeken"
+        description="Zoek naar artikelen, publicaties, factsheets, animaties, dashboards en cijfers op de website van Onderzoek en Statistiek."
+      />
       <Grid>
         <GridItem
           colRange={{ small: 4, large: 7 }}

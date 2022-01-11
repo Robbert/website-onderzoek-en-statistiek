@@ -3,11 +3,11 @@
 import styled, { css } from 'styled-components'
 import { Icon as IconASC, breakpoint, themeColor } from '@amsterdam/asc-ui'
 
-import { Grid, GridItem } from '../../components/Grid/Grid.style'
-import LinkComponent from '../../components/Link/Link'
-import Paragraph from '../../components/Paragraph/Paragraph'
-import List from '../../components/List/List'
-import { calculateFluidStyle } from '../../lib/typographyUtils'
+import { Grid, GridItem } from '~/components/Grid/Grid.style'
+import LinkComponent from '~/components/Link/Link'
+import Paragraph from '~/components/Paragraph/Paragraph'
+import List from '~/components/List/List'
+import { calculateFluidStyle } from '~/lib/typographyUtils'
 
 export const IntroGridItem = styled(GridItem)`
   min-height: 240px;
