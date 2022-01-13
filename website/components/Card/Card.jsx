@@ -18,6 +18,7 @@ const Card = ({
   headingLevel,
   clickableImage,
   aspectRatio = 4 / 3,
+  priority,
 }) => {
   let icon
   if (type === 'video') {
@@ -39,6 +40,7 @@ const Card = ({
         alt=""
         layout="fill"
         objectFit="cover"
+        priority={priority}
       />
       {icon
       && (

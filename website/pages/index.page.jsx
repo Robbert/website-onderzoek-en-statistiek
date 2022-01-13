@@ -130,6 +130,7 @@ const Home = ({ themes, homepage }) => {
                 teaser={flatFeatures[0].teaser}
                 headingLevel="h2"
                 large
+                priority
               />
             </GridItem>
           )}
