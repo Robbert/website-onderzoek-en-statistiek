@@ -96,6 +96,11 @@ module.exports = withBundleAnalyzer({
         destination: '/interactief/dashboard-armoede',
         permanent: true,
       },
+      {
+        source: '/thema/onderwijs-en-wetenschap',
+        destination: '/thema/onderwijs-en-jeugd',
+        permanent: true,
+      },
     ]
   },
 })
