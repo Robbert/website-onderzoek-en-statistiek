@@ -5016,13 +5016,6 @@
   "tag": ""
 },
 {
-  "key": "plugin_i18n_default_locale",
-  "value": "en",
-  "type": "string",
-  "environment": "",
-  "tag": ""
-},
-{
   "key": "plugin_upload_settings",
   "value": {
     "sizeOptimization": false,
