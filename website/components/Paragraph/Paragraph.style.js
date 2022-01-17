@@ -18,15 +18,17 @@ export const Paragraph = styled.p`
     font-weight: 900;
   }
 
-  ${({ intro }) => intro && css`
-    /* stylelint-disable indentation */
-    letter-spacing: 0.025rem;
+  ${({ intro }) =>
+    intro &&
+    css`
+      /* stylelint-disable indentation */
+      letter-spacing: 0.025rem;
 
-    @media screen and ${breakpoint('max-width', 'laptop')} {
-      font-weight: 900;
-      letter-spacing: 0.0125rem;
-    }
-  `}
+      @media screen and ${breakpoint('max-width', 'laptop')} {
+        font-weight: 900;
+        letter-spacing: 0.0125rem;
+      }
+    `}
 
   ${fluidTypoStyle}
   ${typographyStyle}

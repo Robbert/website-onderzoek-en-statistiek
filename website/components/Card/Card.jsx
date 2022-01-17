@@ -30,27 +30,20 @@ const Card = ({
   const isMobile = useMatchMedia({ maxBreakpoint: 'laptop' })
 
   const cardImage = (
-    <Styled.ImageWrapper large={large} aspectRatio={isMobile[0] ? 16 / 9 : aspectRatio}>
+    <Styled.ImageWrapper
+      large={large}
+      aspectRatio={isMobile[0] ? 16 / 9 : aspectRatio}
+    >
       <NextImage
-        src={
-          image
-            ? getStrapiMedia(image)
-            : PLACEHOLDER_IMAGE
-        }
+        src={image ? getStrapiMedia(image) : PLACEHOLDER_IMAGE}
         alt=""
         layout="fill"
         objectFit="cover"
         priority={priority}
       />
-      {icon
-      && (
+      {icon && (
         <Styled.IconContainer>
-          <NextImage
-            src={icon.src}
-            alt=""
-            width={48}
-            height={48}
-          />
+          <NextImage src={icon.src} alt="" width={48} height={48} />
         </Styled.IconContainer>
       )}
     </Styled.ImageWrapper>
@@ -63,10 +56,7 @@ const Card = ({
         <Styled.Link>
           {clickableImage && cardImage}
           <Styled.TextWrapper>
-            <Styled.Type
-              small
-              gutterBottom={large ? 8 : 4}
-            >
+            <Styled.Type small gutterBottom={large ? 8 : 4}>
               {CONTENT_TYPES[type.toLowerCase()].name}
             </Styled.Type>
             <Styled.Heading

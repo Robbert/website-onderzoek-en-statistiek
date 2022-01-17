@@ -21,8 +21,11 @@ export const List = styled.ul`
     font-weight: 900;
   }
 
-  ${({ variant }) => variant === 'unordered'
-  && css`counter-reset: item;`}
+  ${({ variant }) =>
+    variant === 'unordered' &&
+    css`
+      counter-reset: item;
+    `}
 
   ${fluidTypoStyle}
   ${typographyStyle}

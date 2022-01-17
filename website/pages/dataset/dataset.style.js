@@ -39,17 +39,19 @@ export const Table = styled.table`
     }
   }
 
-  th:first-child, td:first-child {
+  th:first-child,
+  td:first-child {
     width: 48.75%;
     padding-top: 12px;
     padding-bottom: 12px;
-    padding-left: 16px; 
+    padding-left: 16px;
     padding-right: 16px;
   }
-  th:nth-child(2), td:nth-child(2) {
+  th:nth-child(2),
+  td:nth-child(2) {
     padding-top: 12px;
     padding-bottom: 12px;
-    width: 18% 
+    width: 18%;
   }
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
@@ -61,7 +63,7 @@ export const Table = styled.table`
     }
     td {
       display: block;
-      padding-left: 0; 
+      padding-left: 0;
       width: 100%;
     }
     td:first-child {
@@ -85,7 +87,7 @@ export const DownloadButton = styled(DownloadButtonComponent)`
   @media screen and ${breakpoint('max-width', 'laptop')} {
     padding-left: 0;
   }
-  `
+`
 
 export const DefinitionList = styled.dl`
   margin-top: 40px;
@@ -103,9 +105,11 @@ export const Row = styled.div`
   padding-bottom: 12px;
   padding-left: 16px;
   padding-right: 16px;
-  ${({ underline }) => underline && css`
-    border-bottom: 1px solid ${themeColor('tint', 'level4')};
-  `}
+  ${({ underline }) =>
+    underline &&
+    css`
+      border-bottom: 1px solid ${themeColor('tint', 'level4')};
+    `}
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     display: block;

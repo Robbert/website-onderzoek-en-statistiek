@@ -7,11 +7,7 @@ import { KeyboardKeys } from '@amsterdam/asc-ui/lib/types'
  * @param rotating Jump to first item from last or vice versa
  * @param selectors Supply css selectors for selecting focus group
  */
-const useFocusWithArrows = (
-  ref,
-  rotating = false,
-  selectors,
-) => {
+const useFocusWithArrows = (ref, rotating = false, selectors) => {
   const keyDown = (e) => {
     if (ref.current) {
       const element = ref.current
@@ -25,7 +21,8 @@ const useFocusWithArrows = (
           return rect.height !== 0 && rect.width !== 0
         })
 
-      const getIndex = (el) => (el && focusableEls.includes(el) ? focusableEls.indexOf(el) : 0)
+      const getIndex = (el) =>
+        el && focusableEls.includes(el) ? focusableEls.indexOf(el) : 0
 
       let el
 
@@ -36,10 +33,10 @@ const useFocusWithArrows = (
             el = focusableEls[getIndex(activeElement) + 1]
             // If there is nothing focussed yet, set the focus on the first element
             if (activeElement && !focusableEls.includes(activeElement)) {
-              [el] = focusableEls
+              ;[el] = focusableEls
             }
           } else if (rotating) {
-            [el] = focusableEls
+            ;[el] = focusableEls
           } else {
             el = focusableEls[focusableEls.length - 1]
           }
@@ -54,13 +51,13 @@ const useFocusWithArrows = (
           } else if (rotating) {
             el = focusableEls[focusableEls.length - 1]
           } else {
-            [el] = focusableEls
+            ;[el] = focusableEls
           }
           break
         }
 
         case KeyboardKeys.Home: {
-          [el] = focusableEls
+          ;[el] = focusableEls
           break
         }
 
@@ -73,13 +70,13 @@ const useFocusWithArrows = (
       }
 
       if (
-        (e.key === KeyboardKeys.ArrowDown
-          || e.key === KeyboardKeys.ArrowUp
-          || e.key === KeyboardKeys.ArrowLeft
-          || e.key === KeyboardKeys.ArrowRight
-          || e.key === KeyboardKeys.Home
-          || e.key === KeyboardKeys.End)
-        && el instanceof HTMLElement
+        (e.key === KeyboardKeys.ArrowDown ||
+          e.key === KeyboardKeys.ArrowUp ||
+          e.key === KeyboardKeys.ArrowLeft ||
+          e.key === KeyboardKeys.ArrowRight ||
+          e.key === KeyboardKeys.Home ||
+          e.key === KeyboardKeys.End) &&
+        el instanceof HTMLElement
       ) {
         el.focus()
         e.preventDefault()

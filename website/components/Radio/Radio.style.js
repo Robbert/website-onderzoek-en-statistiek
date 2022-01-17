@@ -56,25 +56,27 @@ export const Label = styled.label`
     border-width: 4px;
   }
 
-  ${({ checked }) => checked && css`
-    cursor: default;
+  ${({ checked }) =>
+    checked &&
+    css`
+      cursor: default;
 
-    :hover ${RadioSymbol} {
-      border-width: 2px;
-    }
+      :hover ${RadioSymbol} {
+        border-width: 2px;
+      }
 
-    ${RadioSymbol}:after {
-      content: '';
-      position: absolute;
-      top: 10%;
-      left: 10%;
-      border-radius: 100%;
-      background-color: ${themeColor('primary')};
-      width: 80%;
-      height: 80%;
-      animation: ${radioTransition} 0.1s ease-in-out;
-    }
-  `}
+      ${RadioSymbol}:after {
+        content: '';
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        border-radius: 100%;
+        background-color: ${themeColor('primary')};
+        width: 80%;
+        height: 80%;
+        animation: ${radioTransition} 0.1s ease-in-out;
+      }
+    `}
 `
 
 export const Radio = styled.input`

@@ -4,7 +4,11 @@ import { useRouter } from 'next/router'
 import FallbackPage from '~/components/FallbackPage/FallbackPage'
 import Seo from '~/components/Seo/Seo'
 import {
-  apolloClient, fetchAPI, getStrapiMedia, normalizeItemList, formatDate,
+  apolloClient,
+  fetchAPI,
+  getStrapiMedia,
+  normalizeItemList,
+  formatDate,
 } from '~/lib/utils'
 import { Grid, GridItem } from '~/components/Grid/Grid.style'
 import Heading from '~/components/Heading/Heading'
@@ -72,9 +76,14 @@ const Collection = ({
         image={getStrapiMedia(rectangularImage || squareImage)}
       />
       <Grid>
-        <GridItem colStart={{ small: 1, large: 3 }} colRange={{ small: 4, large: 9 }}>
+        <GridItem
+          colStart={{ small: 1, large: 3 }}
+          colRange={{ small: 4, large: 9 }}
+        >
           <Heading gutterBottom={24}>{title}</Heading>
-          <Paragraph intro gutterBottom={{ small: 72, large: 120 }}>{intro}</Paragraph>
+          <Paragraph intro gutterBottom={{ small: 72, large: 120 }}>
+            {intro}
+          </Paragraph>
         </GridItem>
 
         {featured.length > 0 && (
@@ -110,8 +119,7 @@ const Collection = ({
           </GridItem>
         )}
 
-        {collectionItems.length > 0
-        && (
+        {collectionItems.length > 0 && (
           <>
             <Styled.CollectionGridItem
               colStart={{ small: 1, large: 5 }}
@@ -126,15 +134,10 @@ const Collection = ({
               rowStart={{ small: 5, large: 4 }}
               gutterBottom={{ small: 32, large: 40 }}
             >
-              <CardList>
-                {collectionItems.slice(0, 5)}
-              </CardList>
-              {collectionItems.length > 5
-              && (
+              <CardList>{collectionItems.slice(0, 5)}</CardList>
+              {collectionItems.length > 5 && (
                 <Disclosure id="other_collection_items" url={router.asPath}>
-                  <CardList>
-                    {collectionItems.slice(5)}
-                  </CardList>
+                  <CardList>{collectionItems.slice(5)}</CardList>
                 </Disclosure>
               )}
             </GridItem>
@@ -148,7 +151,9 @@ const Collection = ({
             rowStart={{ small: 6, large: 4 }}
             gutterBottom={{ small: 32, large: 40 }}
           >
-            <Heading as="h2" styleAs="h5" gutterBottom={12}>Zie ook</Heading>
+            <Heading as="h2" styleAs="h5" gutterBottom={12}>
+              Zie ook
+            </Heading>
             <List>
               {normalizeItemList(linkList).map(({ path, title: linkTitle }) => (
                 <li key={path}>
@@ -172,21 +177,32 @@ const Collection = ({
           <ContentFooter type="dossier" themes={theme} />
         </GridItem>
 
-        {(email || phoneNumber)
-        && (
+        {(email || phoneNumber) && (
           <GridItem
             colRange={4}
             rowStart={{ small: 8, large: 6 }}
             gutterBottom={{ small: 32, large: 40 }}
           >
-            <Heading gutterBottom={{ small: 12, large: 40 }} as="h2" styleAs="h3">Heeft u een vraag over dit dossier?</Heading>
+            <Heading
+              gutterBottom={{ small: 12, large: 40 }}
+              as="h2"
+              styleAs="h3"
+            >
+              Heeft u een vraag over dit dossier?
+            </Heading>
             <Paragraph small>
-              Neem contact met ons op.
-              U kunt ons bereiken via
-              {' '}
-              {email && <Link href={`mailto:${email}`} variant="inline">e-mail</Link>}
+              Neem contact met ons op. U kunt ons bereiken via{' '}
+              {email && (
+                <Link href={`mailto:${email}`} variant="inline">
+                  e-mail
+                </Link>
+              )}
               {email && phoneNumber && ' of '}
-              {phoneNumber && <Link href={`tel:${phoneNumber}`} variant="inline">{phoneNumber}</Link>}
+              {phoneNumber && (
+                <Link href={`tel:${phoneNumber}`} variant="inline">
+                  {phoneNumber}
+                </Link>
+              )}
               .
             </Paragraph>
           </GridItem>
@@ -210,12 +226,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { data } = await apolloClient.query(
-    {
+  const { data } = await apolloClient
+    .query({
       query: QUERY,
       variables: { slug: params.slug },
-    },
-  )
+    })
     .catch() // TODO: log this error in sentry
 
   if (!data.collections[0]) {

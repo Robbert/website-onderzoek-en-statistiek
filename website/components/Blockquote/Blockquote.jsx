@@ -1,8 +1,6 @@
 import * as Styled from './Blockquote.style'
 
-const Blockquote = ({
-  children, as = 'blockquote', ...otherProps
-}) => (
+const Blockquote = ({ children, as = 'blockquote', ...otherProps }) => (
   <Styled.Blockquote as={as} {...otherProps}>
     {children}
   </Styled.Blockquote>

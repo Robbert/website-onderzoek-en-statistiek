@@ -1,6 +1,4 @@
-import {
-  Footer as FooterComponent,
-} from '@amsterdam/asc-ui'
+import { Footer as FooterComponent } from '@amsterdam/asc-ui'
 import { Phone, Email, ChevronRight } from '@amsterdam/asc-assets'
 
 import Container from '../Container/Container'
@@ -14,12 +12,10 @@ const Footer = (props) => (
   <FooterComponent {...props}>
     <Styled.Grid verticalPadding={40}>
       <GridItem colRange={{ small: 3, large: 3 }}>
-        <Heading styleAs="h5" gutterBottom={28} darkBackground>Contact</Heading>
-        <Paragraph
-          small
-          darkBackground
-          gutterBottom={16}
-        >
+        <Heading styleAs="h5" gutterBottom={28} darkBackground>
+          Contact
+        </Heading>
+        <Paragraph small darkBackground gutterBottom={16}>
           Heeft u een vraag en kunt u het antwoord niet vinden op deze site?
           Neem dan contact met ons op.
         </Paragraph>
@@ -52,11 +48,16 @@ const Footer = (props) => (
           </li>
         </Styled.List>
       </GridItem>
-      <GridItem colRange={{ small: 3, large: 3 }} colStart={{ small: 1, large: 5 }}>
-        <Heading styleAs="h5" gutterBottom={28} darkBackground>Panels en enquêtes</Heading>
+      <GridItem
+        colRange={{ small: 3, large: 3 }}
+        colStart={{ small: 1, large: 5 }}
+      >
+        <Heading styleAs="h5" gutterBottom={28} darkBackground>
+          Panels en enquêtes
+        </Heading>
         <Paragraph gutterBottom={16} small darkBackground>
-          Bent u uitgenodigd om mee te doen aan onderzoek
-          of heeft u vragen over het panel of stadspaspanel?
+          Bent u uitgenodigd om mee te doen aan onderzoek of heeft u vragen over
+          het panel of stadspaspanel?
         </Paragraph>
         <Styled.List>
           <li>
@@ -100,12 +101,11 @@ const Footer = (props) => (
           </li>
         </Styled.List>
       </GridItem>
-      <GridItem colRange={{ small: 3, large: 4 }} colStart={{ small: 1, large: 9 }}>
-        <Heading
-          styleAs="h5"
-          gutterBottom={20}
-          darkBackground
-        >
+      <GridItem
+        colRange={{ small: 3, large: 4 }}
+        colStart={{ small: 1, large: 9 }}
+      >
+        <Heading styleAs="h5" gutterBottom={20} darkBackground>
           Onderzoek en Statistiek
         </Heading>
         <Styled.List>
@@ -174,7 +174,10 @@ const Footer = (props) => (
           </Styled.BottomLink>
         </Styled.BottomListItem>
         <Styled.BottomListItem>
-          <Styled.BottomLink href="/artikel/toegankelijkheidsverklaring" variant="inList">
+          <Styled.BottomLink
+            href="/artikel/toegankelijkheidsverklaring"
+            variant="inList"
+          >
             Toegankelijkheid
           </Styled.BottomLink>
         </Styled.BottomListItem>

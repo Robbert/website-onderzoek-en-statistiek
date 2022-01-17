@@ -15,22 +15,30 @@ export const getServerSideProps = async ({ res }) => {
         <changefreq>hourly</changefreq>
         <priority>1</priority>     
       </url>
-    ${HEADER_LINKS.themes.map(({ slug }) => (
-      `<url>
+    ${HEADER_LINKS.themes
+      .map(
+        ({ slug }) =>
+          `<url>
         <loc>${prependRootURL(slug)}</loc>
         <lastmod>${today.toISOString()}</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
       </url>
-      `)).join('')}
-    ${content.map(({ slug, publicationDate, type }) => (
-      `<url>
+      `,
+      )
+      .join('')}
+    ${content
+      .map(
+        ({ slug, publicationDate, type }) =>
+          `<url>
         <loc>${prependRootURL(`/${CONTENT_TYPES[type].name}/${slug}`)}</loc>
         <lastmod>${publicationDate || undefined}</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.5</priority>
       </url>
-      `)).join('')}
+      `,
+      )
+      .join('')}
     </urlset>
   `
 

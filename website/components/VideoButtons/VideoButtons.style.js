@@ -59,7 +59,9 @@ export const TranscriptIcon = styled(IconASC)`
   margin-right: 12px;
   transition: transform 0.3s ease;
 
-  ${({ open }) => open && css`
-    transform: rotate(180deg);
-  `}
+  ${({ open }) =>
+    open &&
+    css`
+      transform: rotate(180deg);
+    `}
 `

@@ -46,26 +46,28 @@ export const Label = styled.label`
     border-width: 4px;
   }
 
-  ${({ checked }) => checked && css`
-    ${Checkmark} {
-      background-color: ${themeColor('primary')};
-    }
+  ${({ checked }) =>
+    checked &&
+    css`
+      ${Checkmark} {
+        background-color: ${themeColor('primary')};
+      }
 
-    :hover ${Checkmark} {
-      border-width: 2px;
-    }
+      :hover ${Checkmark} {
+        border-width: 2px;
+      }
 
-    ${Checkmark}:after {
-      content: '';
-      position: absolute;
-      left: 25%;
-      width: 50%;
-      height: 75%;
-      border: solid white;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
-    }
-  `}
+      ${Checkmark}:after {
+        content: '';
+        position: absolute;
+        left: 25%;
+        width: 50%;
+        height: 75%;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+    `}
 `
 
 export const Checkbox = styled.input`

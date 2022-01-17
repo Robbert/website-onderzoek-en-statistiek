@@ -5,9 +5,7 @@ import { Search, Close } from '@amsterdam/asc-assets'
 import Button from '../Button/Button'
 import * as Styled from './SearchBar.style'
 
-const SearchBar = ({
-  onChange, value, id, ...otherProps
-}) => {
+const SearchBar = ({ onChange, value, id, ...otherProps }) => {
   const searchInput = useRef(null)
   const handleOnChange = (e) => {
     if (onChange) {
@@ -40,19 +38,21 @@ const SearchBar = ({
         ref={searchInput}
       />
       <Styled.IconWrapper>
-        {value
-          ? (
-            <Button onClick={handleOnClear} aria-label="Wis zoekterm" variant="blank">
-              <Styled.IconContainer>
-                <Close />
-              </Styled.IconContainer>
-            </Button>
-          )
-          : (
-            <Icon size={56} padding={12}>
-              <Search />
-            </Icon>
-          )}
+        {value ? (
+          <Button
+            onClick={handleOnClear}
+            aria-label="Wis zoekterm"
+            variant="blank"
+          >
+            <Styled.IconContainer>
+              <Close />
+            </Styled.IconContainer>
+          </Button>
+        ) : (
+          <Icon size={56} padding={12}>
+            <Search />
+          </Icon>
+        )}
       </Styled.IconWrapper>
     </Styled.Wrapper>
   )

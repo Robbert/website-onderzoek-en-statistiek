@@ -38,17 +38,22 @@ const Header = ({ title, homeLink }) => {
               className="analytics-sitelogo"
               withTitle={title && (!titleOnScreen || isMobile[0])}
             >
-              <Styled.LargeLogo src="/logo-gemeente-amsterdam-large.svg" alt="Onderzoek en Statistiek Gemeente Amsterdam" />
-              <Styled.SmallLogo src="/logo-gemeente-amsterdam-small.svg" alt="Onderzoek en Statistiek Gemeente Amsterdam" />
-              {title && (!titleOnScreen || isMobile[0]) && <Styled.Text>{title}</Styled.Text>}
+              <Styled.LargeLogo
+                src="/logo-gemeente-amsterdam-large.svg"
+                alt="Onderzoek en Statistiek Gemeente Amsterdam"
+              />
+              <Styled.SmallLogo
+                src="/logo-gemeente-amsterdam-small.svg"
+                alt="Onderzoek en Statistiek Gemeente Amsterdam"
+              />
+              {title && (!titleOnScreen || isMobile[0]) && (
+                <Styled.Text>{title}</Styled.Text>
+              )}
             </Styled.Link>
           </Styled.Heading>
         </GridItem>
         <Styled.NavGridItem colRange={4}>
-          <Navigation
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-          />
+          <Navigation isOpen={isOpen} setIsOpen={setIsOpen} />
         </Styled.NavGridItem>
       </Styled.Container>
       <Backdrop isOpen={isOpen} onClick={() => setIsOpen(false)} />

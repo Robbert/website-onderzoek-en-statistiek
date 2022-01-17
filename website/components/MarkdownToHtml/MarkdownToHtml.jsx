@@ -9,17 +9,20 @@ import List from '../List/List'
 import ListItem from '../ListItem/ListItem'
 
 const markdownToHtmlMap = {
-  h1: (props) => (<Heading gutterBottom={40} {...props} />),
-  h2: (props) => (<Heading gutterBottom={40} as="h2" {...props} />),
-  h3: (props) => (<Heading gutterBottom={40} as="h3" {...props} />),
-  h4: (props) => (<Heading gutterBottom={40} as="h4" {...props} />),
-  h5: (props) => (<Heading gutterBottom={40} as="h5" {...props} />),
+  h1: (props) => <Heading gutterBottom={40} {...props} />,
+  h2: (props) => <Heading gutterBottom={40} as="h2" {...props} />,
+  h3: (props) => <Heading gutterBottom={40} as="h3" {...props} />,
+  h4: (props) => <Heading gutterBottom={40} as="h4" {...props} />,
+  h5: (props) => <Heading gutterBottom={40} as="h5" {...props} />,
   p: ({ children }) => {
     // this hacky check is necessary because Strapi's default rich text editor always
     // wraps images in a paragraph. The Next image component we use return a div,
     // which means you get a div as a decendant of a paragraph. That is not valid html markup.
-    if (children[0]?.type?.name === 'img'
-      || (children[0]?.type === 'a' && children[0]?.props?.children[0]?.type?.name === 'img')) {
+    if (
+      children[0]?.type?.name === 'img' ||
+      (children[0]?.type === 'a' &&
+        children[0]?.props?.children[0]?.type?.name === 'img')
+    ) {
       return children[0]
     }
     return <Paragraph gutterBottom={40}>{children}</Paragraph>
@@ -40,9 +43,7 @@ const markdownToHtmlMap = {
 }
 
 const MarkdownToHtml = ({ children }) => (
-  <ReactMarkdown components={markdownToHtmlMap}>
-    {children}
-  </ReactMarkdown>
+  <ReactMarkdown components={markdownToHtmlMap}>{children}</ReactMarkdown>
 )
 
 export default MarkdownToHtml

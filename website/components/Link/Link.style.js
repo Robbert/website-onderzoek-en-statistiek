@@ -2,7 +2,11 @@
 import styled, { css } from 'styled-components'
 import { themeColor, svgFill } from '@amsterdam/asc-ui'
 
-import { fluidTypoStyle, calculateFluidStyle, typographyStyle } from '../../lib/typographyUtils'
+import {
+  fluidTypoStyle,
+  calculateFluidStyle,
+  typographyStyle,
+} from '../../lib/typographyUtils'
 
 export const defaultLinkStyle = css`
   ${svgFill(themeColor('primary'))}
@@ -31,15 +35,16 @@ export const standaloneLinkStyle = css`
     box-shadow: inset 0 -4px ${themeColor('primary')};
   }
 
-  ${({ darkBackground }) => darkBackground
-  && css`
-  box-shadow: inset 0 -2px white;
+  ${({ darkBackground }) =>
+    darkBackground &&
+    css`
+      box-shadow: inset 0 -2px white;
 
-  &:focus,
-  &:hover {
-    box-shadow: inset 0 -4px white;
-  }
-  `}
+      &:focus,
+      &:hover {
+        box-shadow: inset 0 -4px white;
+      }
+    `}
 `
 
 export const inlineLinkStyle = css`
@@ -86,7 +91,7 @@ export const Link = styled.a`
         return inlineLinkStyle
       default:
         return defaultLinkStyle
-      }
+    }
   }}
 
   ${typographyStyle}

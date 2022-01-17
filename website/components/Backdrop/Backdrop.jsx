@@ -1,11 +1,6 @@
 import * as Styled from './Backdrop.style'
 
-const Backdrop = ({
-  isOpen,
-  onClick,
-  zIndex = 500,
-  ...otherProps
-}) => {
+const Backdrop = ({ isOpen, onClick, zIndex = 500, ...otherProps }) => {
   const handleOnClick = (e) => {
     if (onClick) {
       onClick(e)

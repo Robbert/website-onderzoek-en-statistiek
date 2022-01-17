@@ -2,9 +2,7 @@ import { useState } from 'react'
 import { ChevronDown } from '@amsterdam/asc-assets'
 
 import MarkdownToHtml from '../MarkdownToHtml/MarkdownToHtml'
-import {
-  getStrapiMedia,
-} from '../../lib/utils'
+import { getStrapiMedia } from '../../lib/utils'
 import * as Styled from './VideoButtons.style'
 
 const VideoButtons = ({ file, transcript }) => {

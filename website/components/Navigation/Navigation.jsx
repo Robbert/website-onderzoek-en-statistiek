@@ -32,7 +32,9 @@ const Navigation = ({ isOpen, setIsOpen }) => {
   ]
 
   const { keyDown: focusMenuWithArrowKeys } = useFocusWithArrows(
-    menuRef, false, menuItemSelectors,
+    menuRef,
+    false,
+    menuItemSelectors,
   )
 
   return (

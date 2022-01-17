@@ -24,7 +24,10 @@ const MegaMenu = ({ isOpen, currentPath }) => {
     */
       tabIndex={-1}
     >
-      <Styled.MobileGridItem colRange={{ small: 4, large: 12 }} gutterBottom={40}>
+      <Styled.MobileGridItem
+        colRange={{ small: 4, large: 12 }}
+        gutterBottom={40}
+      >
         <Link
           href="/zoek"
           aria-current={currentPath === '/zoek' && 'page'}
@@ -35,7 +38,9 @@ const MegaMenu = ({ isOpen, currentPath }) => {
       </Styled.MobileGridItem>
 
       <GridItem colRange={{ small: 4, large: 8 }}>
-        <Heading as="h2" styleAs="h4" gutterBottom={16}>Thema‘s</Heading>
+        <Heading as="h2" styleAs="h4" gutterBottom={16}>
+          Thema‘s
+        </Heading>
       </GridItem>
 
       <GridItem colRange={4} rowStart={{ small: 'auto', large: 2 }}>
@@ -79,7 +84,9 @@ const MegaMenu = ({ isOpen, currentPath }) => {
       </GridItem>
 
       <GridItem colRange={4}>
-        <Heading as="h2" styleAs="h4" gutterBottom={16}>Categorieën</Heading>
+        <Heading as="h2" styleAs="h4" gutterBottom={16}>
+          Categorieën
+        </Heading>
       </GridItem>
 
       <GridItem colRange={4} rowStart={{ small: 'auto', large: 2 }}>
@@ -90,7 +97,9 @@ const MegaMenu = ({ isOpen, currentPath }) => {
               <Styled.Item key={name}>
                 <Styled.LightLink
                   href={`/zoek?categorie=${name}`}
-                  aria-current={currentPath === `/zoek?categorie=${name}` && 'page'}
+                  aria-current={
+                    currentPath === `/zoek?categorie=${name}` && 'page'
+                  }
                   className="analytics-menu-content-type-link"
                 >
                   {plural}
@@ -98,7 +107,9 @@ const MegaMenu = ({ isOpen, currentPath }) => {
               </Styled.Item>
             ))}
         </List>
-        <Heading as="h2" styleAs="h4" gutterBottom={16}>Snel naar</Heading>
+        <Heading as="h2" styleAs="h4" gutterBottom={16}>
+          Snel naar
+        </Heading>
         <List gutterBottom={40}>
           {normalizeItemList(shortcuts).map(({ path, title, shortTitle }) => (
             <Styled.Item key={path}>
@@ -114,7 +125,10 @@ const MegaMenu = ({ isOpen, currentPath }) => {
           <Styled.Item>
             <Styled.LightLink
               href="/artikel/over-onderzoek-en-statistiek"
-              aria-current={currentPath === '/artikel/over-onderzoek-en-statistiek' && 'page'}
+              aria-current={
+                currentPath === '/artikel/over-onderzoek-en-statistiek' &&
+                'page'
+              }
               className="analytics-menu-shortcut-link"
             >
               Over Onderzoek en Statistiek

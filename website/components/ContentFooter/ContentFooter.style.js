@@ -26,11 +26,11 @@ export const ListItem = styled.li`
   display: inline;
 
   & ::after {
-    content: ", ";
+    content: ', ';
   }
 
   & :last-child::after {
-    content: ".";
+    content: '.';
   }
 `
 

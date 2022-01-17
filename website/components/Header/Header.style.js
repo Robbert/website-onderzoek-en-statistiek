@@ -38,14 +38,16 @@ export const Link = styled(LinkComponent)`
   display: flex;
   align-items: center;
   line-height: 1;
-  grid-column: ${({ withTitle }) => (withTitle ? 'auto / span 8' : 'auto / span 2')};
+  grid-column: ${({ withTitle }) =>
+    withTitle ? 'auto / span 8' : 'auto / span 2'};
 
-  ${({ withTitle }) => withTitle
-  && css`
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    column-gap: 3%;
-  `}
+  ${({ withTitle }) =>
+    withTitle &&
+    css`
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      column-gap: 3%;
+    `}
 
   text-decoration: none;
   font-size: inherit;

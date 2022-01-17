@@ -10,12 +10,20 @@ import VideoButtons from '~/components/VideoButtons/VideoButtons'
 import BodyContent from '~/components/BodyContent/BodyContent'
 import ContentFooter from '~/components/ContentFooter/ContentFooter'
 import {
-  fetchAPI, getStrapiMedia, apolloClient, formatDate, PLACEHOLDER_IMAGE,
+  fetchAPI,
+  getStrapiMedia,
+  apolloClient,
+  formatDate,
+  PLACEHOLDER_IMAGE,
 } from '~/lib/utils'
 import QUERY from './video.query.gql'
 import * as Styled from './video.style'
 
-const LocalVideo = ({ videoSource, subtitleSource, enableSubtitleByDefault }) => {
+const LocalVideo = ({
+  videoSource,
+  subtitleSource,
+  enableSubtitleByDefault,
+}) => {
   const videoSourceStrapi = getStrapiMedia(videoSource)
   const subtitleSourceStrapi = getStrapiMedia(subtitleSource)
 
@@ -92,12 +100,12 @@ const Video = ({
         video
       />
       <Grid>
-        <GridItem colStart={{ small: 1, large: 2 }} colRange={{ small: 4, large: 10 }}>
+        <GridItem
+          colStart={{ small: 1, large: 2 }}
+          colRange={{ small: 4, large: 10 }}
+        >
           <Heading gutterBottom={16}>{title}</Heading>
-          <Paragraph
-            small
-            gutterBottom={{ small: 56, large: 80 }}
-          >
+          <Paragraph small gutterBottom={{ small: 56, large: 80 }}>
             {formatDate(publicationDate)}
           </Paragraph>
         </GridItem>
@@ -113,14 +121,24 @@ const Video = ({
               subtitleSource={subtitleFile}
               enableSubtitleByDefault={subtitleDefault}
             />
-          )
-            : externalVideoSource && <ExternalVideo source={externalVideoSource} />}
+          ) : (
+            externalVideoSource && (
+              <ExternalVideo source={externalVideoSource} />
+            )
+          )}
         </Styled.VideoGridItem>
 
-        <GridItem colStart={{ small: 1, large: 3 }} colRange={{ small: 4, large: 8 }}>
+        <GridItem
+          colStart={{ small: 1, large: 3 }}
+          colRange={{ small: 4, large: 8 }}
+        >
           <VideoButtons transcript={transcript} file={videoFile} />
-          {externalEmbedSource && <ExternalEmbed source={externalEmbedSource} />}
-          <Paragraph intro gutterBottom={{ small: 40, large: 80 }}>{intro}</Paragraph>
+          {externalEmbedSource && (
+            <ExternalEmbed source={externalEmbedSource} />
+          )}
+          <Paragraph intro gutterBottom={{ small: 40, large: 80 }}>
+            {intro}
+          </Paragraph>
           {!videoFile?.url && !externalVideoSource && rectangularImage && (
             <Styled.ImageWrapper>
               <Image
@@ -135,9 +153,7 @@ const Video = ({
               />
 
               {rectangularImage.caption && (
-                <Paragraph small>
-                  {rectangularImage.caption}
-                </Paragraph>
+                <Paragraph small>{rectangularImage.caption}</Paragraph>
               )}
             </Styled.ImageWrapper>
           )}
@@ -170,12 +186,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { data } = await apolloClient.query(
-    {
+  const { data } = await apolloClient
+    .query({
       query: QUERY,
       variables: { slug: params.slug },
-    },
-  )
+    })
     .catch() // TODO: log this error in sentry
 
   if (!data.videos[0]) {

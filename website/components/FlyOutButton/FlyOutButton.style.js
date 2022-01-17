@@ -5,7 +5,10 @@ import ButtonComponent from '../Button/Button'
 import { calculateFluidStyle } from '../../lib/typographyUtils'
 
 export const HamburgerIcon = styled.span`
-  transition-timing-function: ${({ isOpen }) => (isOpen ? 'cubic-bezier(0.215, 0.61, 0.355, 1)' : 'cubic-bezier(0.55, 0.055, 0.675, 0.19)')};
+  transition-timing-function: ${({ isOpen }) =>
+    isOpen
+      ? 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+      : 'cubic-bezier(0.55, 0.055, 0.675, 0.19)'};
   transition-duration: 75ms;
   transition-delay: ${({ isOpen }) => (isOpen ? '0.12s' : 0)};
   transition-property: transform;
@@ -27,13 +30,16 @@ export const HamburgerIcon = styled.span`
     top: ${({ isOpen }) => (isOpen ? 0 : '-5px')};
     display: block;
     opacity: ${({ isOpen }) => (isOpen ? 0 : 1)};
-    content: "";
+    content: '';
     position: absolute;
     width: 16px;
     height: 2px;
     border-radius: 4px;
     background-color: inherit;
-    transition: ${({ isOpen }) => (isOpen ? 'top 75ms ease, opacity 75ms ease 0.12s' : 'top 75ms ease 0.12s, opacity 75ms ease')};
+    transition: ${({ isOpen }) =>
+      isOpen
+        ? 'top 75ms ease, opacity 75ms ease 0.12s'
+        : 'top 75ms ease 0.12s, opacity 75ms ease'};
 
     @media screen and ${breakpoint('max-width', 'laptop')} {
       top: ${({ isOpen }) => (isOpen ? 0 : '-7px')};
@@ -45,13 +51,16 @@ export const HamburgerIcon = styled.span`
   ::after {
     bottom: ${({ isOpen }) => (isOpen ? 0 : '-5px')};
     display: block;
-    content: "";
+    content: '';
     position: absolute;
     width: 16px;
     height: 2px;
     border-radius: 4px;
     background-color: inherit;
-    transition: ${({ isOpen }) => (isOpen ? 'bottom 75ms ease, transform 75ms cubic-bezier(0.215, 0.61, 0.355, 1) 0.12s' : 'bottom 75ms ease 0.12s, transform 75ms cubic-bezier(0.55, 0.055, 0.675, 0.19)')};
+    transition: ${({ isOpen }) =>
+      isOpen
+        ? 'bottom 75ms ease, transform 75ms cubic-bezier(0.215, 0.61, 0.355, 1) 0.12s'
+        : 'bottom 75ms ease 0.12s, transform 75ms cubic-bezier(0.55, 0.055, 0.675, 0.19)'};
     transform: ${({ isOpen }) => (isOpen ? 'rotate(-90deg)' : 'none')};
 
     @media screen and ${breakpoint('max-width', 'laptop')} {
@@ -93,7 +102,7 @@ export const Button = styled(ButtonComponent)`
   }
 
   :after {
-    content: "Menu";
+    content: 'Menu';
     grid-row-start: 1;
     grid-column-start: 1;
     visibility: hidden;

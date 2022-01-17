@@ -1,13 +1,6 @@
 import * as Styled from './Radio.style'
 
-const Radio = ({
-  children,
-  id,
-  name,
-  onChange,
-  checked,
-  ...otherProps
-}) => (
+const Radio = ({ children, id, name, onChange, checked, ...otherProps }) => (
   <>
     <Styled.Radio
       id={id}
@@ -16,11 +9,7 @@ const Radio = ({
       onChange={onChange}
       checked={checked}
     />
-    <Styled.Label
-      htmlFor={id}
-      checked={checked}
-      {...otherProps}
-    >
+    <Styled.Label htmlFor={id} checked={checked} {...otherProps}>
       <Styled.RadioSymbolContainer>
         <Styled.RadioSymbol />
       </Styled.RadioSymbolContainer>

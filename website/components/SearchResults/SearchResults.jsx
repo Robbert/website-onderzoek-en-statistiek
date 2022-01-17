@@ -4,15 +4,17 @@ import { formatDate } from '../../lib/utils'
 import CONTENT_TYPES from '../../constants/contentTypes'
 
 const SearchResults = ({
-  results, page = 1, pageSize = 10, cardGutterBottom, cardHeadingLevel,
+  results,
+  page = 1,
+  pageSize = 10,
+  cardGutterBottom,
+  cardHeadingLevel,
 }) => (
   <>
     <List>
       {results
         .slice((page - 1) * pageSize, page * pageSize)
-        .map(({
-          slug, title, teaser, type, publicationDate,
-        }) => (
+        .map(({ slug, title, teaser, type, publicationDate }) => (
           <li key={`${type}-${slug}`}>
             <SearchCard
               type={type}

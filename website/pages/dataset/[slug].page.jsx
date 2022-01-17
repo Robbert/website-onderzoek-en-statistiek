@@ -41,7 +41,10 @@ const Dataset = ({
     <>
       <Seo
         title={`Dataset: ${title}`}
-        description={teaser || body.reduce((allText, bodyItem) => allText + bodyItem.text, '')}
+        description={
+          teaser ||
+          body.reduce((allText, bodyItem) => allText + bodyItem.text, '')
+        }
         image={getStrapiMedia(rectangularImage || squareImage)}
         article
       />
@@ -67,7 +70,12 @@ const Dataset = ({
           colRange={{ small: 4, large: 10 }}
           gutterBottom={{ small: 40, large: 80 }}
         >
-          <Styled.Heading forwardedAs="h2" gutterBottom={{ small: 20, large: 40 }}>Bronnen</Styled.Heading>
+          <Styled.Heading
+            forwardedAs="h2"
+            gutterBottom={{ small: 20, large: 40 }}
+          >
+            Bronnen
+          </Styled.Heading>
           <Styled.Table as="table">
             <thead>
               <tr>
@@ -80,29 +88,36 @@ const Dataset = ({
               {resources
                 .slice()
                 .sort((a) => (a.file ? -1 : 1))
-                .map(({
-                  id, title: resourceTitle, file, url, type,
-                }) => (
+                .map(({ id, title: resourceTitle, file, url, type }) => (
                   <tr key={id}>
                     <td>
-                      {file
-                        ? resourceTitle
-                        : <Link href={url} variant="inline">{resourceTitle}</Link>}
+                      {file ? (
+                        resourceTitle
+                      ) : (
+                        <Link href={url} variant="inline">
+                          {resourceTitle}
+                        </Link>
+                      )}
                     </td>
                     <td>{type}</td>
-                    { file
-                      ? (
-                        <td>
-                          <Styled.DownloadButton
-                            url={getStrapiMedia(file)}
-                            variant="textButton"
-                            type={type}
-                            small
-                          >
-                            {`Download ${file && file.ext.slice(1).toUpperCase()} ${file?.size && `(${formatBytes(file.size * 1000)})`}`}
-                          </Styled.DownloadButton>
-                        </td>
-                      ) : <td />}
+                    {file ? (
+                      <td>
+                        <Styled.DownloadButton
+                          url={getStrapiMedia(file)}
+                          variant="textButton"
+                          type={type}
+                          small
+                        >
+                          {`Download ${
+                            file && file.ext.slice(1).toUpperCase()
+                          } ${
+                            file?.size && `(${formatBytes(file.size * 1000)})`
+                          }`}
+                        </Styled.DownloadButton>
+                      </td>
+                    ) : (
+                      <td />
+                    )}
                   </tr>
                 ))}
             </tbody>
@@ -114,7 +129,9 @@ const Dataset = ({
           colRange={{ small: 4, large: 10 }}
           gutterBottom={{ small: 40, large: 80 }}
         >
-          <Heading as="h2" gutterBottom={{ small: 20, large: 40 }}>Beschrijving</Heading>
+          <Heading as="h2" gutterBottom={{ small: 20, large: 40 }}>
+            Beschrijving
+          </Heading>
           <Styled.DefinitionList as="dl">
             <Styled.Row underline>
               <Styled.Term>Publicatiedatum</Styled.Term>
@@ -135,7 +152,9 @@ const Dataset = ({
             <Styled.Row underline>
               <Styled.Term>Contactpersoon</Styled.Term>
               <Styled.Details>
-                <Link href={`mailto:${contactMail}`} variant="inline">{contactName}</Link>
+                <Link href={`mailto:${contactMail}`} variant="inline">
+                  {contactName}
+                </Link>
               </Styled.Details>
             </Styled.Row>
           </Styled.DefinitionList>
@@ -148,7 +167,6 @@ const Dataset = ({
           <ContentFooter type="dataset" themes={theme} />
         </GridItem>
       </Grid>
-
     </>
   )
 }
@@ -167,12 +185,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { data } = await apolloClient.query(
-    {
+  const { data } = await apolloClient
+    .query({
       query: QUERY,
       variables: { slug: params.slug },
-    },
-  )
+    })
     .catch() // TODO: log this error in sentry
 
   if (!data.datasets[0]) {

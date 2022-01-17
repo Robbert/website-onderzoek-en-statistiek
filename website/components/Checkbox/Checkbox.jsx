@@ -1,12 +1,6 @@
 import * as Styled from './Checkbox.style'
 
-const Checkbox = ({
-  children,
-  id,
-  onChange,
-  checked,
-  ...otherProps
-}) => (
+const Checkbox = ({ children, id, onChange, checked, ...otherProps }) => (
   <>
     <Styled.Checkbox
       id={id}
@@ -14,11 +8,7 @@ const Checkbox = ({
       onChange={onChange}
       checked={checked}
     />
-    <Styled.Label
-      htmlFor={id}
-      checked={checked}
-      {...otherProps}
-    >
+    <Styled.Label htmlFor={id} checked={checked} {...otherProps}>
       <Styled.CheckmarkContainer>
         <Styled.Checkmark />
       </Styled.CheckmarkContainer>

@@ -17,7 +17,9 @@ const Pagination = ({
 }) => {
   const [currentPage, setCurrentPage] = useState(page)
 
-  useEffect(() => { setCurrentPage(page) }, [page])
+  useEffect(() => {
+    setCurrentPage(page)
+  }, [page])
 
   const totalPages = useMemo(
     () => Math.ceil(collectionSize / pageSize),
@@ -25,23 +27,24 @@ const Pagination = ({
   )
 
   /**
-     * This returns an array of the range, including spacers
-     *
-     * @example
-     * currentPage = 4, totalPages = 7
-     * // returns [1, 2, 3, 4, 5, 6, 7]
-     *
-     * @example
-     * currentPage = 5, totalPages = 100
-     * // returns [1, 'firstSpacer', 4, 5, 6, 'lastSpacer', 100]
-     *
-     * @example
-     * currentPage = 97, totalPages = 100
-     * // returns [1, 'firstSpacer', 96, 97, 98, 99, 100]
-     */
+   * This returns an array of the range, including spacers
+   *
+   * @example
+   * currentPage = 4, totalPages = 7
+   * // returns [1, 2, 3, 4, 5, 6, 7]
+   *
+   * @example
+   * currentPage = 5, totalPages = 100
+   * // returns [1, 'firstSpacer', 4, 5, 6, 'lastSpacer', 100]
+   *
+   * @example
+   * currentPage = 97, totalPages = 100
+   * // returns [1, 'firstSpacer', 96, 97, 98, 99, 100]
+   */
   const range = useMemo(() => {
     const min = 1
-    let paginatedLength = paginationLength < 5 ? DEFAULT_PAGINATION_LENGTH : paginationLength
+    let paginatedLength =
+      paginationLength < 5 ? DEFAULT_PAGINATION_LENGTH : paginationLength
     if (paginationLength > totalPages) {
       paginatedLength = totalPages
     }
@@ -50,28 +53,29 @@ const Pagination = ({
     start = Math.max(start, min)
     start = Math.min(start, min + totalPages - paginatedLength)
 
-    return Array
-      .from({ length: paginatedLength }, (el, i) => start + i)
-      .reduce((acc, pageNr, index) => {
+    return Array.from({ length: paginatedLength }, (el, i) => start + i).reduce(
+      (acc, pageNr, index) => {
         if (index === 0 && pageNr !== 1) {
           return [1, 'firstSpacer']
         }
         if (
-          totalPages > paginatedLength
-          && index === paginatedLength - 2
-          && currentPage < totalPages - 2
+          totalPages > paginatedLength &&
+          index === paginatedLength - 2 &&
+          currentPage < totalPages - 2
         ) {
           return [...acc, 'lastSpacer', totalPages]
         }
         // Skip a number when spacer is already add
         if (
-          (acc.includes('firstSpacer') && index === 1)
-          || (acc.includes('lastSpacer') && index === paginatedLength - 1)
+          (acc.includes('firstSpacer') && index === 1) ||
+          (acc.includes('lastSpacer') && index === paginatedLength - 1)
         ) {
           return acc
         }
         return [...acc, pageNr]
-      }, [])
+      },
+      [],
+    )
   }, [currentPage, totalPages, paginationLength])
 
   const onChangePage = (newPage) => {
@@ -112,30 +116,38 @@ const Pagination = ({
             vorige
           </Styled.Button>
         </li>
-        {range.map((pageNumberOrSpacer) => (typeof pageNumberOrSpacer === 'number' ? (
-          <li key={`pag-${pageNumberOrSpacer}`}>
-            <Styled.PageNumberButton
-              aria-label={
-                pageNumberOrSpacer === currentPage
-                  ? `Pagina ${pageNumberOrSpacer}`
-                  : `Ga naar pagina ${pageNumberOrSpacer}`
-              }
-              aria-current={pageNumberOrSpacer === currentPage}
-              data-testid={`pageButton-${pageNumberOrSpacer}`}
-              onClick={() => pageNumberOrSpacer !== currentPage && onChangePage(pageNumberOrSpacer)}
-              isCurrent={pageNumberOrSpacer === currentPage}
-              tabIndex={pageNumberOrSpacer === currentPage ? -1 : 0}
-              type="button"
-              variant="textButton"
+        {range.map((pageNumberOrSpacer) =>
+          typeof pageNumberOrSpacer === 'number' ? (
+            <li key={`pag-${pageNumberOrSpacer}`}>
+              <Styled.PageNumberButton
+                aria-label={
+                  pageNumberOrSpacer === currentPage
+                    ? `Pagina ${pageNumberOrSpacer}`
+                    : `Ga naar pagina ${pageNumberOrSpacer}`
+                }
+                aria-current={pageNumberOrSpacer === currentPage}
+                data-testid={`pageButton-${pageNumberOrSpacer}`}
+                onClick={() =>
+                  pageNumberOrSpacer !== currentPage &&
+                  onChangePage(pageNumberOrSpacer)
+                }
+                isCurrent={pageNumberOrSpacer === currentPage}
+                tabIndex={pageNumberOrSpacer === currentPage ? -1 : 0}
+                type="button"
+                variant="textButton"
+              >
+                {pageNumberOrSpacer}
+              </Styled.PageNumberButton>
+            </li>
+          ) : (
+            <Styled.Spacer
+              key={pageNumberOrSpacer}
+              data-testid={pageNumberOrSpacer}
             >
-              {pageNumberOrSpacer}
-            </Styled.PageNumberButton>
-          </li>
-        ) : (
-          <Styled.Spacer key={pageNumberOrSpacer} data-testid={pageNumberOrSpacer}>
-            {'\u2026'}
-          </Styled.Spacer>
-        )))}
+              {'\u2026'}
+            </Styled.Spacer>
+          ),
+        )}
         <li>
           <Styled.Button
             type="button"

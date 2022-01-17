@@ -63,7 +63,6 @@ const Publication = ({
               </Styled.MetaListItem>
             )}
           </Styled.MetaList>
-
         </GridItem>
 
         <GridItem
@@ -88,11 +87,7 @@ const Publication = ({
             </Styled.CoverImage>
           )}
           <Styled.ButtonWrapper>
-            <DownloadButton
-              url={getStrapiMedia(file)}
-              variant="primary"
-              small
-            >
+            <DownloadButton url={getStrapiMedia(file)} variant="primary" small>
               {`Download PDF (${formatBytes(file.size * 1000)})`}
             </DownloadButton>
           </Styled.ButtonWrapper>
@@ -102,12 +97,12 @@ const Publication = ({
           colStart={{ small: 1, large: 2 }}
           colRange={{ small: 4, large: 6 }}
         >
-          <Paragraph intro gutterBottom={40}>{intro}</Paragraph>
+          <Paragraph intro gutterBottom={40}>
+            {intro}
+          </Paragraph>
         </GridItem>
 
-        {body && (
-          <BodyContent content={body} />
-        )}
+        {body && <BodyContent content={body} />}
 
         <GridItem
           colStart={{ small: 1, large: 2 }}
@@ -134,12 +129,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { data } = await apolloClient.query(
-    {
+  const { data } = await apolloClient
+    .query({
       query: QUERY,
       variables: { slug: params.slug },
-    },
-  )
+    })
     .catch() // TODO: log this error in sentry
 
   if (!data.publications[0]) {

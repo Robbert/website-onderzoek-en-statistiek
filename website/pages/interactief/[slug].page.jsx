@@ -50,7 +50,11 @@ const Interactive = ({
         element.async = true
       }
       document.head.appendChild(element)
-      const promise = new Promise((resolve) => { element.onload = () => { resolve() } })
+      const promise = new Promise((resolve) => {
+        element.onload = () => {
+          resolve()
+        }
+      })
 
       return { promise, element }
     })
@@ -70,9 +74,11 @@ const Interactive = ({
         image={getStrapiMedia(rectangularImage || squareImage)}
         article
       />
-      {implementation === 'insert'
-        ? <RenderContainer id="micro-frontend" />
-        : <IFrame src={contentLink} title={title} />}
+      {implementation === 'insert' ? (
+        <RenderContainer id="micro-frontend" />
+      ) : (
+        <IFrame src={contentLink} title={title} />
+      )}
       <Grid verticalPadding={0}>
         <GridItem colRange={{ small: 4, large: 8 }}>
           <ContentFooter type="interactieve publicatie" themes={theme} />
@@ -86,24 +92,21 @@ export async function getStaticPaths() {
   const interactives = await fetchAPI('/interactives')
 
   return {
-    paths: interactives.map(({ slug }) => (
-      {
-        params: {
-          slug,
-        },
-      }
-    )),
+    paths: interactives.map(({ slug }) => ({
+      params: {
+        slug,
+      },
+    })),
     fallback: true,
   }
 }
 
 export async function getStaticProps({ params }) {
-  const { data } = await apolloClient.query(
-    {
+  const { data } = await apolloClient
+    .query({
       query: QUERY,
       variables: { slug: params.slug },
-    },
-  )
+    })
     .catch() // TODO: log this error in sentry
 
   if (!data.interactives[0]) {
@@ -115,16 +118,18 @@ export async function getStaticProps({ params }) {
 
   const { contentLink, implementation } = data.interactives[0]
 
-  const assets = implementation === 'insert'
-    ? await fetch(`${contentLink}/asset-manifest.json`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json()
-        }
-        return []
-      // eslint-disable-next-line no-console
-      }).catch((e) => console.log(e))
-    : {}
+  const assets =
+    implementation === 'insert'
+      ? await fetch(`${contentLink}/asset-manifest.json`)
+          .then((res) => {
+            if (res.ok) {
+              return res.json()
+            }
+            return []
+            // eslint-disable-next-line no-console
+          })
+          .catch((e) => console.log(e))
+      : {}
 
   return {
     props: {

@@ -91,7 +91,10 @@ describe('Pagination', () => {
     )
 
     fireEvent.click(screen.getByTestId('pageButton-2'))
-    expect(screen.getByTestId('pageButton-2')).toHaveAttribute('aria-current', 'true')
+    expect(screen.getByTestId('pageButton-2')).toHaveAttribute(
+      'aria-current',
+      'true',
+    )
   })
 
   it('should be working in a controlled state', () => {

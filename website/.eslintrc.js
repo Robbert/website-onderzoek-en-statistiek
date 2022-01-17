@@ -54,10 +54,5 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
-    indent: [
-      'error',
-      2,
-      { ignoredNodes: ['TemplateLiteral > *'], SwitchCase: 1 },
-    ],
   },
 }

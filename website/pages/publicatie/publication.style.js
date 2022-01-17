@@ -7,7 +7,7 @@ export const MetaList = styled(List)`
   margin-bottom: 40px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
-    margin-bottom: 56px
+    margin-bottom: 56px;
   }
 `
 
@@ -15,16 +15,16 @@ export const MetaListItem = styled.li`
   display: inline;
 
   & ::after {
-    content: " | ";
+    content: ' | ';
   }
 
   & :last-child::after {
-    content: "";
+    content: '';
   }
 `
 export const CoverImage = styled.div`
   border: 2px solid ${themeColor('tint', 'level3')};
-  margin-bottom: 40px
+  margin-bottom: 40px;
 `
 
 export const ButtonWrapper = styled.div`

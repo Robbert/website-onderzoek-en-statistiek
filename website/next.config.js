@@ -13,7 +13,11 @@ module.exports = withBundleAnalyzer({
   },
   webpackDevMiddleware: (config) => config,
   images: {
-    domains: ['localhost', 'cms.onderzoek-en-statistiek.nl', 'acc.cms.onderzoek-en-statistiek.nl'],
+    domains: [
+      'localhost',
+      'cms.onderzoek-en-statistiek.nl',
+      'acc.cms.onderzoek-en-statistiek.nl',
+    ],
   },
   pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js', 'api.js'],
   async headers() {
@@ -23,8 +27,7 @@ module.exports = withBundleAnalyzer({
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=604800, immutable',
+            value: 'public, max-age=604800, immutable',
           },
         ],
       },
@@ -33,8 +36,15 @@ module.exports = withBundleAnalyzer({
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           { key: 'Access-Control-Allow-Origin', value: '*' },
-          { key: 'Access-Control-Allow-Methods', value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT' },
-          { key: 'Access-Control-Allow-Headers', value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version' },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value:
+              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+          },
         ],
       },
     ]

@@ -1,9 +1,7 @@
 // https://github.com/vercel/next.js/tree/master/examples/with-styled-components
 
 // eslint-disable-next-line @next/next/no-document-import-in-page
-import Document, {
-  Html, Head, Main, NextScript,
-} from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
@@ -12,9 +10,11 @@ export default class MyDocument extends Document {
     const originalRenderPage = ctx.renderPage
 
     try {
-      ctx.renderPage = () => originalRenderPage({
-        enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
-      })
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
+        })
 
       const initialProps = await Document.getInitialProps(ctx)
       return {

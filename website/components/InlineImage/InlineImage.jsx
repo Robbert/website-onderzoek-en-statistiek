@@ -9,7 +9,9 @@ const InlineImage = ({ src, alt }) => {
 
   useEffect(() => {
     const abortController = new AbortController()
-    fetch(prependStrapiURL(`/upload/files?url=${src}`), { signal: abortController.signal })
+    fetch(prependStrapiURL(`/upload/files?url=${src}`), {
+      signal: abortController.signal,
+    })
       .then((response) => response.json())
       .then((result) => result[0])
       .then(({ width, height }) => setDimensions({ width, height }))

@@ -11,7 +11,9 @@ import CONTENT_TYPES from '~/constants/contentTypes'
 
 const searchLinkLogic = (path) => {
   const segments = path.substring(1).split(/-|\//) // split path on forward slashes and minus signs
-  const contentType = Object.values(CONTENT_TYPES).find((item) => item.name === segments[0])
+  const contentType = Object.values(CONTENT_TYPES).find(
+    (item) => item.name === segments[0],
+  )
   const isTheme = segments[0] === 'thema'
 
   if (isTheme) {
@@ -24,9 +26,14 @@ const searchLinkLogic = (path) => {
 
   if (contentType) {
     return {
-      type: contentType.plural !== 'Interactief' ? contentType.plural.toLowerCase() : 'interactieve publicaties',
+      type:
+        contentType.plural !== 'Interactief'
+          ? contentType.plural.toLowerCase()
+          : 'interactieve publicaties',
       text: segments.slice(1).join(' '),
-      path: `/zoek?categorie=${segments[0]}&tekst=${segments.slice(1).join('+')}`,
+      path: `/zoek?categorie=${segments[0]}&tekst=${segments
+        .slice(1)
+        .join('+')}`,
     }
   }
 
@@ -45,28 +52,36 @@ const Custom404 = () => {
     <>
       <Seo title="Pagina niet gevonden" />
       <Grid>
-        <GridItem colRange={{ small: 4, large: 8 }} colStart={{ small: 1, large: 3 }}>
+        <GridItem
+          colRange={{ small: 4, large: 8 }}
+          colStart={{ small: 1, large: 3 }}
+        >
           <Heading gutterBottom={{ small: 56, large: 40 }}>Helaas</Heading>
           <Paragraph gutterBottom={40}>
             Deze pagina bestaat niet (meer). Controleer het adres of:
           </Paragraph>
           <List variant="unordered" gutterBottom={40} small>
             <ListItem>
-              Zoek naar
-              {' '}
+              Zoek naar{' '}
               <Link href={searchLinkObject.path} variant="inline">
-                {`${searchLinkObject.type ? `${searchLinkObject.type} met de tekst` : ''} '${searchLinkObject.text}'`}
+                {`${
+                  searchLinkObject.type
+                    ? `${searchLinkObject.type} met de tekst`
+                    : ''
+                } '${searchLinkObject.text}'`}
               </Link>
             </ListItem>
             <ListItem>
-              Ga naar de
-              {' '}
-              <Link href="/" variant="inline">voorpagina</Link>
+              Ga naar de{' '}
+              <Link href="/" variant="inline">
+                voorpagina
+              </Link>
             </ListItem>
             <ListItem>
-              Stuur een
-              {' '}
-              <Link href="mailto:redactie.ois@amsterdam.nl" variant="inline">bericht aan de redactie</Link>
+              Stuur een{' '}
+              <Link href="mailto:redactie.ois@amsterdam.nl" variant="inline">
+                bericht aan de redactie
+              </Link>
             </ListItem>
           </List>
         </GridItem>

@@ -17,15 +17,17 @@ export const ImageWrapper = styled.div`
 `
 
 export const VideoGridItem = styled(GridItem)`
-  ${({ wide }) => wide && css`
-    margin-left: -32px;
-    margin-right: -32px;
+  ${({ wide }) =>
+    wide &&
+    css`
+      margin-left: -32px;
+      margin-right: -32px;
 
-    @media screen and ${breakpoint('max-width', 'laptop')} {
-      margin-left: -12px;
-      margin-right: -12px;
-    }
-  `}
+      @media screen and ${breakpoint('max-width', 'laptop')} {
+        margin-left: -12px;
+        margin-right: -12px;
+      }
+    `}
 `
 
 export const Video = styled.video`

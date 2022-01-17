@@ -1,7 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import {
-  useState, useEffect, useCallback, useContext,
-} from 'react'
+import { useState, useEffect, useCallback, useContext } from 'react'
 import { useRouter } from 'next/router'
 import debounce from 'lodash.debounce'
 import { Close } from '@amsterdam/asc-assets'
@@ -35,17 +33,18 @@ const Search = ({ themes }) => {
     const { query } = router
     delete query[paramName]
 
-    if (paramName === 'thema' && paramValue.length > 0) query.thema = paramValue.join(' ')
-    if (paramName === 'categorie' && paramValue) query.categorie = CONTENT_TYPES[paramValue].name
-    if (paramName === 'sorteer' && paramName !== 'af') query.sorteer = paramValue
+    if (paramName === 'thema' && paramValue.length > 0)
+      query.thema = paramValue.join(' ')
+    if (paramName === 'categorie' && paramValue)
+      query.categorie = CONTENT_TYPES[paramValue].name
+    if (paramName === 'sorteer' && paramName !== 'af')
+      query.sorteer = paramValue
     if (paramName === 'tekst' && paramValue !== '') query.tekst = paramValue
 
-    router.push({ query },
-      undefined,
-      {
-        shallow: true,
-        scroll: false,
-      })
+    router.push({ query }, undefined, {
+      shallow: true,
+      scroll: false,
+    })
   })
 
   const handleThemeChange = (slug) => {
@@ -64,7 +63,10 @@ const Search = ({ themes }) => {
 
   useEffect(() => {
     const {
-      tekst: q, sorteer: sort, categorie: cat, thema: theme,
+      tekst: q,
+      sorteer: sort,
+      categorie: cat,
+      thema: theme,
     } = router.query
     setSearchQuery(q ? decodeURI(q) : '')
     setSortOrder(sort || 'af')
@@ -74,8 +76,13 @@ const Search = ({ themes }) => {
 
   useEffect(() => {
     const throttledUpdate = debounce(() => {
-      const updatedResults = getSearchResults(searchIndex, searchQuery,
-        sortOrder, themeFilter, category)
+      const updatedResults = getSearchResults(
+        searchIndex,
+        searchQuery,
+        sortOrder,
+        themeFilter,
+        category,
+      )
       setResults(updatedResults)
     }, 300)
     throttledUpdate()
@@ -87,7 +94,9 @@ const Search = ({ themes }) => {
     return () => tracker.cancel()
   }, [searchQuery, category])
 
-  useEffect(() => { setPage(1) }, [results])
+  useEffect(() => {
+    setPage(1)
+  }, [results])
 
   return (
     <>
@@ -101,9 +110,13 @@ const Search = ({ themes }) => {
           colStart={{ small: 1, large: 5 }}
         >
           <Paragraph gutterBottom={8}>
-            {`${results.length} ${results.length === 1 ? 'resultaat' : 'resultaten'}`}
+            {`${results.length} ${
+              results.length === 1 ? 'resultaat' : 'resultaten'
+            }`}
           </Paragraph>
-          <Heading gutterBottom={{ small: 24, large: 16 }} styleAs="h2">Zoeken</Heading>
+          <Heading gutterBottom={{ small: 24, large: 16 }} styleAs="h2">
+            Zoeken
+          </Heading>
           <Styled.SearchBar
             id="searchfield"
             type="text"
@@ -182,8 +195,7 @@ const Search = ({ themes }) => {
 }
 
 export async function getStaticProps() {
-  const { data } = await apolloClient.query({ query: QUERY })
-    .catch() // TODO: log this error in sentry
+  const { data } = await apolloClient.query({ query: QUERY }).catch() // TODO: log this error in sentry
 
   return {
     props: { themes: data.themes },

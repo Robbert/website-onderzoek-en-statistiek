@@ -30,7 +30,10 @@ export const HeroGrid = styled(Grid)`
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-bottom: 52px;
-    background: linear-gradient(white calc(50% - 36px), ${({ $color }) => $color} calc(50% - 36px));
+    background: linear-gradient(
+      white calc(50% - 36px),
+      ${({ $color }) => $color} calc(50% - 36px)
+    );
   }
 `
 
@@ -57,10 +60,10 @@ export const ChartContainer = styled.div`
 export const ChartCaption = styled(Paragraph)`
   text-align: right;
   margin-top: 8px;
-  color: ${({ backgroundColor }) => ((
-    backgroundColor === 'paars'
-    || backgroundColor === 'roze'
-  ) ? 'white' : 'black')};
+  color: ${({ backgroundColor }) =>
+    backgroundColor === 'paars' || backgroundColor === 'roze'
+      ? 'white'
+      : 'black'};
 `
 
 export const FeatureListItem = styled.li`
@@ -78,7 +81,11 @@ export const CollectionGrid = styled(Grid)`
 `
 
 export const CollectionList = styled(List)`
-  ${({ twoColumns }) => twoColumns && css`columns: 2;`}
+  ${({ twoColumns }) =>
+    twoColumns &&
+    css`
+      columns: 2;
+    `}
 `
 
 export const Icon = styled(IconASC)`

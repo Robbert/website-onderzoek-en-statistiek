@@ -5,9 +5,7 @@ import Script from 'next/script'
 import { useState, useEffect } from 'react'
 import Fuse from 'fuse.js'
 import { createGlobalStyle } from 'styled-components'
-import {
-  GlobalStyle, ThemeProvider, ascDefaultTheme,
-} from '@amsterdam/asc-ui'
+import { GlobalStyle, ThemeProvider, ascDefaultTheme } from '@amsterdam/asc-ui'
 
 import Layout from '~/components/Layout/Layout'
 import { apolloClient, prependStaticContentUrl } from '~/lib/utils'
@@ -24,7 +22,8 @@ const BodyStyle = createGlobalStyle`
   }
 `
 
-const withTypeBreakpoint = (size) => (type) => `(${type}: ${size + (type === 'max-width' ? -1 : 0)}px)`
+const withTypeBreakpoint = (size) => (type) =>
+  `(${type}: ${size + (type === 'max-width' ? -1 : 0)}px)`
 
 const MyApp = ({ Component, pageProps }) => {
   const [searchIndex, setSearchIndex] = useState(null)
@@ -38,7 +37,8 @@ const MyApp = ({ Component, pageProps }) => {
     ...ascDefaultTheme,
     typography: {
       ...ascDefaultTheme.typography,
-      fontFamily: 'Avenir Next W01, Helvetica Neue, Helvetica, Arial, sans-serif',
+      fontFamily:
+        'Avenir Next W01, Helvetica Neue, Helvetica, Arial, sans-serif',
     },
     breakpoints: {
       ...ascDefaultTheme.breakpoints,
@@ -49,7 +49,10 @@ const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
     const abortController = new AbortController()
 
-    fetch(prependStaticContentUrl('/searchContent.json'), { signal: abortController.signal, mode: 'cors' })
+    fetch(prependStaticContentUrl('/searchContent.json'), {
+      signal: abortController.signal,
+      mode: 'cors',
+    })
       .then((response) => response.json())
       .then((searchContent) => {
         setSearchIndex(new Fuse(searchContent, fuseOptions))

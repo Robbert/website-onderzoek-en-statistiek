@@ -45,7 +45,9 @@ const BodyContent = ({
             >
               {item.links.length > 0 && (
                 <>
-                  <Heading as="h2" styleAs="h5" gutterBottom={12}>Zie ook</Heading>
+                  <Heading as="h2" styleAs="h5" gutterBottom={12}>
+                    Zie ook
+                  </Heading>
                   <List>
                     {item.links.map(({ name, path, title: linkTitle }) => (
                       <li key={path}>

@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Icon } from '@amsterdam/asc-ui'
 import {
-  Facebook, Twitter, Linkedin, Email, Print,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Email,
+  Print,
 } from '@amsterdam/asc-assets'
 
 import { pushCustomEvent } from '../../lib/analyticsUtils'
@@ -26,8 +30,15 @@ const ShareButtons = () => {
           title="Deel op Facebook"
           aria-label="Deel op Facebook"
           onClick={() => {
-            pushCustomEvent('Share', 'Facebook', shareLinkObject.href.split('/').pop())
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareLinkObject.href}`, '_blank')
+            pushCustomEvent(
+              'Share',
+              'Facebook',
+              shareLinkObject.href.split('/').pop(),
+            )
+            window.open(
+              `https://www.facebook.com/sharer/sharer.php?u=${shareLinkObject.href}`,
+              '_blank',
+            )
           }}
         >
           <Icon size={20}>
@@ -42,8 +53,15 @@ const ShareButtons = () => {
           title="Deel op Twitter"
           aria-label="Deel op Twitter"
           onClick={() => {
-            pushCustomEvent('Share', 'Twitter', shareLinkObject.href.split('/').pop())
-            window.open(`https://twitter.com/intent/tweet?url=${shareLinkObject.href}`, '_blank')
+            pushCustomEvent(
+              'Share',
+              'Twitter',
+              shareLinkObject.href.split('/').pop(),
+            )
+            window.open(
+              `https://twitter.com/intent/tweet?url=${shareLinkObject.href}`,
+              '_blank',
+            )
           }}
         >
           <Icon size={20}>
@@ -58,8 +76,15 @@ const ShareButtons = () => {
           title="Deel op LinkedIn"
           aria-label="Deel op LinkedIn"
           onClick={() => {
-            pushCustomEvent('Share', 'LinkedIn', shareLinkObject.href.split('/').pop())
-            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${shareLinkObject.href}`, '_blank')
+            pushCustomEvent(
+              'Share',
+              'LinkedIn',
+              shareLinkObject.href.split('/').pop(),
+            )
+            window.open(
+              `https://www.linkedin.com/sharing/share-offsite/?url=${shareLinkObject.href}`,
+              '_blank',
+            )
           }}
         >
           <Icon size={20}>
@@ -74,8 +99,17 @@ const ShareButtons = () => {
           title="Deel via mail"
           aria-label="Deel deel via mail"
           onClick={() => {
-            pushCustomEvent('Share', 'Mail', shareLinkObject.href.split('/').pop())
-            window.open(`mailto:?subject=${shareLinkObject.title}&body=Zie: ${escape(shareLinkObject.href)}`, '_self')
+            pushCustomEvent(
+              'Share',
+              'Mail',
+              shareLinkObject.href.split('/').pop(),
+            )
+            window.open(
+              `mailto:?subject=${shareLinkObject.title}&body=Zie: ${escape(
+                shareLinkObject.href,
+              )}`,
+              '_self',
+            )
           }}
         >
           <Icon size={20}>
@@ -90,7 +124,11 @@ const ShareButtons = () => {
           title="Print deze pagina"
           aria-label="Print deze pagina"
           onClick={() => {
-            pushCustomEvent('Share', 'Print', shareLinkObject.href.split('/').pop())
+            pushCustomEvent(
+              'Share',
+              'Print',
+              shareLinkObject.href.split('/').pop(),
+            )
             window.print()
           }}
         >

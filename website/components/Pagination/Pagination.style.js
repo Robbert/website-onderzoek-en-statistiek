@@ -19,23 +19,29 @@ export const PageNumberButton = styled(ButtonComponent)`
   padding-left: 12px;
   padding-right: 12px;
 
-  ${({ isCurrent }) => isCurrent && css`
-    font-weight: 800;
-    cursor: default;
-    :hover {
-      text-decoration: none;
-    }
-  `}
+  ${({ isCurrent }) =>
+    isCurrent &&
+    css`
+      font-weight: 800;
+      cursor: default;
+      :hover {
+        text-decoration: none;
+      }
+    `}
 `
 
 export const Button = styled(ButtonComponent)`
-  ${({ first }) => first && css`
-    padding-left: 0;
-  `}
+  ${({ first }) =>
+    first &&
+    css`
+      padding-left: 0;
+    `}
 
-  ${({ last }) => last && css`
-    padding-right: 0;
-  `}
+  ${({ last }) =>
+    last &&
+    css`
+      padding-right: 0;
+    `}
 
   &:disabled {
     display: none;
@@ -44,12 +50,14 @@ export const Button = styled(ButtonComponent)`
 
 export const Icon = styled(IconASC)`
   margin-top: 5px;
-  ${({ right }) => (right
-  ? css`
-    margin-left: 12px;
-  ` : css`
-    margin-right: 12px;
-  `)}
+  ${({ right }) =>
+    right
+      ? css`
+          margin-left: 12px;
+        `
+      : css`
+          margin-right: 12px;
+        `}
 `
 
 export const Spacer = styled.li`

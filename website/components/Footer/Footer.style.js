@@ -1,8 +1,4 @@
-import {
-  themeColor,
-  Icon as IconASC,
-  breakpoint,
-} from '@amsterdam/asc-ui'
+import { themeColor, Icon as IconASC, breakpoint } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 
 import ListComponent from '../List/List'

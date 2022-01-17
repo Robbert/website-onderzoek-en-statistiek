@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import {
-  Label, Icon, useMatchMedia, useTrappedFocus,
-} from '@amsterdam/asc-ui'
+import { Label, Icon, useMatchMedia, useTrappedFocus } from '@amsterdam/asc-ui'
 import { Close } from '@amsterdam/asc-assets'
 
 import Heading from '../Heading/Heading'
@@ -9,9 +7,7 @@ import Radio from '../Radio/Radio'
 import Checkbox from '../Checkbox/Checkbox'
 import Backdrop from '../Backdrop/Backdrop'
 import Button from '../Button/Button'
-import {
-  calculateFacetsTotals, formatFacetNumber,
-} from '../../lib/searchUtils'
+import { calculateFacetsTotals, formatFacetNumber } from '../../lib/searchUtils'
 import CONTENT_TYPES from '../../constants/contentTypes'
 import * as Styled from './SearchFilterSection.style'
 
@@ -78,7 +74,9 @@ const SearchFilterSection = ({
         onKeyDown={keyDown}
       >
         <Styled.MobilePanelHeader>
-          <Heading as="h2" styleAs="h3">Filters</Heading>
+          <Heading as="h2" styleAs="h3">
+            Filters
+          </Heading>
           <Button
             type="button"
             variant="blank"
@@ -92,7 +90,9 @@ const SearchFilterSection = ({
         </Styled.MobilePanelHeader>
         <Styled.Fieldset
           legend={
-            <Heading as="h2" styleAs="h5" gutterBottom={24}>Thema‘s</Heading>
+            <Heading as="h2" styleAs="h5" gutterBottom={24}>
+              Thema‘s
+            </Heading>
           }
         >
           {themes
@@ -105,13 +105,17 @@ const SearchFilterSection = ({
                 onChange={() => handleThemeChange(slug)}
                 checked={themeFilter.includes(slug)}
               >
-                {`${title} ${facetCount ? formatFacetNumber(facetCount[slug]) : ''}`}
+                {`${title} ${
+                  facetCount ? formatFacetNumber(facetCount[slug]) : ''
+                }`}
               </Checkbox>
             ))}
         </Styled.Fieldset>
         <Styled.Fieldset
           legend={
-            <Heading as="h2" styleAs="h5" gutterBottom={24}>Categorieën</Heading>
+            <Heading as="h2" styleAs="h5" gutterBottom={24}>
+              Categorieën
+            </Heading>
           }
         >
           <Radio
@@ -122,8 +126,7 @@ const SearchFilterSection = ({
           >
             Alle categorieën
           </Radio>
-          {Object
-            .values(CONTENT_TYPES)
+          {Object.values(CONTENT_TYPES)
             .filter((cat) => cat.type !== 'theme')
             .map(({ type, plural }) => (
               <Radio
@@ -133,13 +136,17 @@ const SearchFilterSection = ({
                 onChange={() => setUrlParameters('categorie', type)}
                 checked={category === type}
               >
-                {`${plural} ${facetCount ? formatFacetNumber(facetCount[type]) : ''}`}
+                {`${plural} ${
+                  facetCount ? formatFacetNumber(facetCount[type]) : ''
+                }`}
               </Radio>
             ))}
         </Styled.Fieldset>
         <Styled.Fieldset
           legend={
-            <Heading as="h2" styleAs="h5" gutterBottom={24}>Sorteren</Heading>
+            <Heading as="h2" styleAs="h5" gutterBottom={24}>
+              Sorteren
+            </Heading>
           }
         >
           <Label htmlFor="selectSort" label="Sorteren" srOnly />
@@ -158,7 +165,9 @@ const SearchFilterSection = ({
             type="button"
             onClick={() => setMobilePanelOpen(false)}
           >
-            {`Toon ${results.length} ${results.length === 1 ? 'resultaat' : 'resultaten'}`}
+            {`Toon ${results.length} ${
+              results.length === 1 ? 'resultaat' : 'resultaten'
+            }`}
           </Styled.MobilePanelButton>
         </Styled.MobilePanelButtonContainer>
       </Styled.FilterPanel>

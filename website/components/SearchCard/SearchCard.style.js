@@ -8,17 +8,22 @@ export const Link = styled.a`
   text-decoration: none;
   overflow: hidden;
 
-  ${({ gutterBottom }) => (gutterBottom || typeof gutterBottom === 'number') && (
-  css`
-    margin-bottom: ${typeof gutterBottom?.large === 'number' ? `${gutterBottom.large}px` : `${gutterBottom}px`};
-  `)}
+  ${({ gutterBottom }) =>
+    (gutterBottom || typeof gutterBottom === 'number') &&
+    css`
+      margin-bottom: ${typeof gutterBottom?.large === 'number'
+        ? `${gutterBottom.large}px`
+        : `${gutterBottom}px`};
+    `}
 
   /* stylelint-disable */
-  ${({ gutterBottom }) => typeof gutterBottom?.small === 'number' && css`
-    @media screen and ${breakpoint('max-width', 'laptop')} {
-      margin-bottom: ${gutterBottom.small}px;
-    }
-  `}
+  ${({ gutterBottom }) =>
+    typeof gutterBottom?.small === 'number' &&
+    css`
+      @media screen and ${breakpoint('max-width', 'laptop')} {
+        margin-bottom: ${gutterBottom.small}px;
+      }
+    `}
 
   h1,h2,h3,h4,h5,h6 {
     color: ${themeColor('primary')};
@@ -26,7 +31,12 @@ export const Link = styled.a`
 
   :hover,
   :focus {
-    h1,h2,h3,h4,h5,h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       text-decoration: underline;
     }
   }

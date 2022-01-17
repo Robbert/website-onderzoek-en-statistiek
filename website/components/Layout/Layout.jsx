@@ -10,13 +10,8 @@ const Layout = ({ children }) => (
     <Styled.SkipNavigationLink href="#footer" external>
       Direct naar contactgegevens
     </Styled.SkipNavigationLink>
-    <Header
-      title="Onderzoek en Statistiek"
-      homeLink="/"
-    />
-    <Styled.Main id="main">
-      {children}
-    </Styled.Main>
+    <Header title="Onderzoek en Statistiek" homeLink="/" />
+    <Styled.Main id="main">{children}</Styled.Main>
     <Footer id="footer" />
   </Styled.Container>
 )

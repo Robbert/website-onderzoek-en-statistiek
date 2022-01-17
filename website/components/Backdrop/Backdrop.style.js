@@ -23,5 +23,5 @@ export const Backdrop = styled.div`
    * The default is 500, which is a bit high, but this is because Leaflet (a map library we currently often use)
    * sets a z-index of 400.
    */
-  z-index: ${({ zIndex }) => (zIndex)};
+  z-index: ${({ zIndex }) => zIndex};
 `

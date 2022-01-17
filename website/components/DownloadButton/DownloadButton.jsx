@@ -7,7 +7,11 @@ import { pushCustomEvent } from '../../lib/analyticsUtils'
 import * as Styled from './DownloadButton.style'
 
 const DownloadButton = ({
-  url, type = 'publication', iconSize = 20, children, ...otherProps
+  url,
+  type = 'publication',
+  iconSize = 20,
+  children,
+  ...otherProps
 }) => {
   const [, downloadLoading, downloadFile] = useDownload()
 

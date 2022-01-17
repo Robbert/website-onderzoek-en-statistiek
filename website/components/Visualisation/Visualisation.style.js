@@ -6,7 +6,8 @@ import { Grid as GridComponent, gridItemStyle } from '../Grid/Grid.style'
 import Paragraph from '../Paragraph/Paragraph'
 
 export const Grid = styled(GridComponent)`
-  margin-bottom: ${({ variant }) => ((variant === 'kleurenbalk' ? '120px' : '40px'))};
+  margin-bottom: ${({ variant }) =>
+    variant === 'kleurenbalk' ? '120px' : '40px'};
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-bottom: 40px;
@@ -14,12 +15,11 @@ export const Grid = styled(GridComponent)`
 `
 
 const fontColor = css`
-  color:
-    ${({ backgroundColor, variant }) => ((
-      variant === 'kleurenbalk' && (
-      backgroundColor === 'paars'
-      || backgroundColor === 'roze'
-    )) ? 'white' : 'black')};
+  color: ${({ backgroundColor, variant }) =>
+    variant === 'kleurenbalk' &&
+    (backgroundColor === 'paars' || backgroundColor === 'roze')
+      ? 'white'
+      : 'black'};
 `
 
 export const Source = styled(Paragraph)`

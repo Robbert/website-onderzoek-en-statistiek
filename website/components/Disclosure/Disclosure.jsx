@@ -17,12 +17,7 @@ const Disclosure = ({ id, children, url }) => {
 
   return (
     <>
-      <Styled.Container
-        id={id}
-        isOpen={isOpen}
-        ref={ref}
-        tabIndex="-1"
-      >
+      <Styled.Container id={id} isOpen={isOpen} ref={ref} tabIndex="-1">
         {children}
       </Styled.Container>
       <Button

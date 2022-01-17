@@ -48,7 +48,6 @@ const Article = ({
       />
 
       <Grid>
-
         <GridItem
           colStart={{ small: 1, large: 2 }}
           colRange={{ small: 4, large: 10 }}
@@ -57,7 +56,9 @@ const Article = ({
           <Paragraph small gutterBottom={{ small: 24, large: 40 }}>
             {formatDate(publicationDate)}
           </Paragraph>
-          <Paragraph intro gutterBottom={{ small: 56, large: 80 }}>{intro}</Paragraph>
+          <Paragraph intro gutterBottom={{ small: 56, large: 80 }}>
+            {intro}
+          </Paragraph>
 
           {rectangularImage && (
             <Styled.ImageWrapper>
@@ -73,9 +74,7 @@ const Article = ({
               />
 
               {rectangularImage.caption && (
-                <Paragraph small>
-                  {rectangularImage.caption}
-                </Paragraph>
+                <Paragraph small>{rectangularImage.caption}</Paragraph>
               )}
             </Styled.ImageWrapper>
           )}
@@ -93,7 +92,9 @@ const Article = ({
         {related.length > 0 && (
           <>
             <GridItem colRange={{ small: 4, large: 12 }}>
-              <Heading as="h2" styleAs="h4" gutterBottom={40}>Ook interessant</Heading>
+              <Heading as="h2" styleAs="h4" gutterBottom={40}>
+                Ook interessant
+              </Heading>
             </GridItem>
             <CardList>
               {normalizeItemList(related).map(
@@ -121,7 +122,6 @@ const Article = ({
             </CardList>
           </>
         )}
-
       </Grid>
     </>
   )
@@ -141,12 +141,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { data } = await apolloClient.query(
-    {
+  const { data } = await apolloClient
+    .query({
       query: QUERY,
       variables: { slug: params.slug },
-    },
-  )
+    })
     .catch() // TODO: log this error in sentry
 
   if (!data.articles[0]) {

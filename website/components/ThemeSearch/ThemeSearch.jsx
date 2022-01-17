@@ -17,13 +17,21 @@ const ThemeSearch = ({ themeTitle, slug }) => {
 
   const [searchQuery, setSearchQuery] = useState('')
   const [category, setCategory] = useState('')
-  const [results, setResults] = useState(getSearchResults(searchIndex, '', 'af', [slug], category))
+  const [results, setResults] = useState(
+    getSearchResults(searchIndex, '', 'af', [slug], category),
+  )
 
   const numberOfResults = 5
 
   useEffect(() => {
     const throttledUpdate = debounce(() => {
-      const updatedResults = getSearchResults(searchIndex, searchQuery, 'af', [slug], category)
+      const updatedResults = getSearchResults(
+        searchIndex,
+        searchQuery,
+        'af',
+        [slug],
+        category,
+      )
       setResults(updatedResults)
     }, 300)
     throttledUpdate()
@@ -46,10 +54,7 @@ const ThemeSearch = ({ themeTitle, slug }) => {
         value={searchQuery}
         onChange={(text) => setSearchQuery(text)}
       />
-      <Styled.ButtonGroup
-        role="group"
-        aria-label="Filter zoekresultaten"
-      >
+      <Styled.ButtonGroup role="group" aria-label="Filter zoekresultaten">
         <Styled.Button
           type="button"
           variant="textButton"
@@ -81,10 +86,7 @@ const ThemeSearch = ({ themeTitle, slug }) => {
       {results.length === 0 && <Paragraph>Niets gevonden</Paragraph>}
 
       {results.length > numberOfResults && (
-        <Link
-          variant="standalone"
-          href={`/zoek?thema=${slug}`}
-        >
+        <Link variant="standalone" href={`/zoek?thema=${slug}`}>
           {`Alles over ${themeTitle}`}
         </Link>
       )}

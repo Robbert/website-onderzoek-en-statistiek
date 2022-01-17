@@ -2,7 +2,10 @@ import { css } from 'styled-components'
 import { svgFill, breakpoint } from '@amsterdam/asc-ui'
 
 export const calculateFluidStyle = (
-  minSizePx, maxSizePx, minScreenWidthPx = 320, maxScreenWidthPx = 1920,
+  minSizePx,
+  maxSizePx,
+  minScreenWidthPx = 320,
+  maxScreenWidthPx = 1920,
 ) => {
   const defaultBaseSize = 16
   const minSize = minSizePx / defaultBaseSize
@@ -10,13 +13,13 @@ export const calculateFluidStyle = (
   const minScreenWidth = minScreenWidthPx / defaultBaseSize
   const maxScreenWidth = maxScreenWidthPx / defaultBaseSize
 
-  return (
-    `clamp(
+  return `clamp(
       ${minSize}rem,
-      ${minSize}rem + ${maxSize - minSize} * (100vw - ${minScreenWidth}rem) / ${maxScreenWidth - minScreenWidth},
+      ${minSize}rem + ${maxSize - minSize} * (100vw - ${minScreenWidth}rem) / ${
+    maxScreenWidth - minScreenWidth
+  },
       ${maxSize}rem
     )`
-  )
 }
 
 export const fluidTypoConfig = {
@@ -171,58 +174,63 @@ export const fluidTypoConfig = {
 }
 
 export const fluidTypoStyle = css`
-  ${({
-  small, intro, styleAs, as,
-}) => {
-  const tag = (Object.keys(fluidTypoConfig).includes(styleAs) && styleAs)
-    || (Object.keys(fluidTypoConfig).includes(as) && as)
-    || 'p'
+  ${({ small, intro, styleAs, as }) => {
+    const tag =
+      (Object.keys(fluidTypoConfig).includes(styleAs) && styleAs) ||
+      (Object.keys(fluidTypoConfig).includes(as) && as) ||
+      'p'
 
-  const prop = (small && Object.keys(fluidTypoConfig[tag]).includes('small') && 'small')
-    || (intro && Object.keys(fluidTypoConfig[tag]).includes('intro') && 'intro')
-    || 'default'
+    const prop =
+      (small &&
+        Object.keys(fluidTypoConfig[tag]).includes('small') &&
+        'small') ||
+      (intro &&
+        Object.keys(fluidTypoConfig[tag]).includes('intro') &&
+        'intro') ||
+      'default'
 
-  return (
-    css`
-        /* stylelint-disable indentation */
-        font-size:
-          ${calculateFluidStyle(
-            fluidTypoConfig[tag][prop].minFontSize,
-            fluidTypoConfig[tag][prop].maxFontSize,
-          )};
-        line-height:
-          ${calculateFluidStyle(
-            fluidTypoConfig[tag][prop].minLineHeight,
-            fluidTypoConfig[tag][prop].maxLineHeight,
-          )};
-      `
-  )
-}}
+    return css`
+      /* stylelint-disable indentation */
+      font-size: ${calculateFluidStyle(
+        fluidTypoConfig[tag][prop].minFontSize,
+        fluidTypoConfig[tag][prop].maxFontSize,
+      )};
+      line-height: ${calculateFluidStyle(
+        fluidTypoConfig[tag][prop].minLineHeight,
+        fluidTypoConfig[tag][prop].maxLineHeight,
+      )};
+    `
+  }}
 `
 
 export const typographyStyle = css`
   margin-top: 0;
-  margin-bottom: ${({ gutterBottom }) => (
-    `${typeof gutterBottom?.large === 'number' ? gutterBottom.large : (gutterBottom || 0)}px`
-  )};
+  margin-bottom: ${({ gutterBottom }) =>
+    `${
+      typeof gutterBottom?.large === 'number'
+        ? gutterBottom.large
+        : gutterBottom || 0
+    }px`};
 
   /* stylelint-disable */
-  ${({ gutterBottom }) => typeof gutterBottom?.small === 'number' && css`
-    @media screen and ${breakpoint('max-width', 'laptop')} {
-      margin-bottom: ${gutterBottom.small}px;
-    }
-  `}
+  ${({ gutterBottom }) =>
+    typeof gutterBottom?.small === 'number' &&
+    css`
+      @media screen and ${breakpoint('max-width', 'laptop')} {
+        margin-bottom: ${gutterBottom.small}px;
+      }
+    `}
 
-  ${({ strong }) => (
-    strong
-    && css`font-weight: 700;`
-  )}
+  ${({ strong }) =>
+    strong &&
+    css`
+      font-weight: 700;
+    `}
 
-  ${({ darkBackground }) => (
-    darkBackground
-    && css`
+  ${({ darkBackground }) =>
+    darkBackground &&
+    css`
       color: white;
       ${svgFill('white')}
-    `
-  )}
+    `}
 `

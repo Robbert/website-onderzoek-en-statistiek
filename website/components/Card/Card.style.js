@@ -30,7 +30,11 @@ export const Link = styled.a`
 
   :hover,
   :focus {
-    h1,h2,h3,h4,h5 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
       color: ${themeColor('primary')};
     }
 
@@ -49,13 +53,14 @@ export const ImageWrapper = styled.div`
   position: relative;
   aspect-ratio: ${({ aspectRatio }) => aspectRatio};
 
-  ${({ large }) => large
-    && css`
-    @media screen and ${breakpoint('max-width', 'laptop')} {
-      margin-left: -12px;
-      margin-right: -12px;
-    }`
-  }
+  ${({ large }) =>
+    large &&
+    css`
+      @media screen and ${breakpoint('max-width', 'laptop')} {
+        margin-left: -12px;
+        margin-right: -12px;
+      }
+    `}
 `
 
 export const TextWrapper = styled.div`
@@ -76,7 +81,6 @@ export const Type = styled(Paragraph)`
 `
 
 export const Heading = styled(HeadingComponent)`
-  /* stylelint-disable */
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -84,7 +88,6 @@ export const Heading = styled(HeadingComponent)`
 `
 
 export const Teaser = styled(Paragraph)`
-  /* stylelint-disable */
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
