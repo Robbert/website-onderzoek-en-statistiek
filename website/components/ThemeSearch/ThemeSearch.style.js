@@ -1,4 +1,3 @@
-/* stylelint-disable */
 import { breakpoint } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
 

@@ -16,7 +16,6 @@ export const Link = styled.a`
         : `${gutterBottom}px`};
     `}
 
-  /* stylelint-disable */
   ${({ gutterBottom }) =>
     typeof gutterBottom?.small === 'number' &&
     css`
@@ -51,7 +50,6 @@ export const Type = styled(Paragraph)`
 `
 
 export const Teaser = styled(Paragraph)`
-  /* stylelint-disable */
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;

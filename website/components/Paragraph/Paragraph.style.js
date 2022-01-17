@@ -21,7 +21,6 @@ export const Paragraph = styled.p`
   ${({ intro }) =>
     intro &&
     css`
-      /* stylelint-disable indentation */
       letter-spacing: 0.025rem;
 
       @media screen and ${breakpoint('max-width', 'laptop')} {

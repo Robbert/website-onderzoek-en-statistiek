@@ -190,7 +190,6 @@ export const fluidTypoStyle = css`
       'default'
 
     return css`
-      /* stylelint-disable indentation */
       font-size: ${calculateFluidStyle(
         fluidTypoConfig[tag][prop].minFontSize,
         fluidTypoConfig[tag][prop].maxFontSize,
@@ -212,7 +211,6 @@ export const typographyStyle = css`
         : gutterBottom || 0
     }px`};
 
-  /* stylelint-disable */
   ${({ gutterBottom }) =>
     typeof gutterBottom?.small === 'number' &&
     css`

@@ -1,5 +1,3 @@
-/* eslint-disable indent */
-/* stylelint-disable */
 import styled, { css } from 'styled-components'
 import { Icon as IconASC, breakpoint, themeColor } from '@amsterdam/asc-ui'
 

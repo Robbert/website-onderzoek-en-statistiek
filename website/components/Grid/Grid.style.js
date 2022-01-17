@@ -23,7 +23,6 @@ export const gridItemStyle = css`
         : `${gutterBottom}px`};
     `}
 
-  /* stylelint-disable */
   ${({ gutterBottom }) =>
     typeof gutterBottom?.small === 'number' &&
     css`
