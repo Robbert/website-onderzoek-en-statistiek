@@ -5,9 +5,11 @@ module.exports = {
     jest: true,
   },
   extends: [
-    'plugin:react/recommended',
     'airbnb',
     'plugin:@next/next/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:prettier/recommended',
+    'plugin:react/recommended',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -16,15 +18,18 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['import', 'resolver-jsconfig'],
+  plugins: ['prettier', 'react', 'react-hooks', 'jest'],
   settings: {
     next: {
       rootDir: 'website',
     },
     'import/resolver': {
-      jsconfig: {
-        config: 'jsconfig.json',
-        extensions: ['.js', '.jsx', 'gql'],
+      alias: {
+        map: [['~', '.']],
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      },
+      node: {
+        paths: ['.'],
       },
     },
   },
@@ -34,20 +39,25 @@ module.exports = {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
-    'jsx-a11y/label-has-associated-control': [2, {
-      required: {
-        some: ['nesting', 'id'],
+    'jsx-a11y/label-has-associated-control': [
+      2,
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
       },
-    }],
+    ],
     'import/order': [
       'error',
       {
-        groups: [
-          ['builtin', 'external'],
-        ],
+        groups: [['builtin', 'external']],
         'newlines-between': 'always',
       },
     ],
-    indent: ['error', 2, { ignoredNodes: ['TemplateLiteral > *'], SwitchCase: 1 }],
+    indent: [
+      'error',
+      2,
+      { ignoredNodes: ['TemplateLiteral > *'], SwitchCase: 1 },
+    ],
   },
 }
