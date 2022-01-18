@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import { useRef } from 'react'
 import { fireEvent, render } from '@testing-library/react'
 import { KeyboardKeys } from '@amsterdam/asc-ui/lib/types'
@@ -8,23 +9,25 @@ describe('useFocusWithArrows', () => {
   const onFocusOneMock = jest.fn()
   const onFocusTwoMock = jest.fn()
   const onFocusThreeMock = jest.fn()
-  const getComponent = (rotate = undefined) => () => {
-    const ref = useRef(null)
-    const { keyDown } = useFocusWithArrows(ref, rotate, 'button')
-    return (
-      <div onKeyDown={keyDown} tabIndex={0} role="menu" ref={ref}>
-        <button onFocus={onFocusOneMock} type="button">
-          One
-        </button>
-        <button onFocus={onFocusTwoMock} type="button">
-          Two
-        </button>
-        <button onFocus={onFocusThreeMock} type="button">
-          Three
-        </button>
-      </div>
-    )
-  }
+  const getComponent =
+    (rotate = undefined) =>
+    () => {
+      const ref = useRef(null)
+      const { keyDown } = useFocusWithArrows(ref, rotate, 'button')
+      return (
+        <div onKeyDown={keyDown} tabIndex={0} role="menu" ref={ref}>
+          <button onFocus={onFocusOneMock} type="button">
+            One
+          </button>
+          <button onFocus={onFocusTwoMock} type="button">
+            Two
+          </button>
+          <button onFocus={onFocusThreeMock} type="button">
+            Three
+          </button>
+        </div>
+      )
+    }
 
   afterEach(() => {
     onFocusOneMock.mockReset()

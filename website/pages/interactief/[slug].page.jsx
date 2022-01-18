@@ -126,8 +126,8 @@ export async function getStaticProps({ params }) {
               return res.json()
             }
             return []
-            // eslint-disable-next-line no-console
           })
+          // eslint-disable-next-line no-console
           .catch((e) => console.log(e))
       : {}
 

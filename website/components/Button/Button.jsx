@@ -8,4 +8,6 @@ const Button = forwardRef(({ as = 'button', children, ...otherProps }, ref) => (
   </Styled.Button>
 ))
 
+Button.displayName = 'Button'
+
 export default Button

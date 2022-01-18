@@ -17,4 +17,6 @@ const FlyOutButton = forwardRef(
   ),
 )
 
+FlyOutButton.displayName = 'FlyOutButton'
+
 export default FlyOutButton
