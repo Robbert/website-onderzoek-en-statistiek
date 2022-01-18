@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import styled, { css } from 'styled-components'
-import { breakpoint } from '@amsterdam/asc-ui'
+import { breakpoint, Icon as IconASC } from '@amsterdam/asc-ui'
 
 import { Grid as GridComponent, gridItemStyle } from '../Grid/Grid.style'
 import Paragraph from '../Paragraph/Paragraph'
@@ -29,6 +29,13 @@ export const Source = styled(Paragraph)`
   ${fontColor}
 `
 
+export const InteractiveVis = styled.div`
+  background-color: #fff;
+  .chart {
+    width: 100%;
+  }
+`
+
 export const ColorBar = styled.div`
   min-height: 200px;
   margin-top: -120px;
@@ -52,4 +59,12 @@ export const Text = styled(Paragraph)`
     margin-bottom: 60px;
   }
   ${fontColor}
+`
+
+export const DownloadButtons = styled.div`
+  min-height: 60px;
+`
+
+export const Icon = styled(IconASC)`
+  margin-right: 12px;
 `

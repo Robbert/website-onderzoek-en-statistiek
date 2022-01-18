@@ -59,6 +59,7 @@ query getArticleData($slug: String) {
         text
         source
         altText
+        specification
         image {
           url
           caption

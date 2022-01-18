@@ -1,14 +1,18 @@
 import { Fragment } from 'react'
+import dynamic from 'next/dynamic'
 import { List } from '@amsterdam/asc-ui'
 import { ChevronRight } from '@amsterdam/asc-assets'
 
 import { GridItem } from '../Grid/Grid.style'
 import Heading from '../Heading/Heading'
 import MarkdownToHtml from '../MarkdownToHtml/MarkdownToHtml'
-import Visualisation from '../Visualisation/Visualisation'
 import Link from '../Link/Link'
 import { normalizeBody } from '../../lib/utils'
 import * as Styled from './BodyContent.style'
+
+const Visualisation = dynamic(() =>
+  import('~/components/Visualisation/Visualisation'),
+)
 
 const BodyContent = ({
   content,

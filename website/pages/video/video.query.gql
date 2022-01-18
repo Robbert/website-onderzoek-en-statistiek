@@ -60,6 +60,7 @@ query getVideoData($slug: String) {
         text
         source
         altText
+        specification
         image {
           url
           caption

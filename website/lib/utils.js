@@ -129,7 +129,7 @@ export const normalizeBody = (body) =>
             return {
               type: item.type,
               text: item.text,
-              id: item.id,
+              id: item.id + item.type,
               links: Object.values(item)
                 .filter((list) => Array.isArray(list) && list.length > 0)
                 .flat()
@@ -151,7 +151,11 @@ export const normalizeBody = (body) =>
                 ),
             }
           }
-          return item
+
+          return {
+            id: item.id + item.type,
+            ...item,
+          }
         })
 
 export const formatBytes = (bytes, decimals = 0) => {

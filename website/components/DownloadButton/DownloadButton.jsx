@@ -8,6 +8,7 @@ import * as Styled from './DownloadButton.style'
 
 const DownloadButton = ({
   url,
+  fileName,
   type = 'publication',
   iconSize = 20,
   children,
@@ -20,7 +21,7 @@ const DownloadButton = ({
       type="button"
       onClick={() => {
         pushCustomEvent('Download', type, url.split('/').pop())
-        downloadFile(url)
+        downloadFile(url, {}, fileName || url.split('/').pop())
       }}
       {...otherProps}
     >
