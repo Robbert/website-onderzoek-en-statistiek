@@ -17,6 +17,7 @@ query getThemeData($slug: String) {
       source
       color
       altText
+      specification
       image {
         url
         width

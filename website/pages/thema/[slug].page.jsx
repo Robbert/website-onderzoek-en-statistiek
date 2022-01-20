@@ -19,6 +19,10 @@ import {
   PLACEHOLDER_IMAGE,
   normalizeItemList,
 } from '~/lib/utils'
+import {
+  VISUALISATION_CONFIG,
+  VISUALISATION_LOCALE,
+} from '~/constants/visualisationConfig'
 import QUERY from './theme.query.gql'
 import * as Styled from './theme.style'
 
@@ -86,14 +90,32 @@ const Theme = ({
                 <Heading forwardedAs="h2" styleAs="h5" gutterBottom={24}>
                   {visualisation.title}
                 </Heading>
-                <NextImage
-                  src={getStrapiMedia(visualisation.image)}
-                  alt={visualisation.altText}
-                  width={visualisation.image.width}
-                  height={visualisation.image.height}
-                  layout="responsive"
-                  priority
-                />
+                {visualisation.image && (
+                  <NextImage
+                    src={getStrapiMedia(visualisation.image)}
+                    alt={visualisation.altText}
+                    width={visualisation.image.width}
+                    height={visualisation.image.height}
+                    layout="responsive"
+                    priority
+                  />
+                )}
+                {!visualisation.image && visualisation.specification && (
+                  <Styled.VegaVisualisation
+                    className="chart"
+                    spec={
+                      visualisation.specification.config
+                        ? visualisation.specification
+                        : {
+                            config: VISUALISATION_CONFIG,
+                            ...visualisation.specification,
+                          }
+                    }
+                    renderer="svg"
+                    actions={false}
+                    formatLocale={VISUALISATION_LOCALE}
+                  />
+                )}
               </Styled.ChartContainer>
               {visualisation.source && (
                 <Styled.ChartCaption

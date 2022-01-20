@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import NextImage from 'next/image'
-import { VegaLite } from 'react-vega'
 import { Download } from '@amsterdam/asc-assets'
 
 import { GridItem } from '../Grid/Grid.style'
-import Heading from '../Heading/Heading'
 import DownloadButton from '../DownloadButton/DownloadButton'
 import Button from '../Button/Button'
 import {
@@ -13,6 +11,10 @@ import {
   translateColor,
 } from '../../lib/utils'
 import { pushCustomEvent } from '../../lib/analyticsUtils'
+import {
+  VISUALISATION_CONFIG,
+  VISUALISATION_LOCALE,
+} from '~/constants/visualisationConfig'
 import * as Styled from './Visualisation.style'
 
 const Visualisation = ({
@@ -34,14 +36,12 @@ const Visualisation = ({
       .exportComponentAsPNG
     const options = {
       fileName: `${filename}.png`,
-      html2CanvasOptions: {
-        ignoreElements: (e) => e.classList.contains('download-buttons'),
-      },
     }
     imageExporter(visRef, options)
   }
 
   useEffect(() => {
+    if (!specification || !specification.data) return
     const { values, url } = specification.data
     if (values) {
       const keys = Object.keys(values[0])
@@ -72,9 +72,9 @@ const Visualisation = ({
         rowStart={1}
       >
         {title && (
-          <Heading as="h2" styleAs="h5" gutterBottom={40}>
+          <Styled.Heading as="h2" styleAs="h5" gutterBottom={40}>
             {title}
-          </Heading>
+          </Styled.Heading>
         )}
       </GridItem>
 
@@ -84,6 +84,7 @@ const Visualisation = ({
           colRange={{ small: 4, large: 12 }}
           rowStart={3}
           backgroundColor={translateColor(color || 'lichtblauw')}
+          data-html2canvas-ignore
         />
       )}
 
@@ -113,49 +114,54 @@ const Visualisation = ({
           />
         )}
         {specification && (
-          <Styled.InteractiveVis>
-            <VegaLite
-              className="chart"
-              spec={specification}
-              renderer="svg"
-              actions={false}
-            />
-            <Styled.DownloadButtons>
-              <Button
-                type="button"
-                onClick={handleDownloadImage}
-                variant="textButton"
-                small
-                data-html2canvas-ignore
-              >
-                <Styled.Icon size={24}>
-                  <Download />
-                </Styled.Icon>
-                download png
-              </Button>
-              {downloadDataUrl && (
-                <DownloadButton
-                  fileName={`${filename}.csv`}
-                  url={downloadDataUrl}
-                  type="csv"
-                  variant="textButton"
-                  iconSize={24}
-                  small
-                  data-html2canvas-ignore
-                >
-                  Download data
-                </DownloadButton>
-              )}
-            </Styled.DownloadButtons>
-          </Styled.InteractiveVis>
+          <Styled.VegaVisualisation
+            spec={
+              specification.config
+                ? specification
+                : {
+                    config: VISUALISATION_CONFIG,
+                    ...specification,
+                  }
+            }
+            renderer="svg"
+            actions={false}
+            formatLocale={VISUALISATION_LOCALE}
+          />
         )}
-        {source && (
-          <Styled.Source
+        <Styled.VisualisationFooter>
+          <Button
+            type="button"
+            onClick={handleDownloadImage}
+            variant="textButton"
             small
-            variant={variant}
-            backgroundColor={color}
-          >{`Bron: ${source}`}</Styled.Source>
-        )}
+            data-html2canvas-ignore
+          >
+            <Styled.Icon size={24}>
+              <Download />
+            </Styled.Icon>
+            download png
+          </Button>
+          {downloadDataUrl && (
+            <DownloadButton
+              fileName={`${filename}.csv`}
+              url={downloadDataUrl}
+              type="csv"
+              variant="textButton"
+              iconSize={24}
+              small
+              data-html2canvas-ignore
+            >
+              Download data
+            </DownloadButton>
+          )}
+          {source && (
+            <Styled.Source
+              small
+              variant={variant}
+              backgroundColor={color}
+            >{`Bron: ${source}`}</Styled.Source>
+          )}
+        </Styled.VisualisationFooter>
       </GridItem>
 
       <GridItem
@@ -164,7 +170,11 @@ const Visualisation = ({
         rowStart={3}
       >
         {text && (
-          <Styled.Text variant={variant} backgroundColor={color}>
+          <Styled.Text
+            variant={variant}
+            backgroundColor={color}
+            data-html2canvas-ignore
+          >
             {text}
           </Styled.Text>
         )}

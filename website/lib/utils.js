@@ -129,7 +129,7 @@ export const normalizeBody = (body) =>
             return {
               type: item.type,
               text: item.text,
-              id: item.id + item.type,
+              id: `${item.id}-${item.type}`,
               links: Object.values(item)
                 .filter((list) => Array.isArray(list) && list.length > 0)
                 .flat()
@@ -151,10 +151,9 @@ export const normalizeBody = (body) =>
                 ),
             }
           }
-
           return {
-            id: item.id + item.type,
             ...item,
+            id: `${item.id}-${item.type}`,
           }
         })
 

@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic'
 import styled, { css } from 'styled-components'
 import { Icon as IconASC, breakpoint, themeColor } from '@amsterdam/asc-ui'
 
@@ -6,6 +7,8 @@ import LinkComponent from '~/components/Link/Link'
 import Paragraph from '~/components/Paragraph/Paragraph'
 import List from '~/components/List/List'
 import { calculateFluidStyle } from '~/lib/typographyUtils'
+
+const VegaLite = dynamic(() => import('react-vega').then((mod) => mod.VegaLite))
 
 export const IntroGridItem = styled(GridItem)`
   min-height: 240px;
@@ -53,6 +56,10 @@ export const ChartContainer = styled.div`
   @media screen and ${breakpoint('max-width', 'laptop')} {
     padding: 24px 16px;
   }
+`
+
+export const VegaVisualisation = styled(VegaLite)`
+  width: 100%;
 `
 
 export const ChartCaption = styled(Paragraph)`

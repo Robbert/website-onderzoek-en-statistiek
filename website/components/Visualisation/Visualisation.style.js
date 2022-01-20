@@ -1,8 +1,10 @@
 /* eslint-disable indent */
 import styled, { css } from 'styled-components'
 import { breakpoint, Icon as IconASC } from '@amsterdam/asc-ui'
+import { VegaLite } from 'react-vega'
 
 import { Grid as GridComponent, gridItemStyle } from '../Grid/Grid.style'
+import HeadingComponent from '../Heading/Heading'
 import Paragraph from '../Paragraph/Paragraph'
 
 export const Grid = styled(GridComponent)`
@@ -22,18 +24,29 @@ const fontColor = css`
       : 'black'};
 `
 
-export const Source = styled(Paragraph)`
-  text-align: right;
-  margin-top: 8px;
-  margin-bottom: 20px;
-  ${fontColor}
+export const VegaVisualisation = styled(VegaLite)`
+  background-color: #fff;
+  width: 100%;
 `
 
-export const InteractiveVis = styled.div`
-  background-color: #fff;
-  .chart {
-    width: 100%;
+export const Heading = styled(HeadingComponent)`
+  margin-top: 12px;
+`
+
+export const VisualisationFooter = styled.div`
+  min-height: 60px;
+  margin-bottom: 24px;
+  background-color: white;
+  display: flex;
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    display: block;
   }
+`
+
+export const Source = styled(Paragraph)`
+  padding: 12px 24px;
+  align-self: center;
+  margin-left: auto;
 `
 
 export const ColorBar = styled.div`
@@ -59,10 +72,6 @@ export const Text = styled(Paragraph)`
     margin-bottom: 60px;
   }
   ${fontColor}
-`
-
-export const DownloadButtons = styled.div`
-  min-height: 60px;
 `
 
 export const Icon = styled(IconASC)`

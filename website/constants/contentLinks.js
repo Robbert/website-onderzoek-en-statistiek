@@ -33,8 +33,8 @@ const HEADER_LINKS = {
       slug: '/thema/duurzaamheid-en-milieu',
     },
     {
-      label: 'Onderwijs en wetenschap',
-      slug: '/thema/onderwijs-en-wetenschap',
+      label: 'Onderwijs en jeugd',
+      slug: '/thema/onderwijs-en-jeugd',
     },
     {
       label: 'Economie en toerisme',
