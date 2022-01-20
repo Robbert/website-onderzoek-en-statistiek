@@ -32,12 +32,9 @@ const Visualisation = ({
   const filename = title.split(' ').join('-').toLowerCase()
 
   const handleDownloadImage = async () => {
-    const imageExporter = (await import('react-component-export-image'))
+    const imageExporter = (await import('./image-exporter'))
       .exportComponentAsPNG
-    const options = {
-      fileName: `${filename}.png`,
-    }
-    imageExporter(visRef, options)
+    imageExporter(visRef, { fileName: `${filename}.png` })
   }
 
   useEffect(() => {
@@ -139,7 +136,7 @@ const Visualisation = ({
             <Styled.Icon size={24}>
               <Download />
             </Styled.Icon>
-            download png
+            download afbeelding
           </Button>
           {downloadDataUrl && (
             <DownloadButton
