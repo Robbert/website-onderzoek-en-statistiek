@@ -111,6 +111,11 @@ module.exports = withBundleAnalyzer({
         destination: '/thema/onderwijs-en-jeugd',
         permanent: true,
       },
+      {
+        source: '/visualisatie/veiligheidsindex.html',
+        destination: '/interactief/dashboard-veiligheid',
+        permanent: true,
+      },
     ]
   },
 })

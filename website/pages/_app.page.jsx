@@ -9,7 +9,7 @@ import { GlobalStyle, ThemeProvider, ascDefaultTheme } from '@amsterdam/asc-ui'
 
 import Layout from '~/components/Layout/Layout'
 import { apolloClient, prependStaticContentUrl } from '~/lib/utils'
-import { startTracking } from '~/lib/analyticsUtils'
+import { startTracking, pushCustomEvent } from '~/lib/analyticsUtils'
 import ShortcutContext from '~/lib/ShortcutContext'
 import QUERY from './app.query.gql'
 import { fuseOptions, SearchContext } from '~/lib/searchUtils'
@@ -28,9 +28,17 @@ const withTypeBreakpoint = (size) => (type) =>
 const MyApp = ({ Component, pageProps }) => {
   const [searchIndex, setSearchIndex] = useState(null)
   const router = useRouter()
-  const { asPath } = router
-  if (asPath !== asPath.toLowerCase()) {
-    router.push(asPath.toLowerCase())
+  const { query, asPath } = router
+
+  if (query.slug && query.slug !== query.slug.toLowerCase()) {
+    pushCustomEvent('Redirect', 'Slug with uppercase letters', asPath)
+    router.push({
+      pathname: '[slug]',
+      query: {
+        ...query,
+        slug: query.slug.toLowerCase(),
+      },
+    })
   }
 
   const newTheme = {

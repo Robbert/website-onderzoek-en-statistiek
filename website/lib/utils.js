@@ -178,3 +178,15 @@ export const formatDate = (d) =>
     year: 'numeric',
     hour12: false,
   }).format(new Date(d))
+
+export const decodeQuerySafe = (q) => {
+  try {
+    // this regex replaces every % NOT followed by a two-digit (hex) number with %25
+    // this fixes an error when trying to decode a % symbol
+    // https://stackoverflow.com/questions/7449588/why-does-decodeuricomponent-lock-up-my-browser#answer-54310080
+    return decodeURIComponent(q.replace(/%(?![0-9a-fA-F]+)/g, '%25'))
+  } catch (e) {
+    console.error(e)
+    return ''
+  }
+}

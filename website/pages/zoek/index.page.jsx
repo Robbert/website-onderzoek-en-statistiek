@@ -11,7 +11,11 @@ import Paragraph from '~/components/Paragraph/Paragraph'
 import SearchResults from '~/components/SearchResults/SearchResults'
 import Pagination from '~/components/Pagination/Pagination'
 import SearchFilterSection from '~/components/SearchFilterSection/SearchFilterSection'
-import { translateContentType, apolloClient } from '~/lib/utils'
+import {
+  translateContentType,
+  apolloClient,
+  decodeQuerySafe,
+} from '~/lib/utils'
 import { trackSearchQuery } from '~/lib/analyticsUtils'
 import CONTENT_TYPES from '~/constants/contentTypes'
 import QUERY from './search.query.gql'
@@ -68,7 +72,8 @@ const Search = ({ themes }) => {
       categorie: cat,
       thema: theme,
     } = router.query
-    setSearchQuery(q ? decodeURI(q) : '')
+
+    setSearchQuery(q ? decodeQuerySafe(q) : '')
     setSortOrder(sort || 'af')
     setCategory(translateContentType(cat) || '')
     setThemeFilter(theme ? theme.split(' ') : [])
