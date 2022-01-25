@@ -1,10 +1,7 @@
 import styled from 'styled-components'
 import { Icon as IconASC, breakpoint } from '@amsterdam/asc-ui'
 
-import SearchBarComponent from '~/components/SearchBar/SearchBar'
 import ButtonComponent from '~/components/Button/Button'
-
-export const SearchBar = styled(SearchBarComponent)``
 
 export const FilterTagContainer = styled.div`
   padding-top: 40px;

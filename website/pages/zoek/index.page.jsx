@@ -8,6 +8,7 @@ import Seo from '~/components/Seo/Seo'
 import { Grid, GridItem } from '~/components/Grid/Grid.style'
 import Heading from '~/components/Heading/Heading'
 import Paragraph from '~/components/Paragraph/Paragraph'
+import SearchBar from '~/components/SearchBar/SearchBar'
 import SearchResults from '~/components/SearchResults/SearchResults'
 import Pagination from '~/components/Pagination/Pagination'
 import SearchFilterSection from '~/components/SearchFilterSection/SearchFilterSection'
@@ -122,7 +123,7 @@ const Search = ({ themes }) => {
           <Heading gutterBottom={{ small: 24, large: 16 }} styleAs="h2">
             Zoeken
           </Heading>
-          <Styled.SearchBar
+          <SearchBar
             id="searchfield"
             type="text"
             value={searchQuery}
