@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { ApolloClient, InMemoryCache } from '@apollo/client'
-import { themeColor } from '@amsterdam/asc-ui'
+import { css } from 'styled-components'
+import { themeColor, svgFill } from '@amsterdam/asc-ui'
 
 import CONTENT_TYPES from '../constants/contentTypes'
 
@@ -186,7 +187,19 @@ export const decodeQuerySafe = (q) => {
     // https://stackoverflow.com/questions/7449588/why-does-decodeuricomponent-lock-up-my-browser#answer-54310080
     return decodeURIComponent(q.replace(/%(?![0-9a-fA-F]+)/g, '%25'))
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e)
     return ''
   }
 }
+
+export const getFontColor = (backgroundColor) =>
+  backgroundColor === 'paars' || backgroundColor === 'roze'
+    ? css`
+        color: white;
+        ${svgFill('white')}
+      `
+    : css`
+        color: black;
+        ${svgFill('black')}
+      `

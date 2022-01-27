@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import dynamic from 'next/dynamic'
 import { List } from '@amsterdam/asc-ui'
-import { ChevronRight } from '@amsterdam/asc-assets'
+import { ChevronRight, ExternalLink } from '@amsterdam/asc-assets'
 
 import { GridItem } from '../Grid/Grid.style'
 import Heading from '../Heading/Heading'
@@ -55,11 +55,22 @@ const BodyContent = ({
                   <List>
                     {item.links.map(({ name, path, title: linkTitle }) => (
                       <li key={path}>
-                        <Link href={path} variant="inList">
+                        <Link
+                          href={path}
+                          variant="inList"
+                          external={name === 'link'}
+                        >
                           <Styled.Icon size={14}>
                             <ChevronRight />
                           </Styled.Icon>
-                          <Styled.ContentType>{`${name} - ${linkTitle}`}</Styled.ContentType>
+                          <Styled.ContentType>
+                            {`${name !== 'link' && name} - ${linkTitle}`}
+                          </Styled.ContentType>
+                          {name === 'link' && (
+                            <Styled.Icon size={14} marginLeft={12}>
+                              <ExternalLink />
+                            </Styled.Icon>
+                          )}
                         </Link>
                       </li>
                     ))}

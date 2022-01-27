@@ -2,15 +2,9 @@ import { useState, useEffect, useRef } from 'react'
 import NextImage from 'next/image'
 import { Download } from '@amsterdam/asc-assets'
 
-import { GridItem } from '../Grid/Grid.style'
-import DownloadButton from '../DownloadButton/DownloadButton'
-import Button from '../Button/Button'
-import {
-  getStrapiMedia,
-  PLACEHOLDER_IMAGE,
-  translateColor,
-} from '../../lib/utils'
-import { pushCustomEvent } from '../../lib/analyticsUtils'
+import { GridItem } from '~/components/Grid/Grid.style'
+import { getStrapiMedia, PLACEHOLDER_IMAGE, translateColor } from '~/lib/utils'
+import { pushCustomEvent } from '~/lib/analyticsUtils'
 import {
   VISUALISATION_CONFIG,
   VISUALISATION_LOCALE,
@@ -29,12 +23,22 @@ const Visualisation = ({
 }) => {
   const [downloadDataUrl, setDownloadDataUrl] = useState()
   const visRef = useRef()
-  const filename = title.split(' ').join('-').toLowerCase()
+  const filename = title
+    ? title.split(' ').join('-').toLowerCase()
+    : 'visualisatie'
 
   const handleDownloadImage = async () => {
     const imageExporter = (await import('./image-exporter'))
       .exportComponentAsPNG
-    imageExporter(visRef, { fileName: `${filename}.png` })
+    imageExporter(visRef, {
+      fileName: `${filename}.png`,
+      html2CanvasOptions: {
+        onclone: (document) => {
+          // eslint-disable-next-line no-param-reassign
+          document.querySelector('.source').style.color = 'black'
+        },
+      },
+    })
   }
 
   useEffect(() => {
@@ -126,10 +130,21 @@ const Visualisation = ({
           />
         )}
         <Styled.VisualisationFooter>
-          <Button
+          {source && (
+            <Styled.Source
+              className="source"
+              small
+              variant={variant}
+              backgroundColor={variant === 'kleurenbalk' && color}
+            >
+              {`Bron: ${source}`}
+            </Styled.Source>
+          )}
+          <Styled.Button
             type="button"
             onClick={handleDownloadImage}
             variant="textButton"
+            backgroundColor={variant === 'kleurenbalk' && color}
             small
             data-html2canvas-ignore
           >
@@ -137,26 +152,20 @@ const Visualisation = ({
               <Download />
             </Styled.Icon>
             download afbeelding
-          </Button>
+          </Styled.Button>
           {downloadDataUrl && (
-            <DownloadButton
+            <Styled.DownloadButton
               fileName={`${filename}.csv`}
               url={downloadDataUrl}
               type="csv"
               variant="textButton"
               iconSize={24}
+              backgroundColor={variant === 'kleurenbalk' && color}
               small
               data-html2canvas-ignore
             >
               Download data
-            </DownloadButton>
-          )}
-          {source && (
-            <Styled.Source
-              small
-              variant={variant}
-              backgroundColor={color}
-            >{`Bron: ${source}`}</Styled.Source>
+            </Styled.DownloadButton>
           )}
         </Styled.VisualisationFooter>
       </GridItem>
@@ -169,7 +178,7 @@ const Visualisation = ({
         {text && (
           <Styled.Text
             variant={variant}
-            backgroundColor={color}
+            backgroundColor={variant === 'kleurenbalk' && color}
             data-html2canvas-ignore
           >
             {text}

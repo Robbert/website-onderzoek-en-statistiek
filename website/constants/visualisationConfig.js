@@ -22,6 +22,7 @@ export const VISUALISATION_CONFIG = {
   view: {
     stroke: null,
   },
+  padding: 40,
 }
 
 export const VISUALISATION_LOCALE = {

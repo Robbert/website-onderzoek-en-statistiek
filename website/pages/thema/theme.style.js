@@ -7,6 +7,7 @@ import LinkComponent from '~/components/Link/Link'
 import Paragraph from '~/components/Paragraph/Paragraph'
 import List from '~/components/List/List'
 import { calculateFluidStyle } from '~/lib/typographyUtils'
+import { getFontColor } from '~/lib/utils'
 
 const VegaLite = dynamic(() => import('react-vega').then((mod) => mod.VegaLite))
 
@@ -65,10 +66,7 @@ export const VegaVisualisation = styled(VegaLite)`
 export const ChartCaption = styled(Paragraph)`
   text-align: right;
   margin-top: 8px;
-  color: ${({ backgroundColor }) =>
-    backgroundColor === 'paars' || backgroundColor === 'roze'
-      ? 'white'
-      : 'black'};
+  ${({ backgroundColor }) => backgroundColor && getFontColor(backgroundColor)}
 `
 
 export const FeatureListItem = styled.li`
