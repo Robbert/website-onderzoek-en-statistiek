@@ -88,7 +88,7 @@ export const fuseOptions = {
   includeScore: true,
   ignoreLocation: true,
   minMatchCharLength: 2,
-  threshold: 0,
+  threshold: 0.4,
   keys: ['title', 'shortTitle', 'teaser', 'intro'],
 }
 
