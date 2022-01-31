@@ -20,13 +20,6 @@ export const SearchBar = styled.input`
   padding: 16px;
   width: 100%;
 
-  &:-webkit-autofill,
-  &:-webkit-autofill:hover,
-  &:-webkit-autofill:focus,
-  &:-webkit-autofill:active {
-    box-shadow: 0 0 0 36px white inset !important;
-  }
-
   @media screen and ${breakpoint('max-width', 'laptop')} {
     padding: 8px;
   }

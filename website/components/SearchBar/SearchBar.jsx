@@ -25,13 +25,6 @@ const SearchBar = ({ onChange, value, id, ...otherProps }) => {
     }
   }
 
-  const handleKeyUp = (e) => {
-    if (e.key === 'Enter' && value && searchInput) {
-      searchInput?.current.blur()
-      searchInput?.current.focus()
-    }
-  }
-
   const handleOnClear = () => {
     handleOnChange('')
     if (searchInput && searchInput.current) {
@@ -46,9 +39,10 @@ const SearchBar = ({ onChange, value, id, ...otherProps }) => {
         type="text"
         value={value}
         onChange={handleOnChange}
-        onKeyUp={handleKeyUp}
         aria-label="Zoeken"
         ref={searchInput}
+        autoFocus
+        autoComplete="off"
       />
       <Styled.IconWrapper>
         {value ? (

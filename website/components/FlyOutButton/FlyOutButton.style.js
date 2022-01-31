@@ -17,7 +17,6 @@ export const HamburgerIcon = styled.span`
   background-color: ${themeColor('tint', 'level6')};
   width: 16px;
   height: 2px;
-  border-radius: 4px;
   top: 50%;
   right: 0;
 
@@ -34,7 +33,6 @@ export const HamburgerIcon = styled.span`
     position: absolute;
     width: 16px;
     height: 2px;
-    border-radius: 4px;
     background-color: inherit;
     transition: ${({ isOpen }) =>
       isOpen
@@ -55,7 +53,6 @@ export const HamburgerIcon = styled.span`
     position: absolute;
     width: 16px;
     height: 2px;
-    border-radius: 4px;
     background-color: inherit;
     transition: ${({ isOpen }) =>
       isOpen
