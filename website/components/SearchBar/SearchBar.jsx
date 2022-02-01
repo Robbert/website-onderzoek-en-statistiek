@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { Icon } from '@amsterdam/asc-ui'
+import { Icon, useMatchMedia } from '@amsterdam/asc-ui'
 import { Search, Close } from '@amsterdam/asc-assets'
 
 import Button from '../Button/Button'
@@ -32,6 +32,8 @@ const SearchBar = ({ onChange, value, id, ...otherProps }) => {
     }
   }
 
+  const isMobile = useMatchMedia({ maxBreakpoint: 'laptop' })
+
   return (
     <Styled.Wrapper {...otherProps}>
       <Styled.SearchBar
@@ -41,7 +43,7 @@ const SearchBar = ({ onChange, value, id, ...otherProps }) => {
         onChange={handleOnChange}
         aria-label="Zoeken"
         ref={searchInput}
-        autoFocus
+        autoFocus={!isMobile[0]}
         autoComplete="off"
       />
       <Styled.IconWrapper>
