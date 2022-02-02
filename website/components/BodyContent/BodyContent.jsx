@@ -6,7 +6,6 @@ import { ChevronRight, ExternalLink } from '@amsterdam/asc-assets'
 import { GridItem } from '../Grid/Grid.style'
 import Heading from '../Heading/Heading'
 import MarkdownToHtml from '../MarkdownToHtml/MarkdownToHtml'
-import Link from '../Link/Link'
 import { normalizeBody } from '../../lib/utils'
 import * as Styled from './BodyContent.style'
 
@@ -55,23 +54,25 @@ const BodyContent = ({
                   <List>
                     {item.links.map(({ name, path, title: linkTitle }) => (
                       <li key={path}>
-                        <Link
+                        <Styled.Link
                           href={path}
                           variant="inList"
                           external={name === 'link'}
                         >
-                          <Styled.Icon size={14}>
+                          <Styled.ChevronIcon size={14}>
                             <ChevronRight />
-                          </Styled.Icon>
-                          <Styled.ContentType>
-                            {`${name !== 'link' && name} - ${linkTitle}`}
-                          </Styled.ContentType>
+                          </Styled.ChevronIcon>
+                          <Styled.LinkText>
+                            {name === 'link'
+                              ? linkTitle
+                              : `${name} - ${linkTitle}`}
+                          </Styled.LinkText>
                           {name === 'link' && (
-                            <Styled.Icon size={14} marginLeft={12}>
+                            <Styled.ExternalIcon size={14}>
                               <ExternalLink />
-                            </Styled.Icon>
+                            </Styled.ExternalIcon>
                           )}
-                        </Link>
+                        </Styled.Link>
                       </li>
                     ))}
                   </List>
