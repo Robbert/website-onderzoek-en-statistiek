@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback, useContext } from 'react'
 import { useRouter } from 'next/router'
 import debounce from 'lodash.debounce'
+import { useMatchMedia } from '@amsterdam/asc-ui'
 import { Close } from '@amsterdam/asc-assets'
 
 import Seo from '~/components/Seo/Seo'
@@ -104,6 +105,8 @@ const Search = ({ themes }) => {
     setPage(1)
   }, [results])
 
+  const isMobile = useMatchMedia({ maxBreakpoint: 'laptop' })
+
   return (
     <>
       <Seo
@@ -128,6 +131,7 @@ const Search = ({ themes }) => {
             type="text"
             value={searchQuery}
             onChange={(q) => setUrlParameters('tekst', q)}
+            autoFocus={!isMobile[0]}
           />
         </GridItem>
         <GridItem
