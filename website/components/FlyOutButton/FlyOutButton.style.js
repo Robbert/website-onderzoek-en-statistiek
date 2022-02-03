@@ -25,7 +25,7 @@ export const HamburgerIcon = styled.span`
     height: 3px;
   }
 
-  ::before {
+  &::before {
     top: ${({ isOpen }) => (isOpen ? 0 : '-5px')};
     display: block;
     opacity: ${({ isOpen }) => (isOpen ? 0 : 1)};
@@ -46,7 +46,7 @@ export const HamburgerIcon = styled.span`
     }
   }
 
-  ::after {
+  &::after {
     bottom: ${({ isOpen }) => (isOpen ? 0 : '-5px')};
     display: block;
     content: '';
@@ -85,7 +85,7 @@ export const Button = styled(ButtonComponent)`
   display: grid;
   grid-template-columns: 1fr;
 
-  :hover {
+  &:hover {
     color: ${themeColor('primary')};
     background-color: transparent;
 
@@ -94,11 +94,11 @@ export const Button = styled(ButtonComponent)`
     }
   }
 
-  :focus {
+  &:focus {
     background-color: transparent;
   }
 
-  :after {
+  &:after {
     content: 'Menu';
     grid-row-start: 1;
     grid-column-start: 1;

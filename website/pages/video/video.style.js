@@ -36,17 +36,17 @@ export const Video = styled.video`
 
   video {
     /* turn off play controls in iOS */
-    ::-webkit-media-controls-panel {
+    &::-webkit-media-controls-panel {
       appearance: none;
       display: none !important;
     }
 
-    ::-webkit-media-controls-play-button {
+    &::-webkit-media-controls-play-button {
       appearance: none;
       display: none !important;
     }
 
-    ::-webkit-media-controls-start-playback-button {
+    &::-webkit-media-controls-start-playback-button {
       appearance: none;
       display: none !important;
     }

@@ -11,11 +11,11 @@ export const Blockquote = styled.blockquote`
   quotes: '“' '”';
   margin: 0;
 
-  ::before {
+  &::before {
     content: open-quote;
   }
 
-  ::after {
+  &::after {
     content: close-quote;
   }
 

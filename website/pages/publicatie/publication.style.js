@@ -14,11 +14,11 @@ export const MetaList = styled(List)`
 export const MetaListItem = styled.li`
   display: inline;
 
-  & ::after {
+  &::after {
     content: ' | ';
   }
 
-  & :last-child::after {
+  &:last-child::after {
     content: '';
   }
 `
