@@ -13,11 +13,8 @@ import SearchBar from '~/components/SearchBar/SearchBar'
 import SearchResults from '~/components/SearchResults/SearchResults'
 import Pagination from '~/components/Pagination/Pagination'
 import SearchFilterSection from '~/components/SearchFilterSection/SearchFilterSection'
-import {
-  translateContentType,
-  apolloClient,
-  decodeQuerySafe,
-} from '~/lib/utils'
+import { translateContentType, decodeQuerySafe } from '~/lib/utils'
+import apolloClient from '~/lib/apolloClient'
 import { trackSearchQuery } from '~/lib/analyticsUtils'
 import CONTENT_TYPES from '~/constants/contentTypes'
 import QUERY from './search.query.gql'

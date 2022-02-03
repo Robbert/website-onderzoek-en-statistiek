@@ -7,13 +7,8 @@ import Heading from '~/components/Heading/Heading'
 import Link from '~/components/Link/Link'
 import BodyContent from '~/components/BodyContent/BodyContent'
 import ContentFooter from '~/components/ContentFooter/ContentFooter'
-import {
-  fetchAPI,
-  getStrapiMedia,
-  apolloClient,
-  formatDate,
-  formatBytes,
-} from '~/lib/utils'
+import { fetchAPI, getStrapiMedia, formatDate, formatBytes } from '~/lib/utils'
+import apolloClient from '~/lib/apolloClient'
 import QUERY from './dataset.query.gql'
 import * as Styled from './dataset.style'
 

@@ -1,6 +1,7 @@
 import { ChevronRight, ExternalLink } from '@amsterdam/asc-assets'
 
-import { apolloClient, normalizeItemList } from '~/lib/utils'
+import apolloClient from '~/lib/apolloClient'
+import { normalizeItemList } from '~/lib/utils'
 import Seo from '~/components/Seo/Seo'
 import { Grid, GridItem } from '~/components/Grid/Grid.style'
 import Heading from '~/components/Heading/Heading'

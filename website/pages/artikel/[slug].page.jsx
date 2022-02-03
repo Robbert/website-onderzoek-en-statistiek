@@ -14,10 +14,10 @@ import {
   fetchAPI,
   getStrapiMedia,
   PLACEHOLDER_IMAGE,
-  apolloClient,
   normalizeItemList,
   formatDate,
 } from '~/lib/utils'
+import apolloClient from '~/lib/apolloClient'
 import QUERY from './article.query.gql'
 import * as Styled from './article.style'
 

@@ -12,11 +12,11 @@ import DownloadButton from '~/components/DownloadButton/DownloadButton'
 import {
   fetchAPI,
   getStrapiMedia,
-  apolloClient,
   PLACEHOLDER_IMAGE,
   formatDate,
   formatBytes,
 } from '~/lib/utils'
+import apolloClient from '~/lib/apolloClient'
 import * as Styled from './publication.style'
 import QUERY from './publication.query.gql'
 

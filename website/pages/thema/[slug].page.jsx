@@ -14,11 +14,11 @@ import ThemeSearch from '~/components/ThemeSearch/ThemeSearch'
 import {
   fetchAPI,
   getStrapiMedia,
-  apolloClient,
   translateColor,
   PLACEHOLDER_IMAGE,
   normalizeItemList,
 } from '~/lib/utils'
+import apolloClient from '~/lib/apolloClient'
 import {
   VISUALISATION_CONFIG,
   VISUALISATION_LOCALE,

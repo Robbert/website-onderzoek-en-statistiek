@@ -4,12 +4,12 @@ import { useRouter } from 'next/router'
 import FallbackPage from '~/components/FallbackPage/FallbackPage'
 import Seo from '~/components/Seo/Seo'
 import {
-  apolloClient,
   fetchAPI,
   getStrapiMedia,
   normalizeItemList,
   formatDate,
 } from '~/lib/utils'
+import apolloClient from '~/lib/apolloClient'
 import { Grid, GridItem } from '~/components/Grid/Grid.style'
 import Heading from '~/components/Heading/Heading'
 import Paragraph from '~/components/Paragraph/Paragraph'

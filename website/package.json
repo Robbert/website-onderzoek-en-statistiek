@@ -39,11 +39,12 @@
   "license": "MIT",
   "devDependencies": {
     "@next/eslint-plugin-next": "^12.0.10",
+    "@swc/core": "^1.2.135",
+    "@swc/jest": "^0.2.17",
     "@testing-library/dom": "^8.11.3",
-    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.0.0",
-    "babel-jest": "^27.4.6",
-    "babel-plugin-styled-components": "^2.0.2",
+    "@types/react": "^16",
     "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -55,8 +56,10 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "jest": "^27.0.6",
+    "jest": "^27.4.7",
     "prettier": "^2.5.1",
-    "prettier-package-json": "^2.6.0"
+    "prettier-package-json": "^2.6.0",
+    "react-is": "^16.8",
+    "typescript": "^3.7"
   }
 }

@@ -2,7 +2,7 @@
 import styled, { css } from 'styled-components'
 import { themeColor, svgFill } from '@amsterdam/asc-ui'
 
-import { fluidTypoStyle, typographyStyle } from '~/lib/typographyUtils'
+import { fluidTypoStyle, typographyStyle } from '../../lib/typographyUtils'
 
 const baseStyle = css`
   font-weight: 500;

@@ -12,10 +12,10 @@ import ContentFooter from '~/components/ContentFooter/ContentFooter'
 import {
   fetchAPI,
   getStrapiMedia,
-  apolloClient,
   formatDate,
   PLACEHOLDER_IMAGE,
 } from '~/lib/utils'
+import apolloClient from '~/lib/apolloClient'
 import QUERY from './video.query.gql'
 import * as Styled from './video.style'
 

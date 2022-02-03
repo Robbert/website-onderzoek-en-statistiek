@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { css } from 'styled-components'
 import { themeColor, svgFill } from '@amsterdam/asc-ui'
 
@@ -59,16 +58,6 @@ export async function fetchAPI(path) {
   }
   return []
 }
-
-export const apolloClient = new ApolloClient({
-  uri: prependStrapiURL('/graphql'),
-  cache: new InMemoryCache(),
-  defaultOptions: {
-    query: {
-      fetchPolicy: 'no-cache',
-    },
-  },
-})
 
 export const translateContentType = (contentType) =>
   Object.values(CONTENT_TYPES).find(({ name }) => name === contentType)?.type
