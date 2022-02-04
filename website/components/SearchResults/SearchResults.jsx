@@ -10,25 +10,23 @@ const SearchResults = ({
   cardGutterBottom,
   cardHeadingLevel,
 }) => (
-  <>
-    <List>
-      {results
-        .slice((page - 1) * pageSize, page * pageSize)
-        .map(({ slug, title, teaser, type, publicationDate }) => (
-          <li key={`${type}-${slug}`}>
-            <SearchCard
-              type={type}
-              href={`/${CONTENT_TYPES[type].name}/${slug}`}
-              title={title}
-              teaser={teaser}
-              date={formatDate(publicationDate)}
-              gutterBottom={cardGutterBottom}
-              headingLevel={cardHeadingLevel}
-            />
-          </li>
-        ))}
-    </List>
-  </>
+  <List>
+    {results
+      .slice((page - 1) * pageSize, page * pageSize)
+      .map(({ slug, title, teaser, type, publicationDate }) => (
+        <li key={`${type}-${slug}`}>
+          <SearchCard
+            type={type}
+            href={`/${CONTENT_TYPES[type].name}/${slug}`}
+            title={title}
+            teaser={teaser}
+            date={formatDate(publicationDate)}
+            gutterBottom={cardGutterBottom}
+            headingLevel={cardHeadingLevel}
+          />
+        </li>
+      ))}
+  </List>
 )
 
 export default SearchResults

@@ -7,7 +7,7 @@ import { KeyboardKeys } from '@amsterdam/asc-ui/lib/types'
  * @param rotating Jump to first item from last or vice versa
  * @param selectors Supply css selectors for selecting focus group
  */
-const useFocusWithArrows = (ref, rotating = false, selectors) => {
+const useFocusWithArrows = (ref, selectors, rotating = false) => {
   const keyDown = (e) => {
     if (ref.current) {
       const element = ref.current

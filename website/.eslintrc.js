@@ -20,9 +20,6 @@ module.exports = {
   },
   plugins: ['prettier', 'react', 'react-hooks', 'jest'],
   settings: {
-    next: {
-      rootDir: 'website',
-    },
     'import/resolver': {
       alias: {
         map: [['~', '.']],
@@ -37,6 +34,13 @@ module.exports = {
     semi: ['error', 'never'],
     'react/jsx-props-no-spreading': 'off',
     'react/prop-types': 'off',
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function',
+      },
+    ],
     'react/react-in-jsx-scope': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
     'jsx-a11y/label-has-associated-control': [
