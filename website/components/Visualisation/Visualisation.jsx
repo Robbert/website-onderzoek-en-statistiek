@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import NextImage from 'next/image'
+import slugify from 'slugify'
 import { Download } from '@amsterdam/asc-assets'
 
 import { GridItem } from '~/components/Grid/Grid.style'
@@ -24,7 +25,7 @@ const Visualisation = ({
   const [downloadDataUrl, setDownloadDataUrl] = useState()
   const visRef = useRef()
   const filename = title
-    ? title.split(' ').join('-').toLowerCase()
+    ? slugify(title, { lower: true, strict: true })
     : 'visualisatie'
 
   const handleDownloadImage = async () => {
@@ -151,7 +152,7 @@ const Visualisation = ({
             <Styled.Icon size={24}>
               <Download />
             </Styled.Icon>
-            download afbeelding
+            Download afbeelding
           </Styled.Button>
           {downloadDataUrl && (
             <Styled.DownloadButton
