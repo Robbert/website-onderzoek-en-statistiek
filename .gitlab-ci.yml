@@ -28,7 +28,8 @@ test website:
   script:
     - yarn test
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "develop" || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "main"'
+      when: never
     - changes:
       - website/**/*
       - /*.yml
