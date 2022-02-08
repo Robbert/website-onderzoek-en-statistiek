@@ -10,6 +10,7 @@
     "build-search": "curl http://localhost:3000/api/build-search",
     "build": "next build",
     "build-with-acc": "cross-env NEXT_PUBLIC_DEPLOY_ENV=acceptance next build",
+    "build-with-prod": "cross-env NEXT_PUBLIC_DEPLOY_ENV=production next build",
     "start": "next start",
     "analyze": "cross-env NEXT_PUBLIC_DEPLOY_ENV=acceptance cross-env ANALYZE=true next build",
     "lint": "eslint",

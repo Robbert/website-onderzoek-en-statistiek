@@ -1,4 +1,5 @@
 stages:
+  - test
   - build
   - deploy
 
@@ -16,6 +17,21 @@ cache:
   paths:
     - node_modules/
     - .next/cache/
+
+# test website on merge request
+test website:
+  image: node:16-alpine
+  stage: test
+  before_script:
+    - cd website
+    - yarn install --pure-lockfile
+  script:
+    - yarn test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - changes:
+      - website/**/*
+      - /*.yml
 
 # build server for acceptance and production
 build server:
@@ -43,28 +59,43 @@ build cms acc:
     - docker push $TAG_CMS_LATEST_ACC
   only:
     refs:
-      - develop 
+      - develop
     changes:
       - cms/**/*
       - /*.yml
 
-# build website for acceptance  
-build website acc:
+# build website
+build website:
   stage: build
+  variables:
+    TAG_WEBSITE: $TAG_WEBSITE_LATEST_ACC
+    DEPLOY_ENV: acceptance
+    PUSH: "false"
+  rules:
+    - changes:
+      - website/**/*
+      - /*.yml
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH == "develop"
+      variables:
+        TAG_WEBSITE: $TAG_WEBSITE_LATEST_ACC
+        DEPLOY_ENV: acceptance
+        PUSH: "true"
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH == "main"
+      variables:
+        TAG_WEBSITE: $TAG_WEBSITE_LATEST_PROD
+        DEPLOY_ENV: production
+        PUSH: "true"
   services:
     - docker:dind
   before_script:
     - docker info
   script:
-    - docker build -t $TAG_WEBSITE_LATEST_ACC --build-arg NEXT_PUBLIC_DEPLOY_ENV=acceptance ./website
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker push $TAG_WEBSITE_LATEST_ACC
-  only:
-    refs:
-      - develop
-    changes:
-      - website/**/*
-      - /*.yml
+    - docker build -t $TAG_WEBSITE --build-arg NEXT_PUBLIC_DEPLOY_ENV=$DEPLOY_ENV ./website
+    - |-
+      if [[ "$PUSH" == "true" ]]; then
+        docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+        docker push $TAG_WEBSITE
+      fi
 
 # deploy acceptance
 deploy acc:
@@ -98,7 +129,6 @@ deploy acc:
     refs:
       - develop
 
-
 # Build cms for production
 build cms prod:
   stage: build
@@ -108,27 +138,9 @@ build cms prod:
     - docker push $TAG_CMS_LATEST_PROD
   only:
     refs:
-      - main 
-    changes:
-      - cms/**/*
-      - /*.yml
-  
-# Build website for production
-build website prod:
-  stage: build
-  services:
-    - docker:dind
-  before_script:
-    - docker info
-  script:
-    - docker build -t $TAG_WEBSITE_LATEST_PROD --build-arg NEXT_PUBLIC_DEPLOY_ENV=production ./website
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker push $TAG_WEBSITE_LATEST_PROD
-  only:
-    refs:
       - main
     changes:
-      - website/**/*
+      - cms/**/*
       - /*.yml
 
 # deploy production
