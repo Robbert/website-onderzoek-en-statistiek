@@ -28,11 +28,10 @@ test website:
   script:
     - yarn test
   rules:
-    - if: '$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "develop" || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "main"'
-      when: never
-    - changes:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME != "develop"'
+      changes:
       - website/**/*
-      - /*.yml
+      - .gitlab-ci.yml
 
 # build server for acceptance and production
 build server:
@@ -73,15 +72,16 @@ build website:
     DEPLOY_ENV: acceptance
     PUSH: "false"
   rules:
-    - changes:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
       - website/**/*
-      - /*.yml
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH == "develop"
+      - .gitlab-ci.yml
+    - if: $CI_COMMIT_REF_NAME == "develop"
       variables:
         TAG_WEBSITE: $TAG_WEBSITE_LATEST_ACC
         DEPLOY_ENV: acceptance
         PUSH: "true"
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH == "main"
+    - if: $CI_COMMIT_REF_NAME == "main"
       variables:
         TAG_WEBSITE: $TAG_WEBSITE_LATEST_PROD
         DEPLOY_ENV: production
