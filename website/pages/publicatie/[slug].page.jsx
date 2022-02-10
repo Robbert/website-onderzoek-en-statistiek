@@ -15,6 +15,7 @@ import {
   PLACEHOLDER_IMAGE,
   formatDate,
   formatBytes,
+  dateConfig,
 } from '~/lib/utils'
 import apolloClient from '~/lib/apolloClient'
 import * as Styled from './publication.style'
@@ -25,6 +26,7 @@ const Publication = ({
   shortTitle,
   teaser,
   publicationDate,
+  formatPublicationDate,
   author,
   intro,
   body,
@@ -59,7 +61,7 @@ const Publication = ({
             {author && <Styled.MetaListItem>{author}</Styled.MetaListItem>}
             {publicationDate && (
               <Styled.MetaListItem>
-                {formatDate(publicationDate)}
+                {formatDate(publicationDate, dateConfig(formatPublicationDate))}
               </Styled.MetaListItem>
             )}
           </Styled.MetaList>

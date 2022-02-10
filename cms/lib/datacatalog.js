@@ -82,6 +82,7 @@ const extensionMap = {
   '.doc': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   '.json': 'application/json',
   '.pdf': 'application/pdf',
+  '.gpkg': 'application/geopackage+sqlite3',
 };
 
 const typeMap = {

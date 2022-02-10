@@ -161,13 +161,38 @@ export const formatBytes = (bytes, decimals = 0) => {
   }`
 }
 
-export const formatDate = (d) =>
-  new Intl.DateTimeFormat('nl', {
+export const dateConfig = (format) => {
+  switch (format) {
+    case 'MaandJaar':
+      return {
+        month: 'long',
+        year: 'numeric',
+        hour12: false,
+      }
+    case 'Jaar':
+      return {
+        year: 'numeric',
+        hour12: false,
+      }
+    default:
+      return {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour12: false,
+      }
+  }
+}
+
+export const formatDate = (
+  d,
+  config = {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
     hour12: false,
-  }).format(new Date(d))
+  },
+) => new Intl.DateTimeFormat('nl', config).format(new Date(d))
 
 export const decodeQuerySafe = (q) => {
   try {

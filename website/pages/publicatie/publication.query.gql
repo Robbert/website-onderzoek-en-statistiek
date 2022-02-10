@@ -6,6 +6,7 @@ query getPublicationData($slug: String) {
     teaser
     intro
     publicationDate
+    formatPublicationDate
     file {
       name
       url
