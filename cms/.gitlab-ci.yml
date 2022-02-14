@@ -1,13 +1,13 @@
 build cms:
   stage: build
   rules:
-    - if: $CI_COMMIT_REF_NAME == "develop"
+    - if: '$CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME == "develop"'
       changes:
       - cms/**/*
       - .gitlab-ci.yml
       variables:
         TAG_CMS: $TAG_CMS_LATEST_ACC
-    - if: $CI_COMMIT_REF_NAME == "main"
+    - if: '$CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME == "main"'
       changes:
       - cms/**/*
       - .gitlab-ci.yml

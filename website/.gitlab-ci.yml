@@ -27,7 +27,7 @@ build website:
       changes:
       - website/**/*
       - .gitlab-ci.yml
-    - if: $CI_COMMIT_REF_NAME == "develop"
+    - if: '$CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME == "develop"'
       changes:
       - website/**/*
       - .gitlab-ci.yml
@@ -35,7 +35,7 @@ build website:
         TAG_WEBSITE: $TAG_WEBSITE_LATEST_ACC
         DEPLOY_ENV: acceptance
         PUSH: "true"
-    - if: $CI_COMMIT_REF_NAME == "main"
+    - if: '$CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME == "main"'
       changes:
       - website/**/*
       - .gitlab-ci.yml
