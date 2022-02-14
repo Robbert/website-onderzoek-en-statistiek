@@ -1,7 +1,6 @@
 cache:
   paths:
     - website/node_modules/
-    - website/.next/cache/
 
 test website:
   image: node:16-alpine
@@ -29,11 +28,17 @@ build website:
       - website/**/*
       - .gitlab-ci.yml
     - if: $CI_COMMIT_REF_NAME == "develop"
+      changes:
+      - website/**/*
+      - .gitlab-ci.yml
       variables:
         TAG_WEBSITE: $TAG_WEBSITE_LATEST_ACC
         DEPLOY_ENV: acceptance
         PUSH: "true"
     - if: $CI_COMMIT_REF_NAME == "main"
+      changes:
+      - website/**/*
+      - .gitlab-ci.yml
       variables:
         TAG_WEBSITE: $TAG_WEBSITE_LATEST_PROD
         DEPLOY_ENV: production
