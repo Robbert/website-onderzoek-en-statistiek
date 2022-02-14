@@ -1,0 +1,19 @@
+build cms:
+  stage: build
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "develop"
+      changes:
+      - cms/**/*
+      - .gitlab-ci.yml
+      variables:
+        TAG_CMS: $TAG_CMS_LATEST_ACC
+    - if: $CI_COMMIT_REF_NAME == "main"
+      changes:
+      - cms/**/*
+      - .gitlab-ci.yml
+      variables:
+        TAG_CMS: $TAG_CMS_LATEST_PROD
+  script:
+    - docker build -t $TAG_CMS ./cms
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push $TAG_CMS

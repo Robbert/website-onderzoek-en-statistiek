@@ -1,0 +1,51 @@
+cache:
+  paths:
+    - website/node_modules/
+    - website/.next/cache/
+
+test website:
+  image: node:16-alpine
+  stage: test
+  before_script:
+    - cd website
+    - yarn install --pure-lockfile
+  script:
+    - yarn test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME != "develop"'
+      changes:
+      - website/**/*
+      - .gitlab-ci.yml
+
+build website:
+  stage: build
+  variables:
+    TAG_WEBSITE: $TAG_WEBSITE_LATEST_ACC
+    DEPLOY_ENV: acceptance
+    PUSH: "false"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME != "develop"'
+      changes:
+      - website/**/*
+      - .gitlab-ci.yml
+    - if: $CI_COMMIT_REF_NAME == "develop"
+      variables:
+        TAG_WEBSITE: $TAG_WEBSITE_LATEST_ACC
+        DEPLOY_ENV: acceptance
+        PUSH: "true"
+    - if: $CI_COMMIT_REF_NAME == "main"
+      variables:
+        TAG_WEBSITE: $TAG_WEBSITE_LATEST_PROD
+        DEPLOY_ENV: production
+        PUSH: "true"
+  services:
+    - docker:dind
+  before_script:
+    - docker info
+  script:
+    - docker build -t $TAG_WEBSITE --build-arg NEXT_PUBLIC_DEPLOY_ENV=$DEPLOY_ENV ./website
+    - |-
+      if [[ "$PUSH" == "true" ]]; then
+        docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+        docker push $TAG_WEBSITE
+      fi
