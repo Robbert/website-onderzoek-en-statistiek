@@ -47,11 +47,13 @@ export const Link = styled.a`
     }
   }
 `
-
+// padding-top needed for browsers that don't support aspect-ratio
 export const ImageWrapper = styled.div`
   display: block;
   position: relative;
+  width: 100%;
   aspect-ratio: ${({ aspectRatio }) => aspectRatio};
+  padding-top: ${({ aspectRatio }) => 100 / aspectRatio}%;
 
   ${({ large }) =>
     large &&
