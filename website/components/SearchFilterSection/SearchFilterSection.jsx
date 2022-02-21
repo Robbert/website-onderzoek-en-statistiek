@@ -7,8 +7,8 @@ import Radio from '../Radio/Radio'
 import Checkbox from '../Checkbox/Checkbox'
 import Backdrop from '../Backdrop/Backdrop'
 import Button from '../Button/Button'
-import { calculateFacetsTotals, formatFacetNumber } from '../../lib/searchUtils'
-import CONTENT_TYPES from '../../constants/contentTypes'
+import { calculateFacetsTotals, formatFacetNumber } from '~/lib/searchUtils'
+import CONTENT_TYPES from '~/constants/contentTypes'
 import * as Styled from './SearchFilterSection.style'
 
 const SearchFilterSection = ({
@@ -17,7 +17,9 @@ const SearchFilterSection = ({
   themeFilter,
   handleThemeChange,
   category,
-  setUrlParameters,
+  setCategory,
+  setSortOrder,
+  setPage,
   sortOrder,
 }) => {
   const [facetCount, setfacetCount] = useState(null)
@@ -121,7 +123,10 @@ const SearchFilterSection = ({
           <Radio
             name="categories"
             id="alles"
-            onChange={() => setUrlParameters('categorie', null)}
+            onChange={() => {
+              setCategory('')
+              setPage(1)
+            }}
             checked={category === ''}
           >
             Alle categorieën
@@ -133,7 +138,10 @@ const SearchFilterSection = ({
                 key={type}
                 name="categories"
                 id={type}
-                onChange={() => setUrlParameters('categorie', type)}
+                onChange={() => {
+                  setCategory(type)
+                  setPage(1)
+                }}
                 checked={category === type}
               >
                 {`${plural} ${
@@ -153,7 +161,10 @@ const SearchFilterSection = ({
           <Styled.Select
             id="selectSort"
             value={sortOrder}
-            onChange={(e) => setUrlParameters('sorteer', e.target.value)}
+            onChange={(e) => {
+              setSortOrder(e.target.value)
+              setPage(1)
+            }}
           >
             <option value="af">Aflopend datum</option>
             <option value="op">Oplopend datum</option>

@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { useState, useEffect, useCallback, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 import debounce from 'lodash.debounce'
 import { useMatchMedia } from '@amsterdam/asc-ui'
@@ -23,60 +23,66 @@ import * as Styled from './search.style'
 
 const Search = ({ themes }) => {
   const searchIndex = useContext(SearchContext)
+  const router = useRouter()
+
   const [searchQuery, setSearchQuery] = useState('')
   const [sortOrder, setSortOrder] = useState('af')
   const [category, setCategory] = useState('')
   const [themeFilter, setThemeFilter] = useState([])
-  const [results, setResults] = useState([])
   const [page, setPage] = useState(1)
 
-  const router = useRouter()
+  const [results, setResults] = useState([])
 
-  const setUrlParameters = useCallback((paramName, paramValue) => {
-    const { query } = router
-    delete query[paramName]
-
-    if (paramName === 'thema' && paramValue.length > 0)
-      query.thema = paramValue.join(' ')
-    if (paramName === 'categorie' && paramValue)
-      query.categorie = CONTENT_TYPES[paramValue].name
-    if (paramName === 'sorteer' && paramName !== 'af')
-      query.sorteer = paramValue
-    if (paramName === 'tekst' && paramValue !== '') query.tekst = paramValue
-
-    router.push({ query }, undefined, {
-      shallow: true,
-      scroll: false,
-    })
-  })
-
-  const handleThemeChange = (slug) => {
-    const newThemeFilter = themeFilter.includes(slug)
-      ? themeFilter.filter((item) => item !== slug)
-      : [...themeFilter, slug]
-
-    setUrlParameters('thema', newThemeFilter)
-  }
-
+  // get state from url params on first render
+  // and on url param change
   useEffect(() => {
-    if (searchIndex) {
-      setResults(searchIndex._docs)
+    if (router.isReady) {
+      const {
+        tekst: q,
+        sorteer: sort,
+        categorie: cat,
+        thema: theme,
+        pagina: pageNumber,
+      } = router.query
+
+      setSearchQuery(q ? decodeQuerySafe(q) : '')
+      setSortOrder(sort || 'af')
+      setCategory(translateContentType(cat) || '')
+      setThemeFilter(
+        themes?.some((item) => theme?.includes(item.slug))
+          ? theme.split(' ')
+          : [],
+      )
+      setPage(pageNumber ? parseInt(pageNumber, 10) : 1)
     }
-  }, [searchIndex])
+  }, [
+    router.isReady,
+    router.query.tekst,
+    router.query.sorteer,
+    router.query.categorie,
+    router.query.thema,
+    router.query.pagina,
+  ])
 
+  // push state to url params
   useEffect(() => {
-    const {
-      tekst: q,
-      sorteer: sort,
-      categorie: cat,
-      thema: theme,
-    } = router.query
+    const throttledUpdate = debounce(() => {
+      const query = {
+        ...(searchQuery !== '' && { tekst: searchQuery }),
+        ...(sortOrder !== 'af' && { sorteer: sortOrder }),
+        ...(category && { categorie: CONTENT_TYPES[category].name }),
+        ...(themeFilter.length > 0 && { thema: themeFilter.join(' ') }),
+        ...(page !== 1 && { pagina: page }),
+      }
 
-    setSearchQuery(q ? decodeQuerySafe(q) : '')
-    setSortOrder(sort || 'af')
-    setCategory(translateContentType(cat) || '')
-    setThemeFilter(theme ? theme.split(' ') : [])
-  }, [router.query])
+      router.push({ query }, undefined, {
+        shallow: true,
+        scroll: false,
+      })
+    }, 300)
+    throttledUpdate()
+    return () => throttledUpdate.cancel()
+  }, [searchQuery, sortOrder, category, themeFilter, page])
 
   useEffect(() => {
     const throttledUpdate = debounce(() => {
@@ -93,14 +99,24 @@ const Search = ({ themes }) => {
     return () => throttledUpdate.cancel()
   }, [searchIndex, searchQuery, sortOrder, themeFilter, category])
 
+  const handleThemeChange = (slug) => {
+    const newThemeFilter = themeFilter.includes(slug)
+      ? themeFilter.filter((item) => item !== slug)
+      : [...themeFilter, slug]
+
+    setThemeFilter(newThemeFilter)
+    setPage(1)
+  }
+
+  const handlePageChange = (pageNumber) => {
+    window.scrollTo(0, 0)
+    setPage(pageNumber)
+  }
+
   useEffect(() => {
     const tracker = trackSearchQuery(searchQuery, category)
     return () => tracker.cancel()
   }, [searchQuery, category])
-
-  useEffect(() => {
-    setPage(1)
-  }, [results])
 
   const isMobile = useMatchMedia({ maxBreakpoint: 'laptop' })
 
@@ -116,7 +132,7 @@ const Search = ({ themes }) => {
           colStart={{ small: 1, large: 5 }}
         >
           <Paragraph gutterBottom={8}>
-            {`${results.length} ${
+            {`${page > 1 ? `Pagina ${page} van ` : ''} ${results.length} ${
               results.length === 1 ? 'resultaat' : 'resultaten'
             }`}
           </Paragraph>
@@ -127,7 +143,10 @@ const Search = ({ themes }) => {
             id="searchfield"
             type="text"
             value={searchQuery}
-            onChange={(q) => setUrlParameters('tekst', q)}
+            onChange={(q) => {
+              setSearchQuery(q)
+              setPage(1)
+            }}
             autoFocus={!isMobile[0]}
           />
         </GridItem>
@@ -143,7 +162,10 @@ const Search = ({ themes }) => {
                   key={type}
                   type="button"
                   small
-                  onClick={() => setUrlParameters('categorie', null)}
+                  onClick={() => {
+                    setCategory('')
+                    setPage(1)
+                  }}
                 >
                   <Styled.Icon size={20}>
                     <Close />
@@ -181,10 +203,7 @@ const Search = ({ themes }) => {
           <Pagination
             page={page}
             collectionSize={results.length}
-            onPageChange={(pageNumber) => {
-              window.scrollTo(0, 0)
-              return setPage(pageNumber)
-            }}
+            onPageChange={handlePageChange}
           />
         </GridItem>
         <SearchFilterSection
@@ -193,7 +212,9 @@ const Search = ({ themes }) => {
           themeFilter={themeFilter}
           handleThemeChange={handleThemeChange}
           category={category}
-          setUrlParameters={setUrlParameters}
+          setCategory={setCategory}
+          setSortOrder={setSortOrder}
+          setPage={setPage}
           sortOrder={sortOrder}
         />
       </Grid>
