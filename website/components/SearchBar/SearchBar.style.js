@@ -18,10 +18,12 @@ export const SearchBar = styled.input`
   border-radius: 0;
   box-sizing: border-box;
   padding: 16px;
+  padding-right: 84px;
   width: 100%;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     padding: 8px;
+    padding-right: 72px;
   }
 `
 
