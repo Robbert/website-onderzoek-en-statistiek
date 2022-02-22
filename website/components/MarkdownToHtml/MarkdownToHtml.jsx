@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 import Heading from '../Heading/Heading'
 import Paragraph from '../Paragraph/Paragraph'
@@ -7,6 +8,7 @@ import InlineImage from '../InlineImage/InlineImage'
 import Link from '../Link/Link'
 import List from '../List/List'
 import ListItem from '../ListItem/ListItem'
+import Table from '../Table/Table'
 
 const markdownToHtmlMap = {
   h1: (props) => <Heading gutterBottom={40} {...props} />,
@@ -40,10 +42,13 @@ const markdownToHtmlMap = {
   ul: (props) => <List gutterBottom={40} variant="unordered" {...props} />,
   ol: (props) => <List gutterBottom={40} variant="ordered" {...props} />,
   li: (props) => <ListItem {...props} />,
+  table: (props) => <Table {...props} />,
 }
 
 const MarkdownToHtml = ({ children }) => (
-  <ReactMarkdown components={markdownToHtmlMap}>{children}</ReactMarkdown>
+  <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownToHtmlMap}>
+    {children}
+  </ReactMarkdown>
 )
 
 export default MarkdownToHtml

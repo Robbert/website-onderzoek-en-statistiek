@@ -32,6 +32,7 @@
     "react-dom": "^17.0.2",
     "react-markdown": "^8.0.0",
     "react-vega": "^7.4.4",
+    "remark-gfm": "^3.0.1",
     "sharp": "^0.30.0",
     "slugify": "^1.6.5",
     "styled-components": "^5.3.1",
