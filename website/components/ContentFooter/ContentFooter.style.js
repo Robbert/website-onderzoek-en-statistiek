@@ -25,11 +25,11 @@ export const List = styled(ListComponent)`
 export const ListItem = styled.li`
   display: inline;
 
-  & ::after {
+  &::after {
     content: ', ';
   }
 
-  & :last-child::after {
+  &:last-child::after {
     content: '.';
   }
 `

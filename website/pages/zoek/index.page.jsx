@@ -141,7 +141,6 @@ const Search = ({ themes }) => {
           </Heading>
           <SearchBar
             id="searchfield"
-            type="text"
             value={searchQuery}
             onChange={(q) => {
               setSearchQuery(q)

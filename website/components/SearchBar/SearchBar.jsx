@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef } from 'react'
 import { Icon } from '@amsterdam/asc-ui'
 import { Search, Close } from '@amsterdam/asc-assets'
 
@@ -8,25 +8,8 @@ import * as Styled from './SearchBar.style'
 const SearchBar = ({ onChange, value, id, autoFocus, ...otherProps }) => {
   const searchInput = useRef(null)
 
-  // when setting the SearchBar input value from url params,
-  // cursor position is not automatically stored.
-  // This state is used to store it. See also:
-  // https://stackoverflow.com/questions/46000544/react-controlled-input-cursor-jumps
-  const [cursor, setCursor] = useState(null)
-
-  useEffect(() => {
-    searchInput.current?.setSelectionRange(cursor, cursor)
-  }, [searchInput, cursor, value])
-
-  const handleOnChange = (e) => {
-    setCursor(e.target?.selectionStart)
-    if (onChange) {
-      onChange(e.target ? e.target.value : e)
-    }
-  }
-
   const handleOnClear = () => {
-    handleOnChange('')
+    onChange('')
     if (searchInput && searchInput.current) {
       searchInput.current.focus()
     }
@@ -38,7 +21,7 @@ const SearchBar = ({ onChange, value, id, autoFocus, ...otherProps }) => {
         id={id}
         type="text"
         value={value}
-        onChange={handleOnChange}
+        onChange={(e) => onChange(e.target.value)}
         aria-label="Zoeken"
         ref={searchInput}
         autoFocus={autoFocus}

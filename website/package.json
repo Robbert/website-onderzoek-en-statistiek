@@ -15,7 +15,8 @@
     "analyze": "cross-env NEXT_PUBLIC_DEPLOY_ENV=acceptance cross-env ANALYZE=true next build",
     "lint": "eslint",
     "lint:fix": "eslint . --fix",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch --onlyChanged"
   },
   "dependencies": {
     "@amsterdam/asc-assets": "^0.35.0",
