@@ -35,8 +35,10 @@ const Visualisation = ({
       fileName: `${filename}.png`,
       html2CanvasOptions: {
         onclone: (document) => {
-          // eslint-disable-next-line no-param-reassign
-          document.querySelector('.source').style.color = 'black'
+          if (document.querySelector('.source')) {
+            // eslint-disable-next-line no-param-reassign
+            document.querySelector('.source').style.color = 'black'
+          }
         },
       },
     })
