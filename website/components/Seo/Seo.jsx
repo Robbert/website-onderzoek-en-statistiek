@@ -7,8 +7,7 @@ const Seo = ({
   article,
   video,
 }) => {
-  const imagePath =
-    image || 'https://onderzoek.amsterdam.nl/static/prod/default_image.jpg'
+  const imagePath = image || '/default_image.jpg'
   const fullTitle = `${title} | Website Onderzoek en Statistiek`
 
   return (

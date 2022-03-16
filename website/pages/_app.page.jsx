@@ -81,9 +81,11 @@ const MyApp = ({ Component, pageProps }) => {
       <SearchContext.Provider value={searchIndex}>
         <ShortcutContext.Provider value={pageProps?.data?.homepage?.shortcuts}>
           <Layout>
+            <Script id="piwik-pro-code" src="/piwik.js" />
             <Script
-              id="piwik-pro-code"
-              src={prependStaticContentUrl('/piwik.js')}
+              async
+              id="siteimprove-code"
+              src="https://siteimproveanalytics.com/js/siteanalyze_6004851.js"
             />
             <Component {...pageProps} />
           </Layout>
