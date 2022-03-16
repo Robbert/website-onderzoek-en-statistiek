@@ -6,4 +6,7 @@ module.exports = () => ({
       },
     },
   },
+  graphql: {
+    amountLimit: 10000,
+  },
 });
