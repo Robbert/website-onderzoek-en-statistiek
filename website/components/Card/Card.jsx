@@ -63,6 +63,7 @@ const Card = ({
               forwardedAs={headingLevel}
               styleAs={large ? 'h2' : 'h5'}
               gutterBottom={8}
+              large={large}
             >
               {title}
             </Styled.Heading>

@@ -83,10 +83,14 @@ export const Type = styled(Paragraph)`
 `
 
 export const Heading = styled(HeadingComponent)`
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  ${({ large }) =>
+    !large &&
+    css`
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    `}
 `
 
 export const Teaser = styled(Paragraph)`
