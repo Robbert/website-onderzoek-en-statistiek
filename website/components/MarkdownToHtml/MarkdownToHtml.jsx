@@ -7,7 +7,6 @@ import Blockquote from '../Blockquote/Blockquote'
 import InlineImage from '../InlineImage/InlineImage'
 import Link from '../Link/Link'
 import List from '../List/List'
-import ListItem from '../ListItem/ListItem'
 import Table from '../Table/Table'
 
 const markdownToHtmlMap = {
@@ -41,7 +40,6 @@ const markdownToHtmlMap = {
   a: (props) => <Link external variant="inline" target="_blank" {...props} />,
   ul: (props) => <List gutterBottom={40} variant="unordered" {...props} />,
   ol: (props) => <List gutterBottom={40} variant="ordered" {...props} />,
-  li: (props) => <ListItem {...props} />,
   table: (props) => <Table {...props} />,
 }
 

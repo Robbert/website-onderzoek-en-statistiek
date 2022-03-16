@@ -5,7 +5,6 @@ import { Grid, GridItem } from '~/components/Grid/Grid.style'
 import Heading from '~/components/Heading/Heading'
 import Paragraph from '~/components/Paragraph/Paragraph'
 import List from '~/components/List/List'
-import ListItem from '~/components/ListItem/ListItem'
 import Link from '~/components/Link/Link'
 import CONTENT_TYPES from '~/constants/contentTypes'
 
@@ -61,7 +60,7 @@ const Custom404 = () => {
             Deze pagina bestaat niet (meer). Controleer het adres of:
           </Paragraph>
           <List variant="unordered" gutterBottom={40} small>
-            <ListItem>
+            <li>
               Zoek naar{' '}
               <Link href={searchLinkObject.path} variant="inline">
                 {`${
@@ -70,19 +69,19 @@ const Custom404 = () => {
                     : ''
                 } '${searchLinkObject.text}'`}
               </Link>
-            </ListItem>
-            <ListItem>
+            </li>
+            <li>
               Ga naar de{' '}
               <Link href="/" variant="inline">
                 voorpagina
               </Link>
-            </ListItem>
-            <ListItem>
+            </li>
+            <li>
               Stuur een{' '}
               <Link href="mailto:redactie.ois@amsterdam.nl" variant="inline">
                 bericht aan de redactie
               </Link>
-            </ListItem>
+            </li>
           </List>
         </GridItem>
       </Grid>

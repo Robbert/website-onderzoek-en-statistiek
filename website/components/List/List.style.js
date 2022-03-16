@@ -5,8 +5,18 @@ import { themeColor, breakpoint } from '@amsterdam/asc-ui'
 import { fluidTypoStyle, typographyStyle } from '../../lib/typographyUtils'
 
 export const List = styled.ul`
-  list-style: none;
-  margin: 0;
+  list-style: ${({ variant }) => {
+    switch (variant) {
+      case 'ordered':
+        return 'auto'
+      case 'unordered':
+        return 'square'
+      default:
+        return 'none'
+    }
+  }};
+
+  margin-left: ${({ variant }) => (variant ? '24px' : 0)};
   padding: 0;
   color: ${themeColor('tint', 'level6')};
   letter-spacing: 0.0125rem;
@@ -24,7 +34,9 @@ export const List = styled.ul`
   ${({ variant }) =>
     variant === 'unordered' &&
     css`
-      counter-reset: item;
+      & ::marker {
+        color: black;
+      }
     `}
 
   ${fluidTypoStyle}
