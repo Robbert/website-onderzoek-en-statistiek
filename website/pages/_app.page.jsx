@@ -82,11 +82,11 @@ const MyApp = ({ Component, pageProps }) => {
         <ShortcutContext.Provider value={pageProps?.data?.homepage?.shortcuts}>
           <Layout>
             <Script id="piwik-pro-code" src="/piwik.js" />
-            <Script
+            {/* <Script
               async
               id="siteimprove-code"
               src="https://siteimproveanalytics.com/js/siteanalyze_6004851.js"
-            />
+            /> */}
             <Component {...pageProps} />
           </Layout>
         </ShortcutContext.Provider>
