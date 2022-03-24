@@ -40,7 +40,7 @@ const markdownToHtmlMap = {
   a: (props) => <Link external variant="inline" target="_blank" {...props} />,
   ul: (props) => <List gutterBottom={40} variant="unordered" {...props} />,
   ol: (props) => <List gutterBottom={40} variant="ordered" {...props} />,
-  table: (props) => <Table {...props} />,
+  table: (props) => <Table gutterBottom={40} {...props} />,
 }
 
 const MarkdownToHtml = ({ children }) => (
