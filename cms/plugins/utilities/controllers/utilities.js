@@ -1,34 +1,75 @@
 'use strict';
+
 const fs = require('fs');
 const fsp = require('fs').promises;
 const { exec } = require('child_process');
+const archiver = require('archiver');
 
-const { DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOST } = process.env;
+const {
+  DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOST,
+} = process.env;
 const user = DATABASE_USERNAME || 'strapi';
 const database = DATABASE_NAME || 'strapi';
-const password = DATABASE_PASSWORD ||  'strapi';
+const password = DATABASE_PASSWORD || 'strapi';
 const host = DATABASE_HOST || 'localhost';
 const dir = '../cms/.temp';
 
-const execShellCommand = (cmd) => {
-  return new Promise((resolve, reject) => {
-   exec(cmd, (error, stdout, stderr) => {
+const execShellCommand = (cmd) => new Promise((resolve, reject) => {
+  exec(cmd, (error, stdout, stderr) => {
     if (error) {
       console.warn(error);
-      reject(new Error('something went wrong!'))
+      reject(new Error('something went wrong!'));
     }
-    resolve(stdout? stdout : stderr);
-   });
+    resolve(stdout || stderr);
   });
- }
+});
 
+// create folder if it doesn't exists
 const checkDir = (path) => {
-  if (!fs.existsSync(path)){
+  if (!fs.existsSync(path)) {
     fs.mkdirSync(path);
   }
-}
+};
+
+// delete file if it exists
+const deleteFile = (file) => {
+  if (fs.existsSync(file)) {
+    fs.rmSync(file);
+  }
+};
 
 module.exports = {
+
+  downloadMedia: async (ctx) => {
+    const downloadDir = '../cms/public/uploads';
+    const tempDir = '../cms/.temp';
+    const filename = 'cms-files.zip';
+
+    checkDir(tempDir);
+    deleteFile(`${downloadDir}/${filename}`);
+
+    const output = fs.createWriteStream(`${tempDir}/${filename}`);
+    const archive = archiver('zip', {
+      zlib: { level: 9 },
+    });
+
+    archive.on('error', (err) => {
+      throw err;
+    });
+
+    archive.directory('../cms/public/uploads/', false);
+    archive.pipe(output);
+
+    await archive.finalize();
+
+    fs.renameSync(`${tempDir}/${filename}`, `${downloadDir}/${filename}`);
+
+    ctx.send({
+      ok: true,
+      body: `/public/uploads/${filename}`,
+      env: process.env.NODE_ENV,
+    });
+  },
 
   exportDatabase: async (ctx) => {
     checkDir(dir);
@@ -36,19 +77,19 @@ module.exports = {
     const cmd = `PGPASSWORD=${password} pg_dump --clean -U ${user} -h ${host} ${database} -f ${file}`;
     const result = await execShellCommand(cmd)
       .then(() => fsp.readFile(file, 'utf-8'))
-      .then((result) => ({
-          ok: true,
-          body: result,
-          env: process.env.NODE_ENV
+      .then((res) => ({
+        ok: true,
+        body: res,
+        env: process.env.NODE_ENV,
       }))
       .catch((err) => {
         console.warn(err);
         return {
           ok: false,
-          err
-        }
-      })
-    ctx.send(result)
+          err,
+        };
+      });
+    ctx.send(result);
   },
 
   importDatabase: async (ctx) => {
@@ -63,10 +104,10 @@ module.exports = {
         console.warn(err);
         return {
           ok: false,
-          err
-        }
-      })
-    ctx.send(result)
+          err,
+        };
+      });
+    ctx.send(result);
   },
 
 };
