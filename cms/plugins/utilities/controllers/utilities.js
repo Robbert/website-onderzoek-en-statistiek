@@ -6,12 +6,13 @@ const { exec } = require('child_process');
 const archiver = require('archiver');
 
 const {
-  DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOST,
+  DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOST, STRAPI_ENVIRONMENT,
 } = process.env;
 const user = DATABASE_USERNAME || 'strapi';
 const database = DATABASE_NAME || 'strapi';
 const password = DATABASE_PASSWORD || 'strapi';
 const host = DATABASE_HOST || 'localhost';
+const environment = STRAPI_ENVIRONMENT || 'development';
 const dir = '../cms/.temp';
 
 const execShellCommand = (cmd) => new Promise((resolve, reject) => {
@@ -62,12 +63,13 @@ module.exports = {
 
     await archive.finalize();
 
-    fs.renameSync(`${tempDir}/${filename}`, `${downloadDir}/${filename}`);
+    fs.copyFileSync(`${tempDir}/${filename}`, `${downloadDir}/${filename}`);
+    deleteFile(`${tempDir}/${filename}`);
 
     ctx.send({
       ok: true,
       body: `/public/uploads/${filename}`,
-      env: process.env.NODE_ENV,
+      env: environment,
     });
   },
 
@@ -80,7 +82,7 @@ module.exports = {
       .then((res) => ({
         ok: true,
         body: res,
-        env: process.env.NODE_ENV,
+        env: environment,
       }))
       .catch((err) => {
         console.warn(err);
