@@ -42,33 +42,29 @@ const deleteFile = (file) => {
 module.exports = {
 
   downloadMedia: async (ctx) => {
-    const downloadDir = '../cms/public/uploads';
-    const tempDir = '../cms/.temp';
+    const folder = '../cms/public/uploads';
     const filename = 'cms-files.zip';
 
-    checkDir(tempDir);
-    deleteFile(`${downloadDir}/${filename}`);
+    deleteFile(`${folder}/${filename}`);
 
-    const output = fs.createWriteStream(`${tempDir}/${filename}`);
+    const output = fs.createWriteStream(`${folder}/${filename}`);
     const archive = archiver('zip', {
       zlib: { level: 9 },
     });
+    archive.pipe(output);
 
     archive.on('error', (err) => {
       throw err;
     });
 
-    archive.directory('../cms/public/uploads/', false);
-    archive.pipe(output);
+    // archive all files excpt the zip-file itself
+    archive.glob('**/!(*.zip)', { cwd: folder }, {});
 
     await archive.finalize();
 
-    fs.copyFileSync(`${tempDir}/${filename}`, `${downloadDir}/${filename}`);
-    deleteFile(`${tempDir}/${filename}`);
-
     ctx.send({
       ok: true,
-      body: `/public/uploads/${filename}`,
+      body: `/uploads/${filename}`,
       env: environment,
     });
   },
