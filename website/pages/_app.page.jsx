@@ -13,7 +13,7 @@ import { prependStaticContentUrl } from '~/lib/utils'
 import { startTracking, pushCustomEvent } from '~/lib/analyticsUtils'
 import ShortcutContext from '~/lib/ShortcutContext'
 import QUERY from './app.query.gql'
-import { fuseOptions, SearchContext } from '~/lib/searchUtils'
+import { fuseOptions, SearchContext, sortResults } from '~/lib/searchUtils'
 
 import '~/public/fonts/fonts.css'
 
@@ -64,7 +64,8 @@ const MyApp = ({ Component, pageProps }) => {
     })
       .then((response) => response.json())
       .then((searchContent) => {
-        setSearchIndex(new Fuse(searchContent, fuseOptions))
+        const sorted = searchContent.sort((a, b) => sortResults(a, b))
+        setSearchIndex(new Fuse(sorted, fuseOptions))
       })
       .catch() // TODO: log errors in Sentry
     return () => abortController.abort()

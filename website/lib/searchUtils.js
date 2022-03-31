@@ -92,7 +92,7 @@ export const fuseOptions = {
   keys: ['title', 'shortTitle', 'teaser', 'intro'],
 }
 
-const sortResults = (a, b, order) => {
+export const sortResults = (a, b, order) => {
   if (order === 'score') return a.score - b.score
   if (order === 'op')
     return new Date(a.publicationDate) - new Date(b.publicationDate)

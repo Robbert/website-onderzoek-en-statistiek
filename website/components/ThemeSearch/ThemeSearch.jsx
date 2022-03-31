@@ -28,7 +28,7 @@ const ThemeSearch = ({ themeTitle, slug }) => {
       const updatedResults = getSearchResults(
         searchIndex,
         searchQuery,
-        'af',
+        'score',
         [slug],
         category,
       )

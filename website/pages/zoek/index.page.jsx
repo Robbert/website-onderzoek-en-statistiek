@@ -46,7 +46,7 @@ const Search = ({ themes }) => {
       } = router.query
 
       setSearchQuery(q ? decodeQuerySafe(q) : '')
-      setSortOrder(sort || 'af')
+      setSortOrder(sort || 'score')
       setCategory(translateContentType(cat) || '')
       setThemeFilter(
         themes?.some((item) => theme?.includes(item.slug))
@@ -69,7 +69,7 @@ const Search = ({ themes }) => {
     const throttledUpdate = debounce(() => {
       const query = {
         ...(searchQuery !== '' && { tekst: searchQuery }),
-        ...(sortOrder !== 'af' && { sorteer: sortOrder }),
+        ...(sortOrder !== 'score' && { sorteer: sortOrder }),
         ...(category && { categorie: CONTENT_TYPES[category].name }),
         ...(themeFilter.length > 0 && { thema: themeFilter.join(' ') }),
         ...(page !== 1 && { pagina: page }),
