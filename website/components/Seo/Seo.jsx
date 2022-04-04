@@ -1,5 +1,7 @@
 import Head from 'next/head'
 
+import { prependStaticContentUrl } from '~/lib/utils'
+
 const Seo = ({
   title = 'Onderzoek en Statistiek',
   description = 'Onderzoek en Statistiek (O&S) verzamelt statistische informatie over Amsterdam en voert onderzoek uit, van korte opinieonderzoeken over actuele onderwerpen tot uitgebreide monitors.',
@@ -7,7 +9,7 @@ const Seo = ({
   article,
   video,
 }) => {
-  const imagePath = image || '/default_image.jpg'
+  const imagePath = image || prependStaticContentUrl('/default_image.jpg')
   const fullTitle = `${title} | Website Onderzoek en Statistiek`
 
   return (
