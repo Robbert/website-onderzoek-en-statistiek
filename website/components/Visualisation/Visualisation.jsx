@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { useState, useEffect, useRef } from 'react'
 import NextImage from 'next/image'
 import slugify from 'slugify'
@@ -130,6 +131,10 @@ const Visualisation = ({
             renderer="svg"
             actions={false}
             formatLocale={VISUALISATION_LOCALE}
+            onNewView={(view) => {
+              view._el.firstChild.removeAttribute('width')
+              view._el.firstChild.removeAttribute('height')
+            }}
           />
         )}
         <Styled.VisualisationFooter>
