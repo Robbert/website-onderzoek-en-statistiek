@@ -45,8 +45,6 @@ build website:
         PUSH: "true"
   services:
     - docker:dind
-  before_script:
-    - docker info
   script:
     - docker build -t $TAG_WEBSITE --build-arg NEXT_PUBLIC_DEPLOY_ENV=$DEPLOY_ENV ./website
     - |-

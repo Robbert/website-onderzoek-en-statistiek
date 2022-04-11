@@ -65,7 +65,6 @@ deploy:
         "docker-compose -f docker-compose.server.yml --project-name server up -d --no-deps --remove-orphans"
   after_script:
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker image prune -a -f"
-    - curl $CURL
   environment:
     name: $DEPLOY_ENV
     url: $URL

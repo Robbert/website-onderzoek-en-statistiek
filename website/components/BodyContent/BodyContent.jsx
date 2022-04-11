@@ -54,24 +54,19 @@ const BodyContent = ({
                   <List>
                     {item.links.map(({ name, path, title: linkTitle }) => (
                       <li key={path}>
-                        <Styled.Link
-                          href={path}
-                          variant="inList"
-                          external={name === 'link'}
-                        >
+                        <Styled.Link href={path} variant="inList">
                           <Styled.ChevronIcon size={14}>
-                            <ChevronRight />
+                            {name === 'link' ? (
+                              <ExternalLink />
+                            ) : (
+                              <ChevronRight />
+                            )}
                           </Styled.ChevronIcon>
                           <Styled.LinkText>
                             {name === 'link'
                               ? linkTitle
                               : `${name} - ${linkTitle}`}
                           </Styled.LinkText>
-                          {name === 'link' && (
-                            <Styled.ExternalIcon size={14}>
-                              <ExternalLink />
-                            </Styled.ExternalIcon>
-                          )}
                         </Styled.Link>
                       </li>
                     ))}

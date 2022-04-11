@@ -9,7 +9,7 @@ import { GlobalStyle, ThemeProvider, ascDefaultTheme } from '@amsterdam/asc-ui'
 
 import Layout from '~/components/Layout/Layout'
 import apolloClient from '~/lib/apolloClient'
-import { prependStaticContentUrl } from '~/lib/utils'
+import { prependRootURL } from '~/lib/utils'
 import { startTracking, pushCustomEvent } from '~/lib/analyticsUtils'
 import ShortcutContext from '~/lib/ShortcutContext'
 import QUERY from './app.query.gql'
@@ -58,7 +58,7 @@ const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
     const abortController = new AbortController()
 
-    fetch(prependStaticContentUrl('/searchContent.json'), {
+    fetch(prependRootURL('/api/search-content'), {
       signal: abortController.signal,
       mode: 'cors',
     })
@@ -83,11 +83,6 @@ const MyApp = ({ Component, pageProps }) => {
         <ShortcutContext.Provider value={pageProps?.data?.homepage?.shortcuts}>
           <Layout>
             <Script id="piwik-pro-code" src="/piwik.js" />
-            {/* <Script
-              async
-              id="siteimprove-code"
-              src="https://siteimproveanalytics.com/js/siteanalyze_6004851.js"
-            /> */}
             <Component {...pageProps} />
           </Layout>
         </ShortcutContext.Provider>
