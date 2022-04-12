@@ -25,7 +25,7 @@ deploy:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "develop"
-      when: always
+      when: on_success
       variables:
         TAG_CMS: $TAG_CMS_LATEST_ACC
         TAG_WEBSITE: $TAG_WEBSITE_LATEST_ACC
@@ -35,7 +35,7 @@ deploy:
         CURL: -u OenS:@Weesper113 https://acc.onderzoek-en-statistiek.nl/api/build-search
         URL: https://acc.onderzoek.amsterdam.nl/
     - if: $CI_COMMIT_REF_NAME == "main"
-      when: always
+      when: on_success
       variables:
         TAG_CMS: $TAG_CMS_LATEST_PROD
         TAG_WEBSITE: $TAG_WEBSITE_LATEST_PROD
