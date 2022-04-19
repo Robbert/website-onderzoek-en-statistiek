@@ -18,12 +18,13 @@ include:
   - '/server/.gitlab-ci.yml'
   - '/cms/.gitlab-ci.yml'
 
-# deploy cms and website
+# deploy server, cms and website
 deploy:
   stage: deploy
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
+    # define variables for acc and prod environments
     - if: $CI_COMMIT_REF_NAME == "develop"
       when: on_success
       variables:
@@ -32,7 +33,6 @@ deploy:
         KEYCLOAK_PASS: $KEYCLOAK_PASS_ACC
         DEPLOY_ENV: acceptance
         DOCKER: docker-compose.acc.yml
-        CURL: -u OenS:@Weesper113 https://acc.onderzoek-en-statistiek.nl/api/build-search
         URL: https://acc.onderzoek.amsterdam.nl/
     - if: $CI_COMMIT_REF_NAME == "main"
       when: on_success
@@ -42,18 +42,21 @@ deploy:
         KEYCLOAK_PASS: $KEYCLOAK_PASS_PROD
         DEPLOY_ENV: production
         DOCKER: docker-compose.yml
-        CURL: https://onderzoek-en-statistiek.nl/api/build-search
         URL: https://onderzoek.amsterdam.nl/
   script:
+    # setup credentials and packages
     - chmod og= $ID_RSA
-    - apk update && apk add openssh-client
-    - ls -al
+    - apk update && apk add openssh-client curl
+    # establish connection between server and container registry
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
         "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
+    # pull latest server, cms and website images
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
         "docker pull $TAG_SERVER_LATEST && docker pull $TAG_CMS && docker pull $TAG_WEBSITE"
+    # copy all docker-compose files to server
     - scp -i $ID_RSA -o StrictHostKeyChecking=no 
         docker-compose.* $SERVER_USER@$SERVER_IP:~
+    # deploy cms and website with acc or prod variables
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no 
         $SERVER_USER@$SERVER_IP
         DATABASE_USERNAME=$DATABASE_USERNAME
@@ -61,10 +64,14 @@ deploy:
         KEYCLOAK_NAME=$KEYCLOAK_NAME
         KEYCLOAK_PASS_PROD=$KEYCLOAK_PASS
         "docker-compose -f $DOCKER --project-name $DEPLOY_ENV up -d --no-deps --remove-orphans"
+    # deploy webserver
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
         "docker-compose -f docker-compose.server.yml --project-name server up -d --no-deps --remove-orphans"
   after_script:
+    # remove old docker images and call acc and prod api to populate search cache
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker image prune -a -f"
+    - curl -u OenS:@Weesper113 https://acc.onderzoek.amsterdam.nl/api/search-content
+    - curl https://onderzoek.amsterdam.nl/api/search-content
   environment:
     name: $DEPLOY_ENV
     url: $URL
