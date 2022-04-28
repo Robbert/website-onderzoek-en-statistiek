@@ -33,8 +33,19 @@ const Search = ({ themes }) => {
 
   const [results, setResults] = useState([])
 
+  const setQueries = (q, sort, cat, theme, pageNumber) => {
+    setSearchQuery(q ? decodeQuerySafe(q) : '')
+    setSortOrder(sort || 'score')
+    setCategory(translateContentType(cat) || '')
+    setThemeFilter(
+      themes?.some((item) => theme?.includes(item.slug))
+        ? theme.split(' ')
+        : [],
+    )
+    setPage(pageNumber ? parseInt(pageNumber, 10) : 1)
+  }
+
   // get state from url params on first render
-  // and on url param change
   useEffect(() => {
     if (router.isReady) {
       const {
@@ -45,24 +56,32 @@ const Search = ({ themes }) => {
         pagina: pageNumber,
       } = router.query
 
-      setSearchQuery(q ? decodeQuerySafe(q) : '')
-      setSortOrder(sort || 'score')
-      setCategory(translateContentType(cat) || '')
-      setThemeFilter(
-        themes?.some((item) => theme?.includes(item.slug))
-          ? theme.split(' ')
-          : [],
-      )
-      setPage(pageNumber ? parseInt(pageNumber, 10) : 1)
+      setQueries(q, sort, cat, theme, pageNumber)
     }
-  }, [
-    router.isReady,
-    router.query.tekst,
-    router.query.sorteer,
-    router.query.categorie,
-    router.query.thema,
-    router.query.pagina,
-  ])
+  }, [router.isReady])
+
+  // get state from url params on forward and back button click
+  useEffect(() => {
+    router.beforePopState(({ as }) => {
+      if (as !== router.asPath) {
+        const queryString = as.substring(as.indexOf('?'))
+        const urlParams = new URLSearchParams(queryString)
+
+        const q = urlParams.get('tekst')
+        const sort = urlParams.get('sorteer')
+        const cat = urlParams.get('categorie')
+        const theme = urlParams.get('thema')
+        const pageNumber = urlParams.get('pagina')
+
+        setQueries(q, sort, cat, theme, pageNumber)
+      }
+      return true
+    })
+
+    return () => {
+      router.beforePopState(() => true)
+    }
+  }, [router])
 
   // push state to url params
   useEffect(() => {
