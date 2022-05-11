@@ -9,6 +9,8 @@ import Paragraph from '~/components/Paragraph/Paragraph'
 import BodyContent from '~/components/BodyContent/BodyContent'
 import ContentFooter from '~/components/ContentFooter/ContentFooter'
 import DownloadButton from '~/components/DownloadButton/DownloadButton'
+import List from '~/components/List/List'
+import Disclosure from '~/components/Disclosure/Disclosure'
 import {
   fetchAPI,
   getStrapiMedia,
@@ -20,6 +22,22 @@ import {
 import apolloClient from '~/lib/apolloClient'
 import * as Styled from './publication.style'
 import QUERY from './publication.query.gql'
+
+const DownloadButtons = ({ links }) => (
+  <List>
+    {links.map((file) => (
+      <li key={file.url}>
+        <Styled.DownloadButton
+          url={getStrapiMedia(file)}
+          variant="textButton"
+          small
+        >
+          {`${file.name} (${formatBytes(file.size * 1000)})`}
+        </Styled.DownloadButton>
+      </li>
+    ))}
+  </List>
+)
 
 const Publication = ({
   title,
@@ -40,6 +58,11 @@ const Publication = ({
   if (router.isFallback) {
     return <FallbackPage />
   }
+
+  // this line can be removed when multiple file download is deployed
+  const files = Array.isArray(file) ? file : [file]
+
+  const MAX_DOWNLOAD_LINKS = 3
 
   return (
     <>
@@ -88,11 +111,17 @@ const Publication = ({
               />
             </Styled.CoverImage>
           )}
-          <Styled.ButtonWrapper>
-            <DownloadButton url={getStrapiMedia(file)} variant="primary" small>
-              {`Download PDF (${formatBytes(file.size * 1000)})`}
-            </DownloadButton>
-          </Styled.ButtonWrapper>
+          {files.length === 1 && (
+            <Styled.ButtonWrapper>
+              <DownloadButton
+                url={getStrapiMedia(files[0])}
+                variant="primary"
+                small
+              >
+                {`Download PDF (${formatBytes(files[0].size * 1000)})`}
+              </DownloadButton>
+            </Styled.ButtonWrapper>
+          )}
         </GridItem>
 
         <GridItem
@@ -102,6 +131,26 @@ const Publication = ({
           <Paragraph intro gutterBottom={40}>
             {intro}
           </Paragraph>
+
+          {files.length > 1 && (
+            <>
+              <Heading as="h2" styleAs="h5" gutterBottom={12}>
+                Downloads
+              </Heading>
+              <DownloadButtons links={files.slice(0, MAX_DOWNLOAD_LINKS)} />
+              {files.length > MAX_DOWNLOAD_LINKS && (
+                <Disclosure
+                  id="other_download_links"
+                  url={router.asPath}
+                  buttonVariant="textButton"
+                  buttonStyle={{ padding: 0, margin: '8px 0' }}
+                  buttonSmall
+                >
+                  <DownloadButtons links={files.slice(MAX_DOWNLOAD_LINKS)} />
+                </Disclosure>
+              )}
+            </>
+          )}
         </GridItem>
 
         {body && <BodyContent content={body} />}

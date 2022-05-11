@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { breakpoint, themeColor } from '@amsterdam/asc-ui'
 
+import DownloadButtonComponent from '~/components/DownloadButton/DownloadButton'
 import List from '~/components/List/List'
 
 export const MetaList = styled(List)`
@@ -30,4 +31,8 @@ export const CoverImage = styled.div`
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
+`
+
+export const DownloadButton = styled(DownloadButtonComponent)`
+  padding: 0;
 `

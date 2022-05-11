@@ -5,7 +5,14 @@ import Button from '../Button/Button'
 import { pushCustomEvent } from '../../lib/analyticsUtils'
 import * as Styled from './Disclosure.style'
 
-const Disclosure = ({ id, children, url }) => {
+const Disclosure = ({
+  id,
+  children,
+  url,
+  buttonVariant,
+  buttonStyle,
+  buttonSmall,
+}) => {
   const ref = useRef()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -28,6 +35,9 @@ const Disclosure = ({ id, children, url }) => {
         }}
         aria-expanded={isOpen}
         aria-controls={id}
+        style={buttonStyle}
+        variant={buttonVariant}
+        small={buttonSmall}
       >
         <Styled.Icon isOpen={isOpen}>
           <ChevronDown />
