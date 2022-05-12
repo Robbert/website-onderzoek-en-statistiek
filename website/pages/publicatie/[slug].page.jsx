@@ -127,8 +127,9 @@ const Publication = ({
         <GridItem
           colStart={{ small: 1, large: 2 }}
           colRange={{ small: 4, large: 6 }}
+          gutterBottom={40}
         >
-          <Paragraph intro gutterBottom={40}>
+          <Paragraph intro gutterBottom={files.length > 1 && 40}>
             {intro}
           </Paragraph>
 
