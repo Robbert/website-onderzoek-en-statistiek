@@ -19,8 +19,8 @@
     "test:watch": "jest --watch --onlyChanged"
   },
   "dependencies": {
-    "@amsterdam/asc-assets": "^0.35.0",
-    "@amsterdam/asc-ui": "^0.35.2",
+    "@amsterdam/asc-assets": "^0.35.4",
+    "@amsterdam/asc-ui": "^0.35.4",
     "@apollo/client": "3.6.2",
     "@next/bundle-analyzer": "^12.1.6",
     "file-saver": "^2.0.5",
@@ -55,7 +55,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jest": "^26.1.5",
+    "eslint-plugin-jest": "^26.2.2",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
