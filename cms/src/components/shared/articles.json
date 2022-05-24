@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_articles",
+  "info": {
+    "displayName": "articles",
+    "icon": "align-justify",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "articles": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article"
+    }
+  }
+}

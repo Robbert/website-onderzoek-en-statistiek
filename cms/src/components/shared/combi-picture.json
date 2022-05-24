@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_shared_combi_pictures",
+  "info": {
+    "displayName": "combiPicture",
+    "icon": "images"
+  },
+  "options": {},
+  "attributes": {
+    "biggerImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "smallerImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

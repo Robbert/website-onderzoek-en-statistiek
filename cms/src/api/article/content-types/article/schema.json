@@ -1,0 +1,83 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articles",
+  "info": {
+    "singularName": "article",
+    "pluralName": "articles",
+    "displayName": "article"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "publicationDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "shortTitle": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true,
+      "regex": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "teaser": {
+      "type": "text",
+      "required": true,
+      "maxLength": 200
+    },
+    "intro": {
+      "type": "text",
+      "required": true
+    },
+    "body": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.text",
+        "shared.text-with-links",
+        "shared.visualisation"
+      ]
+    },
+    "related": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.interactives",
+        "shared.collections"
+      ]
+    },
+    "rectangularImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "squareImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "themes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::theme.theme",
+      "mappedBy": "articles"
+    }
+  }
+}

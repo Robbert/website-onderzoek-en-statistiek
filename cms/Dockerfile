@@ -2,7 +2,7 @@ FROM strapi/base
 
 RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt stretch-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 RUN wget --no-check-certificate --quiet -O - http://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN apt-get update && apt-get -y install postgresql-13
+RUN apt-get update && apt-get -y install postgresql-14
 
 WORKDIR /srv/cms
 

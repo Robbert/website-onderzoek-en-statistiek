@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 const slugify = require('slugify');
-const got = require('got');
 
 const parseBodyText = async (body) => {
   const regex = /\(([^)]+)\)/g;
@@ -127,20 +126,7 @@ const parseContentFromDcat = async (item) => {
   return item;
 };
 
-const rebuildSearchContent = async () => {
-  const baseUrl = process.env.WEBSITE_DOMAIN || 'http://localhost:3000';
-  const headers = {
-    Authorization: `Basic ${Buffer.from('OenS:@Weesper113').toString('base64')}`,
-  };
-  try {
-    await got(`${baseUrl}/api/build-search`, { headers });
-  } catch (error) {
-    console.log('failed to rebuild search content:', error);
-  }
-};
-
 module.exports = {
   parseContentFromDrupal,
   parseContentFromDcat,
-  rebuildSearchContent,
 };

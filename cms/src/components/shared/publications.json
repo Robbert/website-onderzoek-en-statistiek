@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_publications",
+  "info": {
+    "displayName": "publications",
+    "icon": "file-pdf"
+  },
+  "options": {},
+  "attributes": {
+    "publications": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::publication.publication"
+    }
+  }
+}

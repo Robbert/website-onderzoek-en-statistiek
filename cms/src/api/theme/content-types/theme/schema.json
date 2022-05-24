@@ -1,0 +1,128 @@
+{
+  "kind": "collectionType",
+  "collectionName": "themes",
+  "info": {
+    "singularName": "theme",
+    "pluralName": "themes",
+    "displayName": "theme"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "shortTitle": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true,
+      "regex": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "teaser": {
+      "type": "text",
+      "required": false
+    },
+    "intro": {
+      "type": "text",
+      "required": false
+    },
+    "rectangularImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "squareImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "visualisation": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.visualisation"
+    },
+    "topStory": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.interactives"
+      ]
+    },
+    "featured": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.interactives",
+        "shared.collections",
+        "shared.datasets"
+      ]
+    },
+    "combiPicture": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.combi-picture"
+    },
+    "email": {
+      "type": "string",
+      "regex": "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+    },
+    "phoneNumber": {
+      "type": "string",
+      "regex": "^((\\+|00(\\s|\\s?\\-\\s?)?)31(\\s|\\s?\\-\\s?)?(\\(0\\)[\\-\\s]?)?|0)[1-9]((\\s|\\s?\\-\\s?)?[0-9])((\\s|\\s?-\\s?)?[0-9])((\\s|\\s?-\\s?)?[0-9])\\s?[0-9]\\s?[0-9]\\s?[0-9]\\s?[0-9]\\s?[0-9]$"
+    },
+    "articles": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::article.article",
+      "inversedBy": "themes"
+    },
+    "publications": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::publication.publication",
+      "inversedBy": "themes"
+    },
+    "videos": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::video.video",
+      "inversedBy": "themes"
+    },
+    "collections": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::collection.collection",
+      "inversedBy": "themes"
+    },
+    "interactives": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::interactive.interactive",
+      "inversedBy": "themes"
+    },
+    "datasets": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::dataset.dataset",
+      "inversedBy": "themes"
+    }
+  }
+}

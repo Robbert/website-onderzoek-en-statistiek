@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_shared_links",
+  "info": {
+    "displayName": "links",
+    "icon": "link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.external-links"
+    }
+  }
+}
+  

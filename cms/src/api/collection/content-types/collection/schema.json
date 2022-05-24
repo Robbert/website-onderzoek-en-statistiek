@@ -1,0 +1,97 @@
+{
+  "kind": "collectionType",
+  "collectionName": "collections",
+  "info": {
+    "singularName": "collection",
+    "pluralName": "collections",
+    "displayName": "collection"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "shortTitle": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true,
+      "regex": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "teaser": {
+      "type": "text",
+      "maxLength": 200
+    },
+    "intro": {
+      "type": "text"
+    },
+    "rectangularImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "squareImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "themes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::theme.theme",
+      "mappedBy": "collections"
+    },
+    "featured": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.interactives",
+        "shared.datasets"
+      ]
+    },
+    "collectionItems": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.interactives",
+        "shared.datasets"
+      ]
+    },
+    "linkList": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.articles",
+        "shared.publications",
+        "shared.videos",
+        "shared.interactives",
+        "shared.collections",
+        "shared.datasets",
+        "shared.links"
+      ]
+    },
+    "email": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    }
+  }
+}

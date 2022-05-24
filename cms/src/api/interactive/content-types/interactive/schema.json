@@ -1,0 +1,75 @@
+{
+  "kind": "collectionType",
+  "collectionName": "interactives",
+  "info": {
+    "singularName": "interactive",
+    "pluralName": "interactives",
+    "displayName": "interactive"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "publicationDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "shortTitle": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true,
+      "regex": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "teaser": {
+      "type": "text",
+      "maxLength": 200,
+      "required": false
+    },
+    "rectangularImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "squareImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "contentLink": {
+      "type": "string"
+    },
+    "implementation": {
+      "type": "enumeration",
+      "enum": [
+        "insert",
+        "frame",
+        "link"
+      ],
+      "default": "insert",
+      "required": true
+    },
+    "themes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::theme.theme",
+      "mappedBy": "interactives"
+    }
+  }
+}

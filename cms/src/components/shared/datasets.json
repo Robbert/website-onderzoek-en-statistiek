@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_datasets",
+  "info": {
+    "displayName": "datasets",
+    "icon": "barcode"
+  },
+  "options": {},
+  "attributes": {
+    "datasets": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::dataset.dataset"
+    }
+  }
+}

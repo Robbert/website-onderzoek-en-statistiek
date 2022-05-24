@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_videos",
+  "info": {
+    "displayName": "videos",
+    "icon": "video"
+  },
+  "options": {},
+  "attributes": {
+    "videos": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::video.video"
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "kind": "collectionType",
+  "collectionName": "videos",
+  "info": {
+    "singularName": "video",
+    "pluralName": "videos",
+    "displayName": "video"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "publicationDate": {
+      "type": "datetime"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "shortTitle": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true,
+      "regex": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "teaser": {
+      "type": "text",
+      "maxLength": 200,
+      "required": false
+    },
+    "transcript": {
+      "type": "richtext"
+    },
+    "intro": {
+      "type": "text",
+      "required": false
+    },
+    "body": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.text",
+        "shared.text-with-links",
+        "shared.visualisation"
+      ]
+    },
+    "rectangularImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "squareImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "videoFile": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "videos"
+      ]
+    },
+    "subtitleFile": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "wideVideo": {
+      "type": "boolean",
+      "default": false
+    },
+    "subtitleDefault": {
+      "type": "boolean",
+      "default": false
+    },
+    "externalVideoSource": {
+      "type": "string",
+      "regex": "^$|https://"
+    },
+    "externalEmbedSource": {
+      "type": "string",
+      "regex": "^$|https://"
+    },
+    "themes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::theme.theme",
+      "mappedBy": "videos"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "collectionName": "components_shared_text_with_links",
+  "info": {
+    "displayName": "TextWithLinks",
+    "icon": "stream"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "richtext"
+    },
+    "articles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article"
+    },
+    "publications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::publication.publication"
+    },
+    "videos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::video.video"
+    },
+    "interactives": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::interactive.interactive"
+    },
+    "collections": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::collection.collection"
+    },
+    "datasets": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::dataset.dataset"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.external-links"
+    }
+  }
+}

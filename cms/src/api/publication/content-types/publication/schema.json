@@ -1,0 +1,101 @@
+{
+  "kind": "collectionType",
+  "collectionName": "publications",
+  "info": {
+    "singularName": "publication",
+    "pluralName": "publications",
+    "displayName": "publication"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "publicationDate": {
+      "type": "datetime"
+    },
+    "formatPublicationDate": {
+      "type": "enumeration",
+      "enum": [
+        "DagMaandJaar",
+        "MaandJaar",
+        "Jaar"
+      ],
+      "default": "MaandJaar"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "shortTitle": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true,
+      "regex": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "author": {
+      "type": "string"
+    },
+    "teaser": {
+      "type": "text",
+      "maxLength": 200,
+      "required": false
+    },
+    "intro": {
+      "type": "text",
+      "required": false
+    },
+    "body": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.text",
+        "shared.text-with-links",
+        "shared.visualisation"
+      ]
+    },
+    "rectangularImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "squareImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "themes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::theme.theme",
+      "mappedBy": "publications"
+    }
+  }
+}

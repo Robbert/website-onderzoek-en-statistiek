@@ -8,6 +8,7 @@ const config = {
   pass: process.env.STRAPI_ENVIRONMENT !== 'production' ? process.env.KEYCLOAK_PASS_ACC : process.env.KEYCLOAK_PASS_PROD,
   realm: process.env.STRAPI_ENVIRONMENT !== 'production' ? process.env.KEYCLOAK_REALM_ACC : process.env.KEYCLOAK_REALM_PROD,
   prefix: process.env.STRAPI_ENVIRONMENT !== 'production' ? 'acc.' : '',
+  environment: process.env.STRAPI_ENVIRONMENT,
 };
 
 const themesMap = {
@@ -234,6 +235,7 @@ const transformDataset = (dataset) => ({
 });
 
 module.exports = {
+  config,
   getToken,
   getETag,
   getIdentifier,

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_collections",
+  "info": {
+    "displayName": "collections",
+    "icon": "archive"
+  },
+  "options": {},
+  "attributes": {
+    "collections": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::collection.collection"
+    }
+  }
+}

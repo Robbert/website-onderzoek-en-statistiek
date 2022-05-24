@@ -1,0 +1,60 @@
+{
+  "collectionName": "components_shared_visualisations",
+  "info": {
+    "displayName": "visualisation",
+    "icon": "chart-bar",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "richtext"
+    },
+    "source": {
+      "type": "string"
+    },
+    "altText": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "variant": {
+      "type": "enumeration",
+      "enum": [
+        "gecentreerd",
+        "rechts",
+        "links",
+        "kleurenbalk"
+      ],
+      "default": "gecentreerd",
+      "required": false
+    },
+    "color": {
+      "type": "enumeration",
+      "enum": [
+        "geel",
+        "groen",
+        "lichtblauw",
+        "lichtgroen",
+        "oranje",
+        "paars",
+        "roze"
+      ],
+      "default": "lichtblauw",
+      "required": false
+    },
+    "specification": {
+      "type": "json"
+    }
+  }
+}
