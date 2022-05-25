@@ -1,17 +1,6 @@
-FROM ubuntu
-ENV DEBIAN_FRONTEND noninteractive
+FROM node:16
 
-# install node and yarn
-RUN apt-get update
-RUN apt-get -y install curl gnupg2 wget
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
-RUN apt-get install -y nodejs
-RUN npm install --global yarn
-
-# install postgres-client with pg_dump
-RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt stretch-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-RUN wget --no-check-certificate --quiet -O - http://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN apt-get install -y postgresql-client-14
+RUN apt-get update && apt-get install -y libvips-dev postgresql-client
 
 WORKDIR /srv/cms
 
