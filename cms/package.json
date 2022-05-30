@@ -7,7 +7,8 @@
     "develop": "strapi config:restore -f config/strapi-config.json -s replace && strapi develop",
     "start": "strapi config:restore -f config/strapi-config.json -s replace && strapi start",
     "build": "strapi build",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "config-dump": "strapi configuration:dump -f config/strapi-config.json"
   },
   "devDependencies": {
     "eslint": "7.2.0",
@@ -18,11 +19,11 @@
     "eslint-plugin-react-hooks": "1.7.0"
   },
   "dependencies": {
-    "@strapi/helper-plugin": "^4.1.11",
-    "@strapi/plugin-graphql": "4.1.11",
-    "@strapi/plugin-i18n": "4.1.11",
-    "@strapi/plugin-users-permissions": "4.1.11",
-    "@strapi/strapi": "4.1.11",
+    "@strapi/helper-plugin": "4.1.12",
+    "@strapi/plugin-graphql": "4.1.12",
+    "@strapi/plugin-i18n": "4.1.12",
+    "@strapi/plugin-users-permissions": "4.1.12",
+    "@strapi/strapi": "4.1.12",
     "archiver": "^5.3.1",
     "file-saver": "^2.0.5",
     "fs": "^0.0.1-security",
