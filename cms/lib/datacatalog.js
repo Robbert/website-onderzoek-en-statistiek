@@ -8,7 +8,6 @@ const config = {
   pass: process.env.STRAPI_ENVIRONMENT !== 'production' ? process.env.KEYCLOAK_PASS_ACC : process.env.KEYCLOAK_PASS_PROD,
   realm: process.env.STRAPI_ENVIRONMENT !== 'production' ? process.env.KEYCLOAK_REALM_ACC : process.env.KEYCLOAK_REALM_PROD,
   prefix: process.env.STRAPI_ENVIRONMENT !== 'production' ? 'acc.' : '',
-  environment: process.env.STRAPI_ENVIRONMENT,
 };
 
 const themesMap = {
@@ -127,10 +126,15 @@ const getToken = async (token) => {
   }
 };
 
-const getETag = async (id, slug) => {
+const getETag = async (id, slug, token) => {
   const url = `https://${config.prefix}api.data.amsterdam.nl/dcatd/datasets/${id}`;
   try {
-    const response = await got(url);
+    const response = await got(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/hal+json',
+      },
+    });
     return response.headers.etag;
   } catch (error) {
     console.log(`failed to get an etag for ${slug}`);
@@ -207,7 +211,7 @@ const transformResources = (resources) => resources.map((resource) => ({
 const transformDataset = (dataset) => ({
   'dct:title': dataset.title,
   'dct:description': dataset.body.reduce((allText, bodyItem) => allText + bodyItem.text, ''),
-  'ams:status': 'beschikbaar',
+  'ams:status': dataset.publishedAt ? 'beschikbaar' : 'niet_beschikbaar',
   'dcat:distribution': transformResources(dataset.resources),
   'dcat:theme': dataset.theme ? dataset.theme.map((theme) => themesMap[theme.title]) : [],
   'dcat:keyword': [],

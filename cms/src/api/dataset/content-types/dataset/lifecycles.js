@@ -3,7 +3,6 @@
 'use strict';
 
 const {
-  config,
   getToken,
   getETag,
   getIdentifier,
@@ -17,38 +16,32 @@ let token;
 
 module.exports = {
   async beforeCreate(item) {
-    const { slug } = item;
-    if (config.environment !== 'local') {
-      token = await getToken();
-      const datasetDcat = transformDataset(item);
-      const result = await createDataset(datasetDcat, slug, token);
-      if (result.statusCode !== 201) {
-        throw strapi.errors.badRequest('Failed to create dataset in data catalog!');
-      }
-      item.dcat_identifier = getIdentifier(result.headers.location);
+    const { slug } = item.params.data;
+    token = await getToken();
+    const datasetDcat = transformDataset(item.params.data);
+    const result = await createDataset(datasetDcat, slug, token);
+    if (result.statusCode !== 201) {
+      throw strapi.errors.badRequest('Failed to create dataset in data catalog!');
     }
+    item.params.data.dcat_identifier = getIdentifier(result.headers.location);
   },
   async afterUpdate(item) {
-    if (config.environment !== 'local') {
-      token = await getToken();
-      const { dcat_identifier: id, slug } = item;
-      const etag = await getETag(item.dcat_identifier, slug);
-      const datasetDcat = transformDataset(item);
-      const result = await updateDataset(id, etag, datasetDcat, slug, token);
-      if (result.statusCode !== 201 && result.statusCode !== 204) {
-        throw strapi.errors.badRequest('Failed to update dataset in data catalog!');
-      }
+    token = await getToken();
+    const { dcat_identifier: id, slug } = item.result;
+    const etag = await getETag(id, slug, token);
+    const datasetDcat = transformDataset(item.result);
+    const result = await updateDataset(id, etag, datasetDcat, slug, token);
+    if (result.statusCode !== 201 && result.statusCode !== 204) {
+      throw strapi.errors.badRequest('Failed to update dataset in data catalog!');
     }
   },
   async afterDelete(item) {
-    if (config.environment !== 'local') {
-      token = await getToken();
-      const { dcat_identifier: id, slug } = item;
-      const etag = await getETag(id, slug);
-      const result = await deleteDataset(id, etag, slug, token);
-      if (result.statusCode !== 204) {
-        throw strapi.errors.badRequest('Failed to delete dataset in data catalog!');
-      }
+    token = await getToken();
+    const { dcat_identifier: id, slug } = item.result;
+    const etag = await getETag(id, slug, token);
+    const result = await deleteDataset(id, etag, slug, token);
+    if (result.statusCode !== 204) {
+      throw strapi.errors.badRequest('Failed to delete dataset in data catalog!');
     }
   },
 };
