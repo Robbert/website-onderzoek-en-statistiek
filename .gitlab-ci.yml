@@ -65,7 +65,7 @@ deploy:
         JWT_SECRET=$JWT_SECRET
         API_TOKEN_SALT=$API_TOKEN_SALT
         KEYCLOAK_NAME=$KEYCLOAK_NAME
-        KEYCLOAK_PASS_PROD=$KEYCLOAK_PASS
+        KEYCLOAK_PASS=$KEYCLOAK_PASS
         "docker-compose -f $DOCKER --project-name $DEPLOY_ENV up -d --no-deps --remove-orphans"
     # deploy webserver
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 
