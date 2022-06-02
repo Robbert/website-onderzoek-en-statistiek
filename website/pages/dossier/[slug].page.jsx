@@ -1,15 +1,11 @@
 import { ChevronRight } from '@amsterdam/asc-assets'
 import { useRouter } from 'next/router'
+import qs from 'qs'
 
 import FallbackPage from '~/components/FallbackPage/FallbackPage'
 import Seo from '~/components/Seo/Seo'
-import {
-  fetchAPI,
-  getStrapiMedia,
-  normalizeItemList,
-  formatDate,
-} from '~/lib/utils'
-import apolloClient from '~/lib/apolloClient'
+import { fetchAPI, getStrapiMedia, formatDate } from '~/lib/utils'
+import { normalizeItemList } from '~/lib/normalizeUtils'
 import { Grid, GridItem } from '~/components/Grid/Grid.style'
 import Heading from '~/components/Heading/Heading'
 import Paragraph from '~/components/Paragraph/Paragraph'
@@ -20,7 +16,7 @@ import SearchCard from '~/components/SearchCard/SearchCard'
 import Disclosure from '~/components/Disclosure/Disclosure'
 import Link from '~/components/Link/Link'
 import ContentFooter from '~/components/ContentFooter/ContentFooter'
-import QUERY from './collection.query.gql'
+import collectionQuery from './collection.query'
 import * as Styled from './dossier.style'
 
 const Collection = ({
@@ -35,7 +31,7 @@ const Collection = ({
   linkList,
   email,
   phoneNumber,
-  theme,
+  themes,
 }) => {
   const router = useRouter()
   if (router.isFallback) {
@@ -174,7 +170,7 @@ const Collection = ({
           colRange={{ small: 4, large: 8 }}
           rowStart={{ small: 7, large: 5 }}
         >
-          <ContentFooter type="dossier" themes={theme} />
+          <ContentFooter type="dossier" themes={themes} />
         </GridItem>
 
         {(email || phoneNumber) && (
@@ -213,10 +209,15 @@ const Collection = ({
 }
 
 export async function getStaticPaths() {
-  const collections = await fetchAPI('/collections')
+  const collections = await fetchAPI('/api/collections?fields=id').then(
+    (metaResult) =>
+      fetchAPI(
+        `/api/collections?fields=slug&pagination[pageSize]=${metaResult.meta.pagination.total}`,
+      ),
+  )
 
   return {
-    paths: collections.map(({ slug }) => ({
+    paths: collections.data.map(({ slug }) => ({
       params: {
         slug,
       },
@@ -226,14 +227,19 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { data } = await apolloClient
-    .query({
-      query: QUERY,
-      variables: { slug: params.slug },
-    })
-    .catch() // TODO: log this error in sentry
+  const data = await fetchAPI(
+    `/api/collections?${qs.stringify(
+      {
+        filters: { slug: { $eq: params.slug } },
+        ...collectionQuery,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    )}`,
+  )
 
-  if (!data.collections[0]) {
+  if (!data.data[0]) {
     return {
       notFound: true,
       revalidate: 1,
@@ -241,7 +247,7 @@ export async function getStaticProps({ params }) {
   }
 
   return {
-    props: data.collections[0],
+    props: data.data[0],
     revalidate: 1,
   }
 }

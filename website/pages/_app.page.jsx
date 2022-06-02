@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import App from 'next/app'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
@@ -6,14 +5,14 @@ import { useState, useEffect } from 'react'
 import Fuse from 'fuse.js'
 import { createGlobalStyle } from 'styled-components'
 import { GlobalStyle, ThemeProvider, ascDefaultTheme } from '@amsterdam/asc-ui'
+import qs from 'qs'
 
 import Layout from '~/components/Layout/Layout'
-import apolloClient from '~/lib/apolloClient'
-import { prependRootURL } from '~/lib/utils'
+import { prependRootURL, fetchAPI } from '~/lib/utils'
 import { startTracking, pushCustomEvent } from '~/lib/analyticsUtils'
 import ShortcutContext from '~/lib/ShortcutContext'
-import QUERY from './app.query.gql'
 import { fuseOptions, SearchContext, sortResults } from '~/lib/searchUtils'
+import appQuery from './app.query'
 
 import '~/public/fonts/fonts.css'
 
@@ -80,7 +79,7 @@ const MyApp = ({ Component, pageProps }) => {
       <GlobalStyle />
       <BodyStyle />
       <SearchContext.Provider value={searchIndex}>
-        <ShortcutContext.Provider value={pageProps?.data?.homepage?.shortcuts}>
+        <ShortcutContext.Provider value={pageProps?.homepage?.shortcuts}>
           <Layout>
             <Script id="piwik-pro-code" src="/piwik.js" />
             <Component {...pageProps} />
@@ -94,7 +93,11 @@ const MyApp = ({ Component, pageProps }) => {
 MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext)
 
-  const { data } = await apolloClient.query({ query: QUERY })
+  const data = await fetchAPI(
+    `/api/homepage?${qs.stringify(appQuery, {
+      encodeValuesOnly: true,
+    })}`,
+  )
 
   return { ...appProps, pageProps: { data } }
 }

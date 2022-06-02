@@ -14,7 +14,7 @@ test website:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME != "develop"'
       changes:
       - website/**/*
-      - .gitlab-ci.yml
+      # - .gitlab-ci.yml
 
 build website:
   stage: build
@@ -38,7 +38,7 @@ build website:
     - if: '$CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME == "main"'
       changes:
       - website/**/*
-      - .gitlab-ci.yml
+      # - .gitlab-ci.yml
       variables:
         TAG_WEBSITE: $TAG_WEBSITE_LATEST_PROD
         DEPLOY_ENV: production

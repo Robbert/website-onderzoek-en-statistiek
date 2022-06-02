@@ -1,12 +1,13 @@
 import { ChevronRight, ExternalLink } from '@amsterdam/asc-assets'
+import qs from 'qs'
 
-import apolloClient from '~/lib/apolloClient'
-import { normalizeItemList } from '~/lib/utils'
+import { fetchAPI } from '~/lib/utils'
+import { normalizeItemList } from '~/lib/normalizeUtils'
+import { homepageQuery, themesQuery } from './homepage.query'
 import Seo from '~/components/Seo/Seo'
 import { Grid, GridItem } from '~/components/Grid/Grid.style'
 import Heading from '~/components/Heading/Heading'
 import List from '~/components/List/List'
-import QUERY from './homepage.query.gql'
 import CardList from '~/components/CardList/CardList'
 import Card from '~/components/Card/Card'
 import SearchCard from '~/components/SearchCard/SearchCard'
@@ -249,10 +250,20 @@ const Home = ({ themes, homepage }) => {
 
 export async function getStaticProps() {
   try {
-    const { data } = await apolloClient.query({ query: QUERY })
+    const homepage = await fetchAPI(
+      `/api/homepage?${qs.stringify(homepageQuery, {
+        encodeValuesOnly: true,
+      })}`,
+    )
+    const themes = await fetchAPI(
+      `/api/themes?${qs.stringify(themesQuery, { encodeValuesOnly: true })}`,
+    )
 
     return {
-      props: data,
+      props: {
+        themes: themes.data,
+        homepage: homepage.data,
+      },
       revalidate: 1,
     }
   } catch (error) {

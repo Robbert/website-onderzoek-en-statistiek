@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import qs from 'qs'
 
 import Seo from '~/components/Seo/Seo'
 import FallbackPage from '~/components/FallbackPage/FallbackPage'
@@ -14,11 +15,10 @@ import {
   fetchAPI,
   getStrapiMedia,
   PLACEHOLDER_IMAGE,
-  normalizeItemList,
   formatDate,
 } from '~/lib/utils'
-import apolloClient from '~/lib/apolloClient'
-import QUERY from './article.query.gql'
+import { normalizeItemList } from '~/lib/normalizeUtils'
+import articleQuery from './article.query'
 import * as Styled from './article.style'
 
 const Article = ({
@@ -30,7 +30,7 @@ const Article = ({
   publicationDate,
   intro,
   body,
-  theme,
+  themes,
   related,
 }) => {
   const router = useRouter()
@@ -86,7 +86,7 @@ const Article = ({
           colStart={{ small: 1, large: 3 }}
           colRange={{ small: 4, large: 8 }}
         >
-          <ContentFooter type="artikel" themes={theme} />
+          <ContentFooter type="artikel" themes={themes} />
         </GridItem>
 
         {related.length > 0 && (
@@ -128,10 +128,15 @@ const Article = ({
 }
 
 export async function getStaticPaths() {
-  const articles = await fetchAPI('/articles?_limit=-1')
+  const articles = await fetchAPI('/api/articles?fields=id').then(
+    (metaResult) =>
+      fetchAPI(
+        `/api/articles?fields=slug&pagination[pageSize]=${metaResult.meta.pagination.total}`,
+      ),
+  )
 
   return {
-    paths: articles.map(({ slug }) => ({
+    paths: articles.data.map(({ slug }) => ({
       params: {
         slug,
       },
@@ -141,14 +146,19 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { data } = await apolloClient
-    .query({
-      query: QUERY,
-      variables: { slug: params.slug },
-    })
-    .catch() // TODO: log this error in sentry
+  const data = await fetchAPI(
+    `/api/articles?${qs.stringify(
+      {
+        filters: { slug: { $eq: params.slug } },
+        ...articleQuery,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    )}`,
+  )
 
-  if (!data.articles[0]) {
+  if (!data.data[0]) {
     return {
       notFound: true,
       revalidate: 1,
@@ -156,7 +166,7 @@ export async function getStaticProps({ params }) {
   }
 
   return {
-    props: data.articles[0],
+    props: data.data[0],
     revalidate: 1,
   }
 }

@@ -15,6 +15,7 @@ export const MegaMenu = styled(Grid)`
   z-index: 2;
   overflow: auto;
   max-height: 100vh;
+  width: 100%;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     right: 0;

@@ -13,7 +13,7 @@ const normalize = ({
   teaser,
   intro,
   publicationDate,
-  theme,
+  themes,
 }) => ({
   slug,
   title,
@@ -21,57 +21,89 @@ const normalize = ({
   teaser,
   intro,
   publicationDate,
-  theme: theme.map((item) => item.slug),
+  theme: themes.map((item) => item.slug),
 })
 
 export async function getSearchContent() {
-  const articles = await fetchAPI('/articles?_limit=-1').then((result) =>
-    result.map((item) => ({
-      ...normalize(item),
-      type: 'article',
-    })),
-  )
-  const publications = await fetchAPI('/publications?_limit=-1').then(
-    (result) =>
-      result.map((item) => ({
-        ...normalize(item),
-        type: 'publication',
-      })),
-  )
-  const videos = await fetchAPI('/videos?_limit=-1').then((result) =>
-    result.map((item) => ({
-      ...normalize(item),
-      type: 'video',
-    })),
-  )
-  const interactives = await fetchAPI('/interactives?_limit=-1').then(
-    (result) =>
-      result.map((item) => ({
-        ...normalize(item),
-        type: 'interactive',
-        intro: '',
-        body: '',
-      })),
-  )
-  const datasets = await fetchAPI('/datasets?_limit=-1').then((result) =>
-    result.map((item) => ({
-      ...normalize(item),
-      type: 'dataset',
-      shortTitle: '',
-      publicationDate: item.updated_at,
-      intro: item.body.reduce(
-        (allText, bodyItem) => allText + bodyItem.text,
-        '',
+  const articles = await fetchAPI('/api/articles?fields=id').then(
+    (metaResult) =>
+      fetchAPI(
+        `/api/articles?&pagination[pageSize]=${metaResult.meta.pagination.total}&populate=*`,
+      ).then((result) =>
+        result.data.map((item) => ({
+          ...normalize(item),
+          type: 'article',
+        })),
       ),
-    })),
   )
-  const collections = await fetchAPI('/collections?_limit=-1').then((result) =>
-    result.map((item) => ({
-      ...normalize(item),
-      type: 'collection',
-      publicationDate: item.updated_at,
-      body: '',
-    })),
+
+  const publications = await fetchAPI('/api/publications?fields=id').then(
+    (metaResult) =>
+      fetchAPI(
+        `/api/publications?&pagination[pageSize]=${metaResult.meta.pagination.total}&populate=*`,
+      ).then((result) =>
+        result.data.map((item) => ({
+          ...normalize(item),
+          type: 'publication',
+        })),
+      ),
+  )
+
+  const videos = await fetchAPI('/api/videos?fields=id').then((metaResult) =>
+    fetchAPI(
+      `/api/videos?&pagination[pageSize]=${metaResult.meta.pagination.total}&populate=*`,
+    ).then((result) =>
+      result.data.map((item) => ({
+        ...normalize(item),
+        type: 'video',
+      })),
+    ),
+  )
+
+  const interactives = await fetchAPI('/api/interactives?fields=id').then(
+    (metaResult) =>
+      fetchAPI(
+        `/api/interactives?&pagination[pageSize]=${metaResult.meta.pagination.total}&populate=*`,
+      ).then((result) =>
+        result.data.map((item) => ({
+          ...normalize(item),
+          type: 'interactive',
+          intro: '',
+          body: '',
+        })),
+      ),
+  )
+
+  const datasets = await fetchAPI('/api/datasets?fields=id').then(
+    (metaResult) =>
+      fetchAPI(
+        `/api/datasets?&pagination[pageSize]=${metaResult.meta.pagination.total}&populate=*`,
+      ).then((result) =>
+        result.data.map((item) => ({
+          ...normalize(item),
+          type: 'dataset',
+          shortTitle: '',
+          publicationDate: item.updated_at,
+          intro: item.body.reduce(
+            (allText, bodyItem) => allText + bodyItem.text,
+            '',
+          ),
+        })),
+      ),
+  )
+
+  const collections = await fetchAPI('/api/collections?fields=id').then(
+    (metaResult) =>
+      fetchAPI(
+        `/api/collections?&pagination[pageSize]=${metaResult.meta.pagination.total}&populate=*`,
+      ).then((result) =>
+        result.data.map((item) => ({
+          ...normalize(item),
+          type: 'collection',
+          publicationDate: item.updated_at,
+          body: '',
+        })),
+      ),
   )
 
   return [

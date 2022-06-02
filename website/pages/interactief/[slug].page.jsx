@@ -1,16 +1,16 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import qs from 'qs'
 
 import FallbackPage from '~/components/FallbackPage/FallbackPage'
 import { fetchAPI, getStrapiMedia } from '~/lib/utils'
-import apolloClient from '~/lib/apolloClient'
 import Seo from '~/components/Seo/Seo'
 import Container from '~/components/Container/Container'
 import IFrame from '~/components/IFrame/IFrame'
 import { Grid, GridItem } from '~/components/Grid/Grid.style'
 import ContentFooter from '~/components/ContentFooter/ContentFooter'
-import QUERY from './interactive.query.gql'
+import interactiveQuery from './interactive.query'
 
 const RenderContainer = styled.div`
   width: 100%;
@@ -25,7 +25,7 @@ const Interactive = ({
   squareImage,
   rectangularImage,
   assets,
-  theme,
+  themes,
 }) => {
   const router = useRouter()
   if (router.isFallback) {
@@ -82,7 +82,7 @@ const Interactive = ({
       )}
       <Grid verticalPadding={0}>
         <GridItem colRange={{ small: 4, large: 8 }}>
-          <ContentFooter type="interactieve publicatie" themes={theme} />
+          <ContentFooter type="interactieve publicatie" themes={themes} />
         </GridItem>
       </Grid>
     </Container>
@@ -90,10 +90,15 @@ const Interactive = ({
 }
 
 export async function getStaticPaths() {
-  const interactives = await fetchAPI('/interactives')
+  const interactives = await fetchAPI('/api/interactives?fields=id').then(
+    (metaResult) =>
+      fetchAPI(
+        `/api/interactives?fields=slug&pagination[pageSize]=${metaResult.meta.pagination.total}`,
+      ),
+  )
 
   return {
-    paths: interactives.map(({ slug }) => ({
+    paths: interactives.data.map(({ slug }) => ({
       params: {
         slug,
       },
@@ -103,21 +108,26 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { data } = await apolloClient
-    .query({
-      query: QUERY,
-      variables: { slug: params.slug },
-    })
-    .catch() // TODO: log this error in sentry
+  const data = await fetchAPI(
+    `/api/interactives?${qs.stringify(
+      {
+        filters: { slug: { $eq: params.slug } },
+        ...interactiveQuery,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    )}`,
+  )
 
-  if (!data.interactives[0]) {
+  if (!data.data[0]) {
     return {
       notFound: true,
       revalidate: 1,
     }
   }
 
-  const { contentLink, implementation } = data.interactives[0]
+  const { contentLink, implementation } = data.data[0]
 
   const assets =
     implementation === 'insert'
@@ -134,7 +144,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      ...data.interactives[0],
+      ...data.data[0],
       assets: assets?.entrypoints ? assets.entrypoints : [],
     },
     revalidate: 1,

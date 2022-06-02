@@ -1,6 +1,7 @@
 import NextImage from 'next/image'
 import { ChevronRight } from '@amsterdam/asc-assets'
 import { useRouter } from 'next/router'
+import qs from 'qs'
 
 import FallbackPage from '~/components/FallbackPage/FallbackPage'
 import Seo from '~/components/Seo/Seo'
@@ -16,14 +17,13 @@ import {
   getStrapiMedia,
   translateColor,
   PLACEHOLDER_IMAGE,
-  normalizeItemList,
 } from '~/lib/utils'
-import apolloClient from '~/lib/apolloClient'
+import { normalizeItemList } from '~/lib/normalizeUtils'
 import {
   VISUALISATION_CONFIG,
   VISUALISATION_LOCALE,
 } from '~/constants/visualisationConfig'
-import QUERY from './theme.query.gql'
+import themeQuery from './thema.query'
 import * as Styled from './theme.style'
 
 const Theme = ({
@@ -282,10 +282,10 @@ const Theme = ({
 }
 
 export async function getStaticPaths() {
-  const themes = await fetchAPI('/themes')
+  const themes = await fetchAPI('/api/themes')
 
   return {
-    paths: themes.map(({ slug }) => ({
+    paths: themes.data.map(({ slug }) => ({
       params: { slug },
     })),
     fallback: true,
@@ -293,14 +293,19 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { data } = await apolloClient
-    .query({
-      query: QUERY,
-      variables: { slug: params.slug },
-    })
-    .catch() // TODO: log this error in sentry
+  const data = await fetchAPI(
+    `/api/themes?${qs.stringify(
+      {
+        filters: { slug: { $eq: params.slug } },
+        ...themeQuery,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    )}`,
+  )
 
-  if (!data.themes[0]) {
+  if (!data.data[0]) {
     return {
       notFound: true,
       revalidate: 1,
@@ -308,7 +313,7 @@ export async function getStaticProps({ params }) {
   }
 
   return {
-    props: data.themes[0],
+    props: data.data[0],
     revalidate: 1,
   }
 }

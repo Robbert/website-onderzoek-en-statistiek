@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import debounce from 'lodash.debounce'
 import { useMatchMedia } from '@amsterdam/asc-ui'
 import { Close } from '@amsterdam/asc-assets'
+import qs from 'qs'
 
 import Seo from '~/components/Seo/Seo'
 import { Grid, GridItem } from '~/components/Grid/Grid.style'
@@ -13,11 +14,9 @@ import SearchBar from '~/components/SearchBar/SearchBar'
 import SearchResults from '~/components/SearchResults/SearchResults'
 import Pagination from '~/components/Pagination/Pagination'
 import SearchFilterSection from '~/components/SearchFilterSection/SearchFilterSection'
-import { translateContentType, decodeQuerySafe } from '~/lib/utils'
-import apolloClient from '~/lib/apolloClient'
+import { translateContentType, decodeQuerySafe, fetchAPI } from '~/lib/utils'
 import { trackSearchQuery } from '~/lib/analyticsUtils'
 import CONTENT_TYPES from '~/constants/contentTypes'
-import QUERY from './search.query.gql'
 import { SearchContext, getSearchResults } from '~/lib/searchUtils'
 import * as Styled from './search.style'
 
@@ -38,9 +37,7 @@ const Search = ({ themes }) => {
     setSortOrder(sort || 'score')
     setCategory(translateContentType(cat) || '')
     setThemeFilter(
-      themes?.some((item) => theme?.includes(item.slug))
-        ? theme.split(' ')
-        : [],
+      themes?.some(({ slug }) => theme?.includes(slug)) ? theme.split(' ') : [],
     )
     setPage(pageNumber ? parseInt(pageNumber, 10) : 1)
   }
@@ -192,7 +189,7 @@ const Search = ({ themes }) => {
                 </Styled.Button>
               ))}
             {themes
-              .filter((item) => themeFilter.includes(item.slug))
+              .filter(({ slug }) => themeFilter.includes(slug))
               .map(({ title, slug }) => (
                 <Styled.Button
                   key={slug}
@@ -241,10 +238,15 @@ const Search = ({ themes }) => {
 }
 
 export async function getStaticProps() {
-  const { data } = await apolloClient.query({ query: QUERY }).catch() // TODO: log this error in sentry
+  const themeQuery = qs.stringify(
+    { fields: ['title', 'slug'] },
+    { encodeValuesOnly: true },
+  )
+
+  const themes = await fetchAPI(`/api/themes?${themeQuery}`)
 
   return {
-    props: { themes: data.themes },
+    props: { themes: themes.data },
     revalidate: 10,
   }
 }

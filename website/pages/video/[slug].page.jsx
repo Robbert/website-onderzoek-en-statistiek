@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+import qs from 'qs'
 
 import FallbackPage from '~/components/FallbackPage/FallbackPage'
 import Seo from '~/components/Seo/Seo'
@@ -15,8 +16,7 @@ import {
   formatDate,
   PLACEHOLDER_IMAGE,
 } from '~/lib/utils'
-import apolloClient from '~/lib/apolloClient'
-import QUERY from './video.query.gql'
+import videoQuery from './video.query'
 import * as Styled from './video.style'
 
 const LocalVideo = ({
@@ -84,7 +84,7 @@ const Video = ({
   subtitleDefault,
   externalVideoSource,
   externalEmbedSource,
-  theme,
+  themes,
 }) => {
   const router = useRouter()
   if (router.isFallback) {
@@ -165,7 +165,7 @@ const Video = ({
           colStart={{ small: 1, large: 3 }}
           colRange={{ small: 4, large: 8 }}
         >
-          <ContentFooter type="video" themes={theme} />
+          <ContentFooter type="video" themes={themes} />
         </GridItem>
       </Grid>
     </>
@@ -173,10 +173,14 @@ const Video = ({
 }
 
 export async function getStaticPaths() {
-  const videos = await fetchAPI('/videos?_limit=-1')
+  const videos = await fetchAPI('/api/videos?fields=id').then((metaResult) =>
+    fetchAPI(
+      `/api/videos?fields=slug&pagination[pageSize]=${metaResult.meta.pagination.total}`,
+    ),
+  )
 
   return {
-    paths: videos.map(({ slug }) => ({
+    paths: videos.data.map(({ slug }) => ({
       params: {
         slug,
       },
@@ -186,14 +190,19 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { data } = await apolloClient
-    .query({
-      query: QUERY,
-      variables: { slug: params.slug },
-    })
-    .catch() // TODO: log this error in sentry
+  const data = await fetchAPI(
+    `/api/videos?${qs.stringify(
+      {
+        filters: { slug: { $eq: params.slug } },
+        ...videoQuery,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    )}`,
+  )
 
-  if (!data.videos[0]) {
+  if (!data.data[0]) {
     return {
       notFound: true,
       revalidate: 1,
@@ -201,7 +210,7 @@ export async function getStaticProps({ params }) {
   }
 
   return {
-    props: data.videos[0],
+    props: data.data[0],
     revalidate: 1,
   }
 }

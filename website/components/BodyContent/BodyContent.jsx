@@ -6,7 +6,7 @@ import { ChevronRight, ExternalLink } from '@amsterdam/asc-assets'
 import { GridItem } from '../Grid/Grid.style'
 import Heading from '../Heading/Heading'
 import MarkdownToHtml from '../MarkdownToHtml/MarkdownToHtml'
-import { normalizeBody } from '../../lib/utils'
+import { normalizeBody } from '../../lib/normalizeUtils'
 import * as Styled from './BodyContent.style'
 
 const Visualisation = dynamic(() =>
@@ -33,7 +33,7 @@ const BodyContent = ({
           </GridItem>
         )
       }
-      if (item.type === 'textwithlinks') {
+      if (item.type === 'text-with-links') {
         return (
           <Fragment key={item.id}>
             <GridItem

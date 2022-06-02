@@ -37,7 +37,6 @@ Add the following to your VSCode `settings.json`, to fix lint errors on save:
     * To use local cms api: `yarn website`
     * To use acc cms api: `yarn website:acc`
 * Visit website at http://localhost:3000
-* To (re)build the search content: `yarn build-search`
 * To analyze bundle sizes: `yarn website:analyze`
 
 See the [issue board](https://gitlab.com/os-amsterdam/website-onderzoek-en-statistiek/-/boards) for current issues.

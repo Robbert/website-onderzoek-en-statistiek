@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import qs from 'qs'
 
 import FallbackPage from '~/components/FallbackPage/FallbackPage'
 import Seo from '~/components/Seo/Seo'
@@ -8,8 +9,7 @@ import Link from '~/components/Link/Link'
 import BodyContent from '~/components/BodyContent/BodyContent'
 import ContentFooter from '~/components/ContentFooter/ContentFooter'
 import { fetchAPI, getStrapiMedia, formatDate, formatBytes } from '~/lib/utils'
-import apolloClient from '~/lib/apolloClient'
-import QUERY from './dataset.query.gql'
+import datasetQuery from './dataset.query'
 import * as Styled from './dataset.style'
 
 const Dataset = ({
@@ -19,13 +19,13 @@ const Dataset = ({
   contactName,
   contactMail,
   purpose,
-  published_at: published,
-  updated_at: updated,
+  publishedAt: published,
+  updatedAt: updated,
   frequency,
   resources,
   squareImage,
   rectangularImage,
-  theme,
+  themes,
 }) => {
   const router = useRouter()
   if (router.isFallback) {
@@ -159,7 +159,7 @@ const Dataset = ({
           colStart={{ small: 1, large: 2 }}
           colRange={{ small: 4, large: 10 }}
         >
-          <ContentFooter type="dataset" themes={theme} />
+          <ContentFooter type="dataset" themes={themes} />
         </GridItem>
       </Grid>
     </>
@@ -167,10 +167,15 @@ const Dataset = ({
 }
 
 export async function getStaticPaths() {
-  const datasets = await fetchAPI('/datasets?_limit=-1')
+  const datasets = await fetchAPI('/api/datasets?fields=id').then(
+    (metaResult) =>
+      fetchAPI(
+        `/api/datasets?fields=slug&pagination[pageSize]=${metaResult.meta.pagination.total}`,
+      ),
+  )
 
   return {
-    paths: datasets.map(({ slug }) => ({
+    paths: datasets.data.map(({ slug }) => ({
       params: {
         slug,
       },
@@ -180,14 +185,19 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { data } = await apolloClient
-    .query({
-      query: QUERY,
-      variables: { slug: params.slug },
-    })
-    .catch() // TODO: log this error in sentry
+  const data = await fetchAPI(
+    `/api/datasets?${qs.stringify(
+      {
+        filters: { slug: { $eq: params.slug } },
+        ...datasetQuery,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    )}`,
+  )
 
-  if (!data.datasets[0]) {
+  if (!data.data[0]) {
     return {
       notFound: true,
       revalidate: 1,
@@ -195,7 +205,7 @@ export async function getStaticProps({ params }) {
   }
 
   return {
-    props: data.datasets[0],
+    props: data.data[0],
     revalidate: 1,
   }
 }

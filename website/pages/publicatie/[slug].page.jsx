@@ -1,5 +1,6 @@
 import NextImage from 'next/image'
 import { useRouter } from 'next/router'
+import qs from 'qs'
 
 import FallbackPage from '~/components/FallbackPage/FallbackPage'
 import Seo from '~/components/Seo/Seo'
@@ -19,9 +20,8 @@ import {
   formatBytes,
   dateConfig,
 } from '~/lib/utils'
-import apolloClient from '~/lib/apolloClient'
 import * as Styled from './publication.style'
-import QUERY from './publication.query.gql'
+import publicationQuery from './publication.query'
 
 const DownloadButtons = ({ links }) => (
   <List>
@@ -52,17 +52,16 @@ const Publication = ({
   coverImage,
   squareImage,
   rectangularImage,
-  theme,
+  themes,
 }) => {
   const router = useRouter()
   if (router.isFallback) {
     return <FallbackPage />
   }
 
-  // this line can be removed when multiple file download is deployed
-  const files = Array.isArray(file) ? file : [file]
-
   const MAX_DOWNLOAD_LINKS = 3
+
+  const files = Array.isArray(file) ? file : [file]
 
   return (
     <>
@@ -160,7 +159,7 @@ const Publication = ({
           colStart={{ small: 1, large: 2 }}
           colRange={{ small: 4, large: 6 }}
         >
-          <ContentFooter type="publicatie" themes={theme} />
+          <ContentFooter type="publicatie" themes={themes} />
         </GridItem>
       </Grid>
     </>
@@ -168,10 +167,15 @@ const Publication = ({
 }
 
 export async function getStaticPaths() {
-  const publications = await fetchAPI('/publications?_limit=-1')
+  const publications = await fetchAPI('/api/publications?fields=id').then(
+    (metaResult) =>
+      fetchAPI(
+        `/api/publications?fields=slug&pagination[pageSize]=${metaResult.meta.pagination.total}`,
+      ),
+  )
 
   return {
-    paths: publications.map(({ slug }) => ({
+    paths: publications.data.map(({ slug }) => ({
       params: {
         slug,
       },
@@ -181,14 +185,19 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { data } = await apolloClient
-    .query({
-      query: QUERY,
-      variables: { slug: params.slug },
-    })
-    .catch() // TODO: log this error in sentry
+  const data = await fetchAPI(
+    `/api/publications?${qs.stringify(
+      {
+        filters: { slug: { $eq: params.slug } },
+        ...publicationQuery,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    )}`,
+  )
 
-  if (!data.publications[0]) {
+  if (!data.data[0]) {
     return {
       notFound: true,
       revalidate: 1,
@@ -196,7 +205,7 @@ export async function getStaticProps({ params }) {
   }
 
   return {
-    props: data.publications[0],
+    props: data.data[0],
     revalidate: 1,
   }
 }

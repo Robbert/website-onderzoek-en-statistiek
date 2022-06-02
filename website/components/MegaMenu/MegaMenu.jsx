@@ -7,7 +7,7 @@ import Link from '../Link/Link'
 import HEADER_LINKS from '../../constants/contentLinks'
 import CONTENT_TYPES from '../../constants/contentTypes'
 import ShortcutContext from '../../lib/ShortcutContext'
-import { normalizeItemList } from '../../lib/utils'
+import { normalizeItemList } from '../../lib/normalizeUtils'
 import * as Styled from './MegaMenu.style'
 
 const MegaMenu = ({ isOpen, currentPath }) => {
