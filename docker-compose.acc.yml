@@ -32,7 +32,7 @@ services:
       JWT_SECRET: $JWT_SECRET
       API_TOKEN_SALT: $API_TOKEN_SALT
       KEYCLOAK_NAME: $KEYCLOAK_NAME
-      KEYCLOAK_PASS_ACC: $KEYCLOAK_PASS_ACC
+      KEYCLOAK_PASS_ACC: $KEYCLOAK_PASS
       KEYCLOAK_REALM_ACC: datapunt-ad-acc
       WEBSITE_DOMAIN: https://acc.onderzoek.amsterdam.nl
     networks:
