@@ -18,6 +18,7 @@ module.exports = [
       },
     },
   },
+  'global::flatten-response',
   'strapi::session',
   'strapi::favicon',
   'strapi::public',

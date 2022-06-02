@@ -15,16 +15,6 @@ module.exports = () => ({
       amountLimit: 10000,
     },
   },
-  transformer: {
-    enabled: true,
-    config: {
-      prefix: '/api/',
-      responseTransforms: {
-        removeAttributesKey: true,
-        removeDataKey: true,
-      },
-    },
-  },
   'os-utilities': {
     enabled: true,
     resolve: './src/plugins/os-utilities',
