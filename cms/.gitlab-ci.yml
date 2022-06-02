@@ -10,7 +10,7 @@ build cms:
     - if: '$CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME == "main"'
       changes:
       - cms/**/*
-      - .gitlab-ci.yml
+      - "*.yml"
       variables:
         TAG_CMS: $TAG_CMS_LATEST_PROD
   script:
