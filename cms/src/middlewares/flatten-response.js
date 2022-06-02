@@ -1,47 +1,47 @@
-/* eslint-disable guard-for-in */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-use-before-define */
+const isObject = (data) => Object.prototype.toString.call(data) === '[object Object]';
 
-function flattenArray(obj) {
-  return obj.map((e) => flatten(e));
-}
+const flatten = (data) => (!data.attributes ? data : data.attributes);
 
-function flattenData(obj) {
-  return flatten(obj.data);
-}
+const flattenApiResponse = (data) => {
+  let mutableData = data;
 
-function flattenAttrs(obj) {
-  const attrs = {};
-  for (const key in obj.attributes) {
-    attrs[key] = flatten(obj.attributes[key]);
+  if (Array.isArray(mutableData)) {
+    return mutableData.map((item) => flattenApiResponse(item));
   }
-  return {
-    id: obj.id,
-    ...attrs,
-  };
-}
 
-function flatten(obj) {
-  if (Array.isArray(obj)) {
-    return flattenArray(obj);
+  if (isObject(mutableData)) {
+    if (Array.isArray(mutableData.data)) {
+      mutableData = [...mutableData.data];
+    } else if (isObject(mutableData.data)) {
+      mutableData = flatten({ ...mutableData.data });
+    } else if (mutableData.data === null) {
+      mutableData = null;
+    } else {
+      mutableData = flatten(mutableData);
+    }
+
+    if (mutableData) {
+      Object.keys(mutableData).forEach((key) => {
+        // don't mutate vega-lite specifications
+        if (key !== 'specification') {
+          mutableData[key] = flattenApiResponse(mutableData[key]);
+        }
+      });
+    }
+
+    return mutableData;
   }
-  if (obj && obj.data) {
-    return flattenData(obj);
-  }
-  if (obj && obj.attributes) {
-    return flattenAttrs(obj);
-  }
-  return obj;
-}
+
+  return mutableData;
+};
 
 async function respond(ctx, next) {
   await next();
   if (!ctx.url.startsWith('/api')) {
     return;
   }
-  console.log(`API request (${ctx.url}) detected, transforming response json...`);
   ctx.response.body = {
-    data: flatten(ctx.response.body.data),
+    data: flattenApiResponse(ctx.response.body.data),
     meta: ctx.response.body.meta,
   };
 }
