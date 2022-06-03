@@ -14,7 +14,7 @@ export const normalizeItemList = (list) => {
   if (list) {
     const normalizedList = list.flatMap((section) =>
       Object.keys(section)
-        .filter((key) => types.includes(key))
+        .filter((key) => types.includes(key) && section[key])
         .flatMap((key) => {
           const item = section[key]
           const contentName = CONTENT_TYPES[key.slice(0, -1)]?.name
