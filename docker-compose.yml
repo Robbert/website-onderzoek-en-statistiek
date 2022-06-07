@@ -32,7 +32,7 @@ services:
       JWT_SECRET: $JWT_SECRET
       API_TOKEN_SALT: $API_TOKEN_SALT
       KEYCLOAK_NAME: $KEYCLOAK_NAME
-      KEYCLOAK_PASS_PROD: $KEYCLOAK_PASS_PROD
+      KEYCLOAK_PASS_PROD: $KEYCLOAK_PASS
       KEYCLOAK_REALM_PROD: datapunt-ad
       WEBSITE_DOMAIN: https://onderzoek.amsterdam.nl
     networks:
