@@ -25,7 +25,7 @@ const BodyStyle = createGlobalStyle`
 const withTypeBreakpoint = (size) => (type) =>
   `(${type}: ${size + (type === 'max-width' ? -1 : 0)}px)`
 
-const MyApp = ({ Component, pageProps }) => {
+const MyApp = ({ Component, pageProps, contextData }) => {
   const [searchIndex, setSearchIndex] = useState(null)
   const router = useRouter()
   const { query, asPath } = router
@@ -79,7 +79,7 @@ const MyApp = ({ Component, pageProps }) => {
       <GlobalStyle />
       <BodyStyle />
       <SearchContext.Provider value={searchIndex}>
-        <ShortcutContext.Provider value={pageProps?.homepage?.shortcuts}>
+        <ShortcutContext.Provider value={contextData.data.shortcuts}>
           <Layout>
             <Script id="piwik-pro-code" src="/piwik.js" />
             <Component {...pageProps} />
@@ -93,13 +93,13 @@ const MyApp = ({ Component, pageProps }) => {
 MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext)
 
-  const data = await fetchAPI(
+  const { data } = await fetchAPI(
     `/api/homepage?${qs.stringify(appQuery, {
       encodeValuesOnly: true,
     })}`,
   )
 
-  return { ...appProps, pageProps: { data } }
+  return { ...appProps, contextData: { data } }
 }
 
 export default MyApp

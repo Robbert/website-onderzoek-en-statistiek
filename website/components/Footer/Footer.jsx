@@ -136,7 +136,7 @@ const Footer = (props) => (
           <li>
             <Link
               darkBackground
-              href="https://www.amsterdam.nl/nieuwsbrieven/bestuur-organisatie/dienstverlening/nieuwsbrief-data-informatie/nieuwsbrief-data-informatie/"
+              href="https://action.spike.email/104050/Subscribe/00db211a-df55-47d8-bede-b6951180661f?culture=nl-nl"
               variant="inList"
               external
             >
