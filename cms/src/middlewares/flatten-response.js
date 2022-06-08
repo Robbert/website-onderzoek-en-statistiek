@@ -37,7 +37,7 @@ const flattenApiResponse = (data) => {
 
 async function respond(ctx, next) {
   await next();
-  if (!ctx.url.startsWith('/api')) {
+  if (!ctx.url.startsWith('/api') || ctx.url.startsWith('/api/upload')) {
     return;
   }
   ctx.response.body = {
