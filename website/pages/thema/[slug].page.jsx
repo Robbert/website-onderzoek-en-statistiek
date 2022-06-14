@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import NextImage from 'next/image'
 import { ChevronRight } from '@amsterdam/asc-assets'
 import { useRouter } from 'next/router'
@@ -114,6 +115,10 @@ const Theme = ({
                     renderer="svg"
                     actions={false}
                     formatLocale={VISUALISATION_LOCALE}
+                    onNewView={(view) => {
+                      view._el.firstChild.removeAttribute('width')
+                      view._el.firstChild.removeAttribute('height')
+                    }}
                   />
                 )}
               </Styled.ChartContainer>
