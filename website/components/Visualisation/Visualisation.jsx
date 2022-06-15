@@ -77,7 +77,7 @@ const Visualisation = ({
         rowStart={1}
       >
         {title && (
-          <Styled.Heading as="h2" styleAs="h5" gutterBottom={40}>
+          <Styled.Heading forwardedAs="h2" styleAs="h5" gutterBottom={40}>
             {title}
           </Styled.Heading>
         )}
