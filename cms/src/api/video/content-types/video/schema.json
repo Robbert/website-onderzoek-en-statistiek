@@ -48,7 +48,8 @@
       "components": [
         "shared.text",
         "shared.text-with-links",
-        "shared.visualisation"
+        "shared.visualisation",
+        "shared.panel-group"
       ]
     },
     "rectangularImage": {

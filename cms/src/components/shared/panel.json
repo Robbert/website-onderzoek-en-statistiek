@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_shared_panels",
+  "info": {
+    "displayName": "panel",
+    "icon": "chart-area"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "specification": {
+      "type": "json"
+    },
+    "altText": {
+      "type": "string",
+      "required": true
+    },
+    "source": {
+      "type": "string"
+    },
+    "text": {
+      "type": "richtext"
+    }
+  }
+}

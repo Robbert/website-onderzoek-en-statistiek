@@ -1,0 +1,54 @@
+{
+  "collectionName": "components_shared_panel_groups",
+  "info": {
+    "displayName": "panelGroup",
+    "icon": "grip-horizontal",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "variant": {
+      "type": "enumeration",
+      "enum": [
+        "gecentreerd",
+        "rechts",
+        "links",
+        "kleurenbalk"
+      ],
+      "default": "gecentreerd"
+    },
+    "color": {
+      "type": "enumeration",
+      "enum": [
+        "geel",
+        "groen",
+        "lichtblauw",
+        "lichtgroen",
+        "oranje",
+        "paars",
+        "roze"
+      ],
+      "default": "lichtblauw"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "dropdown"
+      ],
+      "default": "dropdown",
+      "required": true
+    },
+    "panelGroupLabel": {
+      "type": "string",
+      "required": true
+    },
+    "panel": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.panel"
+    }
+  }
+}
