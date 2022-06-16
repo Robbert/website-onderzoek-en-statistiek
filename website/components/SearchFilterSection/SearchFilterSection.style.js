@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import { Select as SelectASC, breakpoint } from '@amsterdam/asc-ui'
+import { breakpoint } from '@amsterdam/asc-ui'
 
 import { GridItem } from '../Grid/Grid.style'
 import FieldsetComponent from '../Fieldset/Fieldset'
 import ButtonComponent from '../Button/Button'
+import SelectComponent from '../Select/Select'
 
 export const FilterPanel = styled(GridItem)`
   @media screen and ${breakpoint('max-width', 'laptop')} {
@@ -77,7 +78,7 @@ export const SortBar = styled.div`
   margin-bottom: 24px;
 `
 
-export const Select = styled(SelectASC)`
+export const Select = styled(SelectComponent)`
   width: 220px;
   font-size: 18px;
   margin-bottom: 24px;
