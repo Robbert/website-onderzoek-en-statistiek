@@ -33,7 +33,7 @@
       ],
       "default": "lichtblauw"
     },
-    "type": {
+    "selectorType": {
       "type": "enumeration",
       "enum": [
         "dropdown"
@@ -41,7 +41,7 @@
       "default": "dropdown",
       "required": true
     },
-    "panelGroupLabel": {
+    "selectorLabel": {
       "type": "string",
       "required": true
     },
