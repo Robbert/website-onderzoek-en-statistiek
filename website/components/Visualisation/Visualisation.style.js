@@ -1,7 +1,5 @@
-/* eslint-disable indent */
 import styled from 'styled-components'
 import { breakpoint, Icon as IconASC } from '@amsterdam/asc-ui'
-import { VegaLite } from 'react-vega'
 
 import {
   Grid as GridComponent,
@@ -11,7 +9,9 @@ import HeadingComponent from '~/components/Heading/Heading'
 import Paragraph from '~/components/Paragraph/Paragraph'
 import ButtonComponent from '~/components/Button/Button'
 import DownloadButtonComponent from '~/components/DownloadButton/DownloadButton'
+import SelectComponent from '~/components/Select/Select'
 import { getFontColor } from '~/lib/utils'
+import { calculateFluidStyle } from '~/lib/typographyUtils'
 
 export const Grid = styled(GridComponent)`
   margin-bottom: ${({ variant }) =>
@@ -20,11 +20,6 @@ export const Grid = styled(GridComponent)`
   @media screen and ${breakpoint('max-width', 'laptop')} {
     margin-bottom: 40px;
   }
-`
-
-export const VegaVisualisation = styled(VegaLite)`
-  background-color: #fff;
-  width: 100%;
 `
 
 export const Heading = styled(HeadingComponent)`
@@ -82,4 +77,20 @@ export const ColorBar = styled.div`
     min-height: 160px;
   }
   ${gridItemStyle}
+`
+
+export const Select = styled(SelectComponent)`
+  margin-bottom: 24px;
+`
+
+export const Label = styled.label`
+  display: inline-flex;
+  flex-direction: column;
+`
+
+export const LabelText = styled.span`
+  font-size: ${calculateFluidStyle(16, 18)};
+  line-height: ${calculateFluidStyle(22, 24)};
+  font-weight: 800;
+  margin-bottom: 16px;
 `

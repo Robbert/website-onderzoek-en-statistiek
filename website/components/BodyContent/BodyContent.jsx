@@ -77,7 +77,7 @@ const BodyContent = ({
           </Fragment>
         )
       }
-      if (item.type === 'visualisation') {
+      if (item.type === 'visualisation' || item.type === 'panel-group') {
         return (
           <GridItem
             key={item.id}

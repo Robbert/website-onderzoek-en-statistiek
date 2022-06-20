@@ -144,3 +144,18 @@ export const getFontColor = (backgroundColor) =>
         color: black;
         ${svgFill('black')}
       `
+
+export const handleDownloadImage = async (ref, filename) => {
+  const imageExporter = (await import('./image-exporter')).exportComponentAsPNG
+  imageExporter(ref, {
+    fileName: `${filename}.png`,
+    html2CanvasOptions: {
+      onclone: (document) => {
+        if (document.querySelector('.source')) {
+          // eslint-disable-next-line no-param-reassign
+          document.querySelector('.source').style.color = 'black'
+        }
+      },
+    },
+  })
+}

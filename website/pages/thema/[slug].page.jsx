@@ -1,8 +1,8 @@
-/* eslint-disable no-underscore-dangle */
 import NextImage from 'next/image'
 import { ChevronRight } from '@amsterdam/asc-assets'
 import { useRouter } from 'next/router'
 import qs from 'qs'
+import dynamic from 'next/dynamic'
 
 import FallbackPage from '~/components/FallbackPage/FallbackPage'
 import Seo from '~/components/Seo/Seo'
@@ -20,12 +20,12 @@ import {
   PLACEHOLDER_IMAGE,
 } from '~/lib/utils'
 import { normalizeItemList } from '~/lib/normalizeUtils'
-import {
-  VISUALISATION_CONFIG,
-  VISUALISATION_LOCALE,
-} from '~/constants/visualisationConfig'
 import themeQuery from './thema.query'
 import * as Styled from './theme.style'
+
+const VegaVisualisation = dynamic(() =>
+  import('~/components/VegaVisualisation/VegaVisualisation'),
+)
 
 const Theme = ({
   title,
@@ -102,23 +102,8 @@ const Theme = ({
                   />
                 )}
                 {!visualisation.image && visualisation.specification && (
-                  <Styled.VegaVisualisation
-                    className="chart"
-                    spec={
-                      visualisation.specification.config
-                        ? visualisation.specification
-                        : {
-                            config: VISUALISATION_CONFIG,
-                            ...visualisation.specification,
-                          }
-                    }
-                    renderer="svg"
-                    actions={false}
-                    formatLocale={VISUALISATION_LOCALE}
-                    onNewView={(view) => {
-                      view._el.firstChild.removeAttribute('width')
-                      view._el.firstChild.removeAttribute('height')
-                    }}
+                  <VegaVisualisation
+                    specification={visualisation.specification}
                   />
                 )}
               </Styled.ChartContainer>

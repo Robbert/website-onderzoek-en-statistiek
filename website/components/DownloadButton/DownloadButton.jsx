@@ -20,7 +20,11 @@ const DownloadButton = ({
     <Button
       type="button"
       onClick={() => {
-        pushCustomEvent('Download', type, url.split('/').pop())
+        pushCustomEvent(
+          'Download',
+          type,
+          type === 'csv' ? fileName : url.split('/').pop(),
+        )
         downloadFile(url, {}, fileName || url.split('/').pop())
       }}
       {...otherProps}

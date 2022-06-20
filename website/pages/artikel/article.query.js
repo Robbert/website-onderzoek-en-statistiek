@@ -18,6 +18,9 @@ const articleQuery = {
         image: {
           fields: ['url', 'caption', 'width', 'height'],
         },
+        panel: {
+          populate: '*',
+        },
       },
     },
     related: {

@@ -1,16 +1,17 @@
-/* eslint-disable no-underscore-dangle */
 import { useState, useEffect, useRef } from 'react'
 import NextImage from 'next/image'
 import slugify from 'slugify'
 import { Download } from '@amsterdam/asc-assets'
 
 import { GridItem } from '~/components/Grid/Grid.style'
-import { getStrapiMedia, PLACEHOLDER_IMAGE, translateColor } from '~/lib/utils'
-import { pushCustomEvent } from '~/lib/analyticsUtils'
+import VegaVisualisation from '../VegaVisualisation/VegaVisualisation'
 import {
-  VISUALISATION_CONFIG,
-  VISUALISATION_LOCALE,
-} from '~/constants/visualisationConfig'
+  getStrapiMedia,
+  PLACEHOLDER_IMAGE,
+  translateColor,
+  handleDownloadImage,
+} from '~/lib/utils'
+import { pushCustomEvent } from '~/lib/analyticsUtils'
 import * as Styled from './Visualisation.style'
 
 const Visualisation = ({
@@ -22,32 +23,36 @@ const Visualisation = ({
   color,
   altText,
   specification,
+  selectorLabel,
+  panel: panels,
 }) => {
   const [downloadDataUrl, setDownloadDataUrl] = useState()
+  const [selectedPanelID, setSelectedPanelID] = useState(
+    panels && panels[0]?.id,
+  )
+
   const visRef = useRef()
   const filename = title
     ? slugify(title, { lower: true, strict: true })
     : 'visualisatie'
 
-  const handleDownloadImage = async () => {
-    const imageExporter = (await import('./image-exporter'))
-      .exportComponentAsPNG
-    imageExporter(visRef, {
-      fileName: `${filename}.png`,
-      html2CanvasOptions: {
-        onclone: (document) => {
-          if (document.querySelector('.source')) {
-            // eslint-disable-next-line no-param-reassign
-            document.querySelector('.source').style.color = 'black'
-          }
-        },
-      },
-    })
-  }
+  const selectedPanel = panels
+    ? panels.find(({ id }) => id === selectedPanelID)
+    : {
+        text,
+        source,
+        image,
+        altText,
+        specification,
+      }
 
   useEffect(() => {
-    if (!specification || !specification.data) return
-    const { values, url } = specification.data
+    if (!selectedPanel?.specification?.data) {
+      setDownloadDataUrl(null)
+      return
+    }
+
+    const { values, url } = selectedPanel.specification.data
     if (values) {
       const keys = Object.keys(values[0])
       const commaSeparatedString = [
@@ -58,9 +63,8 @@ const Visualisation = ({
     }
     if (url && url.includes('format=json')) {
       setDownloadDataUrl(url.replace('format=json', 'format=csv'))
-      pushCustomEvent('Download', 'visualisation', url.split('/').pop())
     }
-  }, [specification])
+  }, [selectedPanelID])
 
   return (
     // TODO: add layout for variants with text left or right from image
@@ -80,6 +84,21 @@ const Visualisation = ({
           <Styled.Heading forwardedAs="h2" styleAs="h5" gutterBottom={40}>
             {title}
           </Styled.Heading>
+        )}
+        {panels?.length > 1 && (
+          <Styled.Label>
+            <Styled.LabelText>{selectorLabel}</Styled.LabelText>
+            <Styled.Select
+              value={selectedPanelID}
+              onChange={(e) => setSelectedPanelID(+e.target.value)}
+            >
+              {panels.map(({ id, label }) => (
+                <option key={id} value={id}>
+                  {label}
+                </option>
+              ))}
+            </Styled.Select>
+          </Styled.Label>
         )}
       </GridItem>
 
@@ -106,51 +125,37 @@ const Visualisation = ({
         }
         rowStart={2}
       >
-        {image && (
+        {selectedPanel && selectedPanel.image && (
           <NextImage
-            src={getStrapiMedia(image)}
-            alt={altText}
-            width={image.width}
-            height={image.height}
+            src={getStrapiMedia(selectedPanel.image)}
+            alt={selectedPanel.altText}
+            width={selectedPanel.image.width}
+            height={selectedPanel.image.height}
             layout="responsive"
             placeholder="blur"
             blurDataURL={PLACEHOLDER_IMAGE}
             priority
           />
         )}
-        {specification && (
-          <Styled.VegaVisualisation
-            spec={
-              specification.config
-                ? specification
-                : {
-                    config: VISUALISATION_CONFIG,
-                    ...specification,
-                  }
-            }
-            renderer="svg"
-            actions={false}
-            formatLocale={VISUALISATION_LOCALE}
-            onNewView={(view) => {
-              view._el.firstChild.removeAttribute('width')
-              view._el.firstChild.removeAttribute('height')
-            }}
-          />
+        {selectedPanel?.specification && (
+          <VegaVisualisation specification={selectedPanel.specification} />
         )}
         <Styled.VisualisationFooter>
-          {source && (
+          {selectedPanel?.source && (
             <Styled.Source
-              className="source"
               small
               variant={variant}
               backgroundColor={variant === 'kleurenbalk' && color}
             >
-              {`Bron: ${source}`}
+              {`Bron: ${selectedPanel.source}`}
             </Styled.Source>
           )}
           <Styled.Button
             type="button"
-            onClick={handleDownloadImage}
+            onClick={() => {
+              pushCustomEvent('Download', 'visualisation', filename)
+              handleDownloadImage(visRef, filename)
+            }}
             variant="textButton"
             backgroundColor={variant === 'kleurenbalk' && color}
             small
@@ -183,13 +188,13 @@ const Visualisation = ({
         colRange={{ small: 4, large: 8 }}
         rowStart={3}
       >
-        {text && (
+        {selectedPanel?.text && (
           <Styled.Text
             variant={variant}
             backgroundColor={variant === 'kleurenbalk' && color}
             data-html2canvas-ignore
           >
-            {text}
+            {selectedPanel.text}
           </Styled.Text>
         )}
       </GridItem>
