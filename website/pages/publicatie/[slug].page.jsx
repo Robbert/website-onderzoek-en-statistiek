@@ -61,7 +61,10 @@ const Publication = ({
 
   const MAX_DOWNLOAD_LINKS = 3
 
-  const files = Array.isArray(file) ? file : [file]
+  const fileSorter = (a, b) => a.name.localeCompare(b.name)
+  const files = Array.isArray(file)
+    ? file.sort(fileSorter)
+    : [file].sort(fileSorter)
 
   return (
     <>
