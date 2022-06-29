@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { themeColor, breakpoint } from '@amsterdam/asc-ui'
 
 import { fluidTypoStyle, typographyStyle } from '~/lib/typographyUtils'
@@ -15,6 +15,7 @@ export const Table = styled.table`
 
   thead {
     tr {
+      border-bottom: 1px solid ${themeColor('tint', 'level7')};
       &:hover {
         background-color: white;
       }
@@ -22,7 +23,7 @@ export const Table = styled.table`
   }
 
   th {
-    font-weight: 800;
+    font-weight: 500;
     text-align: left;
   }
 
@@ -35,7 +36,7 @@ export const Table = styled.table`
 
   th,
   td {
-    padding: 12px 16px;
+    padding: 8px 16px;
   }
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
@@ -45,12 +46,28 @@ export const Table = styled.table`
     tr {
       display: block;
       border-bottom: none;
-      margin-bottom: 40px;
+      margin-bottom: 16px;
     }
     td {
       display: block;
       padding-left: 0;
       width: 100%;
     }
+    th,
+    td {
+      padding: 4px 0px;
+    }
+
+    ${({ headerArray }) =>
+      headerArray &&
+      headerArray.map(
+        (item, index) =>
+          css`
+            td:nth-of-type(${index + 1})::before {
+              content: '${item}: ';
+              font-weight: 800;
+            }
+          `,
+      )}
   }
 `
