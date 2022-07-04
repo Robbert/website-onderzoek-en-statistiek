@@ -50,7 +50,7 @@ const Card = ({
   )
 
   return (
-    <>
+    <Styled.CardWrapper>
       {!clickableImage && cardImage}
       <NextLink href={href} passHref>
         <Styled.Link>
@@ -71,7 +71,7 @@ const Card = ({
           </Styled.TextWrapper>
         </Styled.Link>
       </NextLink>
-    </>
+    </Styled.CardWrapper>
   )
 }
 

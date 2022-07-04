@@ -4,6 +4,10 @@ import { themeColor, breakpoint } from '@amsterdam/asc-ui'
 import HeadingComponent from '../Heading/Heading'
 import Paragraph from '../Paragraph/Paragraph'
 
+export const CardWrapper = styled.div`
+  width: 100%;
+`
+
 export const IconContainer = styled.div`
   position: absolute;
   left: 16px;
@@ -49,7 +53,7 @@ export const Link = styled.a`
 `
 // padding-top needed for browsers that don't support aspect-ratio
 export const ImageWrapper = styled.div`
-  display: block;
+  display: inline-block;
   position: relative;
   width: 100%;
   aspect-ratio: ${({ aspectRatio }) => aspectRatio};
