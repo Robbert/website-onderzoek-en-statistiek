@@ -6,7 +6,8 @@
     "website:install": "cd website && yarn",
     "website:acc": "cd website && yarn dev-with-acc",
     "website:analyze": "cd website && yarn analyze",
-    "website": "cd website && yarn develop"
+    "website": "cd website && yarn develop",
+    "server:check": "cd server && sh checkNginxConfig.sh"
   },
   "license": "MIT"
 }

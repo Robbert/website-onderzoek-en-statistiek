@@ -24,6 +24,9 @@ Add the following to your VSCode `settings.json`, to fix lint errors on save:
 }
 ```
 
+### Server
+* Check Nginx configuration: `yarn server:check`
+
 ### CMS
 * Start local database: `yarn cms:db`
 * Open a new terminal and install cms dependencies: `yarn cms:install`
