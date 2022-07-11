@@ -1,57 +1,63 @@
-@import url("https://fast.fonts.net/t/1.css?apiType=css&projectid=88ed95f9-d020-4dee-be83-444c3ada1a0e");
-
-@font-face {
-  font-family: "Avenir Next W01";
-  src: url("/fonts/Fonts/d1d43d8e-e792-4a3d-aebe-2afeafdffbee.woff2") format("woff2"), url("/fonts/Fonts/0df04b85-219c-4fe0-9736-12c04931d434.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
+@font-face{
+  font-family:"Amsterdam Sans";
+  font-style:normal;
+  font-weight:300;
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Light.eot?#iefix);
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Light.eot?#iefix) format("eot"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Light.woff2) format("woff2"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff/AmsterdamSans-Light.woff) format("woff")
+}
+@font-face{
+  font-family:"Amsterdam Sans";
+  font-style:normal;
+  font-weight:400;
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Regular.eot?#iefix);
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Regular.eot?#iefix) format("eot"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Regular.woff2) format("woff2"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff/AmsterdamSans-Regular.woff) format("woff")
+}
+@font-face{
+  font-family:"Amsterdam Sans";
+  font-style:italic;
+  font-weight:400;
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Italic.eot?#iefix);
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Italic.eot?#iefix) format("eot"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Italic.woff2) format("woff2"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff/AmsterdamSans-Italic.woff) format("woff")
+}
+@font-face{
+  font-family:"Amsterdam Sans";
+  font-style:normal;
+  font-weight:700;
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Bold.eot?#iefix);
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Bold.eot?#iefix) format("eot"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Bold.woff2) format("woff2"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff/AmsterdamSans-Bold.woff) format("woff")
+}
+@font-face{
+  font-family:"Amsterdam Sans";
+  font-style:italic;
+  font-weight:700;
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-BoldItalic.eot?#iefix);
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-BoldItalic.eot?#iefix) format("eot"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-BoldItalic.woff2) format("woff2"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff/AmsterdamSans-BoldItalic.woff) format("woff")
+}
+@font-face{
+  font-family:"Amsterdam Sans";
+  font-style:normal;
+  font-weight:800;
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-ExtraBold.eot?#iefix);
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-ExtraBold.eot?#iefix) format("eot"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-ExtraBold.woff2) format("woff2"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff/AmsterdamSans-ExtraBold.woff) format("woff")
 }
 
-@font-face {
-  font-family: "Avenir Next W01";
-  src: url("/fonts/Fonts/6313d5bd-7fe9-48e0-aa23-56a9b46495d3.woff2") format("woff2"), url("/fonts/Fonts/2ca5da19-7411-4b22-9b67-9095858f1bc0.woff") format("woff");
-  font-weight: 400;
-  font-style: italic;
-}
+/*
+  All vega visualisations before 11-7-2022 use Avenir. Changing all these specs is a lot of work,
+  so instead the old font-face definition is defined here with the new font files, so all old visualisations
+  are rendered with Amsterdam Sans.
+*/
 
-@font-face {
-  font-family: "Avenir Next W01";
-  src: url("/fonts/Fonts/0f3243d5-9104-45fb-aa69-48a50732fc11.woff2") format("woff2"), url("/fonts/Fonts/cfd7fc4b-6b4c-4276-91b4-f39ef7809e68.woff") format("woff");
-  font-weight: 500;
-  font-style: normal;
+@font-face{
+  font-family:"Avenir Next W01";
+  font-style:normal;
+  font-weight:400;
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Regular.eot?#iefix);
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Regular.eot?#iefix) format("eot"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Regular.woff2) format("woff2"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff/AmsterdamSans-Regular.woff) format("woff")
 }
-
-@font-face {
-  font-family: "Avenir Next W01";
-  src: url("/fonts/Fonts/550a1ae7-eb23-492c-bcf6-536c114660d3.woff2") format("woff2"), url("/fonts/Fonts/af937d9c-6c85-47e9-b67d-42c50d442a19.woff") format("woff");
-  font-weight: 500;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Avenir Next W01";
-  src: url("/fonts/Fonts/3519cb0f-02a0-41b8-b6d5-5e404cb57afb.woff2") format("woff2"), url("/fonts/Fonts/585a7684-d92c-459a-9111-82ebf54d6cca.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Avenir Next W01";
-  src: url("/fonts/Fonts/0047ae74-7a07-485d-b6af-12c38e7845e5.woff2") format("woff2"), url("/fonts/Fonts/0b62af68-a30c-42f3-b955-e65cdc6eb400.woff") format("woff");
-  font-weight: 700;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Avenir Next W01";
-  src: url("/fonts/Fonts/5685877c-e1fa-4c72-829c-2a8e19c11d06.woff2") format("woff2"), url("/fonts/Fonts/7cc17fdb-3606-4f7d-bad6-66ecb244f388.woff") format("woff");
-  font-weight: 800;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Avenir Next W01";
-  src: url("/fonts/Fonts/77cc83cb-2e3b-4ad7-84db-f2b65fdf87a1.woff2") format("woff2"), url("/fonts/Fonts/b5c7efb8-0318-48d1-9f59-5e509587930f.woff") format("woff");
-  font-weight: 800;
-  font-style: italic;
+@font-face{
+  font-family:"Avenir Next W01";
+  font-style:normal;
+  font-weight:700;
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Bold.eot?#iefix);
+  src:url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Bold.eot?#iefix) format("eot"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff2/AmsterdamSans-Bold.woff2) format("woff2"),url(https://www.amsterdam.nl/views/core/fonts/AmsterdamSans/woff/AmsterdamSans-Bold.woff) format("woff")
 }

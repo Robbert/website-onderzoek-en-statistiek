@@ -6,7 +6,7 @@ import { fluidTypoStyle, typographyStyle } from '~/lib/typographyUtils'
 
 export const Table = styled.table`
   width: 100%;
-  font-weight: 500;
+  font-weight: 400;
   border-collapse: collapse;
   color: ${themeColor('tint', 'level6')};
 
@@ -23,7 +23,7 @@ export const Table = styled.table`
   }
 
   th {
-    font-weight: 500;
+    font-weight: 400;
     text-align: left;
   }
 

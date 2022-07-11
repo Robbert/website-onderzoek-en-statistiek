@@ -20,7 +20,7 @@ export const List = styled.ul`
   padding: 0;
   color: ${themeColor('tint', 'level6')};
   letter-spacing: 0.0125rem;
-  font-weight: 500;
+  font-weight: 400;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     letter-spacing: 0;
@@ -28,7 +28,7 @@ export const List = styled.ul`
 
   /* 'strong' is defined here so it gets the correct styling in cms markdown blocks */
   & strong {
-    font-weight: 900;
+    font-weight: 800;
   }
 
   ${({ variant }) =>

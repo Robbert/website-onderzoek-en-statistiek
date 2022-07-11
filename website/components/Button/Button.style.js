@@ -5,7 +5,7 @@ import { themeColor, svgFill } from '@amsterdam/asc-ui'
 import { fluidTypoStyle, typographyStyle } from '../../lib/typographyUtils'
 
 const baseStyle = css`
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.0125rem;
   white-space: nowrap;
   display: inline-flex;
@@ -31,7 +31,7 @@ export const primaryButtonStyle = css`
 
   background-color: ${themeColor('primary')};
   color: white;
-  padding: 12px 24px;
+  padding: 8px 16px;
 
   :focus,
   :hover {
@@ -46,12 +46,12 @@ export const secondaryButtonStyle = css`
 
   background-color: white;
   color: ${themeColor('primary')};
-  padding: 12px 24px;
+  padding: 8px 16px;
   box-shadow: inset 0 0 0 2px ${themeColor('primary')};
 
   :focus,
   :hover {
-    box-shadow: inset 0 0 0 4px ${themeColor('primary')};
+    box-shadow: inset 0 0 0 3px ${themeColor('primary')};
   }
 
   ${baseStyle}
@@ -60,7 +60,7 @@ export const secondaryButtonStyle = css`
 export const textButtonStyle = css`
   ${svgFill(themeColor('primary'))}
 
-  padding: 12px 24px;
+  padding: 8px 16px;
   color: ${themeColor('primary')};
   background-color: transparent;
 
@@ -74,7 +74,7 @@ export const textButtonStyle = css`
 export const blankButtonStyle = css`
   ${svgFill(themeColor('tint', 'level7'))}
 
-  padding: 12px 12px;
+  padding: 8px;
   background-color: white;
 
   &:hover {

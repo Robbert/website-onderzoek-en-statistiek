@@ -27,22 +27,22 @@ export const fluidTypoConfig = {
     default: {
       minFontSize: 32,
       maxFontSize: 80,
-      minLineHeight: 40,
-      maxLineHeight: 88,
+      minLineHeight: 35,
+      maxLineHeight: 80,
     },
     small: {
       minFontSize: 30,
       maxFontSize: 60,
-      minLineHeight: 34,
-      maxLineHeight: 64,
+      minLineHeight: 33,
+      maxLineHeight: 63,
     },
   },
   h2: {
     default: {
       minFontSize: 28,
       maxFontSize: 56,
-      minLineHeight: 32,
-      maxLineHeight: 64,
+      minLineHeight: 34,
+      maxLineHeight: 62,
     },
   },
   h3: {
@@ -57,16 +57,16 @@ export const fluidTypoConfig = {
     default: {
       minFontSize: 22,
       maxFontSize: 32,
-      minLineHeight: 32,
-      maxLineHeight: 40,
+      minLineHeight: 31,
+      maxLineHeight: 38,
     },
   },
   h5: {
     default: {
       minFontSize: 18,
       maxFontSize: 24,
-      minLineHeight: 26,
-      maxLineHeight: 32,
+      minLineHeight: 25,
+      maxLineHeight: 31,
     },
   },
   h6: {
@@ -74,57 +74,57 @@ export const fluidTypoConfig = {
       minFontSize: 16,
       maxFontSize: 18,
       minLineHeight: 22,
-      maxLineHeight: 24,
+      maxLineHeight: 23,
     },
   },
   p: {
     default: {
       minFontSize: 18,
       maxFontSize: 24,
-      minLineHeight: 28,
-      maxLineHeight: 40,
+      minLineHeight: 29,
+      maxLineHeight: 38,
     },
     intro: {
-      minFontSize: 18,
+      minFontSize: 22,
       maxFontSize: 30,
-      minLineHeight: 28,
-      maxLineHeight: 40,
+      minLineHeight: 35,
+      maxLineHeight: 45,
     },
     small: {
       minFontSize: 16,
       maxFontSize: 18,
       minLineHeight: 24,
-      maxLineHeight: 26,
+      maxLineHeight: 29,
     },
   },
   a: {
     default: {
       minFontSize: 18,
       maxFontSize: 24,
-      minLineHeight: 26,
-      maxLineHeight: 32,
+      minLineHeight: 29,
+      maxLineHeight: 38,
     },
   },
   button: {
     default: {
       minFontSize: 18,
       maxFontSize: 24,
-      minLineHeight: 28,
-      maxLineHeight: 40,
+      minLineHeight: 29,
+      maxLineHeight: 38,
     },
     small: {
       minFontSize: 16,
       maxFontSize: 18,
-      minLineHeight: 22,
-      maxLineHeight: 24,
+      minLineHeight: 24,
+      maxLineHeight: 29,
     },
   },
   blockquote: {
     default: {
       minFontSize: 24,
       maxFontSize: 40,
-      minLineHeight: 32,
-      maxLineHeight: 48,
+      minLineHeight: 31,
+      maxLineHeight: 44,
     },
   },
   ul: {
@@ -168,7 +168,7 @@ export const fluidTypoConfig = {
       minFontSize: 16,
       maxFontSize: 18,
       minLineHeight: 24,
-      maxLineHeight: 26,
+      maxLineHeight: 29,
     },
   },
   select: {

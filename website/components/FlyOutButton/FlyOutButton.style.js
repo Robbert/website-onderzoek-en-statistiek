@@ -17,7 +17,7 @@ export const HamburgerIcon = styled.span`
   background-color: ${themeColor('tint', 'level6')};
   width: 16px;
   height: 2px;
-  top: 50%;
+  bottom: 50%;
   right: 0;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
@@ -76,6 +76,7 @@ export const Button = styled(ButtonComponent)`
   background-color: transparent;
   color: ${themeColor('tint', 'level6')};
   font-weight: ${({ isOpen }) => (isOpen ? 800 : 500)};
+  padding-right: 24px;
 
   /*
     Display: grid together with setting the buttons :after and Label to

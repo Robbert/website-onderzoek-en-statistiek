@@ -12,7 +12,7 @@ export const defaultLinkStyle = css`
   ${svgFill(themeColor('primary'))}
 
   text-decoration: none;
-  font-weight: 900;
+  font-weight: 800;
   color: ${themeColor('primary')};
 
   &:hover {
@@ -24,15 +24,14 @@ export const standaloneLinkStyle = css`
   ${svgFill(themeColor('primary'))}
 
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 400;
   color: ${themeColor('primary')};
-  padding-bottom: 4px;
   transition: box-shadow 0.1s ease-in-out, color 0.1s ease-in-out;
   box-shadow: inset 0 -2px ${themeColor('primary')};
 
   :focus,
   :hover {
-    box-shadow: inset 0 -4px ${themeColor('primary')};
+    box-shadow: inset 0 -3px ${themeColor('primary')};
   }
 
   ${({ darkBackground }) =>
@@ -42,7 +41,7 @@ export const standaloneLinkStyle = css`
 
       &:focus,
       &:hover {
-        box-shadow: inset 0 -4px white;
+        box-shadow: inset 0 -3px white;
       }
     `}
 `
@@ -53,7 +52,7 @@ export const inlineLinkStyle = css`
   font-size: inherit;
   line-height: inherit;
   letter-spacing: inherit;
-  font-weight: 500;
+  font-weight: 400;
   color: ${themeColor('primary')};
 `
 
@@ -62,7 +61,7 @@ export const linkListStyle = css`
 
   font-size: ${calculateFluidStyle(16, 18)};
   line-height: ${calculateFluidStyle(24, 26)};
-  font-weight: 500;
+  font-weight: 400;
   color: ${themeColor('primary')};
   text-decoration: none;
   padding-top: 12px;

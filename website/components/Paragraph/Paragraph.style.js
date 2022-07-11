@@ -7,7 +7,7 @@ import { fluidTypoStyle, typographyStyle } from '../../lib/typographyUtils'
 export const Paragraph = styled.p`
   color: ${themeColor('tint', 'level6')};
   letter-spacing: 0.0125rem;
-  font-weight: 500;
+  font-weight: 400;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     letter-spacing: 0;
@@ -15,7 +15,7 @@ export const Paragraph = styled.p`
 
   /* 'strong' is defined here so it gets the correct styling in cms markdown blocks */
   & strong {
-    font-weight: 900;
+    font-weight: 800;
   }
 
   ${({ intro }) =>
@@ -24,8 +24,7 @@ export const Paragraph = styled.p`
       letter-spacing: 0.025rem;
 
       @media screen and ${breakpoint('max-width', 'laptop')} {
-        font-weight: 900;
-        letter-spacing: 0.0125rem;
+        letter-spacing: 0;
       }
     `}
 

@@ -12,6 +12,7 @@ export const Container = styled.div`
 `
 
 export const ButtonGroup = styled.div`
+  margin-top: 8px;
   margin-bottom: 80px;
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
@@ -20,10 +21,10 @@ export const ButtonGroup = styled.div`
 `
 
 export const Button = styled(ButtonComponent)`
-  padding: 12px;
+  padding-left: 0;
 
   &[aria-pressed='true'] {
-    font-weight: 900;
+    font-weight: 800;
     color: black;
     cursor: default;
 
@@ -31,9 +32,5 @@ export const Button = styled(ButtonComponent)`
     :focus {
       text-decoration: none;
     }
-  }
-
-  :first-child {
-    padding-left: 0;
   }
 `

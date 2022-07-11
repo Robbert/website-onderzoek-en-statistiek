@@ -80,6 +80,5 @@ export const SortBar = styled.div`
 
 export const Select = styled(SelectComponent)`
   width: 220px;
-  font-size: 18px;
   margin-bottom: 24px;
 `

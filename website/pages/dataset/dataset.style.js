@@ -12,7 +12,7 @@ export const Heading = styled(HeadingComponent)`
 export const Table = styled.table`
   width: 100%;
   margin-top: 40px;
-  font-weight: 500;
+  font-weight: 400;
   border-collapse: collapse;
   color: ${themeColor('tint', 'level6')};
   ${fluidTypoStyle}
@@ -91,7 +91,7 @@ export const DownloadButton = styled(DownloadButtonComponent)`
 
 export const DefinitionList = styled.dl`
   margin-top: 40px;
-  font-weight: 500;
+  font-weight: 400;
   color: ${themeColor('tint', 'level6')};
   ${fluidTypoStyle}
   ${typographyStyle}

@@ -38,5 +38,5 @@ export const MobileGridItem = styled(GridItem)`
 `
 
 export const LightLink = styled(Link)`
-  font-weight: 500;
+  font-weight: 400;
 `

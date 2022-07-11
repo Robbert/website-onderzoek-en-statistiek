@@ -39,7 +39,7 @@ const SearchBar = ({ onChange, value, id, autoFocus, ...otherProps }) => {
             </Styled.IconContainer>
           </Button>
         ) : (
-          <Icon size={56} padding={12}>
+          <Icon size={48} padding={8}>
             <Search />
           </Icon>
         )}

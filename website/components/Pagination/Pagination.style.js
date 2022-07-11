@@ -49,7 +49,7 @@ export const Button = styled(ButtonComponent)`
 `
 
 export const Icon = styled(IconASC)`
-  margin-top: 5px;
+  margin-bottom: 4px;
   ${({ right }) =>
     right
       ? css`

@@ -45,8 +45,7 @@ const MyApp = ({ Component, pageProps, contextData }) => {
     ...ascDefaultTheme,
     typography: {
       ...ascDefaultTheme.typography,
-      fontFamily:
-        'Avenir Next W01, Helvetica Neue, Helvetica, Arial, sans-serif',
+      fontFamily: '"Amsterdam Sans",arial,sans-serif',
     },
     breakpoints: {
       ...ascDefaultTheme.breakpoints,

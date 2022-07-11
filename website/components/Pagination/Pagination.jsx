@@ -110,7 +110,7 @@ const Pagination = ({
             disabled={currentPage === 1}
             first
           >
-            <Styled.Icon size={12}>
+            <Styled.Icon size={16}>
               <ChevronLeft />
             </Styled.Icon>
             vorige
@@ -159,7 +159,7 @@ const Pagination = ({
             last
           >
             volgende
-            <Styled.Icon right size={12}>
+            <Styled.Icon right size={16}>
               <ChevronRight />
             </Styled.Icon>
           </Styled.Button>

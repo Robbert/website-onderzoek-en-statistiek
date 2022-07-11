@@ -22,7 +22,7 @@ export const Link = styled(LinkComponent)`
   height: 100%;
   color: ${themeColor('tint', 'level6')};
   align-items: center;
-  padding: 12px 24px;
+  padding: 8px 24px;
 
   :hover {
     color: ${themeColor('primary')};

@@ -1,6 +1,8 @@
 import styled, { css, keyframes } from 'styled-components'
 import { themeColor } from '@amsterdam/asc-ui'
 
+import { calculateFluidStyle } from '~/lib/typographyUtils'
+
 const radioTransition = keyframes`
   0% {
     transform: scale(0);
@@ -36,9 +38,9 @@ export const RadioSymbolContainer = styled.span`
 
 export const Label = styled.label`
   display: inline-flex;
-  font-size: 18px;
-  line-height: 26px;
-  font-weight: 500;
+  font-size: ${calculateFluidStyle(16, 18)};
+  line-height: ${calculateFluidStyle(24, 29)};
+  font-weight: 400;
   padding: 8px 16px 8px 0;
   cursor: pointer;
   margin-top: 4px;
@@ -53,7 +55,7 @@ export const Label = styled.label`
   }
 
   :hover ${RadioSymbol} {
-    border-width: 4px;
+    border-width: 3px;
   }
 
   ${({ checked }) =>
