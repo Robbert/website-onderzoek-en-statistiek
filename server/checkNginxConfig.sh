@@ -11,9 +11,9 @@ result=$(docker run --rm -t -a stdout --name my-nginx -v /$PWD/config/:/etc/ngin
 successful=$(echo $result | grep "successful\|cannot load certificate" | wc -l)
 
 if [ $successful = 0 ]; then
-    echo CONFIG CONTAINS ERRORS!
+    echo NGINX CONFIG CONTAINS ERRORS!
     echo "$result"
     exit 1
 else
-    echo CONFIG OK!
+    echo NGINX CONFIG OK!
 fi
