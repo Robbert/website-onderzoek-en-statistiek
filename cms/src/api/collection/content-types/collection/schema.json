@@ -34,6 +34,9 @@
     "intro": {
       "type": "text"
     },
+    "keywords": {
+      "type": "string"
+    },
     "rectangularImage": {
       "type": "media",
       "multiple": false,

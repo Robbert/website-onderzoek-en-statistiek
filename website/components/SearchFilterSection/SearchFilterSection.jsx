@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Label, Icon, useMatchMedia, useTrappedFocus } from '@amsterdam/asc-ui'
+import { Icon, useMatchMedia, useTrappedFocus } from '@amsterdam/asc-ui'
 import { Close } from '@amsterdam/asc-assets'
 
 import Heading from '../Heading/Heading'
@@ -18,9 +18,7 @@ const SearchFilterSection = ({
   handleThemeChange,
   category,
   setCategory,
-  setSortOrder,
   setPage,
-  sortOrder,
 }) => {
   const [facetCount, setfacetCount] = useState(null)
   const [mobilePanelOpen, setMobilePanelOpen] = useState(false)
@@ -149,27 +147,6 @@ const SearchFilterSection = ({
                 }`}
               </Radio>
             ))}
-        </Styled.Fieldset>
-        <Styled.Fieldset
-          legend={
-            <Heading as="h2" styleAs="h5" gutterBottom={24}>
-              Sorteren
-            </Heading>
-          }
-        >
-          <Label htmlFor="selectSort" label="Sorteren" srOnly />
-          <Styled.Select
-            id="selectSort"
-            value={sortOrder}
-            onChange={(e) => {
-              setSortOrder(e.target.value)
-              setPage(1)
-            }}
-          >
-            <option value="af">Aflopend datum</option>
-            <option value="op">Oplopend datum</option>
-            <option value="score">Relevantie</option>
-          </Styled.Select>
         </Styled.Fieldset>
         <Styled.MobilePanelButtonContainer>
           <Styled.MobilePanelButton

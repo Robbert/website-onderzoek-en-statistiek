@@ -9,19 +9,21 @@ export { SearchContext }
 const normalize = ({
   slug,
   title,
-  shortTitle,
   teaser,
   intro,
   publicationDate,
+  updatedAt,
   themes,
+  keywords,
 }) => ({
   slug,
   title,
-  shortTitle,
+  titleWords: title,
   teaser,
-  intro,
-  publicationDate,
+  intro: intro ? `${keywords} ${intro}` : `${keywords} ${teaser}`,
+  publicationDate: publicationDate || updatedAt,
   theme: themes.map((item) => item.slug),
+  keywords,
 })
 
 export async function getSearchContent() {
@@ -68,8 +70,6 @@ export async function getSearchContent() {
         result.data.map((item) => ({
           ...normalize(item),
           type: 'interactive',
-          intro: '',
-          body: '',
         })),
       ),
   )
@@ -82,12 +82,6 @@ export async function getSearchContent() {
         result.data.map((item) => ({
           ...normalize(item),
           type: 'dataset',
-          shortTitle: '',
-          publicationDate: item.updated_at,
-          intro: item.body.reduce(
-            (allText, bodyItem) => allText + bodyItem.text,
-            '',
-          ),
         })),
       ),
   )
@@ -100,8 +94,6 @@ export async function getSearchContent() {
         result.data.map((item) => ({
           ...normalize(item),
           type: 'collection',
-          publicationDate: item.updated_at,
-          body: '',
         })),
       ),
   )
@@ -113,38 +105,79 @@ export async function getSearchContent() {
     ...interactives,
     ...collections,
     ...datasets,
-  ]
+  ].sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate))
 }
 
 export const fuseOptions = {
   includeScore: true,
   ignoreLocation: true,
+  ignoreFieldNorm: true,
+  useExtendedSearch: true,
+  findAllMatches: false,
+  includeMatches: true,
+  threshold: 0.2,
   minMatchCharLength: 2,
-  threshold: 0.4,
-  keys: ['title', 'shortTitle', 'teaser', 'intro'],
-}
-
-export const sortResults = (a, b, order) => {
-  if (order === 'score') return a.score - b.score
-  if (order === 'op')
-    return new Date(a.publicationDate) - new Date(b.publicationDate)
-  return new Date(b.publicationDate) - new Date(a.publicationDate)
+  keys: [
+    {
+      name: 'title',
+      weight: 4,
+    },
+    {
+      name: 'keywords',
+      weight: 3,
+    },
+    {
+      name: 'titleWords',
+      weight: 2,
+    },
+    {
+      name: 'intro',
+      weight: 1,
+    },
+  ],
 }
 
 export function getSearchResults(
   searchIndex,
   searchQuery,
-  sortOrder,
   themeFilter,
   category,
 ) {
   if (!searchIndex) return []
+  const fuzzyWords = searchQuery
+    .trim()
+    .split(' ')
+    .filter((d) => d.length > 2)
+
+  // The score is based on the weighted assertion of:
+  // 1. title matches query verbatim or
+  // 2. keywords matches query verbatim or
+  // 3. title contains all query words (excluding two letter words) or
+  // 4. intro combined with keywords contains all query words (excluding two letter words)
+
+  // The results can be tweaked further using these constants
+  // const exactWords= fuzzyItems.map((d) => `'${d}`)
+  // const someWords = `${exactWords.toString().replaceAll(',', ' | ')}`
+  // See for documentation https://fusejs.io/api/query.html and
+  // https://fusejs.io/examples.html#extended-search
+
+  const verbatim = `'"${searchQuery.trim()}"`
+  const allWords = `${fuzzyWords.toString().replaceAll(',', ' ')}`
+  const query = {
+    $or: [
+      { keywords: verbatim },
+      { title: verbatim },
+      { titleWords: allWords },
+      { intro: allWords },
+    ],
+  }
+
   const base =
     searchQuery === ''
       ? searchIndex._docs
       : searchIndex
-          .search(searchQuery)
-          .map(({ score, item }) => ({ score, ...item }))
+          .search(query)
+          .map(({ score, matches, item }) => ({ score, matches, ...item }))
 
   return base
     .filter(({ type }) => !category || category === type)
@@ -152,7 +185,6 @@ export function getSearchResults(
       ({ theme }) =>
         themeFilter.length === 0 || themeFilter.some((t) => theme.includes(t)),
     )
-    .sort((a, b) => sortResults(a, b, sortOrder))
 }
 
 export function calculateFacetsTotals(themes, types, results) {

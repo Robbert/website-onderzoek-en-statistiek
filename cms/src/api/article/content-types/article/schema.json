@@ -40,6 +40,9 @@
       "type": "text",
       "required": true
     },
+    "keywords": {
+      "type": "string"
+    },
     "body": {
       "type": "dynamiczone",
       "components": [

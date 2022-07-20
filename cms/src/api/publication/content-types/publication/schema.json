@@ -52,6 +52,9 @@
       "type": "text",
       "required": false
     },
+    "keywords": {
+      "type": "string"
+    },
     "body": {
       "type": "dynamiczone",
       "components": [

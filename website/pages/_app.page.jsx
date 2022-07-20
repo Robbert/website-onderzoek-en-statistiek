@@ -11,7 +11,7 @@ import Layout from '~/components/Layout/Layout'
 import { prependRootURL, fetchAPI } from '~/lib/utils'
 import { startTracking, pushCustomEvent } from '~/lib/analyticsUtils'
 import ShortcutContext from '~/lib/ShortcutContext'
-import { fuseOptions, SearchContext, sortResults } from '~/lib/searchUtils'
+import { fuseOptions, SearchContext } from '~/lib/searchUtils'
 import appQuery from './app.query'
 
 import '~/public/fonts/fonts.css'
@@ -62,8 +62,7 @@ const MyApp = ({ Component, pageProps, contextData }) => {
     })
       .then((response) => response.json())
       .then((searchContent) => {
-        const sorted = searchContent.sort((a, b) => sortResults(a, b))
-        setSearchIndex(new Fuse(sorted, fuseOptions))
+        setSearchIndex(new Fuse(searchContent, fuseOptions))
       })
       .catch() // TODO: log errors in Sentry
     return () => abortController.abort()

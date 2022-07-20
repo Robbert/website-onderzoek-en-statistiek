@@ -25,7 +25,13 @@ const SearchCard = ({
         {title}
       </Heading>
       <Styled.Teaser small={small}>{teaser}</Styled.Teaser>
-      {date && <Styled.Date small>{date}</Styled.Date>}
+      {date && (
+        <Styled.Date small>
+          {type === 'collection' || type === 'dataset' || type === 'interactive'
+            ? `Laatst gewijzigd: ${date}`
+            : date}
+        </Styled.Date>
+      )}
     </Styled.Link>
   </NextLink>
 )

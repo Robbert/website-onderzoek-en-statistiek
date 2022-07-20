@@ -25,16 +25,14 @@ const Search = ({ themes }) => {
   const router = useRouter()
 
   const [searchQuery, setSearchQuery] = useState('')
-  const [sortOrder, setSortOrder] = useState('af')
   const [category, setCategory] = useState('')
   const [themeFilter, setThemeFilter] = useState([])
   const [page, setPage] = useState(1)
 
   const [results, setResults] = useState([])
 
-  const setQueries = (q, sort, cat, theme, pageNumber) => {
+  const setQueries = (q, cat, theme, pageNumber) => {
     setSearchQuery(q ? decodeQuerySafe(q) : '')
-    setSortOrder(sort || 'score')
     setCategory(translateContentType(cat) || '')
     setThemeFilter(
       themes?.some(({ slug }) => theme?.includes(slug)) ? theme.split(' ') : [],
@@ -47,13 +45,12 @@ const Search = ({ themes }) => {
     if (router.isReady) {
       const {
         tekst: q,
-        sorteer: sort,
         categorie: cat,
         thema: theme,
         pagina: pageNumber,
       } = router.query
 
-      setQueries(q, sort, cat, theme, pageNumber)
+      setQueries(q, cat, theme, pageNumber)
     }
   }, [router.isReady])
 
@@ -65,12 +62,11 @@ const Search = ({ themes }) => {
         const urlParams = new URLSearchParams(queryString)
 
         const q = urlParams.get('tekst')
-        const sort = urlParams.get('sorteer')
         const cat = urlParams.get('categorie')
         const theme = urlParams.get('thema')
         const pageNumber = urlParams.get('pagina')
 
-        setQueries(q, sort, cat, theme, pageNumber)
+        setQueries(q, cat, theme, pageNumber)
       }
       return true
     })
@@ -85,7 +81,6 @@ const Search = ({ themes }) => {
     const throttledUpdate = debounce(() => {
       const query = {
         ...(searchQuery !== '' && { tekst: searchQuery }),
-        ...(sortOrder !== 'score' && { sorteer: sortOrder }),
         ...(category && { categorie: CONTENT_TYPES[category].name }),
         ...(themeFilter.length > 0 && { thema: themeFilter.join(' ') }),
         ...(page !== 1 && { pagina: page }),
@@ -98,14 +93,13 @@ const Search = ({ themes }) => {
     }, 300)
     throttledUpdate()
     return () => throttledUpdate.cancel()
-  }, [searchQuery, sortOrder, category, themeFilter, page])
+  }, [searchQuery, category, themeFilter, page])
 
   useEffect(() => {
     const throttledUpdate = debounce(() => {
       const updatedResults = getSearchResults(
         searchIndex,
         searchQuery,
-        sortOrder,
         themeFilter,
         category,
       )
@@ -113,7 +107,7 @@ const Search = ({ themes }) => {
     }, 300)
     throttledUpdate()
     return () => throttledUpdate.cancel()
-  }, [searchIndex, searchQuery, sortOrder, themeFilter, category])
+  }, [searchIndex, searchQuery, themeFilter, category])
 
   const handleThemeChange = (slug) => {
     const newThemeFilter = themeFilter.includes(slug)
@@ -228,9 +222,7 @@ const Search = ({ themes }) => {
           handleThemeChange={handleThemeChange}
           category={category}
           setCategory={setCategory}
-          setSortOrder={setSortOrder}
           setPage={setPage}
-          sortOrder={sortOrder}
         />
       </Grid>
     </>
