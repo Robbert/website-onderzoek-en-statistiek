@@ -63,6 +63,17 @@ const collectionQuery = {
             },
           },
         },
+        collections: {
+          fields: ['title', 'teaser', 'slug'],
+          populate: {
+            squareImage: {
+              fields: ['url', 'width', 'height'],
+            },
+            rectangularImage: {
+              fields: ['url', 'width', 'height'],
+            },
+          },
+        },
       },
     },
     collectionItems: {
@@ -87,6 +98,9 @@ const collectionQuery = {
         },
         videos: {
           fields: ['title', 'teaser', 'slug', 'publicationDate'],
+        },
+        collections: {
+          fields: ['title', 'teaser', 'slug', 'publishedAt'],
         },
       },
     },

@@ -66,6 +66,7 @@
         "shared.publications",
         "shared.videos",
         "shared.interactives",
+        "shared.collections",
         "shared.datasets"
       ]
     },
@@ -76,6 +77,7 @@
         "shared.publications",
         "shared.videos",
         "shared.interactives",
+        "shared.collections",
         "shared.datasets"
       ]
     },
