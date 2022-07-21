@@ -13,14 +13,14 @@ const SearchResults = ({
   <List>
     {results
       .slice((page - 1) * pageSize, page * pageSize)
-      .map(({ slug, title, teaser, type, publicationDate }) => (
+      .map(({ slug, title, teaser, type, publicationDate, dateConfig }) => (
         <li key={`${type}-${slug}`}>
           <SearchCard
             type={type}
             href={`/${CONTENT_TYPES[type].name}/${slug}`}
             title={title}
             teaser={teaser}
-            date={formatDate(publicationDate)}
+            date={formatDate(publicationDate, dateConfig)}
             gutterBottom={cardGutterBottom}
             headingLevel={cardHeadingLevel}
           />

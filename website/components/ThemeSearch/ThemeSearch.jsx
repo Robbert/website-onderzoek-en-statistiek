@@ -18,17 +18,14 @@ const ThemeSearch = ({ themeTitle, slug }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [category, setCategory] = useState('')
   const [results, setResults] = useState(
-    getSearchResults(searchIndex, '', 'af', [slug], category),
+    getSearchResults(searchIndex, '', [slug], category),
   )
-
   const numberOfResults = 5
-
   useEffect(() => {
     const throttledUpdate = debounce(() => {
       const updatedResults = getSearchResults(
         searchIndex,
         searchQuery,
-        'score',
         [slug],
         category,
       )
@@ -42,6 +39,10 @@ const ThemeSearch = ({ themeTitle, slug }) => {
     const tracker = trackSearchQuery(searchQuery, category)
     return () => tracker.cancel()
   }, [searchQuery, category])
+
+  useEffect(() => {
+    setCategory('')
+  }, [slug])
 
   return (
     <Styled.Container>

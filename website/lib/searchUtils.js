@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { createContext } from 'react'
 
-import { fetchAPI } from './utils'
+import { fetchAPI, dateConfig } from './utils'
 
 const SearchContext = createContext()
 export { SearchContext }
@@ -11,19 +11,21 @@ const normalize = ({
   title,
   teaser,
   intro,
-  publicationDate,
-  updatedAt,
   themes,
   keywords,
+  publicationDate,
+  updatedAt,
+  formatPublicationDate,
 }) => ({
   slug,
   title,
   titleWords: title,
   teaser,
   intro: intro ? `${keywords} ${intro}` : `${keywords} ${teaser}`,
-  publicationDate: publicationDate || updatedAt,
   theme: themes.map((item) => item.slug),
   keywords,
+  publicationDate: publicationDate || updatedAt,
+  dateConfig: dateConfig(formatPublicationDate),
 })
 
 export async function getSearchContent() {
@@ -173,7 +175,7 @@ export function getSearchResults(
   }
 
   const base =
-    searchQuery === ''
+    searchQuery.trim() === ''
       ? searchIndex._docs
       : searchIndex
           .search(query)

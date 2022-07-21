@@ -49,6 +49,7 @@ const Collection = ({
         teaser: featureTeaser,
         type,
         publicationDate,
+        dateConfig,
       }) => (
         <li key={path}>
           <SearchCard
@@ -56,7 +57,7 @@ const Collection = ({
             type={type}
             title={featureShortTitle || featureTitle}
             teaser={featureTeaser}
-            date={formatDate(publicationDate)}
+            date={formatDate(publicationDate, dateConfig)}
           />
         </li>
       ),

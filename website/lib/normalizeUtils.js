@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import CONTENT_TYPES from '../constants/contentTypes'
+import { dateConfig } from './utils'
 
 export const normalizeItemList = (list) => {
   const types = [
@@ -31,6 +32,7 @@ export const normalizeItemList = (list) => {
                 publicationDate: item.publicationDate
                   ? item.publicationDate
                   : item.publishedAt,
+                dateConfig: dateConfig(item.formatPublicationDate),
                 ...item,
               }
         }),

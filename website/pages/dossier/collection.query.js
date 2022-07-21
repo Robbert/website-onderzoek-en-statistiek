@@ -71,13 +71,19 @@ const collectionQuery = {
           fields: ['title', 'teaser', 'slug', 'publicationDate'],
         },
         datasets: {
-          fields: ['title', 'slug', 'publishedAt'],
+          fields: ['title', 'teaser', 'slug', 'publishedAt'],
         },
         interactives: {
           fields: ['title', 'teaser', 'slug', 'publicationDate'],
         },
         publications: {
-          fields: ['title', 'teaser', 'slug', 'publicationDate'],
+          fields: [
+            'title',
+            'teaser',
+            'slug',
+            'publicationDate',
+            'formatPublicationDate',
+          ],
         },
         videos: {
           fields: ['title', 'teaser', 'slug', 'publicationDate'],

@@ -8,7 +8,13 @@ import Heading from '~/components/Heading/Heading'
 import Link from '~/components/Link/Link'
 import BodyContent from '~/components/BodyContent/BodyContent'
 import ContentFooter from '~/components/ContentFooter/ContentFooter'
-import { fetchAPI, getStrapiMedia, formatDate, formatBytes } from '~/lib/utils'
+import {
+  fetchAPI,
+  getStrapiMedia,
+  formatDate,
+  formatBytes,
+  mapOrder,
+} from '~/lib/utils'
 import datasetQuery from './dataset.query'
 import * as Styled from './dataset.style'
 
@@ -31,6 +37,9 @@ const Dataset = ({
   if (router.isFallback) {
     return <FallbackPage />
   }
+
+  const order = ['documentatie', 'databestand', 'api', 'visualisatie']
+  const orderedResources = mapOrder(resources, order, 'type')
 
   return (
     <>
@@ -80,10 +89,8 @@ const Dataset = ({
               </tr>
             </thead>
             <tbody>
-              {resources
-                .slice()
-                .sort((a) => (a.file ? -1 : 1))
-                .map(({ id, title: resourceTitle, file, url, type }) => (
+              {orderedResources.map(
+                ({ id, title: resourceTitle, file, url, type }) => (
                   <tr key={id}>
                     <td>
                       {file ? (
@@ -114,7 +121,8 @@ const Dataset = ({
                       <td />
                     )}
                   </tr>
-                ))}
+                ),
+              )}
             </tbody>
           </Styled.Table>
         </GridItem>
