@@ -29,7 +29,7 @@ const SearchCard = ({
         <Styled.Date small>
           {type === 'collection' || type === 'dataset' || type === 'interactive'
             ? `Laatst gewijzigd: ${date}`
-            : date}
+            : `Gepubliceerd: ${date}`}
         </Styled.Date>
       )}
     </Styled.Link>

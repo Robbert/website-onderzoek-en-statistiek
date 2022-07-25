@@ -162,4 +162,9 @@ export const handleDownloadImage = async (ref, filename) => {
 
 // orders an array of objects based on an array with the desired order for a specific key
 export const mapOrder = (array, order, key) =>
-  array.sort((a, b) => (order.indexOf(a[key]) > order.indexOf(b[key]) ? 1 : -1))
+  array.sort((a, b) => {
+    if (order.indexOf(a[key]) === order.indexOf(b[key])) {
+      return 0
+    }
+    return order.indexOf(a[key]) > order.indexOf(b[key]) ? 1 : -1
+  })
