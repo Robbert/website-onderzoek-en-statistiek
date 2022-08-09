@@ -14,7 +14,7 @@ export const Select = styled.select`
   background-repeat: no-repeat;
   background-position: calc(100% - 16px) center;
   background-size: 16px;
-  background-color: transparent;
+  background-color: white;
 
   ${() => `background-image: url(${ChevronDown.src});`}
 

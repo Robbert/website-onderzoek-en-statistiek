@@ -53,6 +53,7 @@ const Visualisation = ({
     }
 
     const { values, url } = selectedPanel.specification.data
+
     if (values) {
       const keys = Object.keys(values[0])
       const commaSeparatedString = [
@@ -61,7 +62,7 @@ const Visualisation = ({
       ].join('\n')
       setDownloadDataUrl(URL.createObjectURL(new Blob([commaSeparatedString])))
     }
-    if (url && url.includes('format=json')) {
+    if (typeof url === 'string' && url.includes('format=json')) {
       setDownloadDataUrl(url.replace('format=json', 'format=csv'))
     }
   }, [selectedPanelID])
