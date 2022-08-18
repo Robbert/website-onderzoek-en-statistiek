@@ -100,6 +100,7 @@ const IFrame = ({ src, title }) => {
         width="100%"
         height={height}
         frameBorder="0"
+        allow="clipboard-read; clipboard-write"
       />
     </Styled.IFrameContainer>
   )
