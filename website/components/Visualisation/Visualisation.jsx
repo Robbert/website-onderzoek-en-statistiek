@@ -86,21 +86,6 @@ const Visualisation = ({
             {title}
           </Styled.Heading>
         )}
-        {panels?.length > 1 && (
-          <Styled.Label>
-            <Styled.LabelText>{selectorLabel}</Styled.LabelText>
-            <Styled.Select
-              value={selectedPanelID}
-              onChange={(e) => setSelectedPanelID(+e.target.value)}
-            >
-              {panels.map(({ id, label }) => (
-                <option key={id} value={id}>
-                  {label}
-                </option>
-              ))}
-            </Styled.Select>
-          </Styled.Label>
-        )}
       </GridItem>
 
       {variant === 'kleurenbalk' && (
@@ -140,6 +125,21 @@ const Visualisation = ({
         )}
         {selectedPanel?.specification && (
           <VegaVisualisation specification={selectedPanel.specification} />
+        )}
+        {panels?.length > 1 && (
+          <Styled.Label>
+            <Styled.LabelText>{selectorLabel}</Styled.LabelText>
+            <Styled.Select
+              value={selectedPanelID}
+              onChange={(e) => setSelectedPanelID(+e.target.value)}
+            >
+              {panels.map(({ id, label }) => (
+                <option key={id} value={id}>
+                  {label}
+                </option>
+              ))}
+            </Styled.Select>
+          </Styled.Label>
         )}
         <Styled.VisualisationFooter>
           {selectedPanel?.source && (
