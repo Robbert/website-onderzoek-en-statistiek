@@ -17,7 +17,13 @@ import SearchFilterSection from '~/components/SearchFilterSection/SearchFilterSe
 import { translateContentType, decodeQuerySafe, fetchAPI } from '~/lib/utils'
 import { trackSearchQuery } from '~/lib/analyticsUtils'
 import CONTENT_TYPES from '~/constants/contentTypes'
-import { SearchContext, getSearchResults } from '~/lib/searchUtils'
+import {
+  SearchContext,
+  getSearchResults,
+  getPeriodRange,
+  showPeriod,
+  sanitizePeriodParamString,
+} from '~/lib/searchUtils'
 import * as Styled from './search.style'
 
 const Search = ({ themes }) => {
@@ -28,19 +34,28 @@ const Search = ({ themes }) => {
   const [category, setCategory] = useState('')
   const [themeFilter, setThemeFilter] = useState([])
   const [page, setPage] = useState(1)
+  const [period, setPeriod] = useState([null, null])
 
   const [results, setResults] = useState([])
 
-  const setQueries = (q, cat, theme, pageNumber) => {
+  const periodRange = getPeriodRange(searchIndex)
+
+  const setQueries = (q, cat, theme, pageNumber, selectedPeriod) => {
     setSearchQuery(q ? decodeQuerySafe(q) : '')
     setCategory(translateContentType(cat) || '')
     setThemeFilter(
       themes?.some(({ slug }) => theme?.includes(slug)) ? theme.split(' ') : [],
     )
     setPage(pageNumber ? parseInt(pageNumber, 10) : 1)
+    setPeriod(
+      selectedPeriod
+        ? sanitizePeriodParamString(selectedPeriod, periodRange)
+        : '',
+    )
   }
 
   // get state from url params on first render
+  // and when periodRange changes
   useEffect(() => {
     if (router.isReady) {
       const {
@@ -48,11 +63,12 @@ const Search = ({ themes }) => {
         categorie: cat,
         thema: theme,
         pagina: pageNumber,
+        periode: selectedPeriod,
       } = router.query
 
-      setQueries(q, cat, theme, pageNumber)
+      setQueries(q, cat, theme, pageNumber, selectedPeriod)
     }
-  }, [router.isReady])
+  }, [router.isReady, periodRange[0]])
 
   // get state from url params on forward and back button click
   useEffect(() => {
@@ -65,8 +81,9 @@ const Search = ({ themes }) => {
         const cat = urlParams.get('categorie')
         const theme = urlParams.get('thema')
         const pageNumber = urlParams.get('pagina')
+        const selectedPeriod = urlParams.get('periode')
 
-        setQueries(q, cat, theme, pageNumber)
+        setQueries(q, cat, theme, pageNumber, selectedPeriod)
       }
       return true
     })
@@ -84,6 +101,9 @@ const Search = ({ themes }) => {
         ...(category && { categorie: CONTENT_TYPES[category].name }),
         ...(themeFilter.length > 0 && { thema: themeFilter.join(' ') }),
         ...(page !== 1 && { pagina: page }),
+        ...(showPeriod(period, periodRange) && {
+          periode: `${period[0]}-${period[1]}`,
+        }),
       }
 
       router.push({ query }, undefined, {
@@ -93,7 +113,7 @@ const Search = ({ themes }) => {
     }, 300)
     throttledUpdate()
     return () => throttledUpdate.cancel()
-  }, [searchQuery, category, themeFilter, page])
+  }, [searchQuery, category, themeFilter, page, period])
 
   useEffect(() => {
     const throttledUpdate = debounce(() => {
@@ -102,12 +122,13 @@ const Search = ({ themes }) => {
         searchQuery,
         themeFilter,
         category,
+        period,
       )
       setResults(updatedResults)
     }, 300)
     throttledUpdate()
     return () => throttledUpdate.cancel()
-  }, [searchIndex, searchQuery, themeFilter, category])
+  }, [searchIndex, searchQuery, themeFilter, category, period])
 
   const handleThemeChange = (slug) => {
     const newThemeFilter = themeFilter.includes(slug)
@@ -182,6 +203,21 @@ const Search = ({ themes }) => {
                   <span>{plural}</span>
                 </Styled.Button>
               ))}
+            {showPeriod(period, periodRange) && (
+              <Styled.Button
+                type="button"
+                small
+                onClick={() => {
+                  setPeriod([null, null])
+                  setPage(1)
+                }}
+              >
+                <Styled.Icon size={20}>
+                  <Close />
+                </Styled.Icon>
+                <span>{`${period[0]}-${period[1]}`}</span>
+              </Styled.Button>
+            )}
             {themes
               .filter(({ slug }) => themeFilter.includes(slug))
               .map(({ title, slug }) => (
@@ -223,6 +259,9 @@ const Search = ({ themes }) => {
           category={category}
           setCategory={setCategory}
           setPage={setPage}
+          period={period}
+          setPeriod={setPeriod}
+          periodRange={periodRange}
         />
       </Grid>
     </>

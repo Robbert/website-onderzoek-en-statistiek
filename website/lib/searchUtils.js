@@ -144,6 +144,7 @@ export function getSearchResults(
   searchQuery,
   themeFilter,
   category,
+  period,
 ) {
   if (!searchIndex) return []
   const fuzzyWords = searchQuery
@@ -187,6 +188,16 @@ export function getSearchResults(
       ({ theme }) =>
         themeFilter.length === 0 || themeFilter.some((t) => theme.includes(t)),
     )
+    .filter((item) => {
+      if (period[0] && period[1]) {
+        const pubDate = new Date(item.publicationDate)
+        const min = new Date(period[0], 0, 1)
+        const max = new Date(period[1], 11, 31, 23, 59, 59)
+
+        return pubDate >= min && pubDate <= max
+      }
+      return true
+    })
 }
 
 export function calculateFacetsTotals(themes, types, results) {
@@ -207,3 +218,39 @@ export function calculateFacetsTotals(themes, types, results) {
 }
 
 export const formatFacetNumber = (number) => (number > 0 ? `(${number})` : '')
+
+export function getPeriodRange(index) {
+  if (index) {
+    const allDates = index._docs.map(
+      (item) => +item.publicationDate.slice(0, 4),
+    )
+    const min = Math.min(...allDates).toString()
+    const max = Math.max(...allDates).toString()
+
+    return [min, max]
+  }
+  return [null, null]
+}
+
+// only show period if the period array is filled
+// and the selected period is not the same as the entire period range
+export const showPeriod = (period, periodRange) =>
+  period[0] &&
+  period[1] &&
+  !(period[0] === periodRange[0] && period[1] === periodRange[1])
+
+// check if value is a number with 4 digits and is in the total range
+export const isInRange = (value, totalRange) =>
+  /^[0-9]{4}/.test(value) && value >= totalRange[0] && value <= totalRange[1]
+
+export const sanitizePeriodParamString = (periodParamString, totalRange) => {
+  const selectedRange = periodParamString.split('-')
+  return [
+    isInRange(parseInt(selectedRange[0], 10), totalRange)
+      ? selectedRange[0]
+      : totalRange[0],
+    isInRange(parseInt(selectedRange[1], 10), totalRange)
+      ? selectedRange[1]
+      : totalRange[1],
+  ]
+}

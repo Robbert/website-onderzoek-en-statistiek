@@ -1,10 +1,11 @@
 import styled from 'styled-components'
-import { breakpoint } from '@amsterdam/asc-ui'
+import { breakpoint, perceivedLoading } from '@amsterdam/asc-ui'
 
 import { GridItem } from '../Grid/Grid.style'
 import FieldsetComponent from '../Fieldset/Fieldset'
 import ButtonComponent from '../Button/Button'
 import SelectComponent from '../Select/Select'
+import { calculateFluidStyle } from '~/lib/typographyUtils'
 
 export const FilterPanel = styled(GridItem)`
   @media screen and ${breakpoint('max-width', 'laptop')} {
@@ -81,4 +82,10 @@ export const SortBar = styled.div`
 export const Select = styled(SelectComponent)`
   width: 220px;
   margin-bottom: 24px;
+`
+
+export const Loading = styled.div`
+  min-height: ${calculateFluidStyle(95, 110)};
+  width: 100%;
+  ${perceivedLoading()}
 `

@@ -5,6 +5,7 @@ import { Close } from '@amsterdam/asc-assets'
 import Heading from '../Heading/Heading'
 import Radio from '../Radio/Radio'
 import Checkbox from '../Checkbox/Checkbox'
+import SliderWithInputs from '../SliderWithInputs/SliderWithInputs'
 import Backdrop from '../Backdrop/Backdrop'
 import Button from '../Button/Button'
 import { calculateFacetsTotals, formatFacetNumber } from '~/lib/searchUtils'
@@ -19,6 +20,9 @@ const SearchFilterSection = ({
   category,
   setCategory,
   setPage,
+  period,
+  setPeriod,
+  periodRange,
 }) => {
   const [facetCount, setfacetCount] = useState(null)
   const [mobilePanelOpen, setMobilePanelOpen] = useState(false)
@@ -110,6 +114,26 @@ const SearchFilterSection = ({
                 }`}
               </Checkbox>
             ))}
+        </Styled.Fieldset>
+        <Styled.Fieldset
+          legend={
+            <Heading as="h2" styleAs="h5" gutterBottom={24}>
+              Periode
+            </Heading>
+          }
+        >
+          {periodRange[0] && periodRange[1] ? (
+            <SliderWithInputs
+              selectedRange={period}
+              totalRange={periodRange}
+              onChange={(values) => {
+                setPeriod(values)
+                setPage(1)
+              }}
+            />
+          ) : (
+            <Styled.Loading />
+          )}
         </Styled.Fieldset>
         <Styled.Fieldset
           legend={
