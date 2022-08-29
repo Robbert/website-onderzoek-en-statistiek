@@ -3249,10 +3249,10 @@ grapheme-splitter@^1.0.4:
   resolved "https://registry.yarnpkg.com/grapheme-splitter/-/grapheme-splitter-1.0.4.tgz#9cf3a665c6247479896834af35cf1dbb4400767e"
   integrity sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==
 
-graphql@^16.5.0:
-  version "16.5.0"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.5.0.tgz#41b5c1182eaac7f3d47164fb247f61e4dfb69c85"
-  integrity sha512-qbHgh8Ix+j/qY+a/ZcJnFQ+j8ezakqPiHwPiZhV/3PgGlgf96QMBB5/f2rkiC9sgLoy/xvT6TSiaf2nTHJh5iA==
+graphql@^16.6.0:
+  version "16.6.0"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.6.0.tgz#c2dcffa4649db149f6282af726c8c83f1c7c5fdb"
+  integrity sha512-KPIBPDlW7NxrbT/eh4qPXz5FiFdL5UbaA0XUNz2Rp3Z3hqBSkbj0GVjwFDztsWVauZUWsbKHgMg++sk8UX0bkw==
 
 gzip-size@^6.0.0:
   version "6.0.0"
@@ -6485,10 +6485,10 @@ vega-label@~1.2.0:
     vega-scenegraph "^4.9.2"
     vega-util "^1.15.2"
 
-vega-lite@^5.4.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/vega-lite/-/vega-lite-5.4.0.tgz#d09331e2a1c87843d5865de0fa7704919796ab56"
-  integrity sha512-e/P5iOtBE62WEWZhKP7sLcBd92YS9prfUQafelxoOeloooSSrkUwM/ZDmN5Q5ffByEZTiKfODtnwD6/xKDYUmw==
+vega-lite@^5.5.0:
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/vega-lite/-/vega-lite-5.5.0.tgz#07345713d538cd63278748ec119c261722be66ff"
+  integrity sha512-MQBJt/iaUegvhRTS/hZVWfMOSF5ai4awlR2qtwTgHd84bErf9v7GtaZ9ArhJqXCb+FizvZ2jatmoYCzovgAhkg==
   dependencies:
     "@types/clone" "~2.1.1"
     array-flat-polyfill "^1.0.1"
