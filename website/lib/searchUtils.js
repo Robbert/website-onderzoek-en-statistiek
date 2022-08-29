@@ -189,7 +189,7 @@ export function getSearchResults(
         themeFilter.length === 0 || themeFilter.some((t) => theme.includes(t)),
     )
     .filter((item) => {
-      if (period[0] && period[1]) {
+      if (period && period[0] && period[1]) {
         const pubDate = new Date(item.publicationDate)
         const min = new Date(period[0], 0, 1)
         const max = new Date(period[1], 11, 31, 23, 59, 59)
