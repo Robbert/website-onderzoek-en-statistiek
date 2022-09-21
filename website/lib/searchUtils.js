@@ -139,6 +139,14 @@ export const fuseOptions = {
   ],
 }
 
+function calculateWeightFromDate(score, date) {
+  const amountOfDaysFromToday = (Date.now() - new Date(date)) / 86400000
+  // every 10 days adds 1% to the score
+  const weight = (amountOfDaysFromToday / 10 / 100) * score
+
+  return score + weight
+}
+
 export function getSearchResults(
   searchIndex,
   searchQuery,
@@ -164,6 +172,9 @@ export function getSearchResults(
   // See for documentation https://fusejs.io/api/query.html and
   // https://fusejs.io/examples.html#extended-search
 
+  // Additionally, the time between the publication or update date and the current date
+  // is added to the score. Every 10 days adds 1% to the score
+
   const verbatim = `'"${searchQuery.trim()}"`
   const allWords = `${fuzzyWords.toString().replaceAll(',', ' ')}`
   const query = {
@@ -178,9 +189,11 @@ export function getSearchResults(
   const base =
     searchQuery.trim() === ''
       ? searchIndex._docs
-      : searchIndex
-          .search(query)
-          .map(({ score, matches, item }) => ({ score, matches, ...item }))
+      : searchIndex.search(query).map(({ score, matches, item }) => ({
+          score: calculateWeightFromDate(score, item.publicationDate),
+          matches,
+          ...item,
+        }))
 
   return base
     .filter(({ type }) => !category || category === type)
@@ -198,6 +211,7 @@ export function getSearchResults(
       }
       return true
     })
+    .sort((a, b) => a.score - b.score)
 }
 
 export function calculateFacetsTotals(themes, types, results) {
