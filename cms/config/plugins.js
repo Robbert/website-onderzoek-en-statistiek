@@ -9,12 +9,6 @@ module.exports = () => ({
       },
     },
   },
-  graphql: {
-    enabled: true,
-    config: {
-      amountLimit: 10000,
-    },
-  },
   'os-utilities': {
     enabled: true,
     resolve: './src/plugins/os-utilities',

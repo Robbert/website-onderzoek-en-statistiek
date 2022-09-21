@@ -20,7 +20,6 @@
   },
   "dependencies": {
     "@strapi/helper-plugin": "4.2.3",
-    "@strapi/plugin-graphql": "4.2.3",
     "@strapi/plugin-i18n": "4.2.3",
     "@strapi/plugin-users-permissions": "4.2.3",
     "@strapi/strapi": "4.2.3",
@@ -29,10 +28,7 @@
     "fs": "^0.0.1-security",
     "got": "^11.8.2",
     "jwt-decode": "^3.1.2",
-    "knex": "0.21.18",
-    "mime-types": "^2.1.27",
     "pg": "^8.6.0",
-    "pluralize": "^8.0.0",
     "slugify": "^1.5.3"
   },
   "author": {
