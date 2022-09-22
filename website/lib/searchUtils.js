@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { createContext } from 'react'
+import qs from 'qs'
 
 import { fetchAPI, dateConfig } from './utils'
 
@@ -28,11 +29,50 @@ const normalize = ({
   dateConfig: dateConfig(formatPublicationDate),
 })
 
+const sharedFields = ['slug', 'title', 'teaser', 'keywords', 'updatedAt']
+
+function getFields(type) {
+  switch (type) {
+    case 'article':
+    case 'video':
+      return [...sharedFields, 'intro', 'publicationDate']
+    case 'publication':
+      return [
+        ...sharedFields,
+        'intro',
+        'publicationDate',
+        'formatPublicationDate',
+      ]
+    case 'interactive':
+      return [...sharedFields, 'publicationDate']
+    case 'collection':
+      return [...sharedFields, 'intro']
+    case 'dataset':
+    default:
+      return sharedFields
+  }
+}
+
+function getSearchQuery(type) {
+  return {
+    populate: {
+      themes: {
+        fields: ['slug'],
+      },
+    },
+    fields: getFields(type),
+  }
+}
+
 export async function getSearchContent() {
   const articles = await fetchAPI('/api/articles?fields=id').then(
     (metaResult) =>
       fetchAPI(
-        `/api/articles?&pagination[pageSize]=${metaResult.meta.pagination.total}&populate=*`,
+        `/api/articles?&pagination[pageSize]=${
+          metaResult.meta.pagination.total
+        }&${qs.stringify(getSearchQuery('article'), {
+          encodeValuesOnly: true,
+        })}`,
       ).then((result) =>
         result.data.map((item) => ({
           ...normalize(item),
@@ -44,7 +84,11 @@ export async function getSearchContent() {
   const publications = await fetchAPI('/api/publications?fields=id').then(
     (metaResult) =>
       fetchAPI(
-        `/api/publications?&pagination[pageSize]=${metaResult.meta.pagination.total}&populate=*`,
+        `/api/publications?&pagination[pageSize]=${
+          metaResult.meta.pagination.total
+        }&&${qs.stringify(getSearchQuery('publication'), {
+          encodeValuesOnly: true,
+        })}&fields[7]=formatPublicationDate`,
       ).then((result) =>
         result.data.map((item) => ({
           ...normalize(item),
@@ -55,7 +99,11 @@ export async function getSearchContent() {
 
   const videos = await fetchAPI('/api/videos?fields=id').then((metaResult) =>
     fetchAPI(
-      `/api/videos?&pagination[pageSize]=${metaResult.meta.pagination.total}&populate=*`,
+      `/api/videos?&pagination[pageSize]=${
+        metaResult.meta.pagination.total
+      }&${qs.stringify(getSearchQuery('video'), {
+        encodeValuesOnly: true,
+      })}`,
     ).then((result) =>
       result.data.map((item) => ({
         ...normalize(item),
@@ -67,7 +115,11 @@ export async function getSearchContent() {
   const interactives = await fetchAPI('/api/interactives?fields=id').then(
     (metaResult) =>
       fetchAPI(
-        `/api/interactives?&pagination[pageSize]=${metaResult.meta.pagination.total}&populate=*`,
+        `/api/interactives?&pagination[pageSize]=${
+          metaResult.meta.pagination.total
+        }&${qs.stringify(getSearchQuery('interactive'), {
+          encodeValuesOnly: true,
+        })}`,
       ).then((result) =>
         result.data.map((item) => ({
           ...normalize(item),
@@ -79,7 +131,11 @@ export async function getSearchContent() {
   const datasets = await fetchAPI('/api/datasets?fields=id').then(
     (metaResult) =>
       fetchAPI(
-        `/api/datasets?&pagination[pageSize]=${metaResult.meta.pagination.total}&populate=*`,
+        `/api/datasets?&pagination[pageSize]=${
+          metaResult.meta.pagination.total
+        }&${qs.stringify(getSearchQuery('dataset'), {
+          encodeValuesOnly: true,
+        })}`,
       ).then((result) =>
         result.data.map((item) => ({
           ...normalize(item),
@@ -91,7 +147,11 @@ export async function getSearchContent() {
   const collections = await fetchAPI('/api/collections?fields=id').then(
     (metaResult) =>
       fetchAPI(
-        `/api/collections?&pagination[pageSize]=${metaResult.meta.pagination.total}&populate=*`,
+        `/api/collections?&pagination[pageSize]=${
+          metaResult.meta.pagination.total
+        }&${qs.stringify(getSearchQuery('collection'), {
+          encodeValuesOnly: true,
+        })}`,
       ).then((result) =>
         result.data.map((item) => ({
           ...normalize(item),
