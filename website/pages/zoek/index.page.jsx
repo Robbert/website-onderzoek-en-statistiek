@@ -35,7 +35,6 @@ const Search = ({ themes }) => {
   const [themeFilter, setThemeFilter] = useState([])
   const [page, setPage] = useState(1)
   const [period, setPeriod] = useState([null, null])
-
   const [results, setResults] = useState([])
 
   const periodRange = getPeriodRange(searchIndex)
@@ -55,7 +54,7 @@ const Search = ({ themes }) => {
   }
 
   // get state from url params on first render
-  // and when periodRange changes
+  // or when periodRange or category changes
   useEffect(() => {
     if (router.isReady) {
       const {
@@ -68,7 +67,7 @@ const Search = ({ themes }) => {
 
       setQueries(q, cat, theme, pageNumber, selectedPeriod)
     }
-  }, [router.isReady, periodRange[0]])
+  }, [router.isReady, router.query.categorie, periodRange[0]])
 
   // get state from url params on forward and back button click
   useEffect(() => {

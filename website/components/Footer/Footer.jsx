@@ -23,7 +23,7 @@ const Footer = (props) => (
           <li>
             <Link
               darkBackground
-              href="mailto:redactie.ois@amsterdam.nl"
+              href="mailto:redactie.os@amsterdam.nl"
               external
               variant="inList"
             >

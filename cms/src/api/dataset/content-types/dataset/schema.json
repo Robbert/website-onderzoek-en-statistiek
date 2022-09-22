@@ -70,7 +70,7 @@
     "publisherMail": {
       "type": "email",
       "required": true,
-      "default": "redactie.ois@amsterdam.nl"
+      "default": "redactie.os@amsterdam.nl"
     },
     "contactName": {
       "type": "string",
@@ -80,7 +80,7 @@
     "contactMail": {
       "type": "email",
       "required": true,
-      "default": "redactie.ois@amsterdam.nl"
+      "default": "redactie.os@amsterdam.nl"
     },
     "purpose": {
       "type": "text",

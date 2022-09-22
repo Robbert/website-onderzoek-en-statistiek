@@ -78,7 +78,7 @@ const Custom404 = () => {
             </li>
             <li>
               Stuur een{' '}
-              <Link href="mailto:redactie.ois@amsterdam.nl" variant="inline">
+              <Link href="mailto:redactie.os@amsterdam.nl" variant="inline">
                 bericht aan de redactie
               </Link>
             </li>
