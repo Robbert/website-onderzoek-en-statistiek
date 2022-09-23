@@ -227,7 +227,7 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, preview }) {
   const data = await fetchAPI(
     `/api/collections?${qs.stringify(
       {
@@ -237,7 +237,7 @@ export async function getStaticProps({ params }) {
       {
         encodeValuesOnly: true,
       },
-    )}`,
+    )}${preview ? '&publicationState=preview' : ''}`,
   )
 
   if (!data.data[0]) {
