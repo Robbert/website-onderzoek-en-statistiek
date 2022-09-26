@@ -35,6 +35,9 @@ services:
       KEYCLOAK_PASS_ACC: $KEYCLOAK_PASS
       KEYCLOAK_REALM_ACC: datapunt-ad-acc
       WEBSITE_DOMAIN: https://acc.onderzoek.amsterdam.nl
+      STRAPI_PREVIEW_DRAFT_URL: https://acc.onderzoek.amsterdam.nl/api/preview
+      STRAPI_PREVIEW_PUBLISHED_URL: https://acc.onderzoek.amsterdam.nl
+      STRAPI_PREVIEW_SECRET: $STRAPI_PREVIEW_SECRET
     networks:
       - os-network
     ports:

@@ -71,3 +71,4 @@ build
 
 .next
 searchContent.json
+.env
