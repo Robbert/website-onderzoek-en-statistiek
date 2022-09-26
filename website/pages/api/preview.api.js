@@ -5,13 +5,10 @@ import { fetchAPI } from '../../lib/utils'
 
 // eslint-disable-next-line consistent-return
 export default async function handler(req, res) {
-  if (
-    req.query.secret !== process.env.STRAPI_PREVIEW_SECRET ||
-    !req.query.slug
-  ) {
+  if (!req.query.slug) {
     return res.status(401).json({
       message:
-        'Incorrecte code. Neem contact op met redactie.os@amsterdam.nl voor vragen.',
+        'Onjuiste url, de slug ontbreekt. Neem contact op met redactie.os@amsterdam.nl voor vragen.',
     })
   }
 
@@ -33,7 +30,7 @@ export default async function handler(req, res) {
   if (!pageData.data?.length > 0) {
     return res.status(401).json({
       message:
-        'Incorrecte slug. Neem contact op met redactie.os@amsterdam.nl voor vragen.',
+        'Onjuiste url, deze slug bestaat niet. Neem contact op met redactie.os@amsterdam.nl voor vragen.',
     })
   }
   res.setPreviewData({})
