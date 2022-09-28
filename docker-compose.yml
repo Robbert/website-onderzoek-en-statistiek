@@ -35,9 +35,6 @@ services:
       KEYCLOAK_PASS_PROD: $KEYCLOAK_PASS
       KEYCLOAK_REALM_PROD: datapunt-ad
       WEBSITE_DOMAIN: https://onderzoek.amsterdam.nl
-      STRAPI_PREVIEW_DRAFT_URL: https://onderzoek.amsterdam.nl/api/preview
-      STRAPI_PREVIEW_PUBLISHED_URL: https://onderzoek.amsterdam.nl
-      STRAPI_PREVIEW_SECRET: $STRAPI_PREVIEW_SECRET
     networks:
       - os-network
     ports:

@@ -1,4 +1,4 @@
-module.exports = () => ({
+module.exports = ({ env }) => ({
   upload: {
     enabled: true,
     config: {
@@ -18,88 +18,98 @@ module.exports = () => ({
       contentTypes: [
         {
           uid: 'api::homepage.homepage',
+          published: {
+            url: env('WEBSITE_DOMAIN'),
+          },
         },
         {
           uid: 'api::article.article',
-          targetField: 'slug',
           published: {
-            basePath: 'artikel',
+            url: `${env('WEBSITE_DOMAIN')}/artikel/{slug}`,
           },
           draft: {
+            url: `${env('WEBSITE_DOMAIN')}/api/preview`,
             query: {
               type: 'article',
+              slug: '{slug}',
             },
           },
         },
         {
           uid: 'api::collection.collection',
-          targetField: 'slug',
           published: {
-            basePath: 'dossier',
+            url: `${env('WEBSITE_DOMAIN')}/dossier/{slug}`,
           },
           draft: {
+            url: `${env('WEBSITE_DOMAIN')}/api/preview`,
             query: {
               type: 'collection',
+              slug: '{slug}',
             },
           },
         },
         {
           uid: 'api::dataset.dataset',
-          targetField: 'slug',
           published: {
-            basePath: 'dataset',
+            url: `${env('WEBSITE_DOMAIN')}/dataset/{slug}`,
           },
           draft: {
+            url: `${env('WEBSITE_DOMAIN')}/api/preview`,
             query: {
               type: 'dataset',
+              slug: '{slug}',
             },
           },
         },
         {
           uid: 'api::interactive.interactive',
-          targetField: 'slug',
           published: {
-            basePath: 'interactief',
+            url: `${env('WEBSITE_DOMAIN')}/interactief/{slug}`,
           },
           draft: {
+            url: `${env('WEBSITE_DOMAIN')}/api/preview`,
             query: {
               type: 'interactive',
+              slug: '{slug}',
             },
           },
         },
         {
           uid: 'api::publication.publication',
-          targetField: 'slug',
           published: {
-            basePath: 'publicatie',
+            url: `${env('WEBSITE_DOMAIN')}/publicatie/{slug}`,
           },
           draft: {
+            url: `${env('WEBSITE_DOMAIN')}/api/preview`,
             query: {
               type: 'publication',
+              slug: '{slug}',
             },
           },
         },
         {
           uid: 'api::theme.theme',
-          targetField: 'slug',
           published: {
-            basePath: 'thema',
+            url: `${env('WEBSITE_DOMAIN')}/thema/{slug}`,
           },
           draft: {
+            url: `${env('WEBSITE_DOMAIN')}/api/preview`,
             query: {
               type: 'theme',
+              slug: '{slug}',
             },
           },
         },
         {
           uid: 'api::video.video',
-          targetField: 'slug',
           published: {
-            basePath: 'video',
+            url: `${env('WEBSITE_DOMAIN')}/video/{slug}`,
           },
           draft: {
+            url: `${env('WEBSITE_DOMAIN')}/api/preview`,
             query: {
               type: 'video',
+              slug: '{slug}',
             },
           },
         },

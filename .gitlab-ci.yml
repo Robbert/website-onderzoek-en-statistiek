@@ -34,7 +34,6 @@ deploy:
         DEPLOY_ENV: acceptance
         DOCKER: docker-compose.acc.yml
         URL: https://acc.onderzoek.amsterdam.nl/
-        STRAPI_PREVIEW_SECRET: $STRAPI_PREVIEW_SECRET
     - if: $CI_COMMIT_REF_NAME == "main"
       when: on_success
       variables:
@@ -44,7 +43,6 @@ deploy:
         DEPLOY_ENV: production
         DOCKER: docker-compose.yml
         URL: https://onderzoek.amsterdam.nl/
-        STRAPI_PREVIEW_SECRET: $STRAPI_PREVIEW_SECRET
   script:
     # setup credentials and packages
     - chmod og= $ID_RSA
@@ -68,7 +66,6 @@ deploy:
         API_TOKEN_SALT=$API_TOKEN_SALT
         KEYCLOAK_NAME=$KEYCLOAK_NAME
         KEYCLOAK_PASS=$KEYCLOAK_PASS
-        STRAPI_PREVIEW_SECRET=$STRAPI_PREVIEW_SECRET
         "docker-compose -f $DOCKER --project-name $DEPLOY_ENV up -d --no-deps --remove-orphans"
     # deploy webserver
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 

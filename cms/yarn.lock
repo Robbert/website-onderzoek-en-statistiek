@@ -10221,15 +10221,16 @@ std-env@^3.0.1:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.1.1.tgz#1f19c4d3f6278c52efd08a94574a2a8d32b7d092"
   integrity sha512-/c645XdExBypL01TpFKiG/3RAa/Qmu+zRi0MwAmrdEkwHNuN0ebo8ccAXBBDa5Z0QOJgBskUIbuCK91x0sCVEw==
 
-strapi-plugin-preview-button@^0.3.6:
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/strapi-plugin-preview-button/-/strapi-plugin-preview-button-0.3.6.tgz#272b56462249deffa3ae0239b1d3eace82b6e0c9"
-  integrity sha512-wyAZ792XUcMHX4Ze/rS/A8gMhh4YwLXmkqR8nM3FRbJRiFXQZLn00S+CrI9gZs04njv1Lz7ZcLtSJ2h5AEDWgQ==
+strapi-plugin-preview-button@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-preview-button/-/strapi-plugin-preview-button-1.0.0.tgz#8982929e098af799d8dd8830880c61d064e002a6"
+  integrity sha512-D2AaAXrpXVP4eqarsxdAK9VKLugsIIIKyesdkfg1xXsCSchZqfgRUq1Sqf2FrMOrmE3qzt7iBFkOpbKY/GzzjA==
   dependencies:
     immer "^9.0.12"
     prop-types "^15.8.1"
     qs "^6.10.3"
     react "^17.0.2"
+    react-copy-to-clipboard "^5.1.0"
     react-intl "^5.24.6"
     react-redux "^7.2.6"
     react-router-dom "^6.2.1"
