@@ -72,10 +72,14 @@ const Article = ({
                 blurDataURL={PLACEHOLDER_IMAGE}
                 priority
               />
-
-              {rectangularImage.caption && (
-                <Paragraph small>{rectangularImage.caption}</Paragraph>
-              )}
+              {rectangularImage.caption &&
+                /**
+                 Strapi autofills the 'caption' field with the name of the file.
+                 This regex checks if 'caption' doesn't end in an image extension.
+                */
+                !/\.(jpg|jpeg|png|webp|avif|gif|svg|ico)$/.test(
+                  rectangularImage.caption,
+                ) && <Paragraph small>{rectangularImage.caption}</Paragraph>}
             </Styled.ImageWrapper>
           )}
         </GridItem>
