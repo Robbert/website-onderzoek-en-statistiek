@@ -89,6 +89,15 @@ const IFrame = ({ src, title }) => {
     }
   }, [router.query, loading])
 
+  useEffect(() => {
+    // using height state to set loading state, because onLoad event on iframe
+    // doesn't fire consistently. onLoad is still used to set loading state
+    // when iframe source refuses connection
+    if (height > 0) {
+      setLoading(false)
+    }
+  }, [height])
+
   return (
     <Styled.IFrameContainer>
       {loading && <Spinner />}
