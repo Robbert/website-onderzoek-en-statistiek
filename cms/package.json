@@ -25,7 +25,7 @@
     "@strapi/strapi": "^4.4.5",
     "archiver": "^5.3.1",
     "file-saver": "^2.0.5",
-    "got": "^12.5.2",
+    "got": "^11.8.3",
     "jwt-decode": "^3.1.2",
     "pg": "^8.8.0",
     "slugify": "^1.5.3",
