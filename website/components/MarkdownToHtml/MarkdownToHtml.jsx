@@ -17,7 +17,7 @@ const markdownToHtmlMap = {
   h5: (props) => <Heading gutterBottom={40} as="h5" {...props} />,
   p: ({ children }) => {
     // this hacky check is necessary because Strapi's default rich text editor always
-    // wraps images in a paragraph. The Next image component we use return a div,
+    // wraps images in a paragraph. The Next image component we use returns a div,
     // which means you get a div as a decendant of a paragraph. That is not valid html markup.
     if (
       children[0]?.type?.name === 'img' ||

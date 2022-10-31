@@ -1,5 +1,3 @@
-import NextLink from 'next/link'
-
 import Heading from '../Heading/Heading'
 import CONTENT_TYPES from '../../constants/contentTypes'
 import * as Styled from './SearchCard.style'
@@ -14,26 +12,24 @@ const SearchCard = ({
   gutterBottom = 40,
   headingLevel,
 }) => (
-  <NextLink href={href} passHref>
-    <Styled.Link gutterBottom={gutterBottom}>
-      {type && (
-        <Styled.Type small gutterBottom={4}>
-          {CONTENT_TYPES[type.toLowerCase()].name}
-        </Styled.Type>
-      )}
-      <Heading as={headingLevel} styleAs="h5" gutterBottom={8}>
-        {title}
-      </Heading>
-      <Styled.Teaser small={small}>{teaser}</Styled.Teaser>
-      {date && (
-        <Styled.Date small>
-          {type === 'collection' || type === 'dataset' || type === 'interactive'
-            ? `Laatst gewijzigd: ${date}`
-            : `Gepubliceerd: ${date}`}
-        </Styled.Date>
-      )}
-    </Styled.Link>
-  </NextLink>
+  <Styled.Link href={href} $gutterBottom={gutterBottom}>
+    {type && (
+      <Styled.Type small gutterBottom={4}>
+        {CONTENT_TYPES[type.toLowerCase()].name}
+      </Styled.Type>
+    )}
+    <Heading as={headingLevel} styleAs="h5" gutterBottom={8}>
+      {title}
+    </Heading>
+    <Styled.Teaser small={small}>{teaser}</Styled.Teaser>
+    {date && (
+      <Styled.Date small>
+        {type === 'collection' || type === 'dataset' || type === 'interactive'
+          ? `Laatst gewijzigd: ${date}`
+          : `Gepubliceerd: ${date}`}
+      </Styled.Date>
+    )}
+  </Styled.Link>
 )
 
 export default SearchCard

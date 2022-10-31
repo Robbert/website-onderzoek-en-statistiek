@@ -1,26 +1,27 @@
 import styled, { css } from 'styled-components'
 import { themeColor, breakpoint } from '@amsterdam/asc-ui'
+import NextLink from 'next/link'
 
 import Paragraph from '../Paragraph/Paragraph'
 
-export const Link = styled.a`
+export const Link = styled(NextLink)`
   display: block;
   text-decoration: none;
   overflow: hidden;
 
-  ${({ gutterBottom }) =>
-    (gutterBottom || typeof gutterBottom === 'number') &&
+  ${({ $gutterBottom }) =>
+    ($gutterBottom || typeof $gutterBottom === 'number') &&
     css`
-      margin-bottom: ${typeof gutterBottom?.large === 'number'
-        ? `${gutterBottom.large}px`
-        : `${gutterBottom}px`};
+      margin-bottom: ${typeof $gutterBottom?.large === 'number'
+        ? `${$gutterBottom.large}px`
+        : `${$gutterBottom}px`};
     `}
 
-  ${({ gutterBottom }) =>
-    typeof gutterBottom?.small === 'number' &&
+  ${({ $gutterBottom }) =>
+    typeof $gutterBottom?.small === 'number' &&
     css`
       @media screen and ${breakpoint('max-width', 'laptop')} {
-        margin-bottom: ${gutterBottom.small}px;
+        margin-bottom: ${$gutterBottom.small}px;
       }
     `}
 

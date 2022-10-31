@@ -1,12 +1,9 @@
 import styled, { css } from 'styled-components'
 import { themeColor, breakpoint } from '@amsterdam/asc-ui'
+import NextLink from 'next/link'
 
 import HeadingComponent from '../Heading/Heading'
 import Paragraph from '../Paragraph/Paragraph'
-
-export const CardWrapper = styled.div`
-  width: 100%;
-`
 
 export const IconContainer = styled.div`
   position: absolute;
@@ -21,7 +18,7 @@ export const IconContainer = styled.div`
   }
 `
 
-export const Link = styled.a`
+export const Link = styled(NextLink)`
   display: block;
   width: 100%;
   text-decoration: none;
@@ -58,6 +55,7 @@ export const ImageWrapper = styled.div`
   width: 100%;
   aspect-ratio: ${({ aspectRatio }) => aspectRatio};
   padding-top: ${({ aspectRatio }) => 100 / aspectRatio}%;
+  overflow: hidden;
 
   ${({ large }) =>
     large &&

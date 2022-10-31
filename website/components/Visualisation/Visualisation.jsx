@@ -117,10 +117,14 @@ const Visualisation = ({
             alt={selectedPanel.altText}
             width={selectedPanel.image.width}
             height={selectedPanel.image.height}
-            layout="responsive"
             placeholder="blur"
             blurDataURL={PLACEHOLDER_IMAGE}
             priority
+            sizes="(max-width: 840px) 840px, 920px"
+            style={{
+              width: '100%',
+              height: 'auto',
+            }}
           />
         )}
         {selectedPanel?.specification && (

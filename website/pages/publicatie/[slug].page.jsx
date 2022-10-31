@@ -105,11 +105,15 @@ const Publication = ({
                 alt=""
                 width={coverImage.width}
                 height={coverImage.height}
-                layout="responsive"
                 placeholder="blur"
-                objectFit="cover"
                 blurDataURL={PLACEHOLDER_IMAGE}
                 priority
+                sizes="(max-width: 840px) 840px, 340px"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  objectFit: 'cover',
+                }}
               />
             </Styled.CoverImage>
           )}

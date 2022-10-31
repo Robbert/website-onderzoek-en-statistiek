@@ -144,6 +144,7 @@ const Home = ({ themes, homepage }) => {
               headingLevel="h2"
               large
               priority
+              sizes="(max-width: 840px) 840px, 920px"
             />
           </GridItem>
         )}
@@ -192,6 +193,7 @@ const Home = ({ themes, homepage }) => {
                       teaser={teaser}
                       headingLevel="h3"
                       clickableImage
+                      sizes="(max-width: 840px) 840px, 450px"
                     />
                   </Styled.FeatureListItem>
                 ),

@@ -67,15 +67,19 @@ const Article = ({
                 alt=""
                 width={rectangularImage.width}
                 height={rectangularImage.height}
-                layout="responsive"
                 placeholder="blur"
                 blurDataURL={PLACEHOLDER_IMAGE}
                 priority
+                sizes="(max-width: 840px) 840px, 920px"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                }}
               />
               {rectangularImage.caption &&
-                /**
-                 Strapi autofills the 'caption' field with the name of the file.
-                 This regex checks if 'caption' doesn't end in an image extension.
+                /*
+                  Strapi autofills the 'caption' field with the name of the file.
+                  This regex checks if 'caption' doesn't end in an image extension.
                 */
                 !/\.(jpg|jpeg|png|webp|avif|gif|svg|ico)$/.test(
                   rectangularImage.caption,
@@ -118,6 +122,7 @@ const Article = ({
                         title={relatedShortTitle || relatedTitle}
                         headingLevel="h3"
                         clickableImage
+                        sizes="(max-width: 840px) 840px, 450px"
                       />
                     </GridItem>
                   </Styled.RelatedListItem>

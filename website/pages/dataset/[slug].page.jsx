@@ -155,7 +155,7 @@ const Dataset = ({
             <Styled.Row underline>
               <Styled.Term>Contactpersoon</Styled.Term>
               <Styled.Details>
-                <Link href={`mailto:${contactMail}`} variant="inline">
+                <Link href={`mailto:${contactMail}`} variant="inline" external>
                   {contactName}
                 </Link>
               </Styled.Details>

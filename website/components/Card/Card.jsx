@@ -1,4 +1,3 @@
-import NextLink from 'next/link'
 import NextImage from 'next/image'
 import { useMatchMedia } from '@amsterdam/asc-ui'
 
@@ -19,6 +18,7 @@ const Card = ({
   clickableImage,
   aspectRatio = 4 / 3,
   priority,
+  sizes,
 }) => {
   let icon
   if (type === 'video') {
@@ -37,41 +37,51 @@ const Card = ({
       <NextImage
         src={image ? getStrapiMedia(image) : PLACEHOLDER_IMAGE}
         alt=""
-        layout="fill"
-        objectFit="cover"
         priority={priority}
+        fill
+        sizes={sizes}
+        style={{
+          objectFit: 'cover',
+        }}
       />
       {icon && (
         <Styled.IconContainer>
-          <NextImage src={icon.src} alt="" width={48} height={48} />
+          <NextImage
+            src={icon.src}
+            alt=""
+            width={48}
+            height={48}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
         </Styled.IconContainer>
       )}
     </Styled.ImageWrapper>
   )
 
   return (
-    <Styled.CardWrapper>
+    <>
       {!clickableImage && cardImage}
-      <NextLink href={href} passHref>
-        <Styled.Link>
-          {clickableImage && cardImage}
-          <Styled.TextWrapper>
-            <Styled.Type small gutterBottom={large ? 8 : 4}>
-              {CONTENT_TYPES[type.toLowerCase()].name}
-            </Styled.Type>
-            <Styled.Heading
-              forwardedAs={headingLevel}
-              styleAs={large ? 'h2' : 'h5'}
-              gutterBottom={8}
-              large={large}
-            >
-              {title}
-            </Styled.Heading>
-            <Styled.Teaser small={!large}>{teaser}</Styled.Teaser>
-          </Styled.TextWrapper>
-        </Styled.Link>
-      </NextLink>
-    </Styled.CardWrapper>
+      <Styled.Link href={href}>
+        {clickableImage && cardImage}
+        <Styled.TextWrapper>
+          <Styled.Type small gutterBottom={large ? 8 : 4}>
+            {CONTENT_TYPES[type.toLowerCase()].name}
+          </Styled.Type>
+          <Styled.Heading
+            forwardedAs={headingLevel}
+            styleAs={large ? 'h2' : 'h5'}
+            gutterBottom={8}
+            large={large}
+          >
+            {title}
+          </Styled.Heading>
+          <Styled.Teaser small={!large}>{teaser}</Styled.Teaser>
+        </Styled.TextWrapper>
+      </Styled.Link>
+    </>
   )
 }
 

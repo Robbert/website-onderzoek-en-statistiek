@@ -28,7 +28,11 @@ const InlineImage = ({ src, alt }) => {
         height={dimensions.height}
         placeholder="blur"
         blurDataURL={PLACEHOLDER_IMAGE}
-        layout="responsive"
+        sizes="(max-width: 840px) 840px, 920px"
+        style={{
+          width: '100%',
+          height: 'auto',
+        }}
       />
     </Styled.ImageWrapper>
   )

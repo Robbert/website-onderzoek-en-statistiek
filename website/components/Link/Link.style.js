@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 import styled, { css } from 'styled-components'
 import { themeColor, svgFill } from '@amsterdam/asc-ui'
+import NextComponent from 'next/link'
 
 import {
   fluidTypoStyle,
@@ -73,7 +74,7 @@ export const linkListStyle = css`
   }
 `
 
-export const Link = styled.a`
+export const linkStyle = css`
   /*
     fluidTypoStyle sets the font-size and line-height.
     It can be overwritten with specific variant styles.
@@ -97,4 +98,12 @@ export const Link = styled.a`
 
   display: inline-flex;
   align-items: baseline;
+`
+
+export const Link = styled.a`
+  ${linkStyle}
+`
+
+export const NextLink = styled(NextComponent)`
+  ${linkStyle}
 `

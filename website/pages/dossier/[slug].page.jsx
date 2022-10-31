@@ -108,6 +108,7 @@ const Collection = ({
                       teaser={featureTeaser}
                       headingLevel="h2"
                       clickableImage
+                      sizes="(max-width: 840px) 840px, 680px"
                     />
                   </Styled.FeatureListItem>
                 ),
@@ -152,16 +153,22 @@ const Collection = ({
               Zie ook
             </Heading>
             <List>
-              {normalizeItemList(linkList).map(({ path, title: linkTitle }) => (
-                <li key={path}>
-                  <Link href={path} variant="inList">
-                    <Styled.Icon size={14}>
-                      <ChevronRight />
-                    </Styled.Icon>
-                    {linkTitle}
-                  </Link>
-                </li>
-              ))}
+              {normalizeItemList(linkList).map(
+                ({ name, path, title: linkTitle }) => (
+                  <li key={path}>
+                    <Link
+                      href={path}
+                      variant="inList"
+                      external={name === 'link'}
+                    >
+                      <Styled.Icon size={14}>
+                        <ChevronRight />
+                      </Styled.Icon>
+                      {linkTitle}
+                    </Link>
+                  </li>
+                ),
+              )}
             </List>
           </GridItem>
         )}
@@ -190,13 +197,13 @@ const Collection = ({
             <Paragraph small>
               Neem contact met ons op. U kunt ons bereiken via{' '}
               {email && (
-                <Link href={`mailto:${email}`} variant="inline">
+                <Link href={`mailto:${email}`} variant="inline" external>
                   e-mail
                 </Link>
               )}
               {email && phoneNumber && ' of '}
               {phoneNumber && (
-                <Link href={`tel:${phoneNumber}`} variant="inline">
+                <Link href={`tel:${phoneNumber}`} variant="inline" external>
                   {phoneNumber}
                 </Link>
               )}

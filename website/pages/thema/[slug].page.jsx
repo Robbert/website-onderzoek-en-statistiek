@@ -97,8 +97,12 @@ const Theme = ({
                     alt={visualisation.altText}
                     width={visualisation.image.width}
                     height={visualisation.image.height}
-                    layout="responsive"
                     priority
+                    sizes="840px"
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                    }}
                   />
                 )}
                 {!visualisation.image && visualisation.specification && (
@@ -151,6 +155,7 @@ const Theme = ({
                       teaser={featureTeaser}
                       headingLevel="h3"
                       clickableImage
+                      sizes="(max-width: 840px) 840px, 450px"
                     />
                   </GridItem>
                 </Styled.FeatureListItem>
@@ -181,8 +186,11 @@ const Theme = ({
                     : PLACEHOLDER_IMAGE
                 }
                 alt=""
-                layout="fill"
-                objectFit="cover"
+                fill
+                sizes="(max-width: 840px) 840px, 680px"
+                style={{
+                  objectFit: 'cover',
+                }}
               />
               <Styled.SmallImageWrapper>
                 <NextImage
@@ -192,8 +200,11 @@ const Theme = ({
                       : PLACEHOLDER_IMAGE
                   }
                   alt=""
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  sizes="280px"
+                  style={{
+                    objectFit: 'cover',
+                  }}
                 />
               </Styled.SmallImageWrapper>
             </Styled.LargeImageWrapper>
@@ -252,13 +263,13 @@ const Theme = ({
             <Paragraph small>
               Neem contact met ons op. U kunt ons bereiken via{' '}
               {email && (
-                <Link href={`mailto:${email}`} variant="inline">
+                <Link href={`mailto:${email}`} variant="inline" external>
                   e-mail
                 </Link>
               )}
               {email && phoneNumber && ' of '}
               {phoneNumber && (
-                <Link href={`tel:${phoneNumber}`} variant="inline">
+                <Link href={`tel:${phoneNumber}`} variant="inline" external>
                   {phoneNumber}
                 </Link>
               )}
