@@ -83,8 +83,8 @@ export const Label = styled.label`
 
 export const Radio = styled.input`
   appearance: none;
-  /* to hide native input field in iOS */
-  display: contents;
+  /* to hide native input field in older iOS */
+  opacity: 0;
 
   /*
     Focus is first set on the label next to a focussed radio button, and then

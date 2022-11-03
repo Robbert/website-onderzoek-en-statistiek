@@ -76,3 +76,44 @@ export const gridItemStyle = css`
 export const GridItem = styled.div`
   ${gridItemStyle}
 `
+
+export const subgridStyle = css`
+  display: grid;
+  grid-template-rows: repeat(${({ numberOfRows }) => numberOfRows || 1}, auto);
+
+  ${({ colRange }) =>
+    colRange
+      ? css`
+          grid-template-columns: repeat(
+            ${colRange.large ? colRange.large : colRange},
+            1fr
+          );
+          /*
+            The subgrid column gap is calculated here based on how many columns the subgrid spans.
+            The main grid is 12 columns with a column gap of 2%. If the subgrid is for example 6 columns
+            wide, its column gap will be 4%, in order to align with the main grid.
+          */
+          column-gap: calc(
+            (12 / ${colRange.large ? colRange.large : colRange}) * 2%
+          );
+        `
+      : css`
+          grid-template-columns: repeat(12, 1fr);
+          column-gap: 2%;
+        `}
+
+  ${({ colRange }) =>
+    colRange?.small
+      ? css`
+          @media screen and ${breakpoint('max-width', 'laptop')} {
+            grid-template-columns: repeat(${colRange.small}, 1fr);
+          }
+        `
+      : css`
+          @media screen and ${breakpoint('max-width', 'laptop')} {
+            grid-template-columns: repeat(4, 1fr);
+          }
+        `}
+
+  ${gridItemStyle}
+`

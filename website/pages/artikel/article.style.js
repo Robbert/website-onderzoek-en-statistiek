@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import { breakpoint } from '@amsterdam/asc-ui'
 
+import CardListComponent from '~/components/CardList/CardList'
+import { gridItemStyle, subgridStyle } from '~/components/Grid/Grid.style'
+
 export const ImageWrapper = styled.div`
   position: relative;
   margin-bottom: 80px;
@@ -14,6 +17,10 @@ export const ImageWrapper = styled.div`
   }
 `
 
+export const CardList = styled(CardListComponent)`
+  ${subgridStyle}
+`
+
 export const RelatedListItem = styled.li`
-  display: contents;
+  ${gridItemStyle}
 `

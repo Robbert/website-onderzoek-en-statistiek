@@ -10,7 +10,6 @@ import { Grid, GridItem } from '~/components/Grid/Grid.style'
 import Heading from '~/components/Heading/Heading'
 import Paragraph from '~/components/Paragraph/Paragraph'
 import Link from '~/components/Link/Link'
-import CardList from '~/components/CardList/CardList'
 import Card from '~/components/Card/Card'
 import ThemeSearch from '~/components/ThemeSearch/ThemeSearch'
 import {
@@ -135,7 +134,7 @@ const Theme = ({
               Uitgelicht in dit thema
             </Heading>
           </GridItem>
-          <CardList>
+          <Styled.CardList colRange={{ small: 4, large: 12 }}>
             {normalizeItemList(featured).map(
               ({
                 path,
@@ -145,23 +144,24 @@ const Theme = ({
                 rectangularImage: featureRectangularImage,
                 type,
               }) => (
-                <Styled.FeatureListItem key={path}>
-                  <GridItem colRange={{ small: 4, large: 4 }}>
-                    <Card
-                      href={path}
-                      image={featureRectangularImage}
-                      type={type}
-                      title={featureShortTitle || featureTitle}
-                      teaser={featureTeaser}
-                      headingLevel="h3"
-                      clickableImage
-                      sizes="(max-width: 840px) 840px, 450px"
-                    />
-                  </GridItem>
+                <Styled.FeatureListItem
+                  key={path}
+                  colRange={{ small: 4, large: 4 }}
+                >
+                  <Card
+                    href={path}
+                    image={featureRectangularImage}
+                    type={type}
+                    title={featureShortTitle || featureTitle}
+                    teaser={featureTeaser}
+                    headingLevel="h3"
+                    clickableImage
+                    sizes="(max-width: 840px) 840px, 450px"
+                  />
                 </Styled.FeatureListItem>
               ),
             )}
-          </CardList>
+          </Styled.CardList>
         </Grid>
       )}
 

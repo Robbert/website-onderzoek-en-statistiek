@@ -1,10 +1,16 @@
 import styled, { css } from 'styled-components'
 import { Icon as IconASC, breakpoint, themeColor } from '@amsterdam/asc-ui'
 
-import { Grid, GridItem } from '~/components/Grid/Grid.style'
+import {
+  Grid,
+  GridItem,
+  gridItemStyle,
+  subgridStyle,
+} from '~/components/Grid/Grid.style'
 import LinkComponent from '~/components/Link/Link'
 import Paragraph from '~/components/Paragraph/Paragraph'
 import List from '~/components/List/List'
+import CardListComponent from '~/components/CardList/CardList'
 import { calculateFluidStyle } from '~/lib/typographyUtils'
 import { getFontColor } from '~/lib/utils'
 
@@ -62,8 +68,12 @@ export const ChartCaption = styled(Paragraph)`
   ${({ backgroundColor }) => backgroundColor && getFontColor(backgroundColor)}
 `
 
+export const CardList = styled(CardListComponent)`
+  ${subgridStyle}
+`
+
 export const FeatureListItem = styled.li`
-  display: contents;
+  ${gridItemStyle}
 `
 
 export const CollectionGrid = styled(Grid)`

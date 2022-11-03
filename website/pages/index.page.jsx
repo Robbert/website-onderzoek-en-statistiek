@@ -8,7 +8,6 @@ import Seo from '~/components/Seo/Seo'
 import { Grid, GridItem } from '~/components/Grid/Grid.style'
 import Heading from '~/components/Heading/Heading'
 import List from '~/components/List/List'
-import CardList from '~/components/CardList/CardList'
 import Card from '~/components/Card/Card'
 import SearchCard from '~/components/SearchCard/SearchCard'
 import Link from '~/components/Link/Link'
@@ -209,7 +208,7 @@ const Home = ({ themes, homepage }) => {
               Dossiers
             </Heading>
           </GridItem>
-          <CardList>
+          <Styled.CardList colRange={{ small: 4, large: 12 }}>
             {normalizeItemList(featuredCollections).map(
               ({
                 path,
@@ -217,19 +216,20 @@ const Home = ({ themes, homepage }) => {
                 shortTitle: featureShortTitle,
                 teaser: featureTeaser,
               }) => (
-                <Styled.CollectionListItem key={path}>
-                  <GridItem colRange={{ small: 4, large: 4 }}>
-                    <SearchCard
-                      href={path}
-                      title={featureShortTitle || featureTitle}
-                      teaser={featureTeaser}
-                      small
-                    />
-                  </GridItem>
+                <Styled.CollectionListItem
+                  key={path}
+                  colRange={{ small: 4, large: 4 }}
+                >
+                  <SearchCard
+                    href={path}
+                    title={featureShortTitle || featureTitle}
+                    teaser={featureTeaser}
+                    small
+                  />
                 </Styled.CollectionListItem>
               ),
             )}
-          </CardList>
+          </Styled.CardList>
           <GridItem colRange={{ small: 4, large: 12 }}>
             <Link
               variant="standalone"

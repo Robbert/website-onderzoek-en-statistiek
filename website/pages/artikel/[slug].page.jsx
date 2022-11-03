@@ -8,7 +8,6 @@ import { Grid, GridItem } from '~/components/Grid/Grid.style'
 import Heading from '~/components/Heading/Heading'
 import Paragraph from '~/components/Paragraph/Paragraph'
 import BodyContent from '~/components/BodyContent/BodyContent'
-import CardList from '~/components/CardList/CardList'
 import Card from '~/components/Card/Card'
 import ContentFooter from '~/components/ContentFooter/ContentFooter'
 import {
@@ -104,7 +103,7 @@ const Article = ({
                 Ook interessant
               </Heading>
             </GridItem>
-            <CardList>
+            <Styled.CardList colRange={{ small: 4, large: 12 }}>
               {normalizeItemList(related).map(
                 ({
                   path,
@@ -113,22 +112,20 @@ const Article = ({
                   rectangularImage: relatedRectangularImage,
                   type,
                 }) => (
-                  <Styled.RelatedListItem key={path}>
-                    <GridItem colRange={4}>
-                      <Card
-                        href={path}
-                        image={relatedRectangularImage}
-                        type={type}
-                        title={relatedShortTitle || relatedTitle}
-                        headingLevel="h3"
-                        clickableImage
-                        sizes="(max-width: 840px) 840px, 450px"
-                      />
-                    </GridItem>
+                  <Styled.RelatedListItem key={path} colRange={4}>
+                    <Card
+                      href={path}
+                      image={relatedRectangularImage}
+                      type={type}
+                      title={relatedShortTitle || relatedTitle}
+                      headingLevel="h3"
+                      clickableImage
+                      sizes="(max-width: 840px) 840px, 450px"
+                    />
                   </Styled.RelatedListItem>
                 ),
               )}
-            </CardList>
+            </Styled.CardList>
           </>
         )}
       </Grid>

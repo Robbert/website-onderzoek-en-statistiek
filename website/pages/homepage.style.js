@@ -10,6 +10,8 @@ import CardListComponent from '~/components/CardList/CardList'
 import {
   Grid,
   GridItem as GridItemComponent,
+  gridItemStyle,
+  subgridStyle,
 } from '~/components/Grid/Grid.style'
 import Heading from '~/components/Heading/Heading'
 
@@ -68,12 +70,16 @@ export const FeatureListItem = styled.li`
   }
 `
 
-export const CollectionListItem = styled.li`
-  display: contents;
-`
-
 export const Icon = styled(IconASC)`
   margin-right: 12px;
+`
+
+export const CardList = styled(CardListComponent)`
+  ${subgridStyle}
+`
+
+export const CollectionListItem = styled.li`
+  ${gridItemStyle}
 `
 
 export const MobileOnlyGrid = styled(Grid)`
