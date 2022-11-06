@@ -1,11 +1,12 @@
 import styled from 'styled-components'
-import { breakpoint, Icon as IconASC } from '@amsterdam/asc-ui'
+import { breakpoint } from '@amsterdam/asc-ui'
 
 import {
   Grid as GridComponent,
   gridItemStyle,
 } from '~/components/Grid/Grid.style'
 import HeadingComponent from '~/components/Heading/Heading'
+import IconComponent from '~/components/Icon/Icon'
 import Paragraph from '~/components/Paragraph/Paragraph'
 import ButtonComponent from '~/components/Button/Button'
 import DownloadButtonComponent from '~/components/DownloadButton/DownloadButton'
@@ -43,7 +44,7 @@ export const DownloadButton = styled(DownloadButtonComponent)`
   ${({ backgroundColor }) => backgroundColor && getFontColor(backgroundColor)}
 `
 
-export const Icon = styled(IconASC)`
+export const Icon = styled(IconComponent)`
   margin-right: 12px;
 `
 

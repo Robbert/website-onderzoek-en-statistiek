@@ -3,6 +3,10 @@ import { Icon as IconASC } from '@amsterdam/asc-ui'
 
 import LinkComponent from '~/components/Link/Link'
 
+export const Container = styled.div`
+  --utrecht-space-around: 1;
+`
+
 export const Link = styled(LinkComponent)`
   display: flex;
 `

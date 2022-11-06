@@ -1,5 +1,6 @@
 import { themeColor, breakpoint } from '@amsterdam/asc-ui'
 import styled from 'styled-components'
+import { SubtleButton as CommunitySubtleButton } from '@utrecht/component-library-react'
 
 import ButtonComponent from '../Button/Button'
 import { calculateFluidStyle } from '../../lib/typographyUtils'
@@ -68,13 +69,18 @@ export const HamburgerIcon = styled.span`
   }
 `
 
-export const Button = styled(ButtonComponent)`
+export const Button = styled(CommunitySubtleButton)`
   position: relative;
   min-height: 44px;
   min-width: 44px;
   line-height: ${calculateFluidStyle(24, 26)};
   background-color: transparent;
   color: ${themeColor('tint', 'level6')};
+  --utrecht-button-subtle-border-width: 0;
+  --utrecht-button-subtle-background-color: transparent;
+  --utrecht-button-subtle-color: ${themeColor('tint', 'level6')};
+  --utrecht-button-subtle-hover-background-color: transparent;
+  --utrecht-button-subtle-hover-color: ${themeColor('primary')};
   font-weight: ${({ isOpen }) => (isOpen ? 800 : 500)};
   padding-right: 24px;
 

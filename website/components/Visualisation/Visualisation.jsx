@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import NextImage from 'next/image'
 import slugify from 'slugify'
 import { Download } from '@amsterdam/asc-assets'
+import { LinkButton as CommunityLinkButton } from '@utrecht/component-library-react'
 
 import { GridItem } from '~/components/Grid/Grid.style'
 import VegaVisualisation from '../VegaVisualisation/VegaVisualisation'
@@ -155,7 +156,7 @@ const Visualisation = ({
               {`Bron: ${selectedPanel.source}`}
             </Styled.Source>
           )}
-          <Styled.Button
+          <CommunityLinkButton
             type="button"
             onClick={() => {
               pushCustomEvent('Download', 'visualisation', filename)
@@ -170,7 +171,7 @@ const Visualisation = ({
               <Download />
             </Styled.Icon>
             Download afbeelding
-          </Styled.Button>
+          </CommunityLinkButton>
           {downloadDataUrl && (
             <Styled.DownloadButton
               fileName={`${filename}.csv`}

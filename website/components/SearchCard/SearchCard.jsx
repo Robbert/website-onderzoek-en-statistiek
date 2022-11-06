@@ -1,6 +1,10 @@
 import Heading from '../Heading/Heading'
 import CONTENT_TYPES from '../../constants/contentTypes'
 import * as Styled from './SearchCard.style'
+import {
+  PreHeading as CommunityPreHeading,
+  HeadingGroup as CommunityHeadingGroup,
+} from '@utrecht/component-library-react'
 
 const SearchCard = ({
   href,
@@ -13,14 +17,18 @@ const SearchCard = ({
   headingLevel,
 }) => (
   <Styled.Link href={href} $gutterBottom={gutterBottom}>
-    {type && (
-      <Styled.Type small gutterBottom={4}>
-        {CONTENT_TYPES[type.toLowerCase()].name}
-      </Styled.Type>
-    )}
-    <Heading as={headingLevel} styleAs="h5" gutterBottom={8}>
-      {title}
-    </Heading>
+    <CommunityHeadingGroup>
+      <Heading as={headingLevel} styleAs="h5" gutterBottom={8}>
+        {title}
+      </Heading>
+      {type && (
+        <CommunityPreHeading>
+          <Styled.Type small gutterBottom={4}>
+            {CONTENT_TYPES[type.toLowerCase()].name}
+          </Styled.Type>
+        </CommunityPreHeading>
+      )}
+    </CommunityHeadingGroup>
     <Styled.Teaser small={small}>{teaser}</Styled.Teaser>
     {date && (
       <Styled.Date small>

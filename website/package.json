@@ -21,6 +21,8 @@
     "@amsterdam/asc-assets": "^0.37.0",
     "@amsterdam/asc-ui": "^0.37.0",
     "@next/bundle-analyzer": "^12.3.1",
+    "@nl-design-system-unstable/amsterdam-design-tokens": "/Users/bobby/Sites/github.com/nl-design-system/amsterdam-theme/proprietary/amsterdam-design-tokens",
+    "@utrecht/component-library-react": "^1.0.0-alpha.177",
     "eslint-config-next": "^13.0.0",
     "file-saver": "^2.0.5",
     "fuse.js": "^6.6.2",

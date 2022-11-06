@@ -1,4 +1,5 @@
-import { Footer as FooterComponent } from '@amsterdam/asc-ui'
+import { PageFooter as CommunityPageFooter } from '@utrecht/component-library-react'
+// import { Footer as FooterComponent } from '@amsterdam/asc-ui'
 import { Phone, Email, ChevronRight } from '@amsterdam/asc-assets'
 
 import Container from '../Container/Container'
@@ -9,13 +10,13 @@ import Link from '../Link/Link'
 import * as Styled from './Footer.style'
 
 const Footer = (props) => (
-  <FooterComponent {...props}>
-    <Styled.Grid verticalPadding={40}>
+  <CommunityPageFooter {...props}>
+    <Styled.Grid>
       <GridItem colRange={{ small: 3, large: 3 }}>
-        <Heading styleAs="h5" gutterBottom={28} darkBackground>
+        <Heading styleAs="h5" gutterBottom={28}>
           Contact
         </Heading>
-        <Paragraph small darkBackground gutterBottom={16}>
+        <Paragraph small gutterBottom={16}>
           Heeft u een vraag en kunt u het antwoord niet vinden op deze site?
           Neem dan contact met ons op.
         </Paragraph>
@@ -183,7 +184,7 @@ const Footer = (props) => (
         </Styled.BottomListItem>
       </Styled.BottomList>
     </Container>
-  </FooterComponent>
+  </CommunityPageFooter>
 )
 
 export default Footer

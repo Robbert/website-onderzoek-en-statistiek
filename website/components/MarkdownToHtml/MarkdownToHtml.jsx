@@ -10,11 +10,11 @@ import List from '../List/List'
 import Table from '../Table/Table'
 
 const markdownToHtmlMap = {
-  h1: (props) => <Heading gutterBottom={40} {...props} />,
-  h2: (props) => <Heading gutterBottom={40} as="h2" {...props} />,
-  h3: (props) => <Heading gutterBottom={40} as="h3" {...props} />,
-  h4: (props) => <Heading gutterBottom={40} as="h4" {...props} />,
-  h5: (props) => <Heading gutterBottom={40} as="h5" {...props} />,
+  h1: (props) => <Heading {...props} />,
+  h2: (props) => <Heading as="h2" {...props} />,
+  h3: (props) => <Heading as="h3" {...props} />,
+  h4: (props) => <Heading as="h4" {...props} />,
+  h5: (props) => <Heading as="h5" {...props} />,
   p: ({ children }) => {
     // this hacky check is necessary because Strapi's default rich text editor always
     // wraps images in a paragraph. The Next image component we use returns a div,
@@ -26,27 +26,41 @@ const markdownToHtmlMap = {
     ) {
       return children[0]
     }
-    return <Paragraph gutterBottom={40}>{children}</Paragraph>
+    return <Paragraph>{children}</Paragraph>
   },
   blockquote: ({ node }) => (
     // this hacky code is necessary because Strapi's default rich text editor always
     // wraps text in a blockquote in a paragraph, which gets rendered with Paragraph styling.
     // This takes the text from the paragraph and puts it directly in the blockquote.
-    <Blockquote gutterBottom={40}>
-      {node.children[1]?.children[0]?.value}
-    </Blockquote>
+    <Blockquote>{node.children[1]?.children[0]?.value}</Blockquote>
   ),
   img: (props) => <InlineImage {...props} />,
   a: (props) => <Link external variant="inline" target="_blank" {...props} />,
-  ul: (props) => <List gutterBottom={40} variant="unordered" {...props} />,
-  ol: (props) => <List gutterBottom={40} variant="ordered" {...props} />,
-  table: (props) => <Table gutterBottom={40} {...props} />,
+  ul: (props) => <List variant="unordered" {...props} />,
+  ol: (props) => <List variant="ordered" {...props} />,
+  table: (props) => <Table {...props} />,
 }
 
 const MarkdownToHtml = ({ children }) => (
-  <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownToHtmlMap}>
-    {children}
-  </ReactMarkdown>
+  <div
+    style={{
+      '--utrecht-space-around': 1,
+      '--utrecht-paragraph-margin-block-end': '40px',
+      '--utrecht-heading-1-margin-block-end': '40px',
+      '--utrecht-heading-2-margin-block-end': '40px',
+      '--utrecht-heading-3-margin-block-end': '40px',
+      '--utrecht-heading-4-margin-block-end': '40px',
+      '--utrecht-heading-5-margin-block-end': '40px',
+      '--utrecht-blockquote-margin-block-end': '40px',
+      '--utrecht-ordered-list-margin-block-end': '40px',
+      '--utrecht-unordered-list-margin-block-end': '40px',
+      '--utrecht-table-margin-block-end': '40px',
+    }}
+  >
+    <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownToHtmlMap}>
+      {children}
+    </ReactMarkdown>
+  </div>
 )
 
 export default MarkdownToHtml

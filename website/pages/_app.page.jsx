@@ -14,6 +14,7 @@ import ShortcutContext from '~/lib/ShortcutContext'
 import { fuseOptions, SearchContext } from '~/lib/searchUtils'
 import appQuery from './app.query'
 
+import '@nl-design-system-unstable/amsterdam-design-tokens/dist/index.css'
 import '~/public/fonts/fonts.css'
 
 const BodyStyle = createGlobalStyle`
@@ -74,16 +75,18 @@ const MyApp = ({ Component, pageProps, contextData }) => {
 
   return (
     <ThemeProvider theme={newTheme}>
-      <GlobalStyle />
-      <BodyStyle />
-      <SearchContext.Provider value={searchIndex}>
-        <ShortcutContext.Provider value={contextData.data.shortcuts}>
-          <Layout>
-            <Script id="piwik-pro-code" src="/piwik.js" />
-            <Component {...pageProps} />
-          </Layout>
-        </ShortcutContext.Provider>
-      </SearchContext.Provider>
+      <div className="amsterdam-theme">
+        <GlobalStyle />
+        <BodyStyle />
+        <SearchContext.Provider value={searchIndex}>
+          <ShortcutContext.Provider value={contextData.data.shortcuts}>
+            <Layout>
+              <Script id="piwik-pro-code" src="/piwik.js" />
+              <Component {...pageProps} />
+            </Layout>
+          </ShortcutContext.Provider>
+        </SearchContext.Provider>
+      </div>
     </ThemeProvider>
   )
 }

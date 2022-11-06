@@ -1,6 +1,10 @@
 /* eslint-disable indent */
 import styled, { css } from 'styled-components'
 import { themeColor, svgFill } from '@amsterdam/asc-ui'
+import {
+  Button as CommunityButton,
+  LinkButton as CommunityLinkButton,
+} from '@utrecht/component-library-react'
 
 import { fluidTypoStyle, typographyStyle } from '../../lib/typographyUtils'
 
@@ -84,7 +88,7 @@ export const blankButtonStyle = css`
   ${baseStyle}
 `
 
-export const Button = styled.button`
+export const _Button = styled.button`
   /*
     fluidTypoStyle sets the font-size and line-height.
     It can be overwritten with specific variant styles.
@@ -106,3 +110,20 @@ export const Button = styled.button`
 
   ${typographyStyle}
 `
+
+export const Button = ({ variant, ...restProps }) => {
+  switch (variant) {
+    case 'secondary':
+      return (
+        <CommunityButton appearance="secondary-action-button" {...restProps} />
+      )
+    case 'textButton':
+      return <CommunityLinkButton {...restProps} />
+    case 'blank':
+      return <CommunityButton appearance="subtle-button" {...restProps} />
+    default:
+      return (
+        <CommunityButton appearance="primary-action-button" {...restProps} />
+      )
+  }
+}
